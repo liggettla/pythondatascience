@@ -1,0 +1,26 @@
+# Data I/O {#io}
+
+## Reading Data Files
+Opening .gz files
+```{python eval=FALSE}
+import gzip
+for line in gzip.open('myFile.gz'):
+	print line
+```
+
+## Pickles
+Writing data in pickle format
+```{python eval=FALSE}
+import pickle
+p = open('principle.pkl', 'wb')
+pickle.dump(principleData, p)
+p.close()
+```
+
+Reading data in pickle format
+```{python eval=FALSE}
+import pickle
+p = open('principle.pkl', 'rb')
+principleData = pickle.load(p)
+p.close()
+```

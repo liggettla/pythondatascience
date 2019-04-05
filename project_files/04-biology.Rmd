@@ -1,0 +1,52 @@
+# Biology {#biology}
+
+## General
+Some helpful commands for genetic sequence.
+```{python eval=FALSE}
+from string import ascii_uppercase # python 3
+from string import upper, lower # python 2
+upper('tcga')
+lower('TCGA')
+title('tcga') # capitalize the first letter
+```
+
+## Biopython 
+Reverse complement of sequence
+```{python eval=FALSE}
+from Bio.Seq import Seq
+str(Seq(i).reverse_complement())
+```
+
+## UCSC Genome Browser
+Get sequence from UCSC genome browser
+```{python eval=FALSE}
+from subprocess import check_output, STDOUT
+temp = check_output('wget -qO- http://genome.ucsc.edu/cgi-bin/das/hg19/dna?segment=%s:%s,%s' % (vcfObj.chrom,low,high), stderr=STDOUT, shell=True)
+```
+
+## Ref Genome
+Get sequence from reference genome
+```{python eval=FALSE}
+from subprocess import check_output, STDOUT
+temp = check_output('samtools faidx %s %s:%s-%s' % (ref, vcfObj.chrom, low, high), stderr=STDOUT, shell=True)
+
+finalSeq = ''
+for line in temp.decode('UTF-8').split('\n'):
+for line in temp.decode('UTF-8').split('\n'): # this is only necessary in python 3 to convert binary to string
+	if '>' not in line:
+		finalSeq += line
+
+finalSeq = finalSeq.upper()
+```
+
+## Personal Information
+```{python eval=FALSE}
+# parse vcf file with parseline
+if '#' not in line and 'chr' in line: # skip the info
+# vcf handling
+from parseline import VCFObj
+# or
+from util import VCFObj
+vcfObj = VCFObj(vcfLine)
+# available attributes: ao, dp, af, wt, var, chrom, location
+```
