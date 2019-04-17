@@ -2,8 +2,12 @@
 
 ## Colorschemes
 Seaborn Themes
+```{python eval=FALSE}
 Pastel: [Blue:'#a3c6ff', Orange:'#f7ab60', Green:'#60f7a9', Red:'#fc9d94', Purple:'#bea3ff', Brown:'#d1b485', Pink:'#f7afdf', Gray:'#c4c4c4', Yellow:'#ffffaa', LBlue:'#baf6ff']
+```
+```{python eval=FALSE}
 Deep: [Green:'#5baf68']
+```
 
 ## Matplotlib
 Plotting a heatmap.
