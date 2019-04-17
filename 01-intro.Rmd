@@ -20,6 +20,15 @@ knitr::kable(
 )
 ```
 
+```{r}
+knitr::include_graphics(rep("knit-logo.png", 3))
+```
+
+```{r tidy=FALSE}
+knitr::include_app("https://yihui.shinyapps.io/miniUI/", 
+                     height = "600px")
+```
+
 ```{python}
 import pandas as pd
 x = 'hello, python world!'
