@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 5 Biology | Data Science With Python</title>
+  <title>Chapter 7 Pandas | Data Science With Python</title>
   <meta name="description" content="These are notes and thoughts within the scope of the field of genomics.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 5 Biology | Data Science With Python" />
+  <meta property="og:title" content="Chapter 7 Pandas | Data Science With Python" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Biology | Data Science With Python" />
+  <meta name="twitter:title" content="Chapter 7 Pandas | Data Science With Python" />
   
   <meta name="twitter:description" content="These are notes and thoughts within the scope of the field of genomics." />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="visualization.html">
-<link rel="next" href="io.html">
+<link rel="prev" href="io.html">
+<link rel="next" href="references.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -147,53 +147,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="biology" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Biology</h1>
-<div id="general" class="section level2">
-<h2><span class="header-section-number">5.1</span> General</h2>
-<p>Some helpful commands for genetic sequence.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> string <span class="im">import</span> ascii_uppercase <span class="co"># python 3</span>
-<span class="im">from</span> string <span class="im">import</span> upper, lower <span class="co"># python 2</span>
-upper(<span class="st">&#39;tcga&#39;</span>)
-lower(<span class="st">&#39;TCGA&#39;</span>)
-title(<span class="st">&#39;tcga&#39;</span>) <span class="co"># capitalize the first letter</span></code></pre></div>
-</div>
-<div id="biopython" class="section level2">
-<h2><span class="header-section-number">5.2</span> Biopython</h2>
-<p>Reverse complement of sequence</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> Bio.Seq <span class="im">import</span> Seq
-<span class="bu">str</span>(Seq(i).reverse_complement())</code></pre></div>
-</div>
-<div id="ucsc-genome-browser" class="section level2">
-<h2><span class="header-section-number">5.3</span> UCSC Genome Browser</h2>
-<p>Get sequence from UCSC genome browser</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> subprocess <span class="im">import</span> check_output, STDOUT
-temp <span class="op">=</span> check_output(<span class="st">&#39;wget -qO- http://genome.ucsc.edu/cgi-bin/das/hg19/dna?segment=</span><span class="sc">%s</span><span class="st">:</span><span class="sc">%s</span><span class="st">,</span><span class="sc">%s</span><span class="st">&#39;</span> <span class="op">%</span> (vcfObj.chrom,low,high), stderr<span class="op">=</span>STDOUT, shell<span class="op">=</span><span class="va">True</span>)</code></pre></div>
-</div>
-<div id="ref-genome" class="section level2">
-<h2><span class="header-section-number">5.4</span> Ref Genome</h2>
-<p>Get sequence from reference genome</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> subprocess <span class="im">import</span> check_output, STDOUT
-temp <span class="op">=</span> check_output(<span class="st">&#39;samtools faidx </span><span class="sc">%s</span><span class="st"> </span><span class="sc">%s</span><span class="st">:</span><span class="sc">%s</span><span class="st">-</span><span class="sc">%s</span><span class="st">&#39;</span> <span class="op">%</span> (ref, vcfObj.chrom, low, high), stderr<span class="op">=</span>STDOUT, shell<span class="op">=</span><span class="va">True</span>)
-
-finalSeq <span class="op">=</span> <span class="st">&#39;&#39;</span>
-<span class="cf">for</span> line <span class="kw">in</span> temp.decode(<span class="st">&#39;UTF-8&#39;</span>).split(<span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>):
-<span class="cf">for</span> line <span class="kw">in</span> temp.decode(<span class="st">&#39;UTF-8&#39;</span>).split(<span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>): <span class="co"># this is only necessary in python 3 to convert binary to string</span>
-    <span class="cf">if</span> <span class="st">&#39;&gt;&#39;</span> <span class="kw">not</span> <span class="kw">in</span> line:
-        finalSeq <span class="op">+=</span> line
-
-finalSeq <span class="op">=</span> finalSeq.upper()</code></pre></div>
-</div>
-<div id="personal-information" class="section level2">
-<h2><span class="header-section-number">5.5</span> Personal Information</h2>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># parse vcf file with parseline</span>
-<span class="cf">if</span> <span class="st">&#39;#&#39;</span> <span class="kw">not</span> <span class="kw">in</span> line <span class="kw">and</span> <span class="st">&#39;chr&#39;</span> <span class="kw">in</span> line: <span class="co"># skip the info</span>
-<span class="co"># vcf handling</span>
-<span class="im">from</span> parseline <span class="im">import</span> VCFObj
-<span class="co"># or</span>
-<span class="im">from</span> util <span class="im">import</span> VCFObj
-vcfObj <span class="op">=</span> VCFObj(vcfLine)
-<span class="co"># available attributes: ao, dp, af, wt, var, chrom, location</span></code></pre></div>
+<div id="pandas" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Pandas</h1>
+<div id="editing-data" class="section level2">
+<h2><span class="header-section-number">7.1</span> Editing Data</h2>
+<p>New data can be set within a DataFrame one subset at a time in a way that will avoid the SwttingWithCopyWarning.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> pandas <span class="im">as</span> pd
+df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;Trait&#39;</span>:[<span class="st">&#39;Seed_Shape&#39;</span>,<span class="st">&#39;Seed_Shape&#39;</span>,<span class="st">&#39;Flower_Color&#39;</span>,<span class="st">&#39;Flower_Color&#39;</span>], <span class="st">&#39;Phenotype&#39;</span>:[<span class="st">&#39;Round&#39;</span>,<span class="st">&#39;Wrinkled&#39;</span>,<span class="st">&#39;Purple&#39;</span>,<span class="st">&#39;White&#39;</span>]})
+df.loc[df.Trait <span class="op">==</span> <span class="st">&#39;Seed_Shape&#39;</span>, <span class="st">&#39;Affected_Part&#39;</span>] <span class="op">=</span> <span class="st">&#39;Seed&#39;</span>
+df.loc[df.Trait <span class="op">==</span> <span class="st">&#39;Flower_Color&#39;</span>, <span class="st">&#39;Affected_Part&#39;</span>] <span class="op">=</span> <span class="st">&#39;Flower&#39;</span>
+<span class="bu">print</span>(df)</code></pre></div>
+<pre><code>##           Trait Phenotype Affected_Part
+## 0    Seed_Shape     Round          Seed
+## 1    Seed_Shape  Wrinkled          Seed
+## 2  Flower_Color    Purple        Flower
+## 3  Flower_Color     White        Flower</code></pre>
 
 </div>
 </div>
@@ -202,8 +170,8 @@ vcfObj <span class="op">=</span> VCFObj(vcfLine)
           </div>
         </div>
       </div>
-<a href="visualization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="io.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="io.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -233,7 +201,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-biology.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/06-pandas.Rmd",
 "text": "Edit"
 },
 "history": {

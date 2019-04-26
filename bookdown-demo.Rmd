@@ -307,9 +307,23 @@ p.close()
 
 <!--chapter:end:05-IO.Rmd-->
 
+# Pandas {#pandas}
+
+## Editing Data 
+New data can be set within a DataFrame one subset at a time in a way that will avoid the SwttingWithCopyWarning.
+```{python}
+import pandas as pd
+df = pd.DataFrame({'Trait':['Seed_Shape','Seed_Shape','Flower_Color','Flower_Color'], 'Phenotype':['Round','Wrinkled','Purple','White']})
+df.loc[df.Trait == 'Seed_Shape', 'Affected_Part'] = 'Seed'
+df.loc[df.Trait == 'Flower_Color', 'Affected_Part'] = 'Flower'
+print(df)
+```
+
+<!--chapter:end:06-pandas.Rmd-->
+
 `r if (knitr:::is_html_output()) '
 # References {-}
 '`
 
-<!--chapter:end:06-references.Rmd-->
+<!--chapter:end:99-references.Rmd-->
 

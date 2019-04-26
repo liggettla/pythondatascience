@@ -125,7 +125,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-04-18}
+    \date{2019-04-26}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -557,6 +557,31 @@ Reading data in pickle format
 \NormalTok{p.close()}
 \end{Highlighting}
 \end{Shaded}
+
+\chapter{Pandas}\label{pandas}
+
+\section{Editing Data}\label{editing-data}
+
+New data can be set within a DataFrame one subset at a time in a way
+that will avoid the SwttingWithCopyWarning.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+\NormalTok{df }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}\StringTok{'Trait'}\NormalTok{:[}\StringTok{'Seed_Shape'}\NormalTok{,}\StringTok{'Seed_Shape'}\NormalTok{,}\StringTok{'Flower_Color'}\NormalTok{,}\StringTok{'Flower_Color'}\NormalTok{], }\StringTok{'Phenotype'}\NormalTok{:[}\StringTok{'Round'}\NormalTok{,}\StringTok{'Wrinkled'}\NormalTok{,}\StringTok{'Purple'}\NormalTok{,}\StringTok{'White'}\NormalTok{]\})}
+\NormalTok{df.loc[df.Trait }\OperatorTok{==} \StringTok{'Seed_Shape'}\NormalTok{, }\StringTok{'Affected_Part'}\NormalTok{] }\OperatorTok{=} \StringTok{'Seed'}
+\NormalTok{df.loc[df.Trait }\OperatorTok{==} \StringTok{'Flower_Color'}\NormalTok{, }\StringTok{'Affected_Part'}\NormalTok{] }\OperatorTok{=} \StringTok{'Flower'}
+\BuiltInTok{print}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           Trait Phenotype Affected_Part
+## 0    Seed_Shape     Round          Seed
+## 1    Seed_Shape  Wrinkled          Seed
+## 2  Flower_Color    Purple        Flower
+## 3  Flower_Color     White        Flower
+\end{verbatim}
 
 \bibliography{book.bib,packages.bib}
 
