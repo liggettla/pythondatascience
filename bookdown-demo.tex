@@ -568,7 +568,8 @@ that will avoid the SwttingWithCopyWarning.
 \begin{Shaded}
 \begin{Highlighting}[]
 \ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
-\NormalTok{df }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}\StringTok{'Trait'}\NormalTok{:[}\StringTok{'Seed_Shape'}\NormalTok{,}\StringTok{'Seed_Shape'}\NormalTok{,}\StringTok{'Flower_Color'}\NormalTok{,}\StringTok{'Flower_Color'}\NormalTok{], }\StringTok{'Phenotype'}\NormalTok{:[}\StringTok{'Round'}\NormalTok{,}\StringTok{'Wrinkled'}\NormalTok{,}\StringTok{'Purple'}\NormalTok{,}\StringTok{'White'}\NormalTok{]\})}
+\NormalTok{df }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}\StringTok{'Trait'}\NormalTok{:[}\StringTok{'Seed_Shape'}\NormalTok{,}\StringTok{'Seed_Shape'}\NormalTok{,}\StringTok{'Flower_Color'}\NormalTok{,}\StringTok{'Flower_Color'}\NormalTok{],}
+                    \StringTok{'Phenotype'}\NormalTok{:[}\StringTok{'Round'}\NormalTok{,}\StringTok{'Wrinkled'}\NormalTok{,}\StringTok{'Purple'}\NormalTok{,}\StringTok{'White'}\NormalTok{]\})}
 \NormalTok{df.loc[df.Trait }\OperatorTok{==} \StringTok{'Seed_Shape'}\NormalTok{, }\StringTok{'Affected_Part'}\NormalTok{] }\OperatorTok{=} \StringTok{'Seed'}
 \NormalTok{df.loc[df.Trait }\OperatorTok{==} \StringTok{'Flower_Color'}\NormalTok{, }\StringTok{'Affected_Part'}\NormalTok{] }\OperatorTok{=} \StringTok{'Flower'}
 \BuiltInTok{print}\NormalTok{(df)}

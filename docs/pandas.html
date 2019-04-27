@@ -153,7 +153,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">7.1</span> Editing Data</h2>
 <p>New data can be set within a DataFrame one subset at a time in a way that will avoid the SwttingWithCopyWarning.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> pandas <span class="im">as</span> pd
-df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;Trait&#39;</span>:[<span class="st">&#39;Seed_Shape&#39;</span>,<span class="st">&#39;Seed_Shape&#39;</span>,<span class="st">&#39;Flower_Color&#39;</span>,<span class="st">&#39;Flower_Color&#39;</span>], <span class="st">&#39;Phenotype&#39;</span>:[<span class="st">&#39;Round&#39;</span>,<span class="st">&#39;Wrinkled&#39;</span>,<span class="st">&#39;Purple&#39;</span>,<span class="st">&#39;White&#39;</span>]})
+df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;Trait&#39;</span>:[<span class="st">&#39;Seed_Shape&#39;</span>,<span class="st">&#39;Seed_Shape&#39;</span>,<span class="st">&#39;Flower_Color&#39;</span>,<span class="st">&#39;Flower_Color&#39;</span>],
+                    <span class="st">&#39;Phenotype&#39;</span>:[<span class="st">&#39;Round&#39;</span>,<span class="st">&#39;Wrinkled&#39;</span>,<span class="st">&#39;Purple&#39;</span>,<span class="st">&#39;White&#39;</span>]})
 df.loc[df.Trait <span class="op">==</span> <span class="st">&#39;Seed_Shape&#39;</span>, <span class="st">&#39;Affected_Part&#39;</span>] <span class="op">=</span> <span class="st">&#39;Seed&#39;</span>
 df.loc[df.Trait <span class="op">==</span> <span class="st">&#39;Flower_Color&#39;</span>, <span class="st">&#39;Affected_Part&#39;</span>] <span class="op">=</span> <span class="st">&#39;Flower&#39;</span>
 <span class="bu">print</span>(df)</code></pre></div>

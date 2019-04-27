@@ -1,10 +1,36 @@
 # Pandas {#pandas}
 
+## File I/O
+Read a csv file into a DataFrame.
+```{python eval=FALSE}
+pd.read_csv(filepath)
+```
+
+## Relabeling
+Rename a column or group of columns can be done by passing a dictionary of the changes.
+```{python eval=FALSE}
+    df = df.rename(columns={'a':'b','c':'d'})
+```
+
 ## Editing Data 
+Drop columns from a DataFrame.
+```{python}
+df = pd.DataFrame(np.arange(12).reshape(3,4),
+                    columns=['A', 'B', 'C', 'D'])
+print(df)
+
+df = df.drop(columns=['B', 'C']) # may not work in python 2
+df = df.drop(['B', 'C'], axis=1) # this works in python 2
+print(df)
+```
+
+Replace values 
+
 New data can be set within a DataFrame one subset at a time in a way that will avoid the SwttingWithCopyWarning.
 ```{python}
 import pandas as pd
-df = pd.DataFrame({'Trait':['Seed_Shape','Seed_Shape','Flower_Color','Flower_Color'], 'Phenotype':['Round','Wrinkled','Purple','White']})
+df = pd.DataFrame({'Trait':['Seed_Shape','Seed_Shape','Flower_Color','Flower_Color'],
+                    'Phenotype':['Round','Wrinkled','Purple','White']})
 df.loc[df.Trait == 'Seed_Shape', 'Affected_Part'] = 'Seed'
 df.loc[df.Trait == 'Flower_Color', 'Affected_Part'] = 'Flower'
 print(df)
