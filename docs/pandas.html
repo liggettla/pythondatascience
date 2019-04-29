@@ -112,6 +112,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.2" data-path="visualization.html"><a href="visualization.html#matplotlib"><i class="fa fa-check"></i><b>4.2</b> Matplotlib</a></li>
 <li class="chapter" data-level="4.3" data-path="visualization.html"><a href="visualization.html#seaborn"><i class="fa fa-check"></i><b>4.3</b> Seaborn</a></li>
 <li class="chapter" data-level="4.4" data-path="visualization.html"><a href="visualization.html#statistics"><i class="fa fa-check"></i><b>4.4</b> Statistics</a></li>
+<li class="chapter" data-level="4.5" data-path="visualization.html"><a href="visualization.html#various-plot-styles"><i class="fa fa-check"></i><b>4.5</b> Various Plot Styles</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="biology.html"><a href="biology.html"><i class="fa fa-check"></i><b>5</b> Biology</a><ul>
 <li class="chapter" data-level="5.1" data-path="biology.html"><a href="biology.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
@@ -128,6 +129,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.1" data-path="pandas.html"><a href="pandas.html#file-io"><i class="fa fa-check"></i><b>7.1</b> File I/O</a></li>
 <li class="chapter" data-level="7.2" data-path="pandas.html"><a href="pandas.html#relabeling"><i class="fa fa-check"></i><b>7.2</b> Relabeling</a></li>
 <li class="chapter" data-level="7.3" data-path="pandas.html"><a href="pandas.html#editing-data"><i class="fa fa-check"></i><b>7.3</b> Editing Data</a></li>
+<li class="chapter" data-level="7.4" data-path="pandas.html"><a href="pandas.html#combining-data-structures"><i class="fa fa-check"></i><b>7.4</b> Combining Data Structures</a></li>
+<li class="chapter" data-level="7.5" data-path="pandas.html"><a href="pandas.html#splitting"><i class="fa fa-check"></i><b>7.5</b> Splitting</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -173,8 +176,7 @@ df <span class="op">=</span> pd.DataFrame(np.arange(<span class="dv">12</span>).
 df <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">&#39;B&#39;</span>, <span class="st">&#39;C&#39;</span>]) <span class="co"># may not work in python 2</span>
 df <span class="op">=</span> df.drop([<span class="st">&#39;B&#39;</span>, <span class="st">&#39;C&#39;</span>], axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># this works in python 2</span>
 <span class="bu">print</span>(df)</code></pre></div>
-<p>Replace values</p>
-<p>New data can be set within a DataFrame one subset at a time in a way that will avoid the SwttingWithCopyWarning.</p>
+<p>Replace values New data can be set within a DataFrame one subset at a time in a way that will avoid the SwttingWithCopyWarning.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> pandas <span class="im">as</span> pd
 df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;Trait&#39;</span>:[<span class="st">&#39;Seed_Shape&#39;</span>,<span class="st">&#39;Seed_Shape&#39;</span>,<span class="st">&#39;Flower_Color&#39;</span>,<span class="st">&#39;Flower_Color&#39;</span>],
                     <span class="st">&#39;Phenotype&#39;</span>:[<span class="st">&#39;Round&#39;</span>,<span class="st">&#39;Wrinkled&#39;</span>,<span class="st">&#39;Purple&#39;</span>,<span class="st">&#39;White&#39;</span>]})
@@ -186,6 +188,23 @@ df.loc[df.Trait <span class="op">==</span> <span class="st">&#39;Flower_Color&#3
 ## 1    Seed_Shape  Wrinkled          Seed
 ## 2  Flower_Color    Purple        Flower
 ## 3  Flower_Color     White        Flower</code></pre>
+</div>
+<div id="combining-data-structures" class="section level2">
+<h2><span class="header-section-number">7.4</span> Combining Data Structures</h2>
+<p>The following merges df and df2 using inner to get the intersection on the Sample column, where indexes are ignored if the merging is performed on a column as in the following example. The other possible merging strategies are: left: use only keys from left frame, similar to a SQL left outer join; preserve key order. right: use only keys from right frame, similar to a SQL right outer join; preserve key order. outer: use union of keys from both frames, similar to a SQL full outer join; sort keys lexicographically. inner: use intersection of keys from both frames, similar to a SQL inner join; preserve the order of the left keys.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df <span class="op">=</span> pd.merge(df, df2, how<span class="op">=</span><span class="st">&#39;inner&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;Sample&#39;</span>])</code></pre></div>
+</div>
+<div id="splitting" class="section level2">
+<h2><span class="header-section-number">7.5</span> Splitting</h2>
+<p>Remove duplicates</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x <span class="op">=</span> x[<span class="op">~</span>x.index.duplicated(keep<span class="op">=</span><span class="st">&#39;first&#39;</span>)] <span class="co"># most ideal method</span>
+
+data <span class="op">=</span> pd.DataFrame({<span class="st">&#39;k1&#39;</span>:[<span class="st">&#39;one&#39;</span>,<span class="st">&#39;two&#39;</span>]<span class="op">*</span><span class="dv">3</span><span class="op">+</span>[<span class="st">&#39;two&#39;</span>],<span class="st">&#39;k2&#39;</span>:[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>]})
+data.duplicated() <span class="co"># identify duplicate data</span>
+data[‘k1’].duplicated()
+data[<span class="st">&#39;k1&#39;</span>].drop_duplicates()
+data.drop_duplicates[<span class="st">&#39;k1&#39;</span>] <span class="co"># this does the same thing as the previous line</span>
+data.drop_duplicates([<span class="st">&#39;k1&#39;</span>,<span class="st">&#39;k2&#39;</span>], keep<span class="op">=</span><span class="st">&#39;last&#39;</span>) <span class="co"># drops unique found in k1 and k2 and keeps the last indexed duplicate</span></code></pre></div>
 
 </div>
 </div>

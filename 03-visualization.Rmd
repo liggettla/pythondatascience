@@ -109,3 +109,9 @@ from scipy.stats import ttest_ind
 ttest_ind(df[df['sample'] == 'one']['means'], df[df['sample'] == 'two']['means'])
 ```
 
+## Various Plot Styles
+This displays each individual datapoint overlayed on a boxplot
+```{python eval=FALSE}
+ax = sns.boxplot(x='day', y='total_bill', data=tips)
+ax = sns.swarmplot(x='day', y='total_bill', data=tips, color='.25')
+```
