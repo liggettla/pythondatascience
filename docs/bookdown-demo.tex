@@ -125,7 +125,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-04-16}
+    \date{2019-04-29}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -326,10 +326,19 @@ following import statement.
 
 \section{Colorschemes}\label{colorschemes}
 
-Seaborn Themes Pastel: {[}Blue:`\#a3c6ff', Orange:`\#f7ab60',
-Green:`\#60f7a9', Red:`\#fc9d94', Purple:`\#bea3ff', Brown:`\#d1b485',
-Pink:`\#f7afdf', Gray:`\#c4c4c4', Yellow:`\#ffffaa', LBlue:`\#baf6ff'{]}
-Deep: {[}Green:`\#5baf68'{]}
+Seaborn Themes
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Pastel: [Blue:}\StringTok{'#a3c6ff'}\NormalTok{, Orange:}\StringTok{'#f7ab60'}\NormalTok{, Green:}\StringTok{'#60f7a9'}\NormalTok{, Red:}\StringTok{'#fc9d94'}\NormalTok{, Purple:}\StringTok{'#bea3ff'}\NormalTok{, Brown:}\StringTok{'#d1b485'}\NormalTok{, Pink:}\StringTok{'#f7afdf'}\NormalTok{, Gray:}\StringTok{'#c4c4c4'}\NormalTok{, Yellow:}\StringTok{'#ffffaa'}\NormalTok{, LBlue:}\StringTok{'#baf6ff'}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Deep: [Green:}\StringTok{'#5baf68'}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Matplotlib}\label{matplotlib}
 
@@ -436,6 +445,21 @@ using the following code.
 \NormalTok{y2, y1 }\OperatorTok{=} \DecValTok{20}\NormalTok{, }\DecValTok{15} \CommentTok{# placement of the line and how for down the vertical legs go}
 \NormalTok{plt.plot([x1,x1, x2, x2], [y1, y2, y2, y1], linewidth}\OperatorTok{=}\DecValTok{1}\NormalTok{, color}\OperatorTok{=}\StringTok{'k'}\NormalTok{) }\CommentTok{# stats line}
 \NormalTok{plt.text((x1}\OperatorTok{+}\NormalTok{x2)}\OperatorTok{*}\NormalTok{.}\DecValTok{5}\NormalTok{, y2}\OperatorTok{+}\DecValTok{2}\NormalTok{, }\StringTok{"p=0.09"}\NormalTok{, ha}\OperatorTok{=}\StringTok{'center'}\NormalTok{, va}\OperatorTok{=}\StringTok{'bottom'}\NormalTok{) }\CommentTok{# p-value or sig}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Statistics}\label{statistics}
+
+This is a two-sided T-test for the null hypothesis that two populations
+have the same means. It is important to note that it assumes the
+population variances are the same, so this must be changed if the
+assumption is incorrect.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# ttest_ind(a, b, axis=0, equal_var=True, nan_policy='propagate')}
+\ImportTok{from}\NormalTok{ scipy.stats }\ImportTok{import}\NormalTok{ ttest_ind}
+\NormalTok{ttest_ind(df[df[}\StringTok{'sample'}\NormalTok{] }\OperatorTok{==} \StringTok{'one'}\NormalTok{][}\StringTok{'means'}\NormalTok{], df[df[}\StringTok{'sample'}\NormalTok{] }\OperatorTok{==} \StringTok{'two'}\NormalTok{][}\StringTok{'means'}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 
@@ -548,6 +572,70 @@ Reading data in pickle format
 \NormalTok{p.close()}
 \end{Highlighting}
 \end{Shaded}
+
+\chapter{Pandas}\label{pandas}
+
+\section{File I/O}\label{file-io}
+
+Read a csv file into a DataFrame.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pd.read_csv(filepath)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Relabeling}\label{relabeling}
+
+Rename a column or group of columns can be done by passing a dictionary
+of the changes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{    df }\OperatorTok{=}\NormalTok{ df.rename(columns}\OperatorTok{=}\NormalTok{\{}\StringTok{'a'}\NormalTok{:}\StringTok{'b'}\NormalTok{,}\StringTok{'c'}\NormalTok{:}\StringTok{'d'}\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Editing Data}\label{editing-data}
+
+Drop columns from a DataFrame.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\NormalTok{df }\OperatorTok{=}\NormalTok{ pd.DataFrame(np.arange(}\DecValTok{12}\NormalTok{).reshape(}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{),}
+\NormalTok{                    columns}\OperatorTok{=}\NormalTok{[}\StringTok{'A'}\NormalTok{, }\StringTok{'B'}\NormalTok{, }\StringTok{'C'}\NormalTok{, }\StringTok{'D'}\NormalTok{])}
+\BuiltInTok{print}\NormalTok{(df)}
+
+\NormalTok{df }\OperatorTok{=}\NormalTok{ df.drop(columns}\OperatorTok{=}\NormalTok{[}\StringTok{'B'}\NormalTok{, }\StringTok{'C'}\NormalTok{]) }\CommentTok{# may not work in python 2}
+\NormalTok{df }\OperatorTok{=}\NormalTok{ df.drop([}\StringTok{'B'}\NormalTok{, }\StringTok{'C'}\NormalTok{], axis}\OperatorTok{=}\DecValTok{1}\NormalTok{) }\CommentTok{# this works in python 2}
+\BuiltInTok{print}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+Replace values
+
+New data can be set within a DataFrame one subset at a time in a way
+that will avoid the SwttingWithCopyWarning.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+\NormalTok{df }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}\StringTok{'Trait'}\NormalTok{:[}\StringTok{'Seed_Shape'}\NormalTok{,}\StringTok{'Seed_Shape'}\NormalTok{,}\StringTok{'Flower_Color'}\NormalTok{,}\StringTok{'Flower_Color'}\NormalTok{],}
+                    \StringTok{'Phenotype'}\NormalTok{:[}\StringTok{'Round'}\NormalTok{,}\StringTok{'Wrinkled'}\NormalTok{,}\StringTok{'Purple'}\NormalTok{,}\StringTok{'White'}\NormalTok{]\})}
+\NormalTok{df.loc[df.Trait }\OperatorTok{==} \StringTok{'Seed_Shape'}\NormalTok{, }\StringTok{'Affected_Part'}\NormalTok{] }\OperatorTok{=} \StringTok{'Seed'}
+\NormalTok{df.loc[df.Trait }\OperatorTok{==} \StringTok{'Flower_Color'}\NormalTok{, }\StringTok{'Affected_Part'}\NormalTok{] }\OperatorTok{=} \StringTok{'Flower'}
+\BuiltInTok{print}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           Trait Phenotype Affected_Part
+## 0    Seed_Shape     Round          Seed
+## 1    Seed_Shape  Wrinkled          Seed
+## 2  Flower_Color    Purple        Flower
+## 3  Flower_Color     White        Flower
+\end{verbatim}
 
 \bibliography{book.bib,packages.bib}
 

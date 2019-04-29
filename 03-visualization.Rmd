@@ -100,3 +100,12 @@ y2, y1 = 20, 15 # placement of the line and how for down the vertical legs go
 plt.plot([x1,x1, x2, x2], [y1, y2, y2, y1], linewidth=1, color='k') # stats line
 plt.text((x1+x2)*.5, y2+2, "p=0.09", ha='center', va='bottom') # p-value or sig
 ```
+
+## Statistics
+This is a two-sided T-test for the null hypothesis that two populations have the same means. It is important to note that it assumes the population variances are the same, so this must be changed if the assumption is incorrect.
+```{python eval=FALSE}
+# ttest_ind(a, b, axis=0, equal_var=True, nan_policy='propagate')
+from scipy.stats import ttest_ind
+ttest_ind(df[df['sample'] == 'one']['means'], df[df['sample'] == 'two']['means'])
+```
+
