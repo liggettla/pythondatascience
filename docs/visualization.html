@@ -108,7 +108,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
 <li class="chapter" data-level="3" data-path="jupyter.html"><a href="jupyter.html"><i class="fa fa-check"></i><b>3</b> JupyterLab</a></li>
 <li class="chapter" data-level="4" data-path="visualization.html"><a href="visualization.html"><i class="fa fa-check"></i><b>4</b> Visualization</a><ul>
-<li class="chapter" data-level="4.1" data-path="visualization.html"><a href="visualization.html#colorschemes"><i class="fa fa-check"></i><b>4.1</b> Colorschemes</a></li>
+<li class="chapter" data-level="4.1" data-path="visualization.html"><a href="visualization.html#color"><i class="fa fa-check"></i><b>4.1</b> Color</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="visualization.html"><a href="visualization.html#colorschemes"><i class="fa fa-check"></i><b>4.1.1</b> Colorschemes</a></li>
+<li class="chapter" data-level="4.1.2" data-path="visualization.html"><a href="visualization.html#controlling-coloration"><i class="fa fa-check"></i><b>4.1.2</b> Controlling Coloration</a></li>
+</ul></li>
 <li class="chapter" data-level="4.2" data-path="visualization.html"><a href="visualization.html#matplotlib"><i class="fa fa-check"></i><b>4.2</b> Matplotlib</a></li>
 <li class="chapter" data-level="4.3" data-path="visualization.html"><a href="visualization.html#seaborn"><i class="fa fa-check"></i><b>4.3</b> Seaborn</a></li>
 <li class="chapter" data-level="4.4" data-path="visualization.html"><a href="visualization.html#statistics"><i class="fa fa-check"></i><b>4.4</b> Statistics</a></li>
@@ -168,16 +171,55 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="visualization" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Visualization</h1>
-<div id="colorschemes" class="section level2">
-<h2><span class="header-section-number">4.1</span> Colorschemes</h2>
+<div id="color" class="section level2">
+<h2><span class="header-section-number">4.1</span> Color</h2>
+<div id="colorschemes" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Colorschemes</h3>
 <p>Seaborn Themes</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">Pastel: [<span class="st">&#39;Blue&#39;</span>:<span class="st">&#39;#a3c6ff&#39;</span>, <span class="st">&#39;Orange&#39;</span>:<span class="st">&#39;#f7ab60&#39;</span>, <span class="st">&#39;Green&#39;</span>:<span class="st">&#39;#60f7a9&#39;</span>, <span class="st">&#39;Red&#39;</span>:<span class="st">&#39;#fc9d94&#39;</span>, <span class="st">&#39;Purple&#39;</span>:<span class="st">&#39;#bea3ff&#39;</span>, <span class="st">&#39;Brown&#39;</span>:<span class="st">&#39;#d1b485&#39;</span>, <span class="st">&#39;Pink&#39;</span>:<span class="st">&#39;#f7afdf&#39;</span>, <span class="st">&#39;Gray&#39;</span>:<span class="st">&#39;#c4c4c4&#39;</span>, <span class="st">&#39;Yellow&#39;</span>:<span class="st">&#39;#ffffaa&#39;</span>, <span class="st">&#39;LBlue&#39;</span>:<span class="st">&#39;#baf6ff&#39;</span>]</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">Deep: [<span class="st">&#39;Green&#39;</span>:<span class="st">&#39;#5baf68&#39;</span>]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">Pastel: {<span class="st">&#39;Blue&#39;</span>:<span class="st">&#39;#a3c6ff&#39;</span>, <span class="st">&#39;Orange&#39;</span>:<span class="st">&#39;#f7ab60&#39;</span>, <span class="st">&#39;Green&#39;</span>:<span class="st">&#39;#60f7a9&#39;</span>, <span class="st">&#39;Red&#39;</span>:<span class="st">&#39;#fc9d94&#39;</span>, <span class="st">&#39;Purple&#39;</span>:<span class="st">&#39;#bea3ff&#39;</span>, <span class="st">&#39;Brown&#39;</span>:<span class="st">&#39;#d1b485&#39;</span>, <span class="st">&#39;Pink&#39;</span>:<span class="st">&#39;#f7afdf&#39;</span>, <span class="st">&#39;Gray&#39;</span>:<span class="st">&#39;#c4c4c4&#39;</span>, <span class="st">&#39;Yellow&#39;</span>:<span class="st">&#39;#ffffaa&#39;</span>, <span class="st">&#39;LBlue&#39;</span>:<span class="st">&#39;#baf6ff&#39;</span>}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">Deep: {<span class="st">&#39;Green&#39;</span>:<span class="st">&#39;#5baf68&#39;</span>}</code></pre></div>
+</div>
+<div id="controlling-coloration" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Controlling Coloration</h3>
+<p>Not all plots automatically plot with a white background, and when using something dark like jupyterlab or a presentation this can be frustrating. The background color can be set in pyplot like this.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">fig.patch.set_facecolor(<span class="st">&#39;xkcd:mint green&#39;</span>)</code></pre></div>
+<p>When plotting, samples will not always be colored with the same color, especially when different subsets of samples are included in different plots. Here is a manual workaround to specify the coloration of displayed data. This is a bit cumbersome so there might be a more elegant way of achieving the same outcome.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># here is an example where sample order is controlled from a pandas DataFrame</span>
+sample_order <span class="op">=</span> all_vars.sort_values([<span class="st">&#39;ID&#39;</span>]).drop_duplicates([<span class="st">&#39;Sample&#39;</span>]).Sample
+
+<span class="co"># the color order is specified here</span>
+<span class="co"># colors should be in the same order as the above sample_order Series, excluding samples with no data</span>
+colors <span class="op">=</span> [pastel[<span class="st">&#39;Brown&#39;</span>], pastel[<span class="st">&#39;Blue&#39;</span>],
+          pastel[<span class="st">&#39;Orange&#39;</span>], pastel[<span class="st">&#39;Purple&#39;</span>],
+          pastel[<span class="st">&#39;Green&#39;</span>], pastel[<span class="st">&#39;Red&#39;</span>],
+          ]
+
+plt.figure()
+<span class="co"># this is an example of plotting that uses the sample_order and palette to control coloration order</span>
+sns.catplot(x<span class="op">=</span><span class="st">&#39;Sample&#39;</span>, y<span class="op">=</span><span class="st">&#39;VAF&#39;</span>, hue<span class="op">=</span><span class="st">&#39;Gene&#39;</span>, jitter<span class="op">=</span><span class="va">True</span>,
+            data<span class="op">=</span>oncogenic[oncogenic.Location <span class="op">==</span> <span class="st">&#39;Peripheral&#39;</span>],
+            legend<span class="op">=</span><span class="va">False</span>, order<span class="op">=</span>sample_order, palette<span class="op">=</span>sns.color_palette(colors))
+
+<span class="co"># a colorscheme can be specified if desired</span>
+pastel <span class="op">=</span> {<span class="st">&#39;Blue&#39;</span>:<span class="st">&#39;#a3c6ff&#39;</span>, <span class="st">&#39;Orange&#39;</span>:<span class="st">&#39;#f7ab60&#39;</span>,
+          <span class="st">&#39;Green&#39;</span>:<span class="st">&#39;#60f7a9&#39;</span>, <span class="st">&#39;Red&#39;</span>:<span class="st">&#39;#fc9d94&#39;</span>,
+          <span class="st">&#39;Purple&#39;</span>:<span class="st">&#39;#bea3ff&#39;</span>, <span class="st">&#39;Brown&#39;</span>:<span class="st">&#39;#d1b485&#39;</span>,
+          <span class="st">&#39;Pink&#39;</span>:<span class="st">&#39;#f7afdf&#39;</span>, <span class="st">&#39;Gray&#39;</span>:<span class="st">&#39;#c4c4c4&#39;</span>,
+          <span class="st">&#39;Yellow&#39;</span>:<span class="st">&#39;#ffffaa&#39;</span>, <span class="st">&#39;LBlue&#39;</span>:<span class="st">&#39;#baf6ff&#39;</span>}
+
+<span class="co"># this controls the coloration in the legend</span>
+<span class="im">import</span> matplotlib.patches <span class="im">as</span> mpatches
+egfr <span class="op">=</span> mpatches.Patch(color<span class="op">=</span>pastel[<span class="st">&#39;Blue&#39;</span>], label<span class="op">=</span><span class="st">&#39;EGFR&#39;</span>)
+pik3ca <span class="op">=</span> mpatches.Patch(color<span class="op">=</span>pastel[<span class="st">&#39;Orange&#39;</span>], label<span class="op">=</span><span class="st">&#39;PIK3CA&#39;</span>)
+myc <span class="op">=</span> mpatches.Patch(color<span class="op">=</span>pastel[<span class="st">&#39;Green&#39;</span>], label<span class="op">=</span><span class="st">&#39;MYC&#39;</span>)
+
+plt.legend(handles<span class="op">=</span>[egfr,pik3ca,myc],
+           loc<span class="op">=</span><span class="st">&#39;upper right&#39;</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">1.5</span>, <span class="dv">1</span>),
+           ncol<span class="op">=</span><span class="dv">1</span>) <span class="co"># no legend overlap</span></code></pre></div>
+</div>
 </div>
 <div id="matplotlib" class="section level2">
 <h2><span class="header-section-number">4.2</span> Matplotlib</h2>
-<p>Not all plots automatically plot with a white background, and when using something dark like jupyterlab or a presentation this can be frustrating. The background color can be set in pyplot like this.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">fig.patch.set_facecolor(<span class="st">&#39;xkcd:mint green&#39;</span>)</code></pre></div>
 <p>Plotting a heatmap.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt
 <span class="im">import</span> numpy <span class="im">as</span> np

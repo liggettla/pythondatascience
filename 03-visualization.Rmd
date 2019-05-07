@@ -1,20 +1,59 @@
 # Visualization {#visualization}
 
-## Colorschemes
+## Color
+
+### Colorschemes
 Seaborn Themes
 ```{python eval=FALSE}
-Pastel: ['Blue':'#a3c6ff', 'Orange':'#f7ab60', 'Green':'#60f7a9', 'Red':'#fc9d94', 'Purple':'#bea3ff', 'Brown':'#d1b485', 'Pink':'#f7afdf', 'Gray':'#c4c4c4', 'Yellow':'#ffffaa', 'LBlue':'#baf6ff']
+Pastel: {'Blue':'#a3c6ff', 'Orange':'#f7ab60', 'Green':'#60f7a9', 'Red':'#fc9d94', 'Purple':'#bea3ff', 'Brown':'#d1b485', 'Pink':'#f7afdf', 'Gray':'#c4c4c4', 'Yellow':'#ffffaa', 'LBlue':'#baf6ff'}
 ```
 ```{python eval=FALSE}
-Deep: ['Green':'#5baf68']
+Deep: {'Green':'#5baf68'}
 ```
 
-## Matplotlib
+### Controlling Coloration
 Not all plots automatically plot with a white background, and when using something dark like jupyterlab or a presentation this can be frustrating. The background color can be set in pyplot like this.
 ```{python eval=FALSE}
 fig.patch.set_facecolor('xkcd:mint green')
 ```
 
+When plotting, samples will not always be colored with the same color, especially when different subsets of samples are included in different plots. Here is a manual workaround to specify the coloration of displayed data. This is a bit cumbersome so there might be a more elegant way of achieving the same outcome.
+```{python eval=FALSE}
+# here is an example where sample order is controlled from a pandas DataFrame
+sample_order = all_vars.sort_values(['ID']).drop_duplicates(['Sample']).Sample
+
+# the color order is specified here
+# colors should be in the same order as the above sample_order Series, excluding samples with no data
+colors = [pastel['Brown'], pastel['Blue'],
+          pastel['Orange'], pastel['Purple'],
+          pastel['Green'], pastel['Red'],
+          ]
+
+plt.figure()
+# this is an example of plotting that uses the sample_order and palette to control coloration order
+sns.catplot(x='Sample', y='VAF', hue='Gene', jitter=True,
+            data=oncogenic[oncogenic.Location == 'Peripheral'],
+            legend=False, order=sample_order, palette=sns.color_palette(colors))
+
+# a colorscheme can be specified if desired
+pastel = {'Blue':'#a3c6ff', 'Orange':'#f7ab60',
+          'Green':'#60f7a9', 'Red':'#fc9d94',
+          'Purple':'#bea3ff', 'Brown':'#d1b485',
+          'Pink':'#f7afdf', 'Gray':'#c4c4c4',
+          'Yellow':'#ffffaa', 'LBlue':'#baf6ff'}
+
+# this controls the coloration in the legend
+import matplotlib.patches as mpatches
+egfr = mpatches.Patch(color=pastel['Blue'], label='EGFR')
+pik3ca = mpatches.Patch(color=pastel['Orange'], label='PIK3CA')
+myc = mpatches.Patch(color=pastel['Green'], label='MYC')
+
+plt.legend(handles=[egfr,pik3ca,myc],
+           loc='upper right', bbox_to_anchor=(1.5, 1),
+           ncol=1) # no legend overlap
+```
+
+## Matplotlib
 Plotting a heatmap.
 
 ```{python eval=FALSE}

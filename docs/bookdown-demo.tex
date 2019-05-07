@@ -324,23 +324,25 @@ following import statement.
 
 \chapter{Visualization}\label{visualization}
 
-\section{Colorschemes}\label{colorschemes}
+\section{Color}\label{color}
+
+\subsection{Colorschemes}\label{colorschemes}
 
 Seaborn Themes
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Pastel: [}\StringTok{'Blue'}\NormalTok{:}\StringTok{'#a3c6ff'}\NormalTok{, }\StringTok{'Orange'}\NormalTok{:}\StringTok{'#f7ab60'}\NormalTok{, }\StringTok{'Green'}\NormalTok{:}\StringTok{'#60f7a9'}\NormalTok{, }\StringTok{'Red'}\NormalTok{:}\StringTok{'#fc9d94'}\NormalTok{, }\StringTok{'Purple'}\NormalTok{:}\StringTok{'#bea3ff'}\NormalTok{, }\StringTok{'Brown'}\NormalTok{:}\StringTok{'#d1b485'}\NormalTok{, }\StringTok{'Pink'}\NormalTok{:}\StringTok{'#f7afdf'}\NormalTok{, }\StringTok{'Gray'}\NormalTok{:}\StringTok{'#c4c4c4'}\NormalTok{, }\StringTok{'Yellow'}\NormalTok{:}\StringTok{'#ffffaa'}\NormalTok{, }\StringTok{'LBlue'}\NormalTok{:}\StringTok{'#baf6ff'}\NormalTok{]}
+\NormalTok{Pastel: \{}\StringTok{'Blue'}\NormalTok{:}\StringTok{'#a3c6ff'}\NormalTok{, }\StringTok{'Orange'}\NormalTok{:}\StringTok{'#f7ab60'}\NormalTok{, }\StringTok{'Green'}\NormalTok{:}\StringTok{'#60f7a9'}\NormalTok{, }\StringTok{'Red'}\NormalTok{:}\StringTok{'#fc9d94'}\NormalTok{, }\StringTok{'Purple'}\NormalTok{:}\StringTok{'#bea3ff'}\NormalTok{, }\StringTok{'Brown'}\NormalTok{:}\StringTok{'#d1b485'}\NormalTok{, }\StringTok{'Pink'}\NormalTok{:}\StringTok{'#f7afdf'}\NormalTok{, }\StringTok{'Gray'}\NormalTok{:}\StringTok{'#c4c4c4'}\NormalTok{, }\StringTok{'Yellow'}\NormalTok{:}\StringTok{'#ffffaa'}\NormalTok{, }\StringTok{'LBlue'}\NormalTok{:}\StringTok{'#baf6ff'}\NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Deep: [}\StringTok{'Green'}\NormalTok{:}\StringTok{'#5baf68'}\NormalTok{]}
+\NormalTok{Deep: \{}\StringTok{'Green'}\NormalTok{:}\StringTok{'#5baf68'}\NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
-\section{Matplotlib}\label{matplotlib}
+\subsection{Controlling Coloration}\label{controlling-coloration}
 
 Not all plots automatically plot with a white background, and when using
 something dark like jupyterlab or a presentation this can be
@@ -351,6 +353,51 @@ frustrating. The background color can be set in pyplot like this.
 \NormalTok{fig.patch.set_facecolor(}\StringTok{'xkcd:mint green'}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+When plotting, samples will not always be colored with the same color,
+especially when different subsets of samples are included in different
+plots. Here is a manual workaround to specify the coloration of
+displayed data. This is a bit cumbersome so there might be a more
+elegant way of achieving the same outcome.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# here is an example where sample order is controlled from a pandas DataFrame}
+\NormalTok{sample_order }\OperatorTok{=}\NormalTok{ all_vars.sort_values([}\StringTok{'ID'}\NormalTok{]).drop_duplicates([}\StringTok{'Sample'}\NormalTok{]).Sample}
+
+\CommentTok{# the color order is specified here}
+\CommentTok{# colors should be in the same order as the above sample_order Series, excluding samples with no data}
+\NormalTok{colors }\OperatorTok{=}\NormalTok{ [pastel[}\StringTok{'Brown'}\NormalTok{], pastel[}\StringTok{'Blue'}\NormalTok{],}
+\NormalTok{          pastel[}\StringTok{'Orange'}\NormalTok{], pastel[}\StringTok{'Purple'}\NormalTok{],}
+\NormalTok{          pastel[}\StringTok{'Green'}\NormalTok{], pastel[}\StringTok{'Red'}\NormalTok{],}
+\NormalTok{          ]}
+
+\NormalTok{plt.figure()}
+\CommentTok{# this is an example of plotting that uses the sample_order and palette to control coloration order}
+\NormalTok{sns.catplot(x}\OperatorTok{=}\StringTok{'Sample'}\NormalTok{, y}\OperatorTok{=}\StringTok{'VAF'}\NormalTok{, hue}\OperatorTok{=}\StringTok{'Gene'}\NormalTok{, jitter}\OperatorTok{=}\VariableTok{True}\NormalTok{,}
+\NormalTok{            data}\OperatorTok{=}\NormalTok{oncogenic[oncogenic.Location }\OperatorTok{==} \StringTok{'Peripheral'}\NormalTok{],}
+\NormalTok{            legend}\OperatorTok{=}\VariableTok{False}\NormalTok{, order}\OperatorTok{=}\NormalTok{sample_order, palette}\OperatorTok{=}\NormalTok{sns.color_palette(colors))}
+
+\CommentTok{# a colorscheme can be specified if desired}
+\NormalTok{pastel }\OperatorTok{=}\NormalTok{ \{}\StringTok{'Blue'}\NormalTok{:}\StringTok{'#a3c6ff'}\NormalTok{, }\StringTok{'Orange'}\NormalTok{:}\StringTok{'#f7ab60'}\NormalTok{,}
+          \StringTok{'Green'}\NormalTok{:}\StringTok{'#60f7a9'}\NormalTok{, }\StringTok{'Red'}\NormalTok{:}\StringTok{'#fc9d94'}\NormalTok{,}
+          \StringTok{'Purple'}\NormalTok{:}\StringTok{'#bea3ff'}\NormalTok{, }\StringTok{'Brown'}\NormalTok{:}\StringTok{'#d1b485'}\NormalTok{,}
+          \StringTok{'Pink'}\NormalTok{:}\StringTok{'#f7afdf'}\NormalTok{, }\StringTok{'Gray'}\NormalTok{:}\StringTok{'#c4c4c4'}\NormalTok{,}
+          \StringTok{'Yellow'}\NormalTok{:}\StringTok{'#ffffaa'}\NormalTok{, }\StringTok{'LBlue'}\NormalTok{:}\StringTok{'#baf6ff'}\NormalTok{\}}
+
+\CommentTok{# this controls the coloration in the legend}
+\ImportTok{import}\NormalTok{ matplotlib.patches }\ImportTok{as}\NormalTok{ mpatches}
+\NormalTok{egfr }\OperatorTok{=}\NormalTok{ mpatches.Patch(color}\OperatorTok{=}\NormalTok{pastel[}\StringTok{'Blue'}\NormalTok{], label}\OperatorTok{=}\StringTok{'EGFR'}\NormalTok{)}
+\NormalTok{pik3ca }\OperatorTok{=}\NormalTok{ mpatches.Patch(color}\OperatorTok{=}\NormalTok{pastel[}\StringTok{'Orange'}\NormalTok{], label}\OperatorTok{=}\StringTok{'PIK3CA'}\NormalTok{)}
+\NormalTok{myc }\OperatorTok{=}\NormalTok{ mpatches.Patch(color}\OperatorTok{=}\NormalTok{pastel[}\StringTok{'Green'}\NormalTok{], label}\OperatorTok{=}\StringTok{'MYC'}\NormalTok{)}
+
+\NormalTok{plt.legend(handles}\OperatorTok{=}\NormalTok{[egfr,pik3ca,myc],}
+\NormalTok{           loc}\OperatorTok{=}\StringTok{'upper right'}\NormalTok{, bbox_to_anchor}\OperatorTok{=}\NormalTok{(}\FloatTok{1.5}\NormalTok{, }\DecValTok{1}\NormalTok{),}
+\NormalTok{           ncol}\OperatorTok{=}\DecValTok{1}\NormalTok{) }\CommentTok{# no legend overlap}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Matplotlib}\label{matplotlib}
 
 Plotting a heatmap.
 
