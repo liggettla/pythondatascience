@@ -25,7 +25,7 @@
 <meta name="author" content="L A Liggett">
 
 
-<meta name="date" content="2019-04-30">
+<meta name="date" content="2019-05-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -131,6 +131,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.3" data-path="pandas.html"><a href="pandas.html#editing-data"><i class="fa fa-check"></i><b>7.3</b> Editing Data</a></li>
 <li class="chapter" data-level="7.4" data-path="pandas.html"><a href="pandas.html#combining-data-structures"><i class="fa fa-check"></i><b>7.4</b> Combining Data Structures</a></li>
 <li class="chapter" data-level="7.5" data-path="pandas.html"><a href="pandas.html#splitting"><i class="fa fa-check"></i><b>7.5</b> Splitting</a></li>
+<li class="chapter" data-level="7.6" data-path="pandas.html"><a href="pandas.html#summarizing"><i class="fa fa-check"></i><b>7.6</b> Summarizing</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="git.html"><a href="git.html"><i class="fa fa-check"></i><b>8</b> Git</a><ul>
 <li class="chapter" data-level="8.1" data-path="git.html"><a href="git.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a><ul>
@@ -175,6 +176,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="matplotlib" class="section level2">
 <h2><span class="header-section-number">4.2</span> Matplotlib</h2>
+<p>Not all plots automatically plot with a white background, and when using something dark like jupyterlab or a presentation this can be frustrating. The background color can be set in pyplot like this.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">fig.patch.set_facecolor(<span class="st">&#39;xkcd:mint green&#39;</span>)</code></pre></div>
 <p>Plotting a heatmap.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt
 <span class="im">import</span> numpy <span class="im">as</span> np

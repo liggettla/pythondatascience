@@ -25,7 +25,7 @@
 <meta name="author" content="L A Liggett">
 
 
-<meta name="date" content="2019-04-30">
+<meta name="date" content="2019-05-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -131,6 +131,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.3" data-path="pandas.html"><a href="pandas.html#editing-data"><i class="fa fa-check"></i><b>7.3</b> Editing Data</a></li>
 <li class="chapter" data-level="7.4" data-path="pandas.html"><a href="pandas.html#combining-data-structures"><i class="fa fa-check"></i><b>7.4</b> Combining Data Structures</a></li>
 <li class="chapter" data-level="7.5" data-path="pandas.html"><a href="pandas.html#splitting"><i class="fa fa-check"></i><b>7.5</b> Splitting</a></li>
+<li class="chapter" data-level="7.6" data-path="pandas.html"><a href="pandas.html#summarizing"><i class="fa fa-check"></i><b>7.6</b> Summarizing</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="git.html"><a href="git.html"><i class="fa fa-check"></i><b>8</b> Git</a><ul>
 <li class="chapter" data-level="8.1" data-path="git.html"><a href="git.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a><ul>
@@ -217,6 +218,11 @@ data[‘k1’].duplicated()
 data[<span class="st">&#39;k1&#39;</span>].drop_duplicates()
 data.drop_duplicates[<span class="st">&#39;k1&#39;</span>] <span class="co"># this does the same thing as the previous line</span>
 data.drop_duplicates([<span class="st">&#39;k1&#39;</span>,<span class="st">&#39;k2&#39;</span>], keep<span class="op">=</span><span class="st">&#39;last&#39;</span>) <span class="co"># drops unique found in k1 and k2 and keeps the last indexed duplicate</span></code></pre></div>
+</div>
+<div id="summarizing" class="section level2">
+<h2><span class="header-section-number">7.6</span> Summarizing</h2>
+<p>The mean of column values can be calculated where each of the columns is grouped by the data in a specified column.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">temp[[<span class="st">&#39;Sample&#39;</span>,<span class="st">&#39;VAF&#39;</span>,<span class="st">&#39;Var_Count&#39;</span>]].groupby(<span class="st">&#39;Sample&#39;</span>).mean()</code></pre></div>
 
 </div>
 </div>

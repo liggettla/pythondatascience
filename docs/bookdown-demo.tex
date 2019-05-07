@@ -125,7 +125,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-04-29}
+    \date{2019-05-07}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -341,6 +341,16 @@ Seaborn Themes
 \end{Shaded}
 
 \section{Matplotlib}\label{matplotlib}
+
+Not all plots automatically plot with a white background, and when using
+something dark like jupyterlab or a presentation this can be
+frustrating. The background color can be set in pyplot like this.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fig.patch.set_facecolor(}\StringTok{'xkcd:mint green'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 Plotting a heatmap.
 
@@ -679,6 +689,119 @@ Remove duplicates
 \NormalTok{data[}\StringTok{'k1'}\NormalTok{].drop_duplicates()}
 \NormalTok{data.drop_duplicates[}\StringTok{'k1'}\NormalTok{] }\CommentTok{# this does the same thing as the previous line}
 \NormalTok{data.drop_duplicates([}\StringTok{'k1'}\NormalTok{,}\StringTok{'k2'}\NormalTok{], keep}\OperatorTok{=}\StringTok{'last'}\NormalTok{) }\CommentTok{# drops unique found in k1 and k2 and keeps the last indexed duplicate}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Summarizing}\label{summarizing}
+
+The mean of column values can be calculated where each of the columns is
+grouped by the data in a specified column.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{temp[[}\StringTok{'Sample'}\NormalTok{,}\StringTok{'VAF'}\NormalTok{,}\StringTok{'Var_Count'}\NormalTok{]].groupby(}\StringTok{'Sample'}\NormalTok{).mean()}
+\end{Highlighting}
+\end{Shaded}
+
+\chapter{Git}\label{git}
+
+\section{Setup}\label{setup}
+
+\subsection{Git Setup}\label{git-setup}
+
+The username and email needs to be added after git is installed.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ config --global user.name }\StringTok{"me"}
+\FunctionTok{git}\NormalTok{ config --global user.email }\StringTok{"me@gmail.com"}
+\end{Highlighting}
+\end{Shaded}
+
+After this information has been set, it can be checked.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ config --list}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Repository Initiation}\label{repository-initiation}
+
+To setup a repository, create a folder with an initial file like a
+README and then initiate it.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ init}
+\FunctionTok{git}\NormalTok{ status}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Mirror on Online
+Repository}\label{mirror-on-online-repository}
+
+Create a repository on a repository like github, gitlab, bitbucket, or
+sourceforge. Then the local git repository can be synched with the
+online repository.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ remote add origin url-of-online-repository-here}
+\FunctionTok{git}\NormalTok{ push -u origin master}
+\end{Highlighting}
+\end{Shaded}
+
+Of course the repository could just be setup first and then cloned.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ clone url-of-online-repository-here}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Manipulating Commits}\label{manipulating-commits}
+
+\subsection{Repository Status}\label{repository-status}
+
+The commit history of a repository can be displayed in verbose form and
+in summarized form.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ log}
+\FunctionTok{git}\NormalTok{ log --oneline}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{File Checkout}\label{file-checkout}
+
+To restore a previous version of a file it can be checked out by first
+identifying the version to be used using the log history and then
+restoring the desired file.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ log --oneline}
+\FunctionTok{git}\NormalTok{ checkout }\OperatorTok{<}\NormalTok{commit number}\OperatorTok{>}\NormalTok{ file.txt}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Resetting a Repository}\label{resetting-a-repository}
+
+To discard the effect of the previous operation on a file.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ reset HEAD file.txt}
+\end{Highlighting}
+\end{Shaded}
+
+The previous version of the a file can then be restored.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ checkout -- file.txt}
 \end{Highlighting}
 \end{Shaded}
 
