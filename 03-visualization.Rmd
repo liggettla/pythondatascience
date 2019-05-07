@@ -10,6 +10,11 @@ Deep: [Green:'#5baf68']
 ```
 
 ## Matplotlib
+Not all plots automatically plot with a white background, and when using something dark like jupyterlab or a presentation this can be frustrating. The background color can be set in pyplot like this.
+```{python eval=FALSE}
+fig.patch.set_facecolor('xkcd:mint green')
+```
+
 Plotting a heatmap.
 
 ```{python eval=FALSE}
