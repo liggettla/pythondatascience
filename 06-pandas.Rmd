@@ -25,7 +25,12 @@ df = df.drop(['B', 'C'], axis=1) # this works in python 2
 print(df)
 ```
 
-Replace values 
+Changing the datatype of a column of data can be done by just changing column type.
+```{python eval=FALSE}
+df.Age = df.Age.astype(str)
+```
+
+### Replace values 
 New data can be set within a DataFrame one subset at a time in a way that will avoid the SwttingWithCopyWarning.
 ```{python}
 import pandas as pd
@@ -45,6 +50,13 @@ outer: use union of keys from both frames, similar to a SQL full outer join; sor
 inner: use intersection of keys from both frames, similar to a SQL inner join; preserve the order of the left keys.
 ```{python eval=FALSE}
 df = pd.merge(df, df2, how='inner', on=['Sample'])
+```
+
+Appending to a Dataframe attaches a DataFrame after another one.
+```{python eval=FALSE}
+df = pd.DataFrame([[1, 2], [3, 4]], columns=list('AB'))
+df2 = pd.DataFrame([[5, 6], [7, 8]], columns=list('AB'))
+df.append(df2)
 ```
 
 ## Splitting

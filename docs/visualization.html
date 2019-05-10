@@ -25,7 +25,7 @@
 <meta name="author" content="L A Liggett">
 
 
-<meta name="date" content="2019-05-07">
+<meta name="date" content="2019-05-10">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -131,7 +131,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7" data-path="pandas.html"><a href="pandas.html"><i class="fa fa-check"></i><b>7</b> Pandas</a><ul>
 <li class="chapter" data-level="7.1" data-path="pandas.html"><a href="pandas.html#file-io"><i class="fa fa-check"></i><b>7.1</b> File I/O</a></li>
 <li class="chapter" data-level="7.2" data-path="pandas.html"><a href="pandas.html#relabeling"><i class="fa fa-check"></i><b>7.2</b> Relabeling</a></li>
-<li class="chapter" data-level="7.3" data-path="pandas.html"><a href="pandas.html#editing-data"><i class="fa fa-check"></i><b>7.3</b> Editing Data</a></li>
+<li class="chapter" data-level="7.3" data-path="pandas.html"><a href="pandas.html#editing-data"><i class="fa fa-check"></i><b>7.3</b> Editing Data</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="pandas.html"><a href="pandas.html#replace-values"><i class="fa fa-check"></i><b>7.3.1</b> Replace values</a></li>
+</ul></li>
 <li class="chapter" data-level="7.4" data-path="pandas.html"><a href="pandas.html#combining-data-structures"><i class="fa fa-check"></i><b>7.4</b> Combining Data Structures</a></li>
 <li class="chapter" data-level="7.5" data-path="pandas.html"><a href="pandas.html#splitting"><i class="fa fa-check"></i><b>7.5</b> Splitting</a></li>
 <li class="chapter" data-level="7.6" data-path="pandas.html"><a href="pandas.html#summarizing"><i class="fa fa-check"></i><b>7.6</b> Summarizing</a></li>
@@ -266,8 +268,8 @@ plt.tick_params(labelbottom<span class="op">=</span><span class="va">True</span>
 sns.despine(offset<span class="op">=</span><span class="dv">10</span>, trim<span class="op">=</span><span class="va">True</span>, bottom<span class="op">=</span><span class="va">True</span>)
 <span class="co"># labels</span>
 plt.title(<span class="st">&#39;&#39;</span>)
-plt.ylabel(<span class="st">&#39;&#39;</span>)
-plt.xlabel(<span class="st">&#39;&#39;</span>)
+plt.ylabel(<span class="st">&#39;&#39;</span>, fontsize<span class="op">=</span><span class="dv">8</span>)
+plt.xlabel(<span class="st">&#39;&#39;</span>, fontsize<span class="op">=</span><span class="dv">8</span>)
 <span class="co"># manual control of xlabels</span>
 labels <span class="op">=</span> [<span class="st">&#39;Indiv_1-a&#39;</span>,<span class="st">&#39;Indiv_2&#39;</span>,<span class="st">&#39;Indiv_3&#39;</span>,<span class="st">&#39;Indiv_1-b&#39;</span>]
 <span class="co"># control xtick order</span>
@@ -284,12 +286,12 @@ plt.gca().set_yscale(<span class="st">&#39;symlog&#39;</span>)
 plt.tight_layout()
 plt.show()
 <span class="co"># save figure with tight_layout</span>
-plt.savefig(<span class="st">&quot;test.svg&quot;</span>, <span class="bu">format</span><span class="op">=</span><span class="st">&quot;svg&quot;</span>, bbox_inches<span class="op">=</span><span class="st">&quot;tight&quot;</span>)</code></pre></div>
+plt.savefig(<span class="st">&quot;test.svg&quot;</span>, <span class="bu">format</span><span class="op">=</span><span class="st">&quot;svg&quot;</span>, bbox_inches<span class="op">=</span><span class="st">&quot;tight&quot;</span>, dpi<span class="op">=</span><span class="dv">1000</span>)</code></pre></div>
 <p>Signifance information can be added by including p-values and label bars using the following code.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x1, x2 <span class="op">=</span> <span class="dv">0</span>, <span class="dv">1</span> <span class="co"># columns to annotate on the plot</span>
 y2, y1 <span class="op">=</span> <span class="dv">20</span>, <span class="dv">15</span> <span class="co"># placement of the line and how for down the vertical legs go</span>
 plt.plot([x1,x1, x2, x2], [y1, y2, y2, y1], linewidth<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">&#39;k&#39;</span>) <span class="co"># stats line</span>
-plt.text((x1<span class="op">+</span>x2)<span class="op">*</span>.<span class="dv">5</span>, y2<span class="op">+</span><span class="dv">2</span>, <span class="st">&quot;p=0.09&quot;</span>, ha<span class="op">=</span><span class="st">&#39;center&#39;</span>, va<span class="op">=</span><span class="st">&#39;bottom&#39;</span>) <span class="co"># p-value or sig</span></code></pre></div>
+plt.text((x1<span class="op">+</span>x2)<span class="op">*</span>.<span class="dv">5</span>, y2<span class="op">+</span><span class="dv">2</span>, <span class="st">&quot;p=0.09&quot;</span>, ha<span class="op">=</span><span class="st">&#39;center&#39;</span>, va<span class="op">=</span><span class="st">&#39;bottom&#39;</span>, fontsize<span class="op">=</span><span class="dv">8</span>) <span class="co"># p-value or sig</span></code></pre></div>
 </div>
 <div id="statistics" class="section level2">
 <h2><span class="header-section-number">4.4</span> Statistics</h2>

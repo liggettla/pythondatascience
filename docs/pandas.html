@@ -25,7 +25,7 @@
 <meta name="author" content="L A Liggett">
 
 
-<meta name="date" content="2019-05-07">
+<meta name="date" content="2019-05-10">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -131,7 +131,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7" data-path="pandas.html"><a href="pandas.html"><i class="fa fa-check"></i><b>7</b> Pandas</a><ul>
 <li class="chapter" data-level="7.1" data-path="pandas.html"><a href="pandas.html#file-io"><i class="fa fa-check"></i><b>7.1</b> File I/O</a></li>
 <li class="chapter" data-level="7.2" data-path="pandas.html"><a href="pandas.html#relabeling"><i class="fa fa-check"></i><b>7.2</b> Relabeling</a></li>
-<li class="chapter" data-level="7.3" data-path="pandas.html"><a href="pandas.html#editing-data"><i class="fa fa-check"></i><b>7.3</b> Editing Data</a></li>
+<li class="chapter" data-level="7.3" data-path="pandas.html"><a href="pandas.html#editing-data"><i class="fa fa-check"></i><b>7.3</b> Editing Data</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="pandas.html"><a href="pandas.html#replace-values"><i class="fa fa-check"></i><b>7.3.1</b> Replace values</a></li>
+</ul></li>
 <li class="chapter" data-level="7.4" data-path="pandas.html"><a href="pandas.html#combining-data-structures"><i class="fa fa-check"></i><b>7.4</b> Combining Data Structures</a></li>
 <li class="chapter" data-level="7.5" data-path="pandas.html"><a href="pandas.html#splitting"><i class="fa fa-check"></i><b>7.5</b> Splitting</a></li>
 <li class="chapter" data-level="7.6" data-path="pandas.html"><a href="pandas.html#summarizing"><i class="fa fa-check"></i><b>7.6</b> Summarizing</a></li>
@@ -192,7 +194,11 @@ df <span class="op">=</span> pd.DataFrame(np.arange(<span class="dv">12</span>).
 df <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">&#39;B&#39;</span>, <span class="st">&#39;C&#39;</span>]) <span class="co"># may not work in python 2</span>
 df <span class="op">=</span> df.drop([<span class="st">&#39;B&#39;</span>, <span class="st">&#39;C&#39;</span>], axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># this works in python 2</span>
 <span class="bu">print</span>(df)</code></pre></div>
-<p>Replace values New data can be set within a DataFrame one subset at a time in a way that will avoid the SwttingWithCopyWarning.</p>
+<p>Changing the datatype of a column of data can be done by just changing column type.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df.Age <span class="op">=</span> df.Age.astype(<span class="bu">str</span>)</code></pre></div>
+<div id="replace-values" class="section level3">
+<h3><span class="header-section-number">7.3.1</span> Replace values</h3>
+<p>New data can be set within a DataFrame one subset at a time in a way that will avoid the SwttingWithCopyWarning.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> pandas <span class="im">as</span> pd
 df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;Trait&#39;</span>:[<span class="st">&#39;Seed_Shape&#39;</span>,<span class="st">&#39;Seed_Shape&#39;</span>,<span class="st">&#39;Flower_Color&#39;</span>,<span class="st">&#39;Flower_Color&#39;</span>],
                     <span class="st">&#39;Phenotype&#39;</span>:[<span class="st">&#39;Round&#39;</span>,<span class="st">&#39;Wrinkled&#39;</span>,<span class="st">&#39;Purple&#39;</span>,<span class="st">&#39;White&#39;</span>]})
@@ -205,10 +211,15 @@ df.loc[df.Trait <span class="op">==</span> <span class="st">&#39;Flower_Color&#3
 ## 2  Flower_Color    Purple        Flower
 ## 3  Flower_Color     White        Flower</code></pre>
 </div>
+</div>
 <div id="combining-data-structures" class="section level2">
 <h2><span class="header-section-number">7.4</span> Combining Data Structures</h2>
 <p>The following merges df and df2 using inner to get the intersection on the Sample column, where indexes are ignored if the merging is performed on a column as in the following example. The other possible merging strategies are: left: use only keys from left frame, similar to a SQL left outer join; preserve key order. right: use only keys from right frame, similar to a SQL right outer join; preserve key order. outer: use union of keys from both frames, similar to a SQL full outer join; sort keys lexicographically. inner: use intersection of keys from both frames, similar to a SQL inner join; preserve the order of the left keys.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df <span class="op">=</span> pd.merge(df, df2, how<span class="op">=</span><span class="st">&#39;inner&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;Sample&#39;</span>])</code></pre></div>
+<p>Appending to a Dataframe attaches a DataFrame after another one.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df <span class="op">=</span> pd.DataFrame([[<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">3</span>, <span class="dv">4</span>]], columns<span class="op">=</span><span class="bu">list</span>(<span class="st">&#39;AB&#39;</span>))
+df2 <span class="op">=</span> pd.DataFrame([[<span class="dv">5</span>, <span class="dv">6</span>], [<span class="dv">7</span>, <span class="dv">8</span>]], columns<span class="op">=</span><span class="bu">list</span>(<span class="st">&#39;AB&#39;</span>))
+df.append(df2)</code></pre></div>
 </div>
 <div id="splitting" class="section level2">
 <h2><span class="header-section-number">7.5</span> Splitting</h2>

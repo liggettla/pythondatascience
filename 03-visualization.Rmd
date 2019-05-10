@@ -115,8 +115,8 @@ plt.tick_params(labelbottom=True, bottom=False)
 sns.despine(offset=10, trim=True, bottom=True)
 # labels
 plt.title('')
-plt.ylabel('')
-plt.xlabel('')
+plt.ylabel('', fontsize=8)
+plt.xlabel('', fontsize=8)
 # manual control of xlabels
 labels = ['Indiv_1-a','Indiv_2','Indiv_3','Indiv_1-b']
 # control xtick order
@@ -133,7 +133,7 @@ plt.gca().set_yscale('symlog')
 plt.tight_layout()
 plt.show()
 # save figure with tight_layout
-plt.savefig("test.svg", format="svg", bbox_inches="tight")
+plt.savefig("test.svg", format="svg", bbox_inches="tight", dpi=1000)
 ```
 
 Signifance information can be added by including p-values and label bars using the following code.
@@ -142,7 +142,7 @@ Signifance information can be added by including p-values and label bars using t
 x1, x2 = 0, 1 # columns to annotate on the plot
 y2, y1 = 20, 15 # placement of the line and how for down the vertical legs go
 plt.plot([x1,x1, x2, x2], [y1, y2, y2, y1], linewidth=1, color='k') # stats line
-plt.text((x1+x2)*.5, y2+2, "p=0.09", ha='center', va='bottom') # p-value or sig
+plt.text((x1+x2)*.5, y2+2, "p=0.09", ha='center', va='bottom', fontsize=8) # p-value or sig
 ```
 
 ## Statistics
