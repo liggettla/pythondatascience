@@ -109,7 +109,7 @@
 \usepackage{titling}
 
 % Create subtitle command for use in maketitle
-\newcommand{\subtitle}[1]{
+\providecommand{\subtitle}[1]{
   \posttitle{
     \begin{center}\large#1\end{center}
     }
@@ -125,7 +125,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-05-07}
+    \date{2019-05-10}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -471,8 +471,8 @@ Here is a general bar plot that includes some commonly used parameters.
 \NormalTok{sns.despine(offset}\OperatorTok{=}\DecValTok{10}\NormalTok{, trim}\OperatorTok{=}\VariableTok{True}\NormalTok{, bottom}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
 \CommentTok{# labels}
 \NormalTok{plt.title(}\StringTok{''}\NormalTok{)}
-\NormalTok{plt.ylabel(}\StringTok{''}\NormalTok{)}
-\NormalTok{plt.xlabel(}\StringTok{''}\NormalTok{)}
+\NormalTok{plt.ylabel(}\StringTok{''}\NormalTok{, fontsize}\OperatorTok{=}\DecValTok{8}\NormalTok{)}
+\NormalTok{plt.xlabel(}\StringTok{''}\NormalTok{, fontsize}\OperatorTok{=}\DecValTok{8}\NormalTok{)}
 \CommentTok{# manual control of xlabels}
 \NormalTok{labels }\OperatorTok{=}\NormalTok{ [}\StringTok{'Indiv_1-a'}\NormalTok{,}\StringTok{'Indiv_2'}\NormalTok{,}\StringTok{'Indiv_3'}\NormalTok{,}\StringTok{'Indiv_1-b'}\NormalTok{]}
 \CommentTok{# control xtick order}
@@ -489,7 +489,7 @@ Here is a general bar plot that includes some commonly used parameters.
 \NormalTok{plt.tight_layout()}
 \NormalTok{plt.show()}
 \CommentTok{# save figure with tight_layout}
-\NormalTok{plt.savefig(}\StringTok{"test.svg"}\NormalTok{, }\BuiltInTok{format}\OperatorTok{=}\StringTok{"svg"}\NormalTok{, bbox_inches}\OperatorTok{=}\StringTok{"tight"}\NormalTok{)}
+\NormalTok{plt.savefig(}\StringTok{"test.svg"}\NormalTok{, }\BuiltInTok{format}\OperatorTok{=}\StringTok{"svg"}\NormalTok{, bbox_inches}\OperatorTok{=}\StringTok{"tight"}\NormalTok{, dpi}\OperatorTok{=}\DecValTok{1000}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -501,7 +501,7 @@ using the following code.
 \NormalTok{x1, x2 }\OperatorTok{=} \DecValTok{0}\NormalTok{, }\DecValTok{1} \CommentTok{# columns to annotate on the plot}
 \NormalTok{y2, y1 }\OperatorTok{=} \DecValTok{20}\NormalTok{, }\DecValTok{15} \CommentTok{# placement of the line and how for down the vertical legs go}
 \NormalTok{plt.plot([x1,x1, x2, x2], [y1, y2, y2, y1], linewidth}\OperatorTok{=}\DecValTok{1}\NormalTok{, color}\OperatorTok{=}\StringTok{'k'}\NormalTok{) }\CommentTok{# stats line}
-\NormalTok{plt.text((x1}\OperatorTok{+}\NormalTok{x2)}\OperatorTok{*}\NormalTok{.}\DecValTok{5}\NormalTok{, y2}\OperatorTok{+}\DecValTok{2}\NormalTok{, }\StringTok{"p=0.09"}\NormalTok{, ha}\OperatorTok{=}\StringTok{'center'}\NormalTok{, va}\OperatorTok{=}\StringTok{'bottom'}\NormalTok{) }\CommentTok{# p-value or sig}
+\NormalTok{plt.text((x1}\OperatorTok{+}\NormalTok{x2)}\OperatorTok{*}\NormalTok{.}\DecValTok{5}\NormalTok{, y2}\OperatorTok{+}\DecValTok{2}\NormalTok{, }\StringTok{"p=0.09"}\NormalTok{, ha}\OperatorTok{=}\StringTok{'center'}\NormalTok{, va}\OperatorTok{=}\StringTok{'bottom'}\NormalTok{, fontsize}\OperatorTok{=}\DecValTok{8}\NormalTok{) }\CommentTok{# p-value or sig}
 \end{Highlighting}
 \end{Shaded}
 
@@ -681,8 +681,19 @@ Drop columns from a DataFrame.
 \end{Highlighting}
 \end{Shaded}
 
-Replace values New data can be set within a DataFrame one subset at a
-time in a way that will avoid the SwttingWithCopyWarning.
+Changing the datatype of a column of data can be done by just changing
+column type.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df.Age }\OperatorTok{=}\NormalTok{ df.Age.astype(}\BuiltInTok{str}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Replace values}\label{replace-values}
+
+New data can be set within a DataFrame one subset at a time in a way
+that will avoid the SwttingWithCopyWarning.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -719,6 +730,16 @@ keys.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{df }\OperatorTok{=}\NormalTok{ pd.merge(df, df2, how}\OperatorTok{=}\StringTok{'inner'}\NormalTok{, on}\OperatorTok{=}\NormalTok{[}\StringTok{'Sample'}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+Appending to a Dataframe attaches a DataFrame after another one.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OperatorTok{=}\NormalTok{ pd.DataFrame([[}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{], [}\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{]], columns}\OperatorTok{=}\BuiltInTok{list}\NormalTok{(}\StringTok{'AB'}\NormalTok{))}
+\NormalTok{df2 }\OperatorTok{=}\NormalTok{ pd.DataFrame([[}\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{], [}\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{]], columns}\OperatorTok{=}\BuiltInTok{list}\NormalTok{(}\StringTok{'AB'}\NormalTok{))}
+\NormalTok{df.append(df2)}
 \end{Highlighting}
 \end{Shaded}
 
