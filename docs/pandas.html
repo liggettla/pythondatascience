@@ -25,7 +25,7 @@
 <meta name="author" content="L A Liggett">
 
 
-<meta name="date" content="2019-05-10">
+<meta name="date" content="2019-06-06">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -198,7 +198,7 @@ df <span class="op">=</span> df.drop([<span class="st">&#39;B&#39;</span>, <span
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df.Age <span class="op">=</span> df.Age.astype(<span class="bu">str</span>)</code></pre></div>
 <div id="replace-values" class="section level3">
 <h3><span class="header-section-number">7.3.1</span> Replace values</h3>
-<p>New data can be set within a DataFrame one subset at a time in a way that will avoid the SwttingWithCopyWarning.</p>
+<p>New data can be set within a DataFrame one subset at a time in a way that will avoid the SettingWithCopyWarning.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> pandas <span class="im">as</span> pd
 df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;Trait&#39;</span>:[<span class="st">&#39;Seed_Shape&#39;</span>,<span class="st">&#39;Seed_Shape&#39;</span>,<span class="st">&#39;Flower_Color&#39;</span>,<span class="st">&#39;Flower_Color&#39;</span>],
                     <span class="st">&#39;Phenotype&#39;</span>:[<span class="st">&#39;Round&#39;</span>,<span class="st">&#39;Wrinkled&#39;</span>,<span class="st">&#39;Purple&#39;</span>,<span class="st">&#39;White&#39;</span>]})
@@ -210,6 +210,8 @@ df.loc[df.Trait <span class="op">==</span> <span class="st">&#39;Flower_Color&#3
 ## 1    Seed_Shape  Wrinkled          Seed
 ## 2  Flower_Color    Purple        Flower
 ## 3  Flower_Color     White        Flower</code></pre>
+<p>There is a more simple alternative to the above method buit it may result in the SettingWithCopyWarning.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df <span class="op">=</span> df.replace(<span class="st">&#39;pork&#39;</span>,<span class="st">&#39;bacon&#39;</span>)</code></pre></div>
 </div>
 </div>
 <div id="combining-data-structures" class="section level2">

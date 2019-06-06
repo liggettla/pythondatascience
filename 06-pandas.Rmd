@@ -31,7 +31,7 @@ df.Age = df.Age.astype(str)
 ```
 
 ### Replace values 
-New data can be set within a DataFrame one subset at a time in a way that will avoid the SwttingWithCopyWarning.
+New data can be set within a DataFrame one subset at a time in a way that will avoid the SettingWithCopyWarning.
 ```{python}
 import pandas as pd
 df = pd.DataFrame({'Trait':['Seed_Shape','Seed_Shape','Flower_Color','Flower_Color'],
@@ -39,6 +39,11 @@ df = pd.DataFrame({'Trait':['Seed_Shape','Seed_Shape','Flower_Color','Flower_Col
 df.loc[df.Trait == 'Seed_Shape', 'Affected_Part'] = 'Seed'
 df.loc[df.Trait == 'Flower_Color', 'Affected_Part'] = 'Flower'
 print(df)
+```
+
+There is a more simple alternative to the above method buit it may result in the SettingWithCopyWarning.
+```{python eval=FALSE}
+df = df.replace('pork','bacon')
 ```
 
 ## Combining Data Structures

@@ -109,7 +109,7 @@
 \usepackage{titling}
 
 % Create subtitle command for use in maketitle
-\providecommand{\subtitle}[1]{
+\newcommand{\subtitle}[1]{
   \posttitle{
     \begin{center}\large#1\end{center}
     }
@@ -125,7 +125,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-05-10}
+    \date{2019-06-06}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -322,6 +322,86 @@ following import statement.
 \end{Highlighting}
 \end{Shaded}
 
+A table of contents can be created to refer to each of the headers
+throughout a notebook in html format. The code is below (Obviously needs
+to be simplified.)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{<h1>}\NormalTok{Table of Contents}\KeywordTok{<span}\OtherTok{ class=}\StringTok{"tocSkip"}\KeywordTok{></span></h1>}
+\KeywordTok{<div}\OtherTok{ class=}\StringTok{"toc"}\KeywordTok{>}
+    \KeywordTok{<ul}\OtherTok{ class=}\StringTok{"toc-item"}\KeywordTok{>}
+    \KeywordTok{<li>}
+        \KeywordTok{<span><a}\OtherTok{ href=}\StringTok{"#Python-Setup"}\OtherTok{ data-toc-modified-id=}\StringTok{"Python-Setup-1"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{1}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Python Setup}\KeywordTok{</a></span>}
+        \KeywordTok{<ul}\OtherTok{ class=}\StringTok{"toc-item"}\KeywordTok{>}
+    \KeywordTok{<li>}
+        \KeywordTok{<span><a}\OtherTok{ href=}\StringTok{"#Change-the-width-of-the-page"}\OtherTok{ data-toc-modified-id=}\StringTok{"Change-the-width-of-the-page-1.1"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{1.1}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Change the width of the page}\KeywordTok{</a></span></li>}
+        \KeywordTok{<li>}
+            \KeywordTok{<span><a}\OtherTok{ href=}\StringTok{"#Import-packages"}\OtherTok{ data-toc-modified-id=}\StringTok{"Import-packages-1.2"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{1.2}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Import packages}\KeywordTok{</a></span></li>}
+        \KeywordTok{</ul>}
+    \KeywordTok{</li>}
+    \KeywordTok{<li>}
+        \KeywordTok{<span><a}\OtherTok{ href=}\StringTok{"#Colours"}\OtherTok{ data-toc-modified-id=}\StringTok{"Colours-2"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{2}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Colours}\KeywordTok{</a></span>}
+        \KeywordTok{<ul}\OtherTok{ class=}\StringTok{"toc-item"}\KeywordTok{>}
+    \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#Colour-line-graph"}\OtherTok{ data-toc-modified-id=}\StringTok{"Colour-line-graph-2.1"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{2.1}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Colour line graph}\KeywordTok{</a></span></li>}
+        \KeywordTok{</ul>}
+    \KeywordTok{</li>}
+    \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#Totals-for-studies"}\OtherTok{ data-toc-modified-id=}\StringTok{"Totals-for-studies-3"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{3}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Totals for studies}\KeywordTok{</a></span></li>}
+    \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#Functions-for-calculating-trinucleotide-context-specific-mutation-rates"}\OtherTok{ data-toc-modified-id=}\StringTok{"Functions-for-calculating-trinucleotide-context-specific-mutation-rates-4"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{4}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Functions for calculating trinucleotide-context specific mutation rates}\KeywordTok{</a></span>}
+        \KeywordTok{<ul}\OtherTok{ class=}\StringTok{"toc-item"}\KeywordTok{>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#Calculating-mutation-rates-for-individual-variants"}\OtherTok{ data-toc-modified-id=}\StringTok{"Calculating-mutation-rates-for-individual-variants-4.1"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{4.1}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Calculating mutation rates for individual variants}\KeywordTok{</a></span>}
+            \KeywordTok{<ul}\OtherTok{ class=}\StringTok{"toc-item"}\KeywordTok{>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#DNMT3A"}\OtherTok{ data-toc-modified-id=}\StringTok{"DNMT3A-4.1.1"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{4.1.1}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{DNMT3A}\KeywordTok{</a></span></li>}
+            \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#TET2"}\OtherTok{ data-toc-modified-id=}\StringTok{"TET2-4.1.2"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{4.1.2}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{TET2}\KeywordTok{</a></span></li>}
+            \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#ASXL1"}\OtherTok{ data-toc-modified-id=}\StringTok{"ASXL1-4.1.3"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{4.1.3}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{ASXL1}\KeywordTok{</a></span></li>}
+            \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#TP53"}\OtherTok{ data-toc-modified-id=}\StringTok{"TP53-4.1.4"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{4.1.4}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{TP53}\KeywordTok{</a></span></li></ul></li>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#Calculating-mutation-rates-from-a-.csv-file-of-variants"}\OtherTok{ data-toc-modified-id=}\StringTok{"Calculating-mutation-rates-from-a-.csv-file-of-variants-4.2"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{4.2}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Calculating mutation rates from a .csv file of variants}\KeywordTok{</a></span>}
+            \KeywordTok{<ul}\OtherTok{ class=}\StringTok{"toc-item"}\KeywordTok{>}
+            \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#DNMT3A"}\OtherTok{ data-toc-modified-id=}\StringTok{"DNMT3A-4.2.1"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{4.2.1}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{DNMT3A}\KeywordTok{</a></span></li>}
+            \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#TET2"}\OtherTok{ data-toc-modified-id=}\StringTok{"TET2-4.2.2"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{4.2.2}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{TET2}\KeywordTok{</a></span></li>}
+            \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#ASXL1"}\OtherTok{ data-toc-modified-id=}\StringTok{"ASXL1-4.2.3"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{4.2.3}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{ASXL1}\KeywordTok{</a></span></li>}
+            \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#TP53"}\OtherTok{ data-toc-modified-id=}\StringTok{"TP53-4.2.4"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{4.2.4}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{TP53}\KeywordTok{</a></span></li></ul></li>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#Calculating-mutation-rates-from-a-list-of-variants"}\OtherTok{ data-toc-modified-id=}\StringTok{"Calculating-mutation-rates-from-a-list-of-variants-4.3"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{4.3}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Calculating mutation rates from a list of variants}\KeywordTok{</a></span>}
+            \KeywordTok{<ul}\OtherTok{ class=}\StringTok{"toc-item"}\KeywordTok{>}
+            \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#DNMT3A"}\OtherTok{ data-toc-modified-id=}\StringTok{"DNMT3A-4.3.1"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{4.3.1}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{DNMT3A}\KeywordTok{</a></span></li>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#TET2"}\OtherTok{ data-toc-modified-id=}\StringTok{"TET2-4.3.2"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{4.3.2}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{TET2}\KeywordTok{</a></span></li>}
+            \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#ASXL1"}\OtherTok{ data-toc-modified-id=}\StringTok{"ASXL1-4.3.3"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{4.3.3}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{ASXL1}\KeywordTok{</a></span></li>}
+            \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#TP53"}\OtherTok{ data-toc-modified-id=}\StringTok{"TP53-4.3.4"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{4.3.4}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{TP53}\KeywordTok{</a></span></li></ul></li></ul></li>}
+    \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#Lists-of-variants-targeted-by-each-study"}\OtherTok{ data-toc-modified-id=}\StringTok{"Lists-of-variants-targeted-by-each-study-5"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{5}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Lists of variants targeted by each study}\KeywordTok{</a></span><ul}\OtherTok{ class=}\StringTok{"toc-item"}\KeywordTok{><li><span><a}\OtherTok{ href=}\StringTok{"#Jaiswal-2014"}\OtherTok{ data-toc-modified-id=}\StringTok{"Jaiswal-2014-5.1"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{5.1}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Jaiswal 2014}\KeywordTok{</a></span></li>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#Genovese-2014"}\OtherTok{ data-toc-modified-id=}\StringTok{"Genovese-2014-5.2"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{5.2}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Genovese 2014}\KeywordTok{</a></span></li>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#McKerrel-2015"}\OtherTok{ data-toc-modified-id=}\StringTok{"McKerrel-2015-5.3"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{5.3}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{McKerrel 2015}\KeywordTok{</a></span></li>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#Zink-2017"}\OtherTok{ data-toc-modified-id=}\StringTok{"Zink-2017-5.4"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{5.4}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Zink 2017}\KeywordTok{</a></span></li>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#Coombs-2017"}\OtherTok{ data-toc-modified-id=}\StringTok{"Coombs-2017-5.5"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{5.5}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Coombs 2017}\KeywordTok{</a></span></li>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#Young-2016-}\DecValTok{&amp;}\StringTok{-2019"}\OtherTok{ data-toc-modified-id=}\StringTok{"Young-2016-}\DecValTok{&amp;}\StringTok{-2019-5.6"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{5.6}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Young 2016 }\DecValTok{&amp;}\NormalTok{ 2019}\KeywordTok{</a></span></li>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#Desai-2018"}\OtherTok{ data-toc-modified-id=}\StringTok{"Desai-2018-5.7"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{5.7}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Desai 2018}\KeywordTok{</a></span></li>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#Acuna-Hidalgo-2017"}\OtherTok{ data-toc-modified-id=}\StringTok{"Acuna-Hidalgo-2017-5.8"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{5.8}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Acuna-Hidalgo 2017}\KeywordTok{</a></span></li></ul></li>}
+    \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#Lists-of-all-possible-variants-in-DNMT3A,-TET2,-ASXL1,-TP53"}\OtherTok{ data-toc-modified-id=}\StringTok{"Lists-of-all-possible-variants-in-DNMT3A,-TET2,-ASXL1,-TP53-6"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{6}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Lists of all possible variants in DNMT3A, TET2, ASXL1, TP53}\KeywordTok{</a></span>}
+        \KeywordTok{<ul}\OtherTok{ class=}\StringTok{"toc-item"}\KeywordTok{>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#DNMT3A"}\OtherTok{ data-toc-modified-id=}\StringTok{"DNMT3A-6.1"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{6.1}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{DNMT3A}\KeywordTok{</a></span></li>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#TET2"}\OtherTok{ data-toc-modified-id=}\StringTok{"TET2-6.2"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{6.2}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{TET2}\KeywordTok{</a></span></li>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#ASXL1"}\OtherTok{ data-toc-modified-id=}\StringTok{"ASXL1-6.3"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{6.3}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{ASXL1}\KeywordTok{</a></span></li>}
+    \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#TP53"}\OtherTok{ data-toc-modified-id=}\StringTok{"TP53-6.4"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{6.4}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{TP53}\KeywordTok{</a></span></li></ul></li>}
+    \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#Actual-number-of-observations-of-each-variant"}\OtherTok{ data-toc-modified-id=}\StringTok{"Actual-number-of-observations-of-each-variant-7"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{7}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Actual number of observations of each variant}\KeywordTok{</a></span>}
+        \KeywordTok{<ul}\OtherTok{ class=}\StringTok{"toc-item"}\KeywordTok{>}
+        \KeywordTok{<li>}
+            \KeywordTok{<ul}\OtherTok{ class=}\StringTok{"toc-item"}\KeywordTok{>}
+            \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#DNMT3A"}\OtherTok{ data-toc-modified-id=}\StringTok{"DNMT3A-7.0.1"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{7.0.1}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{DNMT3A}\KeywordTok{</a></span></li>}
+            \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#TET2"}\OtherTok{ data-toc-modified-id=}\StringTok{"TET2-7.0.2"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{7.0.2}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{TET2}\KeywordTok{</a></span></li>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#ASXL1"}\OtherTok{ data-toc-modified-id=}\StringTok{"ASXL1-7.0.3"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{7.0.3}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{ASXL1}\KeywordTok{</a></span></li>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#TP53"}\OtherTok{ data-toc-modified-id=}\StringTok{"TP53-7.0.4"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{7.0.4}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{TP53}\KeywordTok{</a></span></li></ul></li></ul></li>}
+    \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#Functions-for-calculating-the-expected-number-of-observations-of-a-variant"}\OtherTok{ data-toc-modified-id=}\StringTok{"Functions-for-calculating-the-expected-number-of-observations-of-a-variant-8"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{8}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Functions for calculating the expected number of observations of a variant}\KeywordTok{</a></span></li>}
+    \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#Maximum-Likelihood-Estimation-for-s"}\OtherTok{ data-toc-modified-id=}\StringTok{"Maximum-Likelihood-Estimation-for-s-9"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{9}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{Maximum Likelihood Estimation for s}\KeywordTok{</a></span>}
+        \KeywordTok{<ul}\OtherTok{ class=}\StringTok{"toc-item"}\KeywordTok{><li><span><a}\OtherTok{ href=}\StringTok{"#DNMT3A-variants"}\OtherTok{ data-toc-modified-id=}\StringTok{"DNMT3A-variants-9.1"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{9.1}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{DNMT3A variants}\KeywordTok{</a></span></li>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#TET2-variants"}\OtherTok{ data-toc-modified-id=}\StringTok{"TET2-variants-9.2"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{9.2}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{TET2 variants}\KeywordTok{</a></span></li>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#ASXL1-variants"}\OtherTok{ data-toc-modified-id=}\StringTok{"ASXL1-variants-9.3"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{9.3}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{ASXL1 variants}\KeywordTok{</a></span></li>}
+        \KeywordTok{<li><span><a}\OtherTok{ href=}\StringTok{"#TP53-variants"}\OtherTok{ data-toc-modified-id=}\StringTok{"TP53-variants-9.4"}\KeywordTok{><span}\OtherTok{ class=}\StringTok{"toc-item-num"}\KeywordTok{>}\NormalTok{9.4}\DecValTok{&nbsp;&nbsp;}\KeywordTok{</span>}\NormalTok{TP53 variants}\KeywordTok{</a></span></li>}
+        \KeywordTok{</ul>}
+        \KeywordTok{</li>}
+    \KeywordTok{</ul>}
+\KeywordTok{</div>}
+\end{Highlighting}
+\end{Shaded}
+
 \chapter{Visualization}\label{visualization}
 
 \section{Color}\label{color}
@@ -452,6 +532,26 @@ A more complicated venn diagram.
 \NormalTok{             ha}\OperatorTok{=}\StringTok{'center'}\NormalTok{, textcoords}\OperatorTok{=}\StringTok{'offset points'}\NormalTok{, bbox}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(boxstyle}\OperatorTok{=}\StringTok{'round,pad=0.5'}\NormalTok{, fc}\OperatorTok{=}\StringTok{'gray'}\NormalTok{, alpha}\OperatorTok{=}\FloatTok{0.1}\NormalTok{),}
 \NormalTok{                          arrowprops}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(arrowstyle}\OperatorTok{=}\StringTok{'->'}\NormalTok{, connectionstyle}\OperatorTok{=}\StringTok{'arc3,rad=0.5'}\NormalTok{,color}\OperatorTok{=}\StringTok{'gray'}\NormalTok{))}
 \NormalTok{                          plt.show()}
+\end{Highlighting}
+\end{Shaded}
+
+Log scales seem to always be a challenge. Here is at least one solution
+to change ticks to log manually.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y_major_ticks }\OperatorTok{=}\NormalTok{ [np.log(}\DecValTok{100}\NormalTok{),np.log(}\DecValTok{200}\NormalTok{),np.log(}\DecValTok{300}\NormalTok{),np.log(}\DecValTok{400}\NormalTok{),np.log(}\DecValTok{500}\NormalTok{),np.log(}\DecValTok{600}\NormalTok{),np.log(}\DecValTok{700}\NormalTok{),np.log(}\DecValTok{800}\NormalTok{),np.log(}\DecValTok{900}\NormalTok{),}\OperatorTok{\textbackslash{}}
+\NormalTok{                 np.log(}\DecValTok{1000}\NormalTok{),np.log(}\DecValTok{2000}\NormalTok{),np.log(}\DecValTok{3000}\NormalTok{),np.log(}\DecValTok{4000}\NormalTok{),np.log(}\DecValTok{5000}\NormalTok{),np.log(}\DecValTok{6000}\NormalTok{),np.log(}\DecValTok{7000}\NormalTok{),np.log(}\DecValTok{8000}\NormalTok{),np.log(}\DecValTok{9000}\NormalTok{),}\OperatorTok{\textbackslash{}}
+\NormalTok{                 np.log(}\DecValTok{10000}\NormalTok{),np.log(}\DecValTok{20000}\NormalTok{),np.log(}\DecValTok{30000}\NormalTok{),np.log(}\DecValTok{40000}\NormalTok{),np.log(}\DecValTok{50000}\NormalTok{),np.log(}\DecValTok{60000}\NormalTok{),np.log(}\DecValTok{70000}\NormalTok{),np.log(}\DecValTok{80000}\NormalTok{),np.log(}\DecValTok{90000}\NormalTok{),}\OperatorTok{\textbackslash{}}
+\NormalTok{                 np.log(}\DecValTok{100000}\NormalTok{),np.log(}\DecValTok{200000}\NormalTok{),np.log(}\DecValTok{300000}\NormalTok{),np.log(}\DecValTok{400000}\NormalTok{),np.log(}\DecValTok{500000}\NormalTok{),np.log(}\DecValTok{600000}\NormalTok{),np.log(}\DecValTok{700000}\NormalTok{),np.log(}\DecValTok{800000}\NormalTok{),np.log(}\DecValTok{900000}\NormalTok{),}\OperatorTok{\textbackslash{}}
+\NormalTok{                 np.log(}\DecValTok{1000000}\NormalTok{),np.log(}\DecValTok{2000000}\NormalTok{),np.log(}\DecValTok{3000000}\NormalTok{),np.log(}\DecValTok{4000000}\NormalTok{),np.log(}\DecValTok{5000000}\NormalTok{),np.log(}\DecValTok{6000000}\NormalTok{),np.log(}\DecValTok{7000000}\NormalTok{),np.log(}\DecValTok{8000000}\NormalTok{),np.log(}\DecValTok{9000000}\NormalTok{),}\OperatorTok{\textbackslash{}}
+\NormalTok{                 np.log(}\DecValTok{10000000}\NormalTok{)]}
+
+\NormalTok{y_major_tick_labels }\OperatorTok{=}\NormalTok{ [}\StringTok{"100"}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{, }\StringTok{"1000"}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{, }\StringTok{"10,000"}\NormalTok{,}\OperatorTok{\textbackslash{}}
+                       \StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{"100,000"}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{, }\StringTok{"1,000,000"}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{,}\StringTok{""}\NormalTok{, }\StringTok{"10,000,000"}\NormalTok{ ]}
+\NormalTok{ax1.set_yticks(y_major_ticks)}
+\NormalTok{ax1.set_yticklabels(y_major_tick_labels, fontsize }\OperatorTok{=}\NormalTok{ axisfont)}
+\NormalTok{ax1.yaxis.set_tick_params(width}\OperatorTok{=}\NormalTok{scale, color }\OperatorTok{=}\NormalTok{ grey3, length }\OperatorTok{=} \DecValTok{6}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -693,7 +793,7 @@ column type.
 \subsection{Replace values}\label{replace-values}
 
 New data can be set within a DataFrame one subset at a time in a way
-that will avoid the SwttingWithCopyWarning.
+that will avoid the SettingWithCopyWarning.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -713,6 +813,15 @@ that will avoid the SwttingWithCopyWarning.
 ## 2  Flower_Color    Purple        Flower
 ## 3  Flower_Color     White        Flower
 \end{verbatim}
+
+There is a more simple alternative to the above method buit it may
+result in the SettingWithCopyWarning.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OperatorTok{=}\NormalTok{ df.replace(}\StringTok{'pork'}\NormalTok{,}\StringTok{'bacon'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Combining Data Structures}\label{combining-data-structures}
 
