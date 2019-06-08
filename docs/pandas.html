@@ -152,6 +152,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.2.3" data-path="git.html"><a href="git.html#resetting-a-repository"><i class="fa fa-check"></i><b>8.2.3</b> Resetting a Repository</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="vim.html"><a href="vim.html"><i class="fa fa-check"></i><b>9</b> VIM</a><ul>
+<li class="chapter" data-level="9.1" data-path="vim.html"><a href="vim.html#formatting"><i class="fa fa-check"></i><b>9.1</b> Formatting</a></li>
+<li class="chapter" data-level="9.2" data-path="vim.html"><a href="vim.html#spellcheck"><i class="fa fa-check"></i><b>9.2</b> Spellcheck</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -179,6 +183,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">7.1</span> File I/O</h2>
 <p>Read a csv file into a DataFrame.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">pd.read_csv(filepath)</code></pre></div>
+<p>Write a DataFrame to a file.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x.to_csv(path_or_buf<span class="op">=</span><span class="st">&#39;outputDir&#39;</span>, sep<span class="op">=</span><span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>, header<span class="op">=</span><span class="va">False</span>, index<span class="op">=</span><span class="va">False</span>)</code></pre></div>
 </div>
 <div id="relabeling" class="section level2">
 <h2><span class="header-section-number">7.2</span> Relabeling</h2>
@@ -188,7 +194,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="sorting-and-arranging" class="section level2">
 <h2><span class="header-section-number">7.3</span> Sorting and Arranging</h2>
 <p>The data in a DataFrame can be sorted in numeric or lexicographic order. The following code sorts the values within the columns a and b.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df.sort_values([<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>])</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df.sort_values([<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>], ascending<span class="op">=</span><span class="va">False</span>)</code></pre></div>
 </div>
 <div id="editing-data" class="section level2">
 <h2><span class="header-section-number">7.4</span> Editing Data</h2>

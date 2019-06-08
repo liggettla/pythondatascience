@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>References | Data Science With Python</title>
+  <title>Chapter 9 VIM | Data Science With Python</title>
   <meta name="description" content="These are notes and thoughts within the scope of the field of genomics.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="References | Data Science With Python" />
+  <meta property="og:title" content="Chapter 9 VIM | Data Science With Python" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | Data Science With Python" />
+  <meta name="twitter:title" content="Chapter 9 VIM | Data Science With Python" />
   
   <meta name="twitter:description" content="These are notes and thoughts within the scope of the field of genomics." />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="vim.html">
-
+<link rel="prev" href="git.html">
+<link rel="next" href="references.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -177,13 +177,33 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
-
-<div id="refs" class="references">
-<div>
-<p>Xie, Yihui. 2018. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown" class="uri">https://CRAN.R-project.org/package=bookdown</a>.</p>
+<div id="vim" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> VIM</h1>
+<div id="formatting" class="section level2">
+<h2><span class="header-section-number">9.1</span> Formatting</h2>
+<p>Automatic newlines are inserted by default; this behavior can be overidden with the following.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">:<span class="ex">set</span> wrap
+:<span class="ex">set</span> textwidth=0 wrapmargin=0</code></pre></div>
 </div>
+<div id="spellcheck" class="section level2">
+<h2><span class="header-section-number">9.2</span> Spellcheck</h2>
+<p>To setup spellchecking first setup a personal dictionary file.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">mkdir</span> -p ~/.vim/spell/    # makes a directory for personal dictionary</code></pre></div>
+<p>Then refer to the dictionary file within VIM, and enable spellchecking.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># set personal dictionary</span>
+:<span class="ex">set</span> spellfile=~/.vim/spell/en.utf-8.add
+<span class="co"># turn spellcheck on</span>
+:<span class="ex">set</span> spell</code></pre></div>
+<p>Get spellcheck commands.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">:<span class="ex">help</span> spell</code></pre></div>
+<p>Add a word to personal dictionary.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">zg</span></code></pre></div>
+<p>Move to next and previous misspelled word.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">]<span class="ex">s</span>
+[<span class="ex">s</span></code></pre></div>
+<p>Get suggestions for misspelled word.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="va">z=</span></code></pre></div>
+
 </div>
 </div>
             </section>
@@ -191,8 +211,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="vim.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="git.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -222,7 +242,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/99-references.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/08-VIM.Rmd",
 "text": "Edit"
 },
 "history": {
