@@ -1,0 +1,732 @@
+--- 
+title: "Data Science With Python"
+author: "L A Liggett"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+description: "These are notes and thoughts within the scope of the field of genomics."
+---
+
+# Prerequisites
+
+This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports, e.g., a math equation $a^2 + b^2 = c^2$.
+
+The **bookdown** package can be installed from CRAN or Github:
+
+```{r eval=FALSE}
+install.packages("bookdown")
+# or the development version
+# devtools::install_github("rstudio/bookdown")
+```
+
+Remember each Rmd file contains one and only one chapter, and a chapter is defined by the first-level heading `#`.
+
+To compile this example to PDF, you need XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <https://yihui.name/tinytex/>.
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+
+<!--chapter:end:index.Rmd-->
+
+# Introduction {#intro}
+
+You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(visualization).
+
+Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
+
+And this is some other random stuff.
+
+```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
+par(mar = c(4, 4, .1, .1))
+plot(pressure, type = 'b', pch = 19)
+```
+
+Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
+
+```{r nice-tab, tidy=FALSE}
+knitr::kable(
+  head(iris, 20), caption = 'Here is a nice table!',
+  booktabs = TRUE
+)
+```
+
+```{r}
+knitr::include_graphics(rep("knit-logo.png", 3))
+```
+
+```{r tidy=FALSE}
+knitr::include_app("https://yihui.shinyapps.io/miniUI/", 
+                     height = "600px")
+```
+
+```{python}
+import pandas as pd
+x = 'hello, python world!'
+print(x.split(' '))
+```
+
+You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015].
+
+<!--chapter:end:01-intro.Rmd-->
+
+# JupyterLab {#jupyter}
+
+Here is a simple template that I use that controls a couple useful things when starting a new notebook.
+
+```{python eval=FALSE}
+import sys
+sys.path.append('../util')
+
+%reload_ext autoreload
+%autoreload 2
+
+from util import *
+import numpy as np                  
+import pandas as pd                 
+from matplotlib import pyplot as plt
+import seaborn as sns
+
+sns.set_palette('pastel')
+sns.set_style('ticks')
+sns.set_context('paper', font_scale=1)
+```
+
+It is often convenient to have a notebook automatically refresh the imported libraries so that they can be modified while working on a JupyterLab notebook.
+
+```{python eval=FALSE}
+%reload_ext autoreload
+%autoreload 2
+```
+
+To allow directory organization, dependcies can be separated into different directories and imported into a jupyter notebook using the following import statement.
+
+```{python eval=FALSE}
+import sys
+sys.path.append('../util')
+```
+
+A table of contents can be created to refer to each of the headers throughout a notebook in html format. The code is below (Obviously needs to be simplified.)
+```{html eval=FALSE}
+<h1>Table of Contents<span class="tocSkip"></span></h1>
+<div class="toc">
+    <ul class="toc-item">
+    <li>
+        <span><a href="#Python-Setup" data-toc-modified-id="Python-Setup-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Python Setup</a></span>
+        <ul class="toc-item">
+    <li>
+        <span><a href="#Change-the-width-of-the-page" data-toc-modified-id="Change-the-width-of-the-page-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Change the width of the page</a></span></li>
+        <li>
+            <span><a href="#Import-packages" data-toc-modified-id="Import-packages-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Import packages</a></span></li>
+        </ul>
+    </li>
+    <li>
+        <span><a href="#Colours" data-toc-modified-id="Colours-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Colours</a></span>
+        <ul class="toc-item">
+    <li><span><a href="#Colour-line-graph" data-toc-modified-id="Colour-line-graph-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Colour line graph</a></span></li>
+        </ul>
+    </li>
+    <li><span><a href="#Totals-for-studies" data-toc-modified-id="Totals-for-studies-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Totals for studies</a></span></li>
+    <li><span><a href="#Functions-for-calculating-trinucleotide-context-specific-mutation-rates" data-toc-modified-id="Functions-for-calculating-trinucleotide-context-specific-mutation-rates-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Functions for calculating trinucleotide-context specific mutation rates</a></span>
+        <ul class="toc-item">
+        <li><span><a href="#Calculating-mutation-rates-for-individual-variants" data-toc-modified-id="Calculating-mutation-rates-for-individual-variants-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Calculating mutation rates for individual variants</a></span>
+            <ul class="toc-item">
+        <li><span><a href="#DNMT3A" data-toc-modified-id="DNMT3A-4.1.1"><span class="toc-item-num">4.1.1&nbsp;&nbsp;</span>DNMT3A</a></span></li>
+            <li><span><a href="#TET2" data-toc-modified-id="TET2-4.1.2"><span class="toc-item-num">4.1.2&nbsp;&nbsp;</span>TET2</a></span></li>
+            <li><span><a href="#ASXL1" data-toc-modified-id="ASXL1-4.1.3"><span class="toc-item-num">4.1.3&nbsp;&nbsp;</span>ASXL1</a></span></li>
+            <li><span><a href="#TP53" data-toc-modified-id="TP53-4.1.4"><span class="toc-item-num">4.1.4&nbsp;&nbsp;</span>TP53</a></span></li></ul></li>
+        <li><span><a href="#Calculating-mutation-rates-from-a-.csv-file-of-variants" data-toc-modified-id="Calculating-mutation-rates-from-a-.csv-file-of-variants-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Calculating mutation rates from a .csv file of variants</a></span>
+            <ul class="toc-item">
+            <li><span><a href="#DNMT3A" data-toc-modified-id="DNMT3A-4.2.1"><span class="toc-item-num">4.2.1&nbsp;&nbsp;</span>DNMT3A</a></span></li>
+            <li><span><a href="#TET2" data-toc-modified-id="TET2-4.2.2"><span class="toc-item-num">4.2.2&nbsp;&nbsp;</span>TET2</a></span></li>
+            <li><span><a href="#ASXL1" data-toc-modified-id="ASXL1-4.2.3"><span class="toc-item-num">4.2.3&nbsp;&nbsp;</span>ASXL1</a></span></li>
+            <li><span><a href="#TP53" data-toc-modified-id="TP53-4.2.4"><span class="toc-item-num">4.2.4&nbsp;&nbsp;</span>TP53</a></span></li></ul></li>
+        <li><span><a href="#Calculating-mutation-rates-from-a-list-of-variants" data-toc-modified-id="Calculating-mutation-rates-from-a-list-of-variants-4.3"><span class="toc-item-num">4.3&nbsp;&nbsp;</span>Calculating mutation rates from a list of variants</a></span>
+            <ul class="toc-item">
+            <li><span><a href="#DNMT3A" data-toc-modified-id="DNMT3A-4.3.1"><span class="toc-item-num">4.3.1&nbsp;&nbsp;</span>DNMT3A</a></span></li>
+        <li><span><a href="#TET2" data-toc-modified-id="TET2-4.3.2"><span class="toc-item-num">4.3.2&nbsp;&nbsp;</span>TET2</a></span></li>
+            <li><span><a href="#ASXL1" data-toc-modified-id="ASXL1-4.3.3"><span class="toc-item-num">4.3.3&nbsp;&nbsp;</span>ASXL1</a></span></li>
+            <li><span><a href="#TP53" data-toc-modified-id="TP53-4.3.4"><span class="toc-item-num">4.3.4&nbsp;&nbsp;</span>TP53</a></span></li></ul></li></ul></li>
+    <li><span><a href="#Lists-of-variants-targeted-by-each-study" data-toc-modified-id="Lists-of-variants-targeted-by-each-study-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Lists of variants targeted by each study</a></span><ul class="toc-item"><li><span><a href="#Jaiswal-2014" data-toc-modified-id="Jaiswal-2014-5.1"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>Jaiswal 2014</a></span></li>
+        <li><span><a href="#Genovese-2014" data-toc-modified-id="Genovese-2014-5.2"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>Genovese 2014</a></span></li>
+        <li><span><a href="#McKerrel-2015" data-toc-modified-id="McKerrel-2015-5.3"><span class="toc-item-num">5.3&nbsp;&nbsp;</span>McKerrel 2015</a></span></li>
+        <li><span><a href="#Zink-2017" data-toc-modified-id="Zink-2017-5.4"><span class="toc-item-num">5.4&nbsp;&nbsp;</span>Zink 2017</a></span></li>
+        <li><span><a href="#Coombs-2017" data-toc-modified-id="Coombs-2017-5.5"><span class="toc-item-num">5.5&nbsp;&nbsp;</span>Coombs 2017</a></span></li>
+        <li><span><a href="#Young-2016-&amp;-2019" data-toc-modified-id="Young-2016-&amp;-2019-5.6"><span class="toc-item-num">5.6&nbsp;&nbsp;</span>Young 2016 &amp; 2019</a></span></li>
+        <li><span><a href="#Desai-2018" data-toc-modified-id="Desai-2018-5.7"><span class="toc-item-num">5.7&nbsp;&nbsp;</span>Desai 2018</a></span></li>
+        <li><span><a href="#Acuna-Hidalgo-2017" data-toc-modified-id="Acuna-Hidalgo-2017-5.8"><span class="toc-item-num">5.8&nbsp;&nbsp;</span>Acuna-Hidalgo 2017</a></span></li></ul></li>
+    <li><span><a href="#Lists-of-all-possible-variants-in-DNMT3A,-TET2,-ASXL1,-TP53" data-toc-modified-id="Lists-of-all-possible-variants-in-DNMT3A,-TET2,-ASXL1,-TP53-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Lists of all possible variants in DNMT3A, TET2, ASXL1, TP53</a></span>
+        <ul class="toc-item">
+        <li><span><a href="#DNMT3A" data-toc-modified-id="DNMT3A-6.1"><span class="toc-item-num">6.1&nbsp;&nbsp;</span>DNMT3A</a></span></li>
+        <li><span><a href="#TET2" data-toc-modified-id="TET2-6.2"><span class="toc-item-num">6.2&nbsp;&nbsp;</span>TET2</a></span></li>
+        <li><span><a href="#ASXL1" data-toc-modified-id="ASXL1-6.3"><span class="toc-item-num">6.3&nbsp;&nbsp;</span>ASXL1</a></span></li>
+    <li><span><a href="#TP53" data-toc-modified-id="TP53-6.4"><span class="toc-item-num">6.4&nbsp;&nbsp;</span>TP53</a></span></li></ul></li>
+    <li><span><a href="#Actual-number-of-observations-of-each-variant" data-toc-modified-id="Actual-number-of-observations-of-each-variant-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Actual number of observations of each variant</a></span>
+        <ul class="toc-item">
+        <li>
+            <ul class="toc-item">
+            <li><span><a href="#DNMT3A" data-toc-modified-id="DNMT3A-7.0.1"><span class="toc-item-num">7.0.1&nbsp;&nbsp;</span>DNMT3A</a></span></li>
+            <li><span><a href="#TET2" data-toc-modified-id="TET2-7.0.2"><span class="toc-item-num">7.0.2&nbsp;&nbsp;</span>TET2</a></span></li>
+        <li><span><a href="#ASXL1" data-toc-modified-id="ASXL1-7.0.3"><span class="toc-item-num">7.0.3&nbsp;&nbsp;</span>ASXL1</a></span></li>
+        <li><span><a href="#TP53" data-toc-modified-id="TP53-7.0.4"><span class="toc-item-num">7.0.4&nbsp;&nbsp;</span>TP53</a></span></li></ul></li></ul></li>
+    <li><span><a href="#Functions-for-calculating-the-expected-number-of-observations-of-a-variant" data-toc-modified-id="Functions-for-calculating-the-expected-number-of-observations-of-a-variant-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>Functions for calculating the expected number of observations of a variant</a></span></li>
+    <li><span><a href="#Maximum-Likelihood-Estimation-for-s" data-toc-modified-id="Maximum-Likelihood-Estimation-for-s-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>Maximum Likelihood Estimation for s</a></span>
+        <ul class="toc-item"><li><span><a href="#DNMT3A-variants" data-toc-modified-id="DNMT3A-variants-9.1"><span class="toc-item-num">9.1&nbsp;&nbsp;</span>DNMT3A variants</a></span></li>
+        <li><span><a href="#TET2-variants" data-toc-modified-id="TET2-variants-9.2"><span class="toc-item-num">9.2&nbsp;&nbsp;</span>TET2 variants</a></span></li>
+        <li><span><a href="#ASXL1-variants" data-toc-modified-id="ASXL1-variants-9.3"><span class="toc-item-num">9.3&nbsp;&nbsp;</span>ASXL1 variants</a></span></li>
+        <li><span><a href="#TP53-variants" data-toc-modified-id="TP53-variants-9.4"><span class="toc-item-num">9.4&nbsp;&nbsp;</span>TP53 variants</a></span></li>
+        </ul>
+        </li>
+    </ul>
+</div>
+```
+
+<!--chapter:end:02-jupyter.Rmd-->
+
+# Visualization {#visualization}
+
+## Color
+
+### Colorschemes
+Seaborn Themes
+```{python eval=FALSE}
+Pastel: {'Blue':'#a3c6ff', 'Orange':'#f7ab60', 'Green':'#60f7a9', 'Red':'#fc9d94', 'Purple':'#bea3ff', 'Brown':'#d1b485', 'Pink':'#f7afdf', 'Gray':'#c4c4c4', 'Yellow':'#ffffaa', 'LBlue':'#baf6ff'}
+```
+```{python eval=FALSE}
+Deep: {'Green':'#5baf68'}
+```
+
+### Controlling Coloration
+Not all plots automatically plot with a white background, and when using something dark like jupyterlab or a presentation this can be frustrating. The background color can be set in pyplot like this.
+```{python eval=FALSE}
+fig.patch.set_facecolor('xkcd:mint green')
+```
+
+When plotting, samples will not always be colored with the same color, especially when different subsets of samples are included in different plots. Here is a manual workaround to specify the coloration of displayed data. This is a bit cumbersome so there might be a more elegant way of achieving the same outcome.
+```{python eval=FALSE}
+# here is an example where sample order is controlled from a pandas DataFrame
+sample_order = all_vars.sort_values(['ID']).drop_duplicates(['Sample']).Sample
+
+# the color order is specified here
+# colors should be in the same order as the above sample_order Series, excluding samples with no data
+colors = [pastel['Brown'], pastel['Blue'],
+          pastel['Orange'], pastel['Purple'],
+          pastel['Green'], pastel['Red'],
+          ]
+
+plt.figure()
+# this is an example of plotting that uses the sample_order and palette to control coloration order
+sns.catplot(x='Sample', y='VAF', hue='Gene', jitter=True,
+            data=oncogenic[oncogenic.Location == 'Peripheral'],
+            legend=False, order=sample_order, palette=sns.color_palette(colors))
+
+# a colorscheme can be specified if desired
+pastel = {'Blue':'#a3c6ff', 'Orange':'#f7ab60',
+          'Green':'#60f7a9', 'Red':'#fc9d94',
+          'Purple':'#bea3ff', 'Brown':'#d1b485',
+          'Pink':'#f7afdf', 'Gray':'#c4c4c4',
+          'Yellow':'#ffffaa', 'LBlue':'#baf6ff'}
+
+# this controls the coloration in the legend
+import matplotlib.patches as mpatches
+egfr = mpatches.Patch(color=pastel['Blue'], label='EGFR')
+pik3ca = mpatches.Patch(color=pastel['Orange'], label='PIK3CA')
+myc = mpatches.Patch(color=pastel['Green'], label='MYC')
+
+plt.legend(handles=[egfr,pik3ca,myc],
+           loc='upper right', bbox_to_anchor=(1.5, 1),
+           ncol=1) # no legend overlap
+```
+
+## Matplotlib
+Plotting a heatmap.
+
+```{python eval=FALSE}
+import matplotlib.pyplot as plt
+import numpy as np
+a = np.random.random((16, 16))
+plt.imshow(a, cmap='RdBu'', interpolation='nearest')
+plt.show()
+```
+
+Possible heatmap colors are:
+```{python eval=FALSE}
+Accent, Accent_r, Blues, Blues_r, BrBG, BrBG_r, BuGn, BuGn_r, BuPu, BuPu_r, CMRmap, CMRmap_r, Dark2, Dark2_r, GnBu, GnBu_r, Greens, Greens_r, Greys, Greys_r, OrRd, OrRd_r, Oranges, Oranges_r, PRGn, PRGn_r, Paired, Paired_r, Pastel1, Pastel1_r, Pastel2, Pastel2_r, PiYG, PiYG_r, PuBu, PuBuGn, PuBuGn_r, PuBu_r, PuOr, PuOr_r, PuRd, PuRd_r, Purples, Purples_r, RdBu, RdBu_r, RdGy, RdGy_r, RdPu, RdPu_r, RdYlBu, RdYlBu_r, RdYlGn, RdYlGn_r, Reds, Reds_r, Set1,
+Set1_r, Set2, Set2_r, Set3, Set3_r, Spectral, Spectral_r, Wistia, Wistia_r, YlGn, YlGnBu, YlGnBu_r, YlGn_r, YlOrBr, YlOrBr_r, YlOrRd, YlOrRd_r, afmhot, afmhot_r, autumn, autumn_r, binary, binary_r, bone, bone_r, brg, brg_r, bwr, bwr_r, cividis, cividis_r, cool, cool_r, coolwarm, coolwarm_r, copper, copper_r, cubehelix, cubehelix_r, flag, flag_r, gist_earth, gist_earth_r, gist_gray, gist_gray_r, gist_heat, gist_heat_r, gist_ncar, gist_ncar_r, gist_rainbow, gist_rainbow_r,
+gist_stern, gist_stern_r, gist_yarg, gist_yarg_r, gnuplot, gnuplot2, gnuplot2_r, gnuplot_r, gray, gray_r, hot, hot_r, hsv, hsv_r, icefire, icefire_r, inferno, inferno_r, jet, jet_r, magma, magma_r, mako, mako_r, nipy_spectral, nipy_spectral_r, ocean, ocean_r, pink, pink_r, plasma, plasma_r, prism, prism_r, rainbow, rainbow_r, rocket, rocket_r, seismic, seismic_r, spring, spring_r, summer, summer_r, tab10, tab10_r, tab20, tab20_r, tab20b, tab20b_r, tab20c, tab20c_r, terrain, terrain_r,
+twilight, twilight_r, twilight_shifted, twilight_shifted_r, viridis, viridis_r, vlag, vlag_r, winter, winter_r
+```
+
+A simple venn diagram.
+```{python eval=FALSE}
+from matplotlib_venn import venn2
+venn2(subsets = (3, 2, 1))
+```
+
+A more complicated venn diagram.
+```{python eval=FALSE}
+from matplotlib import pyplot as plt
+import numpy as np
+from matplotlib_venn import venn3, venn3_circles
+plt.figure(figsize=(4,4))
+v = venn3(subsets=(1, 1, 1, 1, 1, 1, 1), set_labels = ('A', 'B', 'C'))
+v.get_patch_by_id('100').set_alpha(1.0)
+v.get_patch_by_id('100').set_color('white')
+v.get_label_by_id('100').set_text('Unknown')
+v.get_label_by_id('A').set_text('Set "A"')
+c = venn3_circles(subsets=(1, 1, 1, 1, 1, 1, 1), linestyle='dotted')
+c[0].set_lw(1.0)
+c[0].set_ls('dotted')
+plt.title("Sample Venn diagram")
+plt.annotate('Unknown set', xy=v.get_label_by_id('100').get_position() - np.array([0, 0.05]), xytext=(-70,-70),
+             ha='center', textcoords='offset points', bbox=dict(boxstyle='round,pad=0.5', fc='gray', alpha=0.1),
+                          arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0.5',color='gray'))
+                          plt.show()
+
+```
+
+Log scales seem to always be a challenge. Here is at least one solution to change ticks to log manually.
+```{python eval=FALSE}
+y_major_ticks = [np.log(100),np.log(200),np.log(300),np.log(400),np.log(500),np.log(600),np.log(700),np.log(800),np.log(900),\
+                 np.log(1000),np.log(2000),np.log(3000),np.log(4000),np.log(5000),np.log(6000),np.log(7000),np.log(8000),np.log(9000),\
+                 np.log(10000),np.log(20000),np.log(30000),np.log(40000),np.log(50000),np.log(60000),np.log(70000),np.log(80000),np.log(90000),\
+                 np.log(100000),np.log(200000),np.log(300000),np.log(400000),np.log(500000),np.log(600000),np.log(700000),np.log(800000),np.log(900000),\
+                 np.log(1000000),np.log(2000000),np.log(3000000),np.log(4000000),np.log(5000000),np.log(6000000),np.log(7000000),np.log(8000000),np.log(9000000),\
+                 np.log(10000000)]
+
+y_major_tick_labels = ["100","","","","","","","","", "1000","","","","","","","","", "10,000",\
+                       "","","","","","","","","100,000","","","","","","","","", "1,000,000","","","","","","","","", "10,000,000" ]
+ax1.set_yticks(y_major_ticks)
+ax1.set_yticklabels(y_major_tick_labels, fontsize = axisfont)
+ax1.yaxis.set_tick_params(width=scale, color = grey3, length = 6)
+```
+
+## Seaborn
+
+Here is a general bar plot that includes some commonly used parameters.
+```{python eval=FALSE}
+# fits my 22 inch monitor
+plt.figure(figsize=(19.17,11.98))
+# order controls the display order of the samples
+sns.catplot(x="Sample", y="Somatic", kind="bar", data=var_counts, order=labels);
+# keeps x-axis labels, but eliminates the tick mark
+plt.tick_params(labelbottom=True, bottom=False)
+# trim off the x-axis
+sns.despine(offset=10, trim=True, bottom=True)
+# labels
+plt.title('')
+plt.ylabel('', fontsize=8)
+plt.xlabel('', fontsize=8)
+# manual control of xlabels
+labels = ['Indiv_1-a','Indiv_2','Indiv_3','Indiv_1-b']
+# control xtick order
+plt.xticks(range(len(labels)), labels, rotation=45)
+# control the number of x-ticks
+plt.locator_params(axis='x', nbins=10)
+# legend positioning
+plt.legend(loc='upper right')
+# log scale
+plt.gca().set_yscale('log')
+# this is better if neg values are needed
+plt.gca().set_yscale('symlog')
+# fit plot to display
+plt.tight_layout()
+plt.show()
+# save figure with tight_layout
+plt.savefig("test.svg", format="svg", bbox_inches="tight", dpi=1000)
+```
+
+Signifance information can be added by including p-values and label bars using the following code.
+
+```{python eval=FALSE}
+x1, x2 = 0, 1 # columns to annotate on the plot
+y2, y1 = 20, 15 # placement of the line and how for down the vertical legs go
+plt.plot([x1,x1, x2, x2], [y1, y2, y2, y1], linewidth=1, color='k') # stats line
+plt.text((x1+x2)*.5, y2+2, "p=0.09", ha='center', va='bottom', fontsize=8) # p-value or sig
+```
+
+## Statistics
+This is a two-sided T-test for the null hypothesis that two populations have the same means. It is important to note that it assumes the population variances are the same, so this must be changed if the assumption is incorrect.
+```{python eval=FALSE}
+# ttest_ind(a, b, axis=0, equal_var=True, nan_policy='propagate')
+from scipy.stats import ttest_ind
+ttest_ind(df[df['sample'] == 'one']['means'], df[df['sample'] == 'two']['means'])
+```
+
+## Various Plot Styles
+This displays each individual datapoint overlayed on a boxplot
+```{python eval=FALSE}
+ax = sns.boxplot(x='day', y='total_bill', data=tips)
+ax = sns.swarmplot(x='day', y='total_bill', data=tips, color='.25')
+```
+
+<!--chapter:end:03-visualization.Rmd-->
+
+# Biology {#biology}
+
+## General
+Some helpful commands for genetic sequence.
+```{python eval=FALSE}
+from string import ascii_uppercase # python 3
+from string import upper, lower # python 2
+upper('tcga')
+lower('TCGA')
+title('tcga') # capitalize the first letter
+```
+
+## Biopython 
+Reverse complement of sequence
+```{python eval=FALSE}
+from Bio.Seq import Seq
+str(Seq(i).reverse_complement())
+```
+
+## UCSC Genome Browser
+Get sequence from UCSC genome browser
+```{python eval=FALSE}
+from subprocess import check_output, STDOUT
+temp = check_output('wget -qO- http://genome.ucsc.edu/cgi-bin/das/hg19/dna?segment=%s:%s,%s' % (vcfObj.chrom,low,high), stderr=STDOUT, shell=True)
+```
+
+## Ref Genome
+Get sequence from reference genome
+```{python eval=FALSE}
+from subprocess import check_output, STDOUT
+temp = check_output('samtools faidx %s %s:%s-%s' % (ref, vcfObj.chrom, low, high), stderr=STDOUT, shell=True)
+
+finalSeq = ''
+for line in temp.decode('UTF-8').split('\n'):
+for line in temp.decode('UTF-8').split('\n'): # this is only necessary in python 3 to convert binary to string
+	if '>' not in line:
+		finalSeq += line
+
+finalSeq = finalSeq.upper()
+```
+
+## Personal Information
+```{python eval=FALSE}
+# parse vcf file with parseline
+if '#' not in line and 'chr' in line: # skip the info
+# vcf handling
+from parseline import VCFObj
+# or
+from util import VCFObj
+vcfObj = VCFObj(vcfLine)
+# available attributes: ao, dp, af, wt, var, chrom, location
+```
+
+<!--chapter:end:04-biology.Rmd-->
+
+# Data I/O {#io}
+
+## Reading Data Files
+Opening .gz files
+```{python eval=FALSE}
+import gzip
+for line in gzip.open('myFile.gz'):
+	print line
+```
+
+## Pickles
+Writing data in pickle format
+```{python eval=FALSE}
+import pickle
+p = open('principle.pkl', 'wb')
+pickle.dump(principleData, p)
+p.close()
+```
+
+Reading data in pickle format
+```{python eval=FALSE}
+import pickle
+p = open('principle.pkl', 'rb')
+principleData = pickle.load(p)
+p.close()
+```
+
+<!--chapter:end:05-IO.Rmd-->
+
+# Pandas {#pandas}
+
+## File I/O
+Read a csv file into a DataFrame.
+```{python eval=FALSE}
+pd.read_csv(filepath)
+```
+
+Write a DataFrame to a file.
+```{python eval=FALSE}
+x.to_csv(path_or_buf='outputDir', sep='\n', header=False, index=False)
+```
+
+## Relabeling
+Rename a column or group of columns can be done by passing a dictionary of the changes.
+```{python eval=FALSE}
+    df = df.rename(columns={'a':'b','c':'d'})
+```
+
+## Sorting and Arranging
+The data in a DataFrame can be sorted in numeric or lexicographic order.
+The following code sorts the values within the columns a and b.
+```{python eval=FALSE}
+df.sort_values(['a','b'], ascending=False)
+```
+
+## Editing Data 
+Drop columns from a DataFrame.
+```{python eval=FALSE}
+import numpy as np
+df = pd.DataFrame(np.arange(12).reshape(3,4),
+                    columns=['A', 'B', 'C', 'D'])
+print(df)
+
+df = df.drop(columns=['B', 'C']) # may not work in python 2
+df = df.drop(['B', 'C'], axis=1) # this works in python 2
+print(df)
+```
+
+Changing the datatype of a column of data can be done by just changing column type.
+```{python eval=FALSE}
+df.Age = df.Age.astype(str)
+```
+
+### Replace values 
+New data can be set within a DataFrame one subset at a time in a way that will avoid the SettingWithCopyWarning.
+```{python}
+import pandas as pd
+df = pd.DataFrame({'Trait':['Seed_Shape','Seed_Shape','Flower_Color','Flower_Color'],
+                    'Phenotype':['Round','Wrinkled','Purple','White']})
+df.loc[df.Trait == 'Seed_Shape', 'Affected_Part'] = 'Seed'
+df.loc[df.Trait == 'Flower_Color', 'Affected_Part'] = 'Flower'
+print(df)
+```
+
+There is a more simple alternative to the above method buit it may result in the SettingWithCopyWarning.
+```{python eval=FALSE}
+df = df.replace('pork','bacon')
+```
+
+## Combining Data Structures
+The following merges df and df2 using inner to get the intersection on the Sample column, where indexes are ignored if the merging is performed on a column as in the following example.
+The other possible merging strategies are:
+left: use only keys from left frame, similar to a SQL left outer join; preserve key order.
+right: use only keys from right frame, similar to a SQL right outer join; preserve key order.
+outer: use union of keys from both frames, similar to a SQL full outer join; sort keys lexicographically.
+inner: use intersection of keys from both frames, similar to a SQL inner join; preserve the order of the left keys.
+```{python eval=FALSE}
+df = pd.merge(df, df2, how='inner', on=['Sample'])
+```
+
+Appending to a Dataframe attaches a DataFrame after another one.
+```{python eval=FALSE}
+df = pd.DataFrame([[1, 2], [3, 4]], columns=list('AB'))
+df2 = pd.DataFrame([[5, 6], [7, 8]], columns=list('AB'))
+df.append(df2)
+```
+
+## Splitting
+Remove duplicates
+```{python eval=FALSE}
+x = x[~x.index.duplicated(keep='first')] # most ideal method
+
+data = pd.DataFrame({'k1':['one','two']*3+['two'],'k2':[1,1,2,3,3,4,4]})
+data.duplicated() # identify duplicate data
+data[‘k1’].duplicated()
+data['k1'].drop_duplicates()
+data.drop_duplicates['k1'] # this does the same thing as the previous line
+data.drop_duplicates(['k1','k2'], keep='last') # drops unique found in k1 and k2 and keeps the last indexed duplicate
+```
+
+## Summarizing
+The mean of column values can be calculated where each of the columns is grouped by the data in a specified column.
+```{python eval=FALSE}
+temp[['Sample','VAF','Var_Count']].groupby('Sample').mean()
+```
+
+## Arithmetic and Row-wise Analysis
+Sometimes it is helpful to analyze the value in a particular cell in a conditional manner depending on it's value and then set the result of this analysis to a corresponding cell in a new column. Here is an example where the VAF of a variant is conditionally analyzed
+```{python eval=FALSE}
+def LOH(x):
+    if x > 0.75: return 1 - x
+    elif x <= 0.75 and x > 0.25: return abs(0.5 - x)
+    else: return 0
+all_vars['LOH'] = all_vars.VAF.transform(LOH)
+max_loh = all_vars.groupby('Sample').LOH.max().reset_index().rename(columns={'LOH':'Max_LOH'})
+all_vars = pd.merge(all_vars, max_loh, how='inner', on=['Sample'])
+```
+
+
+<!--chapter:end:06-pandas.Rmd-->
+
+# Git {#git}
+
+## Setup
+### Git Setup
+The username and email needs to be added after git is installed.
+```{bash eval=FALSE}
+git config --global user.name "me"
+git config --global user.email "me@gmail.com"
+```
+After this information has been set, it can be checked.
+```{bash eval=FALSE}
+git config --list
+```
+
+### Repository Initiation
+To setup a repository, create a folder with an initial file like a README and then initiate it.
+```{bash eval=FALSE}
+git init
+git status
+```
+
+### Mirror on Online Repository
+Create a repository on a repository like github, gitlab, bitbucket, or sourceforge. Then the local git repository can be synched with the online repository.
+```{bash eval=FALSE}
+git remote add origin url-of-online-repository-here
+git push -u origin master
+```
+Of course the repository could just be setup first and then cloned.
+```{bash eval=FALSE}
+git clone url-of-online-repository-here
+```
+
+## Manipulating Commits
+### Repository Status
+The commit history of a repository can be displayed in verbose form and in summarized form.
+```{bash eval=FALSE}
+git log
+git log --oneline
+```
+
+### File Checkout
+To restore a previous version of a file it can be checked out by first identifying the version to be used using the log history and then restoring the desired file.
+```{bash eval=FALSE}
+git log --oneline
+git checkout <commit number> file.txt
+```
+
+### Resetting a Repository
+To discard the effect of the previous operation on a file.
+```{bash eval=FALSE}
+git reset HEAD file.txt
+```
+The previous version of the a file can then be restored.
+```{bash eval=FALSE}
+git checkout -- file.txt
+```
+
+
+
+<!--chapter:end:07-git.Rmd-->
+
+# Git {#git}
+
+## Formatting
+Automatic newlines are inserted by default; this behavior can be overidden with the following.
+```{bash eval=FALSE}
+:set wrap
+:set textwidth=0 wrapmargin=0
+```
+
+## Spellcheck
+To setup spellchecking first setup a personal dictionary file.
+```{bash eval=FALSE}
+mkdir -p ~/.vim/spell/    # makes a directory for personal dictionary
+```
+Then refer to the dictionary file within VIM, and enable spellchecking.
+```{bash eval=FALSE}
+# set personal dictionary
+:set spellfile=~/.vim/spell/en.utf-8.add
+# turn spellcheck on
+:set spell
+```
+Get spellcheck commands.
+```{bash eval=FALSE}
+:help spell
+```
+Add a word to personal dictionary.
+```{bash eval=FALSE}
+zg
+```
+Move to next and previous misspelled word.
+```{bash eval=FALSE}
+]s
+[s
+```
+Get suggestions for misspelled word.
+```{bash eval=FALSE}
+z=
+```
+
+### Git Setup
+The username and email needs to be added after git is installed.
+```{bash eval=FALSE}
+git config --global user.name "me"
+git config --global user.email "me@gmail.com"
+```
+After this information has been set, it can be checked.
+```{bash eval=FALSE}
+git config --list
+```
+
+### Repository Initiation
+To setup a repository, create a folder with an initial file like a README and then initiate it.
+```{bash eval=FALSE}
+git init
+git status
+```
+
+### Mirror on Online Repository
+Create a repository on a repository like github, gitlab, bitbucket, or sourceforge. Then the local git repository can be synched with the online repository.
+```{bash eval=FALSE}
+git remote add origin url-of-online-repository-here
+git push -u origin master
+```
+Of course the repository could just be setup first and then cloned.
+```{bash eval=FALSE}
+git clone url-of-online-repository-here
+```
+
+## Manipulating Commits
+### Repository Status
+The commit history of a repository can be displayed in verbose form and in summarized form.
+```{bash eval=FALSE}
+git log
+git log --oneline
+```
+
+### File Checkout
+To restore a previous version of a file it can be checked out by first identifying the version to be used using the log history and then restoring the desired file.
+```{bash eval=FALSE}
+git log --oneline
+git checkout <commit number> file.txt
+```
+
+### Resetting a Repository
+To discard the effect of the previous operation on a file.
+```{bash eval=FALSE}
+git reset HEAD file.txt
+```
+The previous version of the a file can then be restored.
+```{bash eval=FALSE}
+git checkout -- file.txt
+```
+
+
+
+<!--chapter:end:08-VIM.Rmd-->
+
+`r if (knitr:::is_html_output()) '
+# References {-}
+'`
+
+<!--chapter:end:99-references.Rmd-->
+

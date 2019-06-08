@@ -35,7 +35,7 @@ sys.path.append('../util')
 ```
 
 A table of contents can be created to refer to each of the headers throughout a notebook in html format. The code is below (Obviously needs to be simplified.)
-```{python eval=FALSE}
+```{html eval=FALSE}
 <h1>Table of Contents<span class="tocSkip"></span></h1>
 <div class="toc">
     <ul class="toc-item">

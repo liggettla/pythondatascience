@@ -6,6 +6,11 @@ Read a csv file into a DataFrame.
 pd.read_csv(filepath)
 ```
 
+Write a DataFrame to a file.
+```{python eval=FALSE}
+x.to_csv(path_or_buf='outputDir', sep='\n', header=False, index=False)
+```
+
 ## Relabeling
 Rename a column or group of columns can be done by passing a dictionary of the changes.
 ```{python eval=FALSE}
@@ -16,7 +21,7 @@ Rename a column or group of columns can be done by passing a dictionary of the c
 The data in a DataFrame can be sorted in numeric or lexicographic order.
 The following code sorts the values within the columns a and b.
 ```{python eval=FALSE}
-df.sort_values(['a','b'])
+df.sort_values(['a','b'], ascending=False)
 ```
 
 ## Editing Data 

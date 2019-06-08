@@ -1,0 +1,94 @@
+# Git {#git}
+
+## Formatting
+Automatic newlines are inserted by default; this behavior can be overidden with the following.
+```{bash eval=FALSE}
+:set wrap
+:set textwidth=0 wrapmargin=0
+```
+
+## Spellcheck
+To setup spellchecking first setup a personal dictionary file.
+```{bash eval=FALSE}
+mkdir -p ~/.vim/spell/    # makes a directory for personal dictionary
+```
+Then refer to the dictionary file within VIM, and enable spellchecking.
+```{bash eval=FALSE}
+# set personal dictionary
+:set spellfile=~/.vim/spell/en.utf-8.add
+# turn spellcheck on
+:set spell
+```
+Get spellcheck commands.
+```{bash eval=FALSE}
+:help spell
+```
+Add a word to personal dictionary.
+```{bash eval=FALSE}
+zg
+```
+Move to next and previous misspelled word.
+```{bash eval=FALSE}
+]s
+[s
+```
+Get suggestions for misspelled word.
+```{bash eval=FALSE}
+z=
+```
+
+### Git Setup
+The username and email needs to be added after git is installed.
+```{bash eval=FALSE}
+git config --global user.name "me"
+git config --global user.email "me@gmail.com"
+```
+After this information has been set, it can be checked.
+```{bash eval=FALSE}
+git config --list
+```
+
+### Repository Initiation
+To setup a repository, create a folder with an initial file like a README and then initiate it.
+```{bash eval=FALSE}
+git init
+git status
+```
+
+### Mirror on Online Repository
+Create a repository on a repository like github, gitlab, bitbucket, or sourceforge. Then the local git repository can be synched with the online repository.
+```{bash eval=FALSE}
+git remote add origin url-of-online-repository-here
+git push -u origin master
+```
+Of course the repository could just be setup first and then cloned.
+```{bash eval=FALSE}
+git clone url-of-online-repository-here
+```
+
+## Manipulating Commits
+### Repository Status
+The commit history of a repository can be displayed in verbose form and in summarized form.
+```{bash eval=FALSE}
+git log
+git log --oneline
+```
+
+### File Checkout
+To restore a previous version of a file it can be checked out by first identifying the version to be used using the log history and then restoring the desired file.
+```{bash eval=FALSE}
+git log --oneline
+git checkout <commit number> file.txt
+```
+
+### Resetting a Repository
+To discard the effect of the previous operation on a file.
+```{bash eval=FALSE}
+git reset HEAD file.txt
+```
+The previous version of the a file can then be restored.
+```{bash eval=FALSE}
+git checkout -- file.txt
+```
+
+
