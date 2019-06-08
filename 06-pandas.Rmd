@@ -12,6 +12,13 @@ Rename a column or group of columns can be done by passing a dictionary of the c
     df = df.rename(columns={'a':'b','c':'d'})
 ```
 
+## Sorting and Arranging
+The data in a DataFrame can be sorted in numeric or lexicographic order.
+The following code sorts the values within the columns a and b.
+```{python eval=FALSE}
+df.sort_values(['a','b'])
+```
+
 ## Editing Data 
 Drop columns from a DataFrame.
 ```{python eval=FALSE}
@@ -82,3 +89,16 @@ The mean of column values can be calculated where each of the columns is grouped
 ```{python eval=FALSE}
 temp[['Sample','VAF','Var_Count']].groupby('Sample').mean()
 ```
+
+## Arithmetic and Row-wise Analysis
+Sometimes it is helpful to analyze the value in a particular cell in a conditional manner depending on it's value and then set the result of this analysis to a corresponding cell in a new column. Here is an example where the VAF of a variant is conditionally analyzed
+```{python eval=FALSE}
+def LOH(x):
+    if x > 0.75: return 1 - x
+    elif x <= 0.75 and x > 0.25: return abs(0.5 - x)
+    else: return 0
+all_vars['LOH'] = all_vars.VAF.transform(LOH)
+max_loh = all_vars.groupby('Sample').LOH.max().reset_index().rename(columns={'LOH':'Max_LOH'})
+all_vars = pd.merge(all_vars, max_loh, how='inner', on=['Sample'])
+```
+

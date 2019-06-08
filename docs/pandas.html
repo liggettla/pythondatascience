@@ -25,7 +25,7 @@
 <meta name="author" content="L A Liggett">
 
 
-<meta name="date" content="2019-06-06">
+<meta name="date" content="2019-06-08">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -131,12 +131,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7" data-path="pandas.html"><a href="pandas.html"><i class="fa fa-check"></i><b>7</b> Pandas</a><ul>
 <li class="chapter" data-level="7.1" data-path="pandas.html"><a href="pandas.html#file-io"><i class="fa fa-check"></i><b>7.1</b> File I/O</a></li>
 <li class="chapter" data-level="7.2" data-path="pandas.html"><a href="pandas.html#relabeling"><i class="fa fa-check"></i><b>7.2</b> Relabeling</a></li>
-<li class="chapter" data-level="7.3" data-path="pandas.html"><a href="pandas.html#editing-data"><i class="fa fa-check"></i><b>7.3</b> Editing Data</a><ul>
-<li class="chapter" data-level="7.3.1" data-path="pandas.html"><a href="pandas.html#replace-values"><i class="fa fa-check"></i><b>7.3.1</b> Replace values</a></li>
+<li class="chapter" data-level="7.3" data-path="pandas.html"><a href="pandas.html#sorting-and-arranging"><i class="fa fa-check"></i><b>7.3</b> Sorting and Arranging</a></li>
+<li class="chapter" data-level="7.4" data-path="pandas.html"><a href="pandas.html#editing-data"><i class="fa fa-check"></i><b>7.4</b> Editing Data</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="pandas.html"><a href="pandas.html#replace-values"><i class="fa fa-check"></i><b>7.4.1</b> Replace values</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="pandas.html"><a href="pandas.html#combining-data-structures"><i class="fa fa-check"></i><b>7.4</b> Combining Data Structures</a></li>
-<li class="chapter" data-level="7.5" data-path="pandas.html"><a href="pandas.html#splitting"><i class="fa fa-check"></i><b>7.5</b> Splitting</a></li>
-<li class="chapter" data-level="7.6" data-path="pandas.html"><a href="pandas.html#summarizing"><i class="fa fa-check"></i><b>7.6</b> Summarizing</a></li>
+<li class="chapter" data-level="7.5" data-path="pandas.html"><a href="pandas.html#combining-data-structures"><i class="fa fa-check"></i><b>7.5</b> Combining Data Structures</a></li>
+<li class="chapter" data-level="7.6" data-path="pandas.html"><a href="pandas.html#splitting"><i class="fa fa-check"></i><b>7.6</b> Splitting</a></li>
+<li class="chapter" data-level="7.7" data-path="pandas.html"><a href="pandas.html#summarizing"><i class="fa fa-check"></i><b>7.7</b> Summarizing</a></li>
+<li class="chapter" data-level="7.8" data-path="pandas.html"><a href="pandas.html#arithmetic-and-row-wise-analysis"><i class="fa fa-check"></i><b>7.8</b> Arithmetic and Row-wise Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="git.html"><a href="git.html"><i class="fa fa-check"></i><b>8</b> Git</a><ul>
 <li class="chapter" data-level="8.1" data-path="git.html"><a href="git.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a><ul>
@@ -183,8 +185,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Rename a column or group of columns can be done by passing a dictionary of the changes.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">    df <span class="op">=</span> df.rename(columns<span class="op">=</span>{<span class="st">&#39;a&#39;</span>:<span class="st">&#39;b&#39;</span>,<span class="st">&#39;c&#39;</span>:<span class="st">&#39;d&#39;</span>})</code></pre></div>
 </div>
+<div id="sorting-and-arranging" class="section level2">
+<h2><span class="header-section-number">7.3</span> Sorting and Arranging</h2>
+<p>The data in a DataFrame can be sorted in numeric or lexicographic order. The following code sorts the values within the columns a and b.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df.sort_values([<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>])</code></pre></div>
+</div>
 <div id="editing-data" class="section level2">
-<h2><span class="header-section-number">7.3</span> Editing Data</h2>
+<h2><span class="header-section-number">7.4</span> Editing Data</h2>
 <p>Drop columns from a DataFrame.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy <span class="im">as</span> np
 df <span class="op">=</span> pd.DataFrame(np.arange(<span class="dv">12</span>).reshape(<span class="dv">3</span>,<span class="dv">4</span>),
@@ -197,7 +204,7 @@ df <span class="op">=</span> df.drop([<span class="st">&#39;B&#39;</span>, <span
 <p>Changing the datatype of a column of data can be done by just changing column type.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df.Age <span class="op">=</span> df.Age.astype(<span class="bu">str</span>)</code></pre></div>
 <div id="replace-values" class="section level3">
-<h3><span class="header-section-number">7.3.1</span> Replace values</h3>
+<h3><span class="header-section-number">7.4.1</span> Replace values</h3>
 <p>New data can be set within a DataFrame one subset at a time in a way that will avoid the SettingWithCopyWarning.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> pandas <span class="im">as</span> pd
 df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;Trait&#39;</span>:[<span class="st">&#39;Seed_Shape&#39;</span>,<span class="st">&#39;Seed_Shape&#39;</span>,<span class="st">&#39;Flower_Color&#39;</span>,<span class="st">&#39;Flower_Color&#39;</span>],
@@ -215,7 +222,7 @@ df.loc[df.Trait <span class="op">==</span> <span class="st">&#39;Flower_Color&#3
 </div>
 </div>
 <div id="combining-data-structures" class="section level2">
-<h2><span class="header-section-number">7.4</span> Combining Data Structures</h2>
+<h2><span class="header-section-number">7.5</span> Combining Data Structures</h2>
 <p>The following merges df and df2 using inner to get the intersection on the Sample column, where indexes are ignored if the merging is performed on a column as in the following example. The other possible merging strategies are: left: use only keys from left frame, similar to a SQL left outer join; preserve key order. right: use only keys from right frame, similar to a SQL right outer join; preserve key order. outer: use union of keys from both frames, similar to a SQL full outer join; sort keys lexicographically. inner: use intersection of keys from both frames, similar to a SQL inner join; preserve the order of the left keys.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df <span class="op">=</span> pd.merge(df, df2, how<span class="op">=</span><span class="st">&#39;inner&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;Sample&#39;</span>])</code></pre></div>
 <p>Appending to a Dataframe attaches a DataFrame after another one.</p>
@@ -224,7 +231,7 @@ df2 <span class="op">=</span> pd.DataFrame([[<span class="dv">5</span>, <span cl
 df.append(df2)</code></pre></div>
 </div>
 <div id="splitting" class="section level2">
-<h2><span class="header-section-number">7.5</span> Splitting</h2>
+<h2><span class="header-section-number">7.6</span> Splitting</h2>
 <p>Remove duplicates</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x <span class="op">=</span> x[<span class="op">~</span>x.index.duplicated(keep<span class="op">=</span><span class="st">&#39;first&#39;</span>)] <span class="co"># most ideal method</span>
 
@@ -236,9 +243,20 @@ data.drop_duplicates[<span class="st">&#39;k1&#39;</span>] <span class="co"># th
 data.drop_duplicates([<span class="st">&#39;k1&#39;</span>,<span class="st">&#39;k2&#39;</span>], keep<span class="op">=</span><span class="st">&#39;last&#39;</span>) <span class="co"># drops unique found in k1 and k2 and keeps the last indexed duplicate</span></code></pre></div>
 </div>
 <div id="summarizing" class="section level2">
-<h2><span class="header-section-number">7.6</span> Summarizing</h2>
+<h2><span class="header-section-number">7.7</span> Summarizing</h2>
 <p>The mean of column values can be calculated where each of the columns is grouped by the data in a specified column.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">temp[[<span class="st">&#39;Sample&#39;</span>,<span class="st">&#39;VAF&#39;</span>,<span class="st">&#39;Var_Count&#39;</span>]].groupby(<span class="st">&#39;Sample&#39;</span>).mean()</code></pre></div>
+</div>
+<div id="arithmetic-and-row-wise-analysis" class="section level2">
+<h2><span class="header-section-number">7.8</span> Arithmetic and Row-wise Analysis</h2>
+<p>Sometimes it is helpful to analyze the value in a particular cell in a conditional manner depending on it’s value and then set the result of this analysis to a corresponding cell in a new column. Here is an example where the VAF of a variant is conditionally analyzed</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> LOH(x):
+    <span class="cf">if</span> x <span class="op">&gt;</span> <span class="fl">0.75</span>: <span class="cf">return</span> <span class="dv">1</span> <span class="op">-</span> x
+    <span class="cf">elif</span> x <span class="op">&lt;=</span> <span class="fl">0.75</span> <span class="kw">and</span> x <span class="op">&gt;</span> <span class="fl">0.25</span>: <span class="cf">return</span> <span class="bu">abs</span>(<span class="fl">0.5</span> <span class="op">-</span> x)
+    <span class="cf">else</span>: <span class="cf">return</span> <span class="dv">0</span>
+all_vars[<span class="st">&#39;LOH&#39;</span>] <span class="op">=</span> all_vars.VAF.transform(LOH)
+max_loh <span class="op">=</span> all_vars.groupby(<span class="st">&#39;Sample&#39;</span>).LOH.<span class="bu">max</span>().reset_index().rename(columns<span class="op">=</span>{<span class="st">&#39;LOH&#39;</span>:<span class="st">&#39;Max_LOH&#39;</span>})
+all_vars <span class="op">=</span> pd.merge(all_vars, max_loh, how<span class="op">=</span><span class="st">&#39;inner&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;Sample&#39;</span>])</code></pre></div>
 
 </div>
 </div>
