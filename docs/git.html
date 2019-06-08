@@ -6,20 +6,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Chapter 8 Git | Data Science With Python</title>
-  <meta name="description" content="These are notes and thoughts within the scope of the field of genomics.">
+  <meta name="description" content="Chapter 8 Git | Data Science With Python.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
   <meta property="og:title" content="Chapter 8 Git | Data Science With Python" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="These are notes and thoughts within the scope of the field of genomics." />
+  <meta property="og:description" content="Chapter 8 Git | Data Science With Python." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 8 Git | Data Science With Python" />
   
-  <meta name="twitter:description" content="These are notes and thoughts within the scope of the field of genomics." />
+  <meta name="twitter:description" content="Chapter 8 Git | Data Science With Python." />
   
 
 <meta name="author" content="L A Liggett">
@@ -105,7 +105,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="python.html"><a href="python.html"><i class="fa fa-check"></i><b>2</b> Python</a><ul>
+<li class="chapter" data-level="2.1" data-path="python.html"><a href="python.html#general"><i class="fa fa-check"></i><b>2.1</b> General</a></li>
+<li class="chapter" data-level="2.2" data-path="python.html"><a href="python.html#numba"><i class="fa fa-check"></i><b>2.2</b> Numba</a></li>
+<li class="chapter" data-level="2.3" data-path="python.html"><a href="python.html#cython"><i class="fa fa-check"></i><b>2.3</b> Cython</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="jupyter.html"><a href="jupyter.html"><i class="fa fa-check"></i><b>3</b> JupyterLab</a></li>
 <li class="chapter" data-level="4" data-path="visualization.html"><a href="visualization.html"><i class="fa fa-check"></i><b>4</b> Visualization</a><ul>
 <li class="chapter" data-level="4.1" data-path="visualization.html"><a href="visualization.html#color"><i class="fa fa-check"></i><b>4.1</b> Color</a><ul>
@@ -118,7 +122,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.5" data-path="visualization.html"><a href="visualization.html#various-plot-styles"><i class="fa fa-check"></i><b>4.5</b> Various Plot Styles</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="biology.html"><a href="biology.html"><i class="fa fa-check"></i><b>5</b> Biology</a><ul>
-<li class="chapter" data-level="5.1" data-path="biology.html"><a href="biology.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
+<li class="chapter" data-level="5.1" data-path="biology.html"><a href="biology.html#general-1"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
 <li class="chapter" data-level="5.2" data-path="biology.html"><a href="biology.html#biopython"><i class="fa fa-check"></i><b>5.2</b> Biopython</a></li>
 <li class="chapter" data-level="5.3" data-path="biology.html"><a href="biology.html#ucsc-genome-browser"><i class="fa fa-check"></i><b>5.3</b> UCSC Genome Browser</a></li>
 <li class="chapter" data-level="5.4" data-path="biology.html"><a href="biology.html#ref-genome"><i class="fa fa-check"></i><b>5.4</b> Ref Genome</a></li>
@@ -130,15 +134,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="7" data-path="pandas.html"><a href="pandas.html"><i class="fa fa-check"></i><b>7</b> Pandas</a><ul>
 <li class="chapter" data-level="7.1" data-path="pandas.html"><a href="pandas.html#file-io"><i class="fa fa-check"></i><b>7.1</b> File I/O</a></li>
-<li class="chapter" data-level="7.2" data-path="pandas.html"><a href="pandas.html#relabeling"><i class="fa fa-check"></i><b>7.2</b> Relabeling</a></li>
-<li class="chapter" data-level="7.3" data-path="pandas.html"><a href="pandas.html#sorting-and-arranging"><i class="fa fa-check"></i><b>7.3</b> Sorting and Arranging</a></li>
-<li class="chapter" data-level="7.4" data-path="pandas.html"><a href="pandas.html#editing-data"><i class="fa fa-check"></i><b>7.4</b> Editing Data</a><ul>
-<li class="chapter" data-level="7.4.1" data-path="pandas.html"><a href="pandas.html#replace-values"><i class="fa fa-check"></i><b>7.4.1</b> Replace values</a></li>
+<li class="chapter" data-level="7.2" data-path="pandas.html"><a href="pandas.html#data-structure-creation"><i class="fa fa-check"></i><b>7.2</b> Data Structure Creation</a></li>
+<li class="chapter" data-level="7.3" data-path="pandas.html"><a href="pandas.html#selection"><i class="fa fa-check"></i><b>7.3</b> Selection</a></li>
+<li class="chapter" data-level="7.4" data-path="pandas.html"><a href="pandas.html#splitting"><i class="fa fa-check"></i><b>7.4</b> Splitting</a></li>
+<li class="chapter" data-level="7.5" data-path="pandas.html"><a href="pandas.html#relabeling"><i class="fa fa-check"></i><b>7.5</b> Relabeling</a></li>
+<li class="chapter" data-level="7.6" data-path="pandas.html"><a href="pandas.html#sorting-and-arranging"><i class="fa fa-check"></i><b>7.6</b> Sorting and Arranging</a></li>
+<li class="chapter" data-level="7.7" data-path="pandas.html"><a href="pandas.html#editing-data"><i class="fa fa-check"></i><b>7.7</b> Editing Data</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="pandas.html"><a href="pandas.html#replace-values"><i class="fa fa-check"></i><b>7.7.1</b> Replace values</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="pandas.html"><a href="pandas.html#combining-data-structures"><i class="fa fa-check"></i><b>7.5</b> Combining Data Structures</a></li>
-<li class="chapter" data-level="7.6" data-path="pandas.html"><a href="pandas.html#splitting"><i class="fa fa-check"></i><b>7.6</b> Splitting</a></li>
-<li class="chapter" data-level="7.7" data-path="pandas.html"><a href="pandas.html#summarizing"><i class="fa fa-check"></i><b>7.7</b> Summarizing</a></li>
-<li class="chapter" data-level="7.8" data-path="pandas.html"><a href="pandas.html#arithmetic-and-row-wise-analysis"><i class="fa fa-check"></i><b>7.8</b> Arithmetic and Row-wise Analysis</a></li>
+<li class="chapter" data-level="7.8" data-path="pandas.html"><a href="pandas.html#combining-data-structures"><i class="fa fa-check"></i><b>7.8</b> Combining Data Structures</a></li>
+<li class="chapter" data-level="7.9" data-path="pandas.html"><a href="pandas.html#summarizing"><i class="fa fa-check"></i><b>7.9</b> Summarizing</a></li>
+<li class="chapter" data-level="7.10" data-path="pandas.html"><a href="pandas.html#arithmetic-and-rowcolumn-wise-analysis"><i class="fa fa-check"></i><b>7.10</b> Arithmetic and Row/Column-wise Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="git.html"><a href="git.html"><i class="fa fa-check"></i><b>8</b> Git</a><ul>
 <li class="chapter" data-level="8.1" data-path="git.html"><a href="git.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a><ul>
@@ -155,6 +161,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9" data-path="vim.html"><a href="vim.html"><i class="fa fa-check"></i><b>9</b> VIM</a><ul>
 <li class="chapter" data-level="9.1" data-path="vim.html"><a href="vim.html#formatting"><i class="fa fa-check"></i><b>9.1</b> Formatting</a></li>
 <li class="chapter" data-level="9.2" data-path="vim.html"><a href="vim.html#spellcheck"><i class="fa fa-check"></i><b>9.2</b> Spellcheck</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>10</b> Bioinformatics Resources</a><ul>
+<li class="chapter" data-level="10.1" data-path="resources.html"><a href="resources.html#cancer-datasets"><i class="fa fa-check"></i><b>10.1</b> Cancer Datasets</a></li>
+<li class="chapter" data-level="10.2" data-path="resources.html"><a href="resources.html#alzheimers"><i class="fa fa-check"></i><b>10.2</b> Alzheimer’s</a></li>
+<li class="chapter" data-level="10.3" data-path="resources.html"><a href="resources.html#genomic-datasets"><i class="fa fa-check"></i><b>10.3</b> Genomic Datasets</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -279,19 +290,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

@@ -99,6 +99,47 @@ plt.annotate('Unknown set', xy=v.get_label_by_id('100').get_position() - np.arra
                           plt.show()
 
 ```
+An upset plot is a nice alternative to a traditional venn diagram. The project is hosted [here](https://pypi.org/project/UpSetPlot/), and [this](https://buildmedia.readthedocs.org/media/pdf/upsetplot/latest/upsetplot.pdf) is the documentation.
+
+First install the library.
+```{bash eval=FALSE}
+pip install upsetplot
+```
+
+Here is the code to create the plot.
+```{python eval=FALSE}
+import numpy as np
+
+arrays = [[False,False,False,False,True,True,True,True],
+          [False,False,True,True,False,False,True,True],
+          [False,True,False,True,False,True,False,True]]
+tuples = list(zip(*arrays))
+
+def o(one=False, two=False, three=False):
+    if three:
+        temp = pd.merge(indels[(indels.Individual==one)], indels[(indels.Individual==two)], how='inner', on=['Loc', 'Var'])
+        return len(pd.merge(temp, indels[(indels.Individual==three)], how='inner', on=['Loc', 'Var']))
+    elif two:
+        return len(pd.merge(indels[(indels.Individual==one)], indels[(indels.Individual==two)], how='inner', on=['Loc', 'Var']))
+    elif one:
+        return len(indels[(indels.Individual==one)])
+    else:
+        return 0
+
+index = pd.MultiIndex.from_tuples(tuples, names=['Ind 1', 'Ind 2', 'Ind 3'])
+s = pd.Series([o(),
+               o(3),
+               o(2),
+               o(2,3),
+               o(1),
+               o(1,3),
+               o(1,2),
+               o(1,2,3)], index=index)
+
+from upsetplot import plot as up
+up(s)
+plt.savefig("../images/indels.svg", format="svg", bbox_inches="tight")
+```
 
 Log scales seem to always be a challenge. Here is at least one solution to change ticks to log manually.
 ```{python eval=FALSE}

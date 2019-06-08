@@ -10,7 +10,8 @@ Automatic newlines are inserted by default; this behavior can be overidden with 
 ## Spellcheck
 To setup spellchecking first setup a personal dictionary file.
 ```{bash eval=FALSE}
-mkdir -p ~/.vim/spell/    # makes a directory for personal dictionary
+# make a directory for personal dictionary
+mkdir -p ~/.vim/spell/
 ```
 Then refer to the dictionary file within VIM, and enable spellchecking.
 ```{bash eval=FALSE}

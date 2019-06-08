@@ -1,38 +1,95 @@
-# Introduction {#intro}
+# Python {#python}
 
-You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(visualization).
+## General
+Here is a general skeleton that can be used to start a python script that takes input.
+```{python, eval=FALSE}
+#!/usr/bin/env python
 
-Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
+def runArgparse():
+import argparse
 
-And this is some other random stuff.
+parser = argparse.ArgumentParser()
+parser.add_argument('--indir', '-i', type=str, nargs='*', help='Input directory containing the vcf files to be analyzed: /dir.')
+parser.add_argument('--loadolddata', '-o', action='store_true', help='Load previously existing data.')
 
-```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
-par(mar = c(4, 4, .1, .1))
-plot(pressure, type = 'b', pch = 19)
+args = parser.parse_args()
+indir = args.indir
+return indir
+
+if __name__ == '__main__':
+    runArgparse()
 ```
 
-Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
+## Numba
+Numba speeds up python code without having to switch to a different interpreter, and doesn't require static typing of variables as Cython does. Just calling Numba will increase the speed of a script (except during the compilation which will add some time). But this isn't the best way to take advantage of the speed boost.
 
-```{r nice-tab, tidy=FALSE}
-knitr::kable(
-  head(iris, 20), caption = 'Here is a nice table!',
-  booktabs = TRUE
-)
+Here is an example script that uses @jit to invoke Numba.
+```{python, eval=FALSE}
+#!/usr/bin/env python
+
+from numba import jit
+import numpy as np
+import time
+
+def go_slow(x):
+    for i in range(14):
+        x *= x
+
+@jit(nopython=True)
+def go_fast(x):
+    for i in range(14):
+        x *= x
+
+# DO NOT REPORT THIS... COMPILATION TIME IS INCLUDED IN THE EXECUTION TIME!
+start = time.time()
+go_slow(5)
+end = time.time()
+print("Elapsed slow (with compilation) = %s" % (end - start))
+start = time.time()
+go_fast(5)
+end = time.time()
+print("Elapsed fast (with compilation) = %s" % (end - start))
+
+# DO NOT REPORT THIS... COMPILATION TIME IS INCLUDED IN THE EXECUTION TIME!
+start = time.time()
+go_slow(5)
+end = time.time()
+print("Elapsed slow (after compilation) = %s" % (end - start))
+start = time.time()
+go_fast(5)
+end = time.time()
+print("Elapsed fast (after compilation) = %s" % (end - start))
 ```
 
-```{r}
-knitr::include_graphics(rep("knit-logo.png", 3))
+Parallelization can be used to  automatically utilize multiple cores.
+```{python, eval=FALSE}
+from numba import njit, prange
+@njit(parallel=True)
+def prange_test(A):
+    s = 0
+    for i in prange(A.shape[0]):
+        s += A[i]
+    return s
 ```
 
-```{r tidy=FALSE}
-knitr::include_app("https://yihui.shinyapps.io/miniUI/", 
-                     height = "600px")
+## Cython
+Installation
+```{python, eval=FALSE}
+conda install -c conda-forge cython
 ```
 
-```{python}
-import pandas as pd
-x = 'hello, python world!'
-print(x.split(' '))
+Ipython usage
+```{python, eval=FALSE}
+%load_ext Cython
+
+%%cython
+def f(x):
+	return 2 * x
+or
+
+def f(int x):
+	return 2 * x
+
+timeit(f(4))
 ```
 
-You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015].

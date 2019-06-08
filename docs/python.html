@@ -5,21 +5,21 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 6 Data I/O | Data Science With Python</title>
-  <meta name="description" content="Chapter 6 Data I/O | Data Science With Python.">
+  <title>Chapter 2 Python | Data Science With Python</title>
+  <meta name="description" content="Chapter 2 Python | Data Science With Python.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 6 Data I/O | Data Science With Python" />
+  <meta property="og:title" content="Chapter 2 Python | Data Science With Python" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="Chapter 6 Data I/O | Data Science With Python." />
+  <meta property="og:description" content="Chapter 2 Python | Data Science With Python." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Data I/O | Data Science With Python" />
+  <meta name="twitter:title" content="Chapter 2 Python | Data Science With Python" />
   
-  <meta name="twitter:description" content="Chapter 6 Data I/O | Data Science With Python." />
+  <meta name="twitter:description" content="Chapter 2 Python | Data Science With Python." />
   
 
 <meta name="author" content="L A Liggett">
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="biology.html">
-<link rel="next" href="pandas.html">
+<link rel="prev" href="index.html">
+<link rel="next" href="jupyter.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -188,27 +188,90 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="io" class="section level1">
-<h1><span class="header-section-number">Chapter 6</span> Data I/O</h1>
-<div id="reading-data-files" class="section level2">
-<h2><span class="header-section-number">6.1</span> Reading Data Files</h2>
-<p>Opening .gz files</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> gzip
-<span class="cf">for</span> line <span class="kw">in</span> gzip.<span class="bu">open</span>(<span class="st">&#39;myFile.gz&#39;</span>):
-    <span class="bu">print</span> line</code></pre></div>
+<div id="python" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Python</h1>
+<div id="general" class="section level2">
+<h2><span class="header-section-number">2.1</span> General</h2>
+<p>Here is a general skeleton that can be used to start a python script that takes input.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co">#!/usr/bin/env python</span>
+
+<span class="kw">def</span> runArgparse():
+<span class="im">import</span> argparse
+
+parser <span class="op">=</span> argparse.ArgumentParser()
+parser.add_argument(<span class="st">&#39;--indir&#39;</span>, <span class="st">&#39;-i&#39;</span>, <span class="bu">type</span><span class="op">=</span><span class="bu">str</span>, nargs<span class="op">=</span><span class="st">&#39;*&#39;</span>, <span class="bu">help</span><span class="op">=</span><span class="st">&#39;Input directory containing the vcf files to be analyzed: /dir.&#39;</span>)
+parser.add_argument(<span class="st">&#39;--loadolddata&#39;</span>, <span class="st">&#39;-o&#39;</span>, action<span class="op">=</span><span class="st">&#39;store_true&#39;</span>, <span class="bu">help</span><span class="op">=</span><span class="st">&#39;Load previously existing data.&#39;</span>)
+
+args <span class="op">=</span> parser.parse_args()
+indir <span class="op">=</span> args.indir
+<span class="cf">return</span> indir
+
+<span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:
+    runArgparse()</code></pre></div>
 </div>
-<div id="pickles" class="section level2">
-<h2><span class="header-section-number">6.2</span> Pickles</h2>
-<p>Writing data in pickle format</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> pickle
-p <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;principle.pkl&#39;</span>, <span class="st">&#39;wb&#39;</span>)
-pickle.dump(principleData, p)
-p.close()</code></pre></div>
-<p>Reading data in pickle format</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> pickle
-p <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;principle.pkl&#39;</span>, <span class="st">&#39;rb&#39;</span>)
-principleData <span class="op">=</span> pickle.load(p)
-p.close()</code></pre></div>
+<div id="numba" class="section level2">
+<h2><span class="header-section-number">2.2</span> Numba</h2>
+<p>Numba speeds up python code without having to switch to a different interpreter, and doesn’t require static typing of variables as Cython does. Just calling Numba will increase the speed of a script (except during the compilation which will add some time). But this isn’t the best way to take advantage of the speed boost.</p>
+<p>Here is an example script that uses <span class="citation">(<span class="citeproc-not-found" data-reference-id="jit"><strong>???</strong></span>)</span> to invoke Numba.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co">#!/usr/bin/env python</span>
+
+<span class="im">from</span> numba <span class="im">import</span> jit
+<span class="im">import</span> numpy <span class="im">as</span> np
+<span class="im">import</span> time
+
+<span class="kw">def</span> go_slow(x):
+    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">14</span>):
+        x <span class="op">*=</span> x
+
+<span class="at">@jit</span>(nopython<span class="op">=</span><span class="va">True</span>)
+<span class="kw">def</span> go_fast(x):
+    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">14</span>):
+        x <span class="op">*=</span> x
+
+<span class="co"># DO NOT REPORT THIS... COMPILATION TIME IS INCLUDED IN THE EXECUTION TIME!</span>
+start <span class="op">=</span> time.time()
+go_slow(<span class="dv">5</span>)
+end <span class="op">=</span> time.time()
+<span class="bu">print</span>(<span class="st">&quot;Elapsed slow (with compilation) = </span><span class="sc">%s</span><span class="st">&quot;</span> <span class="op">%</span> (end <span class="op">-</span> start))
+start <span class="op">=</span> time.time()
+go_fast(<span class="dv">5</span>)
+end <span class="op">=</span> time.time()
+<span class="bu">print</span>(<span class="st">&quot;Elapsed fast (with compilation) = </span><span class="sc">%s</span><span class="st">&quot;</span> <span class="op">%</span> (end <span class="op">-</span> start))
+
+<span class="co"># DO NOT REPORT THIS... COMPILATION TIME IS INCLUDED IN THE EXECUTION TIME!</span>
+start <span class="op">=</span> time.time()
+go_slow(<span class="dv">5</span>)
+end <span class="op">=</span> time.time()
+<span class="bu">print</span>(<span class="st">&quot;Elapsed slow (after compilation) = </span><span class="sc">%s</span><span class="st">&quot;</span> <span class="op">%</span> (end <span class="op">-</span> start))
+start <span class="op">=</span> time.time()
+go_fast(<span class="dv">5</span>)
+end <span class="op">=</span> time.time()
+<span class="bu">print</span>(<span class="st">&quot;Elapsed fast (after compilation) = </span><span class="sc">%s</span><span class="st">&quot;</span> <span class="op">%</span> (end <span class="op">-</span> start))</code></pre></div>
+<p>Parallelization can be used to automatically utilize multiple cores.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> numba <span class="im">import</span> njit, prange
+<span class="at">@njit</span>(parallel<span class="op">=</span><span class="va">True</span>)
+<span class="kw">def</span> prange_test(A):
+    s <span class="op">=</span> <span class="dv">0</span>
+    <span class="cf">for</span> i <span class="kw">in</span> prange(A.shape[<span class="dv">0</span>]):
+        s <span class="op">+=</span> A[i]
+    <span class="cf">return</span> s</code></pre></div>
+</div>
+<div id="cython" class="section level2">
+<h2><span class="header-section-number">2.3</span> Cython</h2>
+<p>Installation</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">conda install <span class="op">-</span>c conda<span class="op">-</span>forge cython</code></pre></div>
+<p>Ipython usage</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">%</span>load_ext Cython
+
+<span class="op">%%</span>cython
+<span class="kw">def</span> f(x):
+    <span class="cf">return</span> <span class="dv">2</span> <span class="op">*</span> x
+<span class="kw">or</span>
+
+<span class="kw">def</span> f(<span class="bu">int</span> x):
+    <span class="cf">return</span> <span class="dv">2</span> <span class="op">*</span> x
+
+timeit(f(<span class="dv">4</span>))</code></pre></div>
 
 </div>
 </div>
@@ -217,8 +280,8 @@ p.close()</code></pre></div>
           </div>
         </div>
       </div>
-<a href="biology.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="pandas.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="jupyter.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -248,7 +311,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/05-IO.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/01-intro.Rmd",
 "text": "Edit"
 },
 "history": {

@@ -145,135 +145,126 @@
 }
 \chapter{Prerequisites}\label{prerequisites}
 
-This is a \emph{sample} book written in \textbf{Markdown}. You can use
-anything that Pandoc's Markdown supports, e.g., a math equation
-\(a^2 + b^2 = c^2\).
+These are some notes that may be helpful for computational biology
+analysis that mainly uses Python.
 
-The \textbf{bookdown} package can be installed from CRAN or Github:
+\chapter{Python}\label{python}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{install.packages}\NormalTok{(}\StringTok{"bookdown"}\NormalTok{)}
-\CommentTok{# or the development version}
-\CommentTok{# devtools::install_github("rstudio/bookdown")}
-\end{Highlighting}
-\end{Shaded}
+\section{General}\label{general}
 
-Remember each Rmd file contains one and only one chapter, and a chapter
-is defined by the first-level heading \texttt{\#}.
-
-To compile this example to PDF, you need XeLaTeX. You are recommended to
-install TinyTeX (which includes XeLaTeX):
-\url{https://yihui.name/tinytex/}.
-
-\chapter{Introduction}\label{intro}
-
-You can label chapter and section titles using \texttt{\{\#label\}}
-after them, e.g., we can reference Chapter \ref{intro}. If you do not
-manually label them, there will be automatic labels anyway, e.g.,
-Chapter \ref{visualization}.
-
-Figures and tables with captions will be placed in \texttt{figure} and
-\texttt{table} environments, respectively.
-
-And this is some other random stuff.
+Here is a general skeleton that can be used to start a python script
+that takes input.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{par}\NormalTok{(}\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, .}\DecValTok{1}\NormalTok{, .}\DecValTok{1}\NormalTok{))}
-\KeywordTok{plot}\NormalTok{(pressure, }\DataTypeTok{type =} \StringTok{'b'}\NormalTok{, }\DataTypeTok{pch =} \DecValTok{19}\NormalTok{)}
+\CommentTok{#!/usr/bin/env python}
+
+\KeywordTok{def}\NormalTok{ runArgparse():}
+\ImportTok{import}\NormalTok{ argparse}
+
+\NormalTok{parser }\OperatorTok{=}\NormalTok{ argparse.ArgumentParser()}
+\NormalTok{parser.add_argument(}\StringTok{'--indir'}\NormalTok{, }\StringTok{'-i'}\NormalTok{, }\BuiltInTok{type}\OperatorTok{=}\BuiltInTok{str}\NormalTok{, nargs}\OperatorTok{=}\StringTok{'*'}\NormalTok{, }\BuiltInTok{help}\OperatorTok{=}\StringTok{'Input directory containing the vcf files to be analyzed: /dir.'}\NormalTok{)}
+\NormalTok{parser.add_argument(}\StringTok{'--loadolddata'}\NormalTok{, }\StringTok{'-o'}\NormalTok{, action}\OperatorTok{=}\StringTok{'store_true'}\NormalTok{, }\BuiltInTok{help}\OperatorTok{=}\StringTok{'Load previously existing data.'}\NormalTok{)}
+
+\NormalTok{args }\OperatorTok{=}\NormalTok{ parser.parse_args()}
+\NormalTok{indir }\OperatorTok{=}\NormalTok{ args.indir}
+\ControlFlowTok{return}\NormalTok{ indir}
+
+\ControlFlowTok{if} \VariableTok{__name__} \OperatorTok{==} \StringTok{'__main__'}\NormalTok{:}
+\NormalTok{    runArgparse()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{figure}
+\section{Numba}\label{numba}
 
-{\centering \includegraphics[width=0.8\linewidth]{bookdown-demo_files/figure-latex/nice-fig-1} 
+Numba speeds up python code without having to switch to a different
+interpreter, and doesn't require static typing of variables as Cython
+does. Just calling Numba will increase the speed of a script (except
+during the compilation which will add some time). But this isn't the
+best way to take advantage of the speed boost.
 
-}
-
-\caption{Here is a nice figure!}\label{fig:nice-fig}
-\end{figure}
-
-Reference a figure by its code chunk label with the \texttt{fig:}
-prefix, e.g., see Figure \ref{fig:nice-fig}. Similarly, you can
-reference tables generated from \texttt{knitr::kable()}, e.g., see Table
-\ref{tab:nice-tab}.
+Here is an example script that uses \citet{jit} to invoke Numba.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(}
-  \KeywordTok{head}\NormalTok{(iris, }\DecValTok{20}\NormalTok{), }\DataTypeTok{caption =} \StringTok{'Here is a nice table!'}\NormalTok{,}
-  \DataTypeTok{booktabs =} \OtherTok{TRUE}
-\NormalTok{)}
+\CommentTok{#!/usr/bin/env python}
+
+\ImportTok{from}\NormalTok{ numba }\ImportTok{import}\NormalTok{ jit}
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\ImportTok{import}\NormalTok{ time}
+
+\KeywordTok{def}\NormalTok{ go_slow(x):}
+    \ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{14}\NormalTok{):}
+\NormalTok{        x }\OperatorTok{*=}\NormalTok{ x}
+
+\AttributeTok{@jit}\NormalTok{(nopython}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\KeywordTok{def}\NormalTok{ go_fast(x):}
+    \ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{14}\NormalTok{):}
+\NormalTok{        x }\OperatorTok{*=}\NormalTok{ x}
+
+\CommentTok{# DO NOT REPORT THIS... COMPILATION TIME IS INCLUDED IN THE EXECUTION TIME!}
+\NormalTok{start }\OperatorTok{=}\NormalTok{ time.time()}
+\NormalTok{go_slow(}\DecValTok{5}\NormalTok{)}
+\NormalTok{end }\OperatorTok{=}\NormalTok{ time.time()}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Elapsed slow (with compilation) = }\SpecialCharTok{%s}\StringTok{"} \OperatorTok{%}\NormalTok{ (end }\OperatorTok{-}\NormalTok{ start))}
+\NormalTok{start }\OperatorTok{=}\NormalTok{ time.time()}
+\NormalTok{go_fast(}\DecValTok{5}\NormalTok{)}
+\NormalTok{end }\OperatorTok{=}\NormalTok{ time.time()}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Elapsed fast (with compilation) = }\SpecialCharTok{%s}\StringTok{"} \OperatorTok{%}\NormalTok{ (end }\OperatorTok{-}\NormalTok{ start))}
+
+\CommentTok{# DO NOT REPORT THIS... COMPILATION TIME IS INCLUDED IN THE EXECUTION TIME!}
+\NormalTok{start }\OperatorTok{=}\NormalTok{ time.time()}
+\NormalTok{go_slow(}\DecValTok{5}\NormalTok{)}
+\NormalTok{end }\OperatorTok{=}\NormalTok{ time.time()}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Elapsed slow (after compilation) = }\SpecialCharTok{%s}\StringTok{"} \OperatorTok{%}\NormalTok{ (end }\OperatorTok{-}\NormalTok{ start))}
+\NormalTok{start }\OperatorTok{=}\NormalTok{ time.time()}
+\NormalTok{go_fast(}\DecValTok{5}\NormalTok{)}
+\NormalTok{end }\OperatorTok{=}\NormalTok{ time.time()}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Elapsed fast (after compilation) = }\SpecialCharTok{%s}\StringTok{"} \OperatorTok{%}\NormalTok{ (end }\OperatorTok{-}\NormalTok{ start))}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}[t]
-
-\caption{\label{tab:nice-tab}Here is a nice table!}
-\centering
-\begin{tabular}{rrrrl}
-\toprule
-Sepal.Length & Sepal.Width & Petal.Length & Petal.Width & Species\\
-\midrule
-5.1 & 3.5 & 1.4 & 0.2 & setosa\\
-4.9 & 3.0 & 1.4 & 0.2 & setosa\\
-4.7 & 3.2 & 1.3 & 0.2 & setosa\\
-4.6 & 3.1 & 1.5 & 0.2 & setosa\\
-5.0 & 3.6 & 1.4 & 0.2 & setosa\\
-\addlinespace
-5.4 & 3.9 & 1.7 & 0.4 & setosa\\
-4.6 & 3.4 & 1.4 & 0.3 & setosa\\
-5.0 & 3.4 & 1.5 & 0.2 & setosa\\
-4.4 & 2.9 & 1.4 & 0.2 & setosa\\
-4.9 & 3.1 & 1.5 & 0.1 & setosa\\
-\addlinespace
-5.4 & 3.7 & 1.5 & 0.2 & setosa\\
-4.8 & 3.4 & 1.6 & 0.2 & setosa\\
-4.8 & 3.0 & 1.4 & 0.1 & setosa\\
-4.3 & 3.0 & 1.1 & 0.1 & setosa\\
-5.8 & 4.0 & 1.2 & 0.2 & setosa\\
-\addlinespace
-5.7 & 4.4 & 1.5 & 0.4 & setosa\\
-5.4 & 3.9 & 1.3 & 0.4 & setosa\\
-5.1 & 3.5 & 1.4 & 0.3 & setosa\\
-5.7 & 3.8 & 1.7 & 0.3 & setosa\\
-5.1 & 3.8 & 1.5 & 0.3 & setosa\\
-\bottomrule
-\end{tabular}
-\end{table}
+Parallelization can be used to automatically utilize multiple cores.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{knitr}\OperatorTok{::}\KeywordTok{include_graphics}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"knit-logo.png"}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+\ImportTok{from}\NormalTok{ numba }\ImportTok{import}\NormalTok{ njit, prange}
+\AttributeTok{@njit}\NormalTok{(parallel}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\KeywordTok{def}\NormalTok{ prange_test(A):}
+\NormalTok{    s }\OperatorTok{=} \DecValTok{0}
+    \ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in}\NormalTok{ prange(A.shape[}\DecValTok{0}\NormalTok{]):}
+\NormalTok{        s }\OperatorTok{+=}\NormalTok{ A[i]}
+    \ControlFlowTok{return}\NormalTok{ s}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{knit-logo.png} \includegraphics{knit-logo.png}
-\includegraphics{knit-logo.png}
+\section{Cython}\label{cython}
+
+Installation
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{knitr}\OperatorTok{::}\KeywordTok{include_app}\NormalTok{(}\StringTok{"https://yihui.shinyapps.io/miniUI/"}\NormalTok{, }
-                     \DataTypeTok{height =} \StringTok{"600px"}\NormalTok{)}
+\NormalTok{conda install }\OperatorTok{-}\NormalTok{c conda}\OperatorTok{-}\NormalTok{forge cython}
 \end{Highlighting}
 \end{Shaded}
+
+Ipython usage
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
-\NormalTok{x }\OperatorTok{=} \StringTok{'hello, python world!'}
-\BuiltInTok{print}\NormalTok{(x.split(}\StringTok{' '}\NormalTok{))}
+\OperatorTok{%}\NormalTok{load_ext Cython}
+
+\OperatorTok{%%}\NormalTok{cython}
+\KeywordTok{def}\NormalTok{ f(x):}
+    \ControlFlowTok{return} \DecValTok{2} \OperatorTok{*}\NormalTok{ x}
+\KeywordTok{or}
+
+\KeywordTok{def}\NormalTok{ f(}\BuiltInTok{int}\NormalTok{ x):}
+    \ControlFlowTok{return} \DecValTok{2} \OperatorTok{*}\NormalTok{ x}
+
+\NormalTok{timeit(f(}\DecValTok{4}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## ['hello,', 'python', 'world!']
-\end{verbatim}
-
-You can write citations, too. For example, we are using the
-\textbf{bookdown} package \citep{R-bookdown} in this sample book, which
-was built on top of R Markdown and \textbf{knitr} \citep{xie2015}.
 
 \chapter{JupyterLab}\label{jupyter}
 
@@ -535,6 +526,57 @@ A more complicated venn diagram.
 \end{Highlighting}
 \end{Shaded}
 
+An upset plot is a nice alternative to a traditional venn diagram. The
+project is hosted \href{https://pypi.org/project/UpSetPlot/}{here}, and
+\href{https://buildmedia.readthedocs.org/media/pdf/upsetplot/latest/upsetplot.pdf}{this}
+is the documentation.
+
+First install the library.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{pip}\NormalTok{ install upsetplot}
+\end{Highlighting}
+\end{Shaded}
+
+Here is the code to create the plot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+
+\NormalTok{arrays }\OperatorTok{=}\NormalTok{ [[}\VariableTok{False}\NormalTok{,}\VariableTok{False}\NormalTok{,}\VariableTok{False}\NormalTok{,}\VariableTok{False}\NormalTok{,}\VariableTok{True}\NormalTok{,}\VariableTok{True}\NormalTok{,}\VariableTok{True}\NormalTok{,}\VariableTok{True}\NormalTok{],}
+\NormalTok{          [}\VariableTok{False}\NormalTok{,}\VariableTok{False}\NormalTok{,}\VariableTok{True}\NormalTok{,}\VariableTok{True}\NormalTok{,}\VariableTok{False}\NormalTok{,}\VariableTok{False}\NormalTok{,}\VariableTok{True}\NormalTok{,}\VariableTok{True}\NormalTok{],}
+\NormalTok{          [}\VariableTok{False}\NormalTok{,}\VariableTok{True}\NormalTok{,}\VariableTok{False}\NormalTok{,}\VariableTok{True}\NormalTok{,}\VariableTok{False}\NormalTok{,}\VariableTok{True}\NormalTok{,}\VariableTok{False}\NormalTok{,}\VariableTok{True}\NormalTok{]]}
+\NormalTok{tuples }\OperatorTok{=} \BuiltInTok{list}\NormalTok{(}\BuiltInTok{zip}\NormalTok{(}\OperatorTok{*}\NormalTok{arrays))}
+
+\KeywordTok{def}\NormalTok{ o(one}\OperatorTok{=}\VariableTok{False}\NormalTok{, two}\OperatorTok{=}\VariableTok{False}\NormalTok{, three}\OperatorTok{=}\VariableTok{False}\NormalTok{):}
+    \ControlFlowTok{if}\NormalTok{ three:}
+\NormalTok{        temp }\OperatorTok{=}\NormalTok{ pd.merge(indels[(indels.Individual}\OperatorTok{==}\NormalTok{one)], indels[(indels.Individual}\OperatorTok{==}\NormalTok{two)], how}\OperatorTok{=}\StringTok{'inner'}\NormalTok{, on}\OperatorTok{=}\NormalTok{[}\StringTok{'Loc'}\NormalTok{, }\StringTok{'Var'}\NormalTok{])}
+        \ControlFlowTok{return} \BuiltInTok{len}\NormalTok{(pd.merge(temp, indels[(indels.Individual}\OperatorTok{==}\NormalTok{three)], how}\OperatorTok{=}\StringTok{'inner'}\NormalTok{, on}\OperatorTok{=}\NormalTok{[}\StringTok{'Loc'}\NormalTok{, }\StringTok{'Var'}\NormalTok{]))}
+    \ControlFlowTok{elif}\NormalTok{ two:}
+        \ControlFlowTok{return} \BuiltInTok{len}\NormalTok{(pd.merge(indels[(indels.Individual}\OperatorTok{==}\NormalTok{one)], indels[(indels.Individual}\OperatorTok{==}\NormalTok{two)], how}\OperatorTok{=}\StringTok{'inner'}\NormalTok{, on}\OperatorTok{=}\NormalTok{[}\StringTok{'Loc'}\NormalTok{, }\StringTok{'Var'}\NormalTok{]))}
+    \ControlFlowTok{elif}\NormalTok{ one:}
+        \ControlFlowTok{return} \BuiltInTok{len}\NormalTok{(indels[(indels.Individual}\OperatorTok{==}\NormalTok{one)])}
+    \ControlFlowTok{else}\NormalTok{:}
+        \ControlFlowTok{return} \DecValTok{0}
+
+\NormalTok{index }\OperatorTok{=}\NormalTok{ pd.MultiIndex.from_tuples(tuples, names}\OperatorTok{=}\NormalTok{[}\StringTok{'Ind 1'}\NormalTok{, }\StringTok{'Ind 2'}\NormalTok{, }\StringTok{'Ind 3'}\NormalTok{])}
+\NormalTok{s }\OperatorTok{=}\NormalTok{ pd.Series([o(),}
+\NormalTok{               o(}\DecValTok{3}\NormalTok{),}
+\NormalTok{               o(}\DecValTok{2}\NormalTok{),}
+\NormalTok{               o(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{),}
+\NormalTok{               o(}\DecValTok{1}\NormalTok{),}
+\NormalTok{               o(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{),}
+\NormalTok{               o(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}
+\NormalTok{               o(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{)], index}\OperatorTok{=}\NormalTok{index)}
+
+\ImportTok{from}\NormalTok{ upsetplot }\ImportTok{import}\NormalTok{ plot }\ImportTok{as}\NormalTok{ up}
+\NormalTok{up(s)}
+\NormalTok{plt.savefig(}\StringTok{"../images/indels.svg"}\NormalTok{, }\BuiltInTok{format}\OperatorTok{=}\StringTok{"svg"}\NormalTok{, bbox_inches}\OperatorTok{=}\StringTok{"tight"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 Log scales seem to always be a challenge. Here is at least one solution
 to change ticks to log manually.
 
@@ -633,7 +675,7 @@ This displays each individual datapoint overlayed on a boxplot
 
 \chapter{Biology}\label{biology}
 
-\section{General}\label{general}
+\section{General}\label{general-1}
 
 Some helpful commands for genetic sequence.
 
@@ -761,6 +803,291 @@ Write a DataFrame to a file.
 \end{Highlighting}
 \end{Shaded}
 
+\section{Data Structure Creation}\label{data-structure-creation}
+
+Create a DataFrame.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{frame }\OperatorTok{=}\NormalTok{ pd.DataFrame(np.random.randn(}\DecValTok{4}\NormalTok{,}\DecValTok{3}\NormalTok{), columns}\OperatorTok{=}\BuiltInTok{list}\NormalTok{(}\StringTok{'bde'}\NormalTok{), index}\OperatorTok{=}\NormalTok{[}\StringTok{'Utah'}\NormalTok{,}\StringTok{'Ohio'}\NormalTok{,}\StringTok{'Texas'}\NormalTok{,}\StringTok{'Oregon'}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+A DataFrame can conveniently be created from a dictionary.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+\NormalTok{data }\OperatorTok{=}\NormalTok{ \{}\StringTok{'AAA'}\NormalTok{ : [}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{], }\StringTok{'BBB'}\NormalTok{ : [}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{40}\NormalTok{],}\StringTok{'CCC'}\NormalTok{ : [}\DecValTok{100}\NormalTok{,}\DecValTok{50}\NormalTok{,}\OperatorTok{-}\DecValTok{30}\NormalTok{,}\OperatorTok{-}\DecValTok{50}\NormalTok{]\}}
+\NormalTok{df2 }\OperatorTok{=}\NormalTok{ pd.DataFrame(data}\OperatorTok{=}\NormalTok{data,index}\OperatorTok{=}\NormalTok{[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{]) }\CommentTok{#Note index starts at 1.}
+\NormalTok{df2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    AAA  BBB  CCC
+## 1    4   10  100
+## 2    5   20   50
+## 3    6   30  -30
+## 4    7   40  -50
+\end{verbatim}
+
+\section{Selection}\label{selection}
+
+Is data within a DataFrame found within a dictionary or list? (Instead
+of a dictionary a series can be used and maybe another DataFrame)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+\NormalTok{df }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}\StringTok{'A'}\NormalTok{: [}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{], }\StringTok{'B'}\NormalTok{: [}\StringTok{'a'}\NormalTok{, }\StringTok{'b'}\NormalTok{, }\StringTok{'f'}\NormalTok{]\})}
+\NormalTok{df.isin([}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{12}\NormalTok{, }\StringTok{'a'}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        A      B
+## 0   True   True
+## 1  False  False
+## 2   True  False
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df[df.isin([}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{12}\NormalTok{, }\StringTok{'a'}\NormalTok{])]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      A    B
+## 0  1.0    a
+## 1  NaN  NaN
+## 2  3.0  NaN
+\end{verbatim}
+
+Data within a DataFrame can be selected based on position within the
+DataFrame.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+\NormalTok{df2.iloc[}\DecValTok{1}\NormalTok{:}\DecValTok{3}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    AAA  BBB  CCC
+## 2    5   20   50
+## 3    6   30  -30
+\end{verbatim}
+
+Data within a DataFrame can be selected based on position within the
+DataFrame.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+\NormalTok{df2.loc[}\DecValTok{1}\NormalTok{:}\DecValTok{3}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    AAA  BBB  CCC
+## 1    4   10  100
+## 2    5   20   50
+## 3    6   30  -30
+\end{verbatim}
+
+The opposite of matching data can be selected with the inverse operator.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df[}\OperatorTok{~}\NormalTok{((df.AAA }\OperatorTok{<=} \DecValTok{6}\NormalTok{) }\OperatorTok{&}\NormalTok{ (df.index.isin([}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{])))]}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Splitting}\label{splitting}
+
+Concatenate two DataFrames together without dropping any values or
+renaming indices.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{left }\OperatorTok{=}\NormalTok{ pd.concat([left,left])}
+\end{Highlighting}
+\end{Shaded}
+
+Concatenate two DataFrames together without dropping values, but
+renaming index.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{left }\OperatorTok{=}\NormalTok{ pd.concat([left,left], ignore_index}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Count the number of each unique value in a specified column.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{left[}\StringTok{'key1'}\NormalTok{].value_counts()}
+\NormalTok{left.key1.value_counts()}
+\end{Highlighting}
+\end{Shaded}
+
+Value counts can also be calculated as percentages so that raw counts as
+percent makeup can be compared.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{left[}\StringTok{'key1'}\NormalTok{].value_counts(normalize}\OperatorTok{=}\VariableTok{True}\NormalTok{) }\OperatorTok{*} \DecValTok{100}
+\end{Highlighting}
+\end{Shaded}
+
+Two DataFrames can be merged such that only the data containing matching
+keys is retained.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{result }\OperatorTok{=}\NormalTok{ pd.merge(left, right, how}\OperatorTok{=}\StringTok{'inner'}\NormalTok{, on}\OperatorTok{=}\NormalTok{[}\StringTok{'key1'}\NormalTok{, }\StringTok{'key2'}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+This DataFrame merge will retain all of the data in the right DataFrame.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{result }\OperatorTok{=}\NormalTok{ pd.merge(left, right, how}\OperatorTok{=}\StringTok{'right'}\NormalTok{, on}\OperatorTok{=}\NormalTok{[}\StringTok{'key1'}\NormalTok{, }\StringTok{'key2'}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+Filter by multiple columns.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df[(df.one }\OperatorTok{==} \DecValTok{1}\NormalTok{) }\OperatorTok{&}\NormalTok{ (df.two }\OperatorTok{==} \DecValTok{2}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+Filter by multiple columns but only return certain values.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# this just returns the data in column AAA}
+\NormalTok{df }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}\StringTok{'AAA'}\NormalTok{ : [}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{], }\StringTok{'BBB'}\NormalTok{ : [}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{40}\NormalTok{],}\StringTok{'CCC'}\NormalTok{ : [}\DecValTok{100}\NormalTok{,}\DecValTok{50}\NormalTok{,}\OperatorTok{-}\DecValTok{30}\NormalTok{,}\OperatorTok{-}\DecValTok{50}\NormalTok{]\})}
+\NormalTok{newseries }\OperatorTok{=}\NormalTok{ df.loc[(df[}\StringTok{'BBB'}\NormalTok{] }\OperatorTok{<} \DecValTok{25}\NormalTok{) }\OperatorTok{&}\NormalTok{ (df[}\StringTok{'CCC'}\NormalTok{] }\OperatorTok{>=} \OperatorTok{-}\DecValTok{40}\NormalTok{), }\StringTok{'AAA'}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+Filtering by values and using assignment will modify the original
+DataFrame.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df.loc[(df[}\StringTok{'BBB'}\NormalTok{] }\OperatorTok{>} \DecValTok{25}\NormalTok{) }\OperatorTok{|}\NormalTok{ (df[}\StringTok{'CCC'}\NormalTok{] }\OperatorTok{>=} \DecValTok{75}\NormalTok{), }\StringTok{'AAA'}\NormalTok{] }\OperatorTok{=} \FloatTok{0.1}
+\end{Highlighting}
+\end{Shaded}
+
+Select multiple values from a particular column, where Letter is the
+column header.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df[df.Letter.isin([}\StringTok{'a'}\NormalTok{,}\StringTok{'b'}\NormalTok{])]}
+\end{Highlighting}
+\end{Shaded}
+
+Use itertools to find combinations of data within a column of two
+DataFrames.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{itertools.product(df1[}\StringTok{'a'}\NormalTok{], df2[}\StringTok{'a'}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+Add data to a particular cell within a DataFrame.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df.loc[index,column]}\OperatorTok{=}\NormalTok{num}
+\end{Highlighting}
+\end{Shaded}
+
+Make a copy of a DataFrame.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df.copy(deep}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Iterate through a DataFrame.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in}\NormalTok{ df.itertuples():}
+    \ControlFlowTok{pass}
+\end{Highlighting}
+\end{Shaded}
+
+Change order of columns.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{=}\NormalTok{ x.reindex(columns}\OperatorTok{=}\NormalTok{[}\StringTok{'header'}\NormalTok{,}\StringTok{'seq'}\NormalTok{,}\StringTok{'plus'}\NormalTok{,}\StringTok{'qual'}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+Make a DataFrame from a dictionary
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d }\OperatorTok{=}\NormalTok{ \{}\StringTok{'col1'}\NormalTok{: [}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{], }\StringTok{'col2'}\NormalTok{: [}\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{]\}}
+\NormalTok{x }\OperatorTok{=}\NormalTok{ pd.DataFrame(d)}
+\end{Highlighting}
+\end{Shaded}
+
+Sample from a DataFrame.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df.sample(frac}\OperatorTok{=}\DecValTok{1}\NormalTok{)}
+\NormalTok{df.sample(n}\OperatorTok{=}\DecValTok{20}\NormalTok{, axis}\OperatorTok{=}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Append to a DataFrame.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df}\OperatorTok{=}\NormalTok{df.append(newdf, ignore_index}\OperatorTok{=}\VariableTok{True}\NormalTok{) }\CommentTok{# without ignore_index, the original indices will be used}
+\end{Highlighting}
+\end{Shaded}
+
+Remove duplicates
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{=}\NormalTok{ x[}\OperatorTok{~}\NormalTok{x.index.duplicated(keep}\OperatorTok{=}\StringTok{'first'}\NormalTok{)] }\CommentTok{# most ideal method}
+
+\NormalTok{data }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}\StringTok{'k1'}\NormalTok{:[}\StringTok{'one'}\NormalTok{,}\StringTok{'two'}\NormalTok{]}\OperatorTok{*}\DecValTok{3}\OperatorTok{+}\NormalTok{[}\StringTok{'two'}\NormalTok{],}\StringTok{'k2'}\NormalTok{:[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{]\})}
+\NormalTok{data.duplicated() }\CommentTok{# identify duplicate data}
+\NormalTok{data[‘k1’].duplicated()}
+\NormalTok{data[}\StringTok{'k1'}\NormalTok{].drop_duplicates()}
+\NormalTok{data.drop_duplicates[}\StringTok{'k1'}\NormalTok{] }\CommentTok{# this does the same thing as the previous line}
+\NormalTok{data.drop_duplicates([}\StringTok{'k1'}\NormalTok{,}\StringTok{'k2'}\NormalTok{], keep}\OperatorTok{=}\StringTok{'last'}\NormalTok{) }\CommentTok{# drops unique found in k1 and k2 and keeps the last indexed duplicate}
+\end{Highlighting}
+\end{Shaded}
+
+Check if string is within strings in a given column
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x[x[}\StringTok{'strLoc'}\NormalTok{].}\BuiltInTok{str}\NormalTok{.contains(region)]}
+\end{Highlighting}
+\end{Shaded}
+
 \section{Relabeling}\label{relabeling}
 
 Rename a column or group of columns can be done by passing a dictionary
@@ -780,6 +1107,14 @@ The following code sorts the values within the columns a and b.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{df.sort_values([}\StringTok{'a'}\NormalTok{,}\StringTok{'b'}\NormalTok{], ascending}\OperatorTok{=}\VariableTok{False}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Set a column as the new index
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x.set_index([}\StringTok{'uniques'}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 
@@ -806,6 +1141,15 @@ column type.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{df.Age }\OperatorTok{=}\NormalTok{ df.Age.astype(}\BuiltInTok{str}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Replace values.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OperatorTok{=}\NormalTok{ pd.Series([}\DecValTok{1}\NormalTok{., }\OperatorTok{-}\DecValTok{999}\NormalTok{., }\DecValTok{2}\NormalTok{., }\OperatorTok{-}\DecValTok{999}\NormalTok{., }\OperatorTok{-}\DecValTok{1000}\NormalTok{., }\DecValTok{3}\NormalTok{.])}
+\NormalTok{data.replace(}\OperatorTok{-}\DecValTok{999}\NormalTok{, np.nan)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -871,23 +1215,6 @@ Appending to a Dataframe attaches a DataFrame after another one.
 \end{Highlighting}
 \end{Shaded}
 
-\section{Splitting}\label{splitting}
-
-Remove duplicates
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x }\OperatorTok{=}\NormalTok{ x[}\OperatorTok{~}\NormalTok{x.index.duplicated(keep}\OperatorTok{=}\StringTok{'first'}\NormalTok{)] }\CommentTok{# most ideal method}
-
-\NormalTok{data }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}\StringTok{'k1'}\NormalTok{:[}\StringTok{'one'}\NormalTok{,}\StringTok{'two'}\NormalTok{]}\OperatorTok{*}\DecValTok{3}\OperatorTok{+}\NormalTok{[}\StringTok{'two'}\NormalTok{],}\StringTok{'k2'}\NormalTok{:[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{]\})}
-\NormalTok{data.duplicated() }\CommentTok{# identify duplicate data}
-\NormalTok{data[‘k1’].duplicated()}
-\NormalTok{data[}\StringTok{'k1'}\NormalTok{].drop_duplicates()}
-\NormalTok{data.drop_duplicates[}\StringTok{'k1'}\NormalTok{] }\CommentTok{# this does the same thing as the previous line}
-\NormalTok{data.drop_duplicates([}\StringTok{'k1'}\NormalTok{,}\StringTok{'k2'}\NormalTok{], keep}\OperatorTok{=}\StringTok{'last'}\NormalTok{) }\CommentTok{# drops unique found in k1 and k2 and keeps the last indexed duplicate}
-\end{Highlighting}
-\end{Shaded}
-
 \section{Summarizing}\label{summarizing}
 
 The mean of column values can be calculated where each of the columns is
@@ -899,13 +1226,13 @@ grouped by the data in a specified column.
 \end{Highlighting}
 \end{Shaded}
 
-\section{Arithmetic and Row-wise
-Analysis}\label{arithmetic-and-row-wise-analysis}
+\section{Arithmetic and Row/Column-wise
+Analysis}\label{arithmetic-and-rowcolumn-wise-analysis}
 
 Sometimes it is helpful to analyze the value in a particular cell in a
 conditional manner depending on it's value and then set the result of
 this analysis to a corresponding cell in a new column. Here is an
-example where the VAF of a variant is conditionally analyzed
+example where the VAF of a variant is conditionally analyzed.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -916,6 +1243,51 @@ example where the VAF of a variant is conditionally analyzed
 \NormalTok{all_vars[}\StringTok{'LOH'}\NormalTok{] }\OperatorTok{=}\NormalTok{ all_vars.VAF.transform(LOH)}
 \NormalTok{max_loh }\OperatorTok{=}\NormalTok{ all_vars.groupby(}\StringTok{'Sample'}\NormalTok{).LOH.}\BuiltInTok{max}\NormalTok{().reset_index().rename(columns}\OperatorTok{=}\NormalTok{\{}\StringTok{'LOH'}\NormalTok{:}\StringTok{'Max_LOH'}\NormalTok{\})}
 \NormalTok{all_vars }\OperatorTok{=}\NormalTok{ pd.merge(all_vars, max_loh, how}\OperatorTok{=}\StringTok{'inner'}\NormalTok{, on}\OperatorTok{=}\NormalTok{[}\StringTok{'Sample'}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+Broadcasting arithmetic is an efficient method of calculating across an
+entire DataFrame.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{frame }\OperatorTok{=}\NormalTok{ pd.DataFrame(np.arange(}\DecValTok{12}\NormalTok{.).reshape((}\DecValTok{4}\NormalTok{,}\DecValTok{3}\NormalTok{)), columns}\OperatorTok{=}\BuiltInTok{list}\NormalTok{(}\StringTok{'bde'}\NormalTok{), index}\OperatorTok{=}\NormalTok{[}\StringTok{'Utah'}\NormalTok{,}\StringTok{'Ohio'}\NormalTok{,}\StringTok{'Texas'}\NormalTok{,}\StringTok{'Oregon'}\NormalTok{]}
+\NormalTok{series }\OperatorTok{=}\NormalTok{ frame.iloc[}\DecValTok{0}\NormalTok{]}
+\NormalTok{frame }\OperatorTok{-}\NormalTok{ series}
+\CommentTok{# the subtraction function could also be used}
+\CommentTok{# frame.sub(series, axis='columns')}
+\end{Highlighting}
+\end{Shaded}
+
+Apply a function to each row or column.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f }\OperatorTok{=} \KeywordTok{lambda}\NormalTok{ x: x.}\BuiltInTok{max}\NormalTok{() }\OperatorTok{-}\NormalTok{ x.}\BuiltInTok{min}\NormalTok{()}
+\NormalTok{frame.}\BuiltInTok{apply}\NormalTok{(f, axis}\OperatorTok{=}\StringTok{'index'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Add two sets of data together, and use fill\_value to avoid replacing
+any missing data with \texttt{NaN}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{=}\NormalTok{ pd.DataFrame([}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{], columns}\OperatorTok{=}\BuiltInTok{list}\NormalTok{(}\StringTok{'0'}\NormalTok{))    }
+\NormalTok{y }\OperatorTok{=}\NormalTok{ pd.DataFrame([}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{], columns}\OperatorTok{=}\BuiltInTok{list}\NormalTok{(}\StringTok{'1'}\NormalTok{))}
+\NormalTok{x }\OperatorTok{=}\NormalTok{ x.add(y, fill_value}\OperatorTok{=}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Take the mean or std across specified columns and append as a new
+column. Below the DataFrame has columns 1-7 that will be used in
+computing the mean or std and this new data will be appended in a new
+column labeled `Mean' or `Std'.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x[}\StringTok{'Mean'}\NormalTok{]}\OperatorTok{=}\NormalTok{x[[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{]].mean(axis}\OperatorTok{=}\DecValTok{1}\NormalTok{)}
+\NormalTok{x[}\StringTok{'Std'}\NormalTok{]}\OperatorTok{=}\NormalTok{x[[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{]].std(axis}\OperatorTok{=}\DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1041,7 +1413,8 @@ To setup spellchecking first setup a personal dictionary file.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{mkdir}\NormalTok{ -p ~/.vim/spell/    # makes a directory for personal dictionary}
+\CommentTok{# make a directory for personal dictionary}
+\FunctionTok{mkdir}\NormalTok{ -p ~/.vim/spell/}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1088,6 +1461,95 @@ Get suggestions for misspelled word.
 \VariableTok{z=}
 \end{Highlighting}
 \end{Shaded}
+
+\chapter{Bioinformatics Resources}\label{resources}
+
+\section{Cancer Datasets}\label{cancer-datasets}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://www.nature.com/articles/s41586-019-1186-3?WT.ec_id=NATURE-201905\&sap-outbound-id=720FBE4668F2FE14A299D42CB43EF50D90063A16\&mkt-key=005056A5C6311ED999AC3A52796F7641}{The
+  Cancer Cell Line Encyclopedia} has a wealth of information from a
+  large number of cancer cell lines.
+\item
+  \href{https://score.depmap.sanger.ac.uk/}{Project score} has a number
+  of genetic screens that may be useful in identifying pathways that are
+  critical to cancer growth and survival
+\item
+  \href{http://www.cbioportal.org/}{cbioportal} has information about
+  codon changes in cancer but does not seem to have any sequence data
+\item
+  \href{https://dbgap.ncbi.nlm.nih.gov/aa/wga.cgi?page=login}{dbGAP} has
+  info on genotypes and phenotypes, whatever the fuck that means
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://dbgap.ncbi.nlm.nih.gov/aa/wga.cgi?page=login}{Here} is
+    the page with instructions on how to get dbGAP access
+  \end{itemize}
+\item
+  \href{https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga}{TCGA}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://gdc.cancer.gov/access-data/obtaining-access-controlled-data}{This}
+    page has the instructions on how to get TCGA access
+  \end{itemize}
+\item
+  \href{https://cancer.sanger.ac.uk/cosmic}{COSMIC}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Cosmic has a project called the
+    \href{https://cancer.sanger.ac.uk/cosmic/census?genome=37}{Cancer
+    Gene Census} in which they are trying to catalog all mutations that
+    have been implicated in playing a causal role in cancer
+  \item
+    They also have implemented convenient
+    \href{https://cancer.sanger.ac.uk/cosmic/help/file_download}{ways}
+    of directly downloading information and files from the database in
+    python using the files hosted
+    \href{https://cancer.sanger.ac.uk/cosmic/download}{here}.
+  \end{itemize}
+\item
+  \href{https://mastermind.genomenon.com/api}{Mastermind} from genomenon
+  parsed all the articles on pubmed in order to find any and all
+  information for each possible mutation
+\item
+  \href{https://gtexportal.org/home/}{GTEx} has RNA-Seq, Exome Seq,
+  WGseq, SNP arrays, gene expression arrays and more for cancer and
+  non-cancer?
+\end{itemize}
+
+\section{Alzheimer's}\label{alzheimers}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://www.niagads.org/adsp/content/home}{The Alzheimers
+  sequencing project} is gathering data to understand late onset
+  alzheimer's
+\end{itemize}
+
+\section{Genomic Datasets}\label{genomic-datasets}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{ttps://www.joinallofus.org/en/how-to-join}{AllOfUs} is
+  sequencing and collecting other health data on a million individuals
+\item
+  \href{https://www.color.com/}{Color Genomics} is one of three
+  companies that will be doing the sequencing and testing for AllOfUs
+\item
+  \href{http://www.internationalgenome.org/data/}{1000 genomes}
+\item
+  \href{https://www.genomicsengland.co.uk/}{100,000 genomes}
+\end{itemize}
 
 \bibliography{book.bib,packages.bib}
 

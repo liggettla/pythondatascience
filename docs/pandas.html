@@ -6,20 +6,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Chapter 7 Pandas | Data Science With Python</title>
-  <meta name="description" content="These are notes and thoughts within the scope of the field of genomics.">
+  <meta name="description" content="Chapter 7 Pandas | Data Science With Python.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
   <meta property="og:title" content="Chapter 7 Pandas | Data Science With Python" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="These are notes and thoughts within the scope of the field of genomics." />
+  <meta property="og:description" content="Chapter 7 Pandas | Data Science With Python." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 7 Pandas | Data Science With Python" />
   
-  <meta name="twitter:description" content="These are notes and thoughts within the scope of the field of genomics." />
+  <meta name="twitter:description" content="Chapter 7 Pandas | Data Science With Python." />
   
 
 <meta name="author" content="L A Liggett">
@@ -105,7 +105,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="python.html"><a href="python.html"><i class="fa fa-check"></i><b>2</b> Python</a><ul>
+<li class="chapter" data-level="2.1" data-path="python.html"><a href="python.html#general"><i class="fa fa-check"></i><b>2.1</b> General</a></li>
+<li class="chapter" data-level="2.2" data-path="python.html"><a href="python.html#numba"><i class="fa fa-check"></i><b>2.2</b> Numba</a></li>
+<li class="chapter" data-level="2.3" data-path="python.html"><a href="python.html#cython"><i class="fa fa-check"></i><b>2.3</b> Cython</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="jupyter.html"><a href="jupyter.html"><i class="fa fa-check"></i><b>3</b> JupyterLab</a></li>
 <li class="chapter" data-level="4" data-path="visualization.html"><a href="visualization.html"><i class="fa fa-check"></i><b>4</b> Visualization</a><ul>
 <li class="chapter" data-level="4.1" data-path="visualization.html"><a href="visualization.html#color"><i class="fa fa-check"></i><b>4.1</b> Color</a><ul>
@@ -118,7 +122,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.5" data-path="visualization.html"><a href="visualization.html#various-plot-styles"><i class="fa fa-check"></i><b>4.5</b> Various Plot Styles</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="biology.html"><a href="biology.html"><i class="fa fa-check"></i><b>5</b> Biology</a><ul>
-<li class="chapter" data-level="5.1" data-path="biology.html"><a href="biology.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
+<li class="chapter" data-level="5.1" data-path="biology.html"><a href="biology.html#general-1"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
 <li class="chapter" data-level="5.2" data-path="biology.html"><a href="biology.html#biopython"><i class="fa fa-check"></i><b>5.2</b> Biopython</a></li>
 <li class="chapter" data-level="5.3" data-path="biology.html"><a href="biology.html#ucsc-genome-browser"><i class="fa fa-check"></i><b>5.3</b> UCSC Genome Browser</a></li>
 <li class="chapter" data-level="5.4" data-path="biology.html"><a href="biology.html#ref-genome"><i class="fa fa-check"></i><b>5.4</b> Ref Genome</a></li>
@@ -130,15 +134,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="7" data-path="pandas.html"><a href="pandas.html"><i class="fa fa-check"></i><b>7</b> Pandas</a><ul>
 <li class="chapter" data-level="7.1" data-path="pandas.html"><a href="pandas.html#file-io"><i class="fa fa-check"></i><b>7.1</b> File I/O</a></li>
-<li class="chapter" data-level="7.2" data-path="pandas.html"><a href="pandas.html#relabeling"><i class="fa fa-check"></i><b>7.2</b> Relabeling</a></li>
-<li class="chapter" data-level="7.3" data-path="pandas.html"><a href="pandas.html#sorting-and-arranging"><i class="fa fa-check"></i><b>7.3</b> Sorting and Arranging</a></li>
-<li class="chapter" data-level="7.4" data-path="pandas.html"><a href="pandas.html#editing-data"><i class="fa fa-check"></i><b>7.4</b> Editing Data</a><ul>
-<li class="chapter" data-level="7.4.1" data-path="pandas.html"><a href="pandas.html#replace-values"><i class="fa fa-check"></i><b>7.4.1</b> Replace values</a></li>
+<li class="chapter" data-level="7.2" data-path="pandas.html"><a href="pandas.html#data-structure-creation"><i class="fa fa-check"></i><b>7.2</b> Data Structure Creation</a></li>
+<li class="chapter" data-level="7.3" data-path="pandas.html"><a href="pandas.html#selection"><i class="fa fa-check"></i><b>7.3</b> Selection</a></li>
+<li class="chapter" data-level="7.4" data-path="pandas.html"><a href="pandas.html#splitting"><i class="fa fa-check"></i><b>7.4</b> Splitting</a></li>
+<li class="chapter" data-level="7.5" data-path="pandas.html"><a href="pandas.html#relabeling"><i class="fa fa-check"></i><b>7.5</b> Relabeling</a></li>
+<li class="chapter" data-level="7.6" data-path="pandas.html"><a href="pandas.html#sorting-and-arranging"><i class="fa fa-check"></i><b>7.6</b> Sorting and Arranging</a></li>
+<li class="chapter" data-level="7.7" data-path="pandas.html"><a href="pandas.html#editing-data"><i class="fa fa-check"></i><b>7.7</b> Editing Data</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="pandas.html"><a href="pandas.html#replace-values"><i class="fa fa-check"></i><b>7.7.1</b> Replace values</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="pandas.html"><a href="pandas.html#combining-data-structures"><i class="fa fa-check"></i><b>7.5</b> Combining Data Structures</a></li>
-<li class="chapter" data-level="7.6" data-path="pandas.html"><a href="pandas.html#splitting"><i class="fa fa-check"></i><b>7.6</b> Splitting</a></li>
-<li class="chapter" data-level="7.7" data-path="pandas.html"><a href="pandas.html#summarizing"><i class="fa fa-check"></i><b>7.7</b> Summarizing</a></li>
-<li class="chapter" data-level="7.8" data-path="pandas.html"><a href="pandas.html#arithmetic-and-row-wise-analysis"><i class="fa fa-check"></i><b>7.8</b> Arithmetic and Row-wise Analysis</a></li>
+<li class="chapter" data-level="7.8" data-path="pandas.html"><a href="pandas.html#combining-data-structures"><i class="fa fa-check"></i><b>7.8</b> Combining Data Structures</a></li>
+<li class="chapter" data-level="7.9" data-path="pandas.html"><a href="pandas.html#summarizing"><i class="fa fa-check"></i><b>7.9</b> Summarizing</a></li>
+<li class="chapter" data-level="7.10" data-path="pandas.html"><a href="pandas.html#arithmetic-and-rowcolumn-wise-analysis"><i class="fa fa-check"></i><b>7.10</b> Arithmetic and Row/Column-wise Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="git.html"><a href="git.html"><i class="fa fa-check"></i><b>8</b> Git</a><ul>
 <li class="chapter" data-level="8.1" data-path="git.html"><a href="git.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a><ul>
@@ -155,6 +161,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9" data-path="vim.html"><a href="vim.html"><i class="fa fa-check"></i><b>9</b> VIM</a><ul>
 <li class="chapter" data-level="9.1" data-path="vim.html"><a href="vim.html#formatting"><i class="fa fa-check"></i><b>9.1</b> Formatting</a></li>
 <li class="chapter" data-level="9.2" data-path="vim.html"><a href="vim.html#spellcheck"><i class="fa fa-check"></i><b>9.2</b> Spellcheck</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>10</b> Bioinformatics Resources</a><ul>
+<li class="chapter" data-level="10.1" data-path="resources.html"><a href="resources.html#cancer-datasets"><i class="fa fa-check"></i><b>10.1</b> Cancer Datasets</a></li>
+<li class="chapter" data-level="10.2" data-path="resources.html"><a href="resources.html#alzheimers"><i class="fa fa-check"></i><b>10.2</b> Alzheimer’s</a></li>
+<li class="chapter" data-level="10.3" data-path="resources.html"><a href="resources.html#genomic-datasets"><i class="fa fa-check"></i><b>10.3</b> Genomic Datasets</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -186,18 +197,122 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Write a DataFrame to a file.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x.to_csv(path_or_buf<span class="op">=</span><span class="st">&#39;outputDir&#39;</span>, sep<span class="op">=</span><span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>, header<span class="op">=</span><span class="va">False</span>, index<span class="op">=</span><span class="va">False</span>)</code></pre></div>
 </div>
+<div id="data-structure-creation" class="section level2">
+<h2><span class="header-section-number">7.2</span> Data Structure Creation</h2>
+<p>Create a DataFrame.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">frame <span class="op">=</span> pd.DataFrame(np.random.randn(<span class="dv">4</span>,<span class="dv">3</span>), columns<span class="op">=</span><span class="bu">list</span>(<span class="st">&#39;bde&#39;</span>), index<span class="op">=</span>[<span class="st">&#39;Utah&#39;</span>,<span class="st">&#39;Ohio&#39;</span>,<span class="st">&#39;Texas&#39;</span>,<span class="st">&#39;Oregon&#39;</span>])</code></pre></div>
+<p>A DataFrame can conveniently be created from a dictionary.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> pandas <span class="im">as</span> pd
+data <span class="op">=</span> {<span class="st">&#39;AAA&#39;</span> : [<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>], <span class="st">&#39;BBB&#39;</span> : [<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">40</span>],<span class="st">&#39;CCC&#39;</span> : [<span class="dv">100</span>,<span class="dv">50</span>,<span class="op">-</span><span class="dv">30</span>,<span class="op">-</span><span class="dv">50</span>]}
+df2 <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>data,index<span class="op">=</span>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]) <span class="co">#Note index starts at 1.</span>
+df2</code></pre></div>
+<pre><code>##    AAA  BBB  CCC
+## 1    4   10  100
+## 2    5   20   50
+## 3    6   30  -30
+## 4    7   40  -50</code></pre>
+</div>
+<div id="selection" class="section level2">
+<h2><span class="header-section-number">7.3</span> Selection</h2>
+<p>Is data within a DataFrame found within a dictionary or list? (Instead of a dictionary a series can be used and maybe another DataFrame)</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> pandas <span class="im">as</span> pd
+df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;A&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&#39;B&#39;</span>: [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;f&#39;</span>]})
+df.isin([<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">12</span>, <span class="st">&#39;a&#39;</span>])</code></pre></div>
+<pre><code>##        A      B
+## 0   True   True
+## 1  False  False
+## 2   True  False</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df[df.isin([<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">12</span>, <span class="st">&#39;a&#39;</span>])]</code></pre></div>
+<pre><code>##      A    B
+## 0  1.0    a
+## 1  NaN  NaN
+## 2  3.0  NaN</code></pre>
+<p>Data within a DataFrame can be selected based on position within the DataFrame.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> pandas <span class="im">as</span> pd
+df2.iloc[<span class="dv">1</span>:<span class="dv">3</span>]</code></pre></div>
+<pre><code>##    AAA  BBB  CCC
+## 2    5   20   50
+## 3    6   30  -30</code></pre>
+<p>Data within a DataFrame can be selected based on position within the DataFrame.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> pandas <span class="im">as</span> pd
+df2.loc[<span class="dv">1</span>:<span class="dv">3</span>]</code></pre></div>
+<pre><code>##    AAA  BBB  CCC
+## 1    4   10  100
+## 2    5   20   50
+## 3    6   30  -30</code></pre>
+<p>The opposite of matching data can be selected with the inverse operator.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df[<span class="op">~</span>((df.AAA <span class="op">&lt;=</span> <span class="dv">6</span>) <span class="op">&amp;</span> (df.index.isin([<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">4</span>])))]</code></pre></div>
+</div>
+<div id="splitting" class="section level2">
+<h2><span class="header-section-number">7.4</span> Splitting</h2>
+<p>Concatenate two DataFrames together without dropping any values or renaming indices.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">left <span class="op">=</span> pd.concat([left,left])</code></pre></div>
+<p>Concatenate two DataFrames together without dropping values, but renaming index.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">left <span class="op">=</span> pd.concat([left,left], ignore_index<span class="op">=</span><span class="va">True</span>)</code></pre></div>
+<p>Count the number of each unique value in a specified column.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">left[<span class="st">&#39;key1&#39;</span>].value_counts()
+left.key1.value_counts()</code></pre></div>
+<p>Value counts can also be calculated as percentages so that raw counts as percent makeup can be compared.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">left[<span class="st">&#39;key1&#39;</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>) <span class="op">*</span> <span class="dv">100</span></code></pre></div>
+<p>Two DataFrames can be merged such that only the data containing matching keys is retained.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">result <span class="op">=</span> pd.merge(left, right, how<span class="op">=</span><span class="st">&#39;inner&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;key1&#39;</span>, <span class="st">&#39;key2&#39;</span>])</code></pre></div>
+<p>This DataFrame merge will retain all of the data in the right DataFrame.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">result <span class="op">=</span> pd.merge(left, right, how<span class="op">=</span><span class="st">&#39;right&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;key1&#39;</span>, <span class="st">&#39;key2&#39;</span>])</code></pre></div>
+<p>Filter by multiple columns.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df[(df.one <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> (df.two <span class="op">==</span> <span class="dv">2</span>)]</code></pre></div>
+<p>Filter by multiple columns but only return certain values.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># this just returns the data in column AAA</span>
+df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;AAA&#39;</span> : [<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>], <span class="st">&#39;BBB&#39;</span> : [<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">40</span>],<span class="st">&#39;CCC&#39;</span> : [<span class="dv">100</span>,<span class="dv">50</span>,<span class="op">-</span><span class="dv">30</span>,<span class="op">-</span><span class="dv">50</span>]})
+newseries <span class="op">=</span> df.loc[(df[<span class="st">&#39;BBB&#39;</span>] <span class="op">&lt;</span> <span class="dv">25</span>) <span class="op">&amp;</span> (df[<span class="st">&#39;CCC&#39;</span>] <span class="op">&gt;=</span> <span class="op">-</span><span class="dv">40</span>), <span class="st">&#39;AAA&#39;</span>]</code></pre></div>
+<p>Filtering by values and using assignment will modify the original DataFrame.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df.loc[(df[<span class="st">&#39;BBB&#39;</span>] <span class="op">&gt;</span> <span class="dv">25</span>) <span class="op">|</span> (df[<span class="st">&#39;CCC&#39;</span>] <span class="op">&gt;=</span> <span class="dv">75</span>), <span class="st">&#39;AAA&#39;</span>] <span class="op">=</span> <span class="fl">0.1</span></code></pre></div>
+<p>Select multiple values from a particular column, where Letter is the column header.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df[df.Letter.isin([<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>])]</code></pre></div>
+<p>Use itertools to find combinations of data within a column of two DataFrames.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">itertools.product(df1[<span class="st">&#39;a&#39;</span>], df2[<span class="st">&#39;a&#39;</span>])</code></pre></div>
+<p>Add data to a particular cell within a DataFrame.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df.loc[index,column]<span class="op">=</span>num</code></pre></div>
+<p>Make a copy of a DataFrame.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df.copy(deep<span class="op">=</span><span class="va">True</span>)</code></pre></div>
+<p>Iterate through a DataFrame.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> i <span class="kw">in</span> df.itertuples():
+    <span class="cf">pass</span></code></pre></div>
+<p>Change order of columns.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x <span class="op">=</span> x.reindex(columns<span class="op">=</span>[<span class="st">&#39;header&#39;</span>,<span class="st">&#39;seq&#39;</span>,<span class="st">&#39;plus&#39;</span>,<span class="st">&#39;qual&#39;</span>])</code></pre></div>
+<p>Make a DataFrame from a dictionary</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">d <span class="op">=</span> {<span class="st">&#39;col1&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>], <span class="st">&#39;col2&#39;</span>: [<span class="dv">3</span>, <span class="dv">4</span>]}
+x <span class="op">=</span> pd.DataFrame(d)</code></pre></div>
+<p>Sample from a DataFrame.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df.sample(frac<span class="op">=</span><span class="dv">1</span>)
+df.sample(n<span class="op">=</span><span class="dv">20</span>, axis<span class="op">=</span><span class="dv">1</span>)</code></pre></div>
+<p>Append to a DataFrame.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df<span class="op">=</span>df.append(newdf, ignore_index<span class="op">=</span><span class="va">True</span>) <span class="co"># without ignore_index, the original indices will be used</span></code></pre></div>
+<p>Remove duplicates</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x <span class="op">=</span> x[<span class="op">~</span>x.index.duplicated(keep<span class="op">=</span><span class="st">&#39;first&#39;</span>)] <span class="co"># most ideal method</span>
+
+data <span class="op">=</span> pd.DataFrame({<span class="st">&#39;k1&#39;</span>:[<span class="st">&#39;one&#39;</span>,<span class="st">&#39;two&#39;</span>]<span class="op">*</span><span class="dv">3</span><span class="op">+</span>[<span class="st">&#39;two&#39;</span>],<span class="st">&#39;k2&#39;</span>:[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>]})
+data.duplicated() <span class="co"># identify duplicate data</span>
+data[‘k1’].duplicated()
+data[<span class="st">&#39;k1&#39;</span>].drop_duplicates()
+data.drop_duplicates[<span class="st">&#39;k1&#39;</span>] <span class="co"># this does the same thing as the previous line</span>
+data.drop_duplicates([<span class="st">&#39;k1&#39;</span>,<span class="st">&#39;k2&#39;</span>], keep<span class="op">=</span><span class="st">&#39;last&#39;</span>) <span class="co"># drops unique found in k1 and k2 and keeps the last indexed duplicate</span></code></pre></div>
+<p>Check if string is within strings in a given column</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x[x[<span class="st">&#39;strLoc&#39;</span>].<span class="bu">str</span>.contains(region)]</code></pre></div>
+</div>
 <div id="relabeling" class="section level2">
-<h2><span class="header-section-number">7.2</span> Relabeling</h2>
+<h2><span class="header-section-number">7.5</span> Relabeling</h2>
 <p>Rename a column or group of columns can be done by passing a dictionary of the changes.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">    df <span class="op">=</span> df.rename(columns<span class="op">=</span>{<span class="st">&#39;a&#39;</span>:<span class="st">&#39;b&#39;</span>,<span class="st">&#39;c&#39;</span>:<span class="st">&#39;d&#39;</span>})</code></pre></div>
 </div>
 <div id="sorting-and-arranging" class="section level2">
-<h2><span class="header-section-number">7.3</span> Sorting and Arranging</h2>
+<h2><span class="header-section-number">7.6</span> Sorting and Arranging</h2>
 <p>The data in a DataFrame can be sorted in numeric or lexicographic order. The following code sorts the values within the columns a and b.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df.sort_values([<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>], ascending<span class="op">=</span><span class="va">False</span>)</code></pre></div>
+<p>Set a column as the new index</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x.set_index([<span class="st">&#39;uniques&#39;</span>])</code></pre></div>
 </div>
 <div id="editing-data" class="section level2">
-<h2><span class="header-section-number">7.4</span> Editing Data</h2>
+<h2><span class="header-section-number">7.7</span> Editing Data</h2>
 <p>Drop columns from a DataFrame.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy <span class="im">as</span> np
 df <span class="op">=</span> pd.DataFrame(np.arange(<span class="dv">12</span>).reshape(<span class="dv">3</span>,<span class="dv">4</span>),
@@ -209,8 +324,11 @@ df <span class="op">=</span> df.drop([<span class="st">&#39;B&#39;</span>, <span
 <span class="bu">print</span>(df)</code></pre></div>
 <p>Changing the datatype of a column of data can be done by just changing column type.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df.Age <span class="op">=</span> df.Age.astype(<span class="bu">str</span>)</code></pre></div>
+<p>Replace values.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">data <span class="op">=</span> pd.Series([<span class="dv">1</span>., <span class="op">-</span><span class="dv">999</span>., <span class="dv">2</span>., <span class="op">-</span><span class="dv">999</span>., <span class="op">-</span><span class="dv">1000</span>., <span class="dv">3</span>.])
+data.replace(<span class="op">-</span><span class="dv">999</span>, np.nan)</code></pre></div>
 <div id="replace-values" class="section level3">
-<h3><span class="header-section-number">7.4.1</span> Replace values</h3>
+<h3><span class="header-section-number">7.7.1</span> Replace values</h3>
 <p>New data can be set within a DataFrame one subset at a time in a way that will avoid the SettingWithCopyWarning.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> pandas <span class="im">as</span> pd
 df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;Trait&#39;</span>:[<span class="st">&#39;Seed_Shape&#39;</span>,<span class="st">&#39;Seed_Shape&#39;</span>,<span class="st">&#39;Flower_Color&#39;</span>,<span class="st">&#39;Flower_Color&#39;</span>],
@@ -228,7 +346,7 @@ df.loc[df.Trait <span class="op">==</span> <span class="st">&#39;Flower_Color&#3
 </div>
 </div>
 <div id="combining-data-structures" class="section level2">
-<h2><span class="header-section-number">7.5</span> Combining Data Structures</h2>
+<h2><span class="header-section-number">7.8</span> Combining Data Structures</h2>
 <p>The following merges df and df2 using inner to get the intersection on the Sample column, where indexes are ignored if the merging is performed on a column as in the following example. The other possible merging strategies are: left: use only keys from left frame, similar to a SQL left outer join; preserve key order. right: use only keys from right frame, similar to a SQL right outer join; preserve key order. outer: use union of keys from both frames, similar to a SQL full outer join; sort keys lexicographically. inner: use intersection of keys from both frames, similar to a SQL inner join; preserve the order of the left keys.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df <span class="op">=</span> pd.merge(df, df2, how<span class="op">=</span><span class="st">&#39;inner&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;Sample&#39;</span>])</code></pre></div>
 <p>Appending to a Dataframe attaches a DataFrame after another one.</p>
@@ -236,26 +354,14 @@ df.loc[df.Trait <span class="op">==</span> <span class="st">&#39;Flower_Color&#3
 df2 <span class="op">=</span> pd.DataFrame([[<span class="dv">5</span>, <span class="dv">6</span>], [<span class="dv">7</span>, <span class="dv">8</span>]], columns<span class="op">=</span><span class="bu">list</span>(<span class="st">&#39;AB&#39;</span>))
 df.append(df2)</code></pre></div>
 </div>
-<div id="splitting" class="section level2">
-<h2><span class="header-section-number">7.6</span> Splitting</h2>
-<p>Remove duplicates</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x <span class="op">=</span> x[<span class="op">~</span>x.index.duplicated(keep<span class="op">=</span><span class="st">&#39;first&#39;</span>)] <span class="co"># most ideal method</span>
-
-data <span class="op">=</span> pd.DataFrame({<span class="st">&#39;k1&#39;</span>:[<span class="st">&#39;one&#39;</span>,<span class="st">&#39;two&#39;</span>]<span class="op">*</span><span class="dv">3</span><span class="op">+</span>[<span class="st">&#39;two&#39;</span>],<span class="st">&#39;k2&#39;</span>:[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>]})
-data.duplicated() <span class="co"># identify duplicate data</span>
-data[‘k1’].duplicated()
-data[<span class="st">&#39;k1&#39;</span>].drop_duplicates()
-data.drop_duplicates[<span class="st">&#39;k1&#39;</span>] <span class="co"># this does the same thing as the previous line</span>
-data.drop_duplicates([<span class="st">&#39;k1&#39;</span>,<span class="st">&#39;k2&#39;</span>], keep<span class="op">=</span><span class="st">&#39;last&#39;</span>) <span class="co"># drops unique found in k1 and k2 and keeps the last indexed duplicate</span></code></pre></div>
-</div>
 <div id="summarizing" class="section level2">
-<h2><span class="header-section-number">7.7</span> Summarizing</h2>
+<h2><span class="header-section-number">7.9</span> Summarizing</h2>
 <p>The mean of column values can be calculated where each of the columns is grouped by the data in a specified column.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">temp[[<span class="st">&#39;Sample&#39;</span>,<span class="st">&#39;VAF&#39;</span>,<span class="st">&#39;Var_Count&#39;</span>]].groupby(<span class="st">&#39;Sample&#39;</span>).mean()</code></pre></div>
 </div>
-<div id="arithmetic-and-row-wise-analysis" class="section level2">
-<h2><span class="header-section-number">7.8</span> Arithmetic and Row-wise Analysis</h2>
-<p>Sometimes it is helpful to analyze the value in a particular cell in a conditional manner depending on it’s value and then set the result of this analysis to a corresponding cell in a new column. Here is an example where the VAF of a variant is conditionally analyzed</p>
+<div id="arithmetic-and-rowcolumn-wise-analysis" class="section level2">
+<h2><span class="header-section-number">7.10</span> Arithmetic and Row/Column-wise Analysis</h2>
+<p>Sometimes it is helpful to analyze the value in a particular cell in a conditional manner depending on it’s value and then set the result of this analysis to a corresponding cell in a new column. Here is an example where the VAF of a variant is conditionally analyzed.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> LOH(x):
     <span class="cf">if</span> x <span class="op">&gt;</span> <span class="fl">0.75</span>: <span class="cf">return</span> <span class="dv">1</span> <span class="op">-</span> x
     <span class="cf">elif</span> x <span class="op">&lt;=</span> <span class="fl">0.75</span> <span class="kw">and</span> x <span class="op">&gt;</span> <span class="fl">0.25</span>: <span class="cf">return</span> <span class="bu">abs</span>(<span class="fl">0.5</span> <span class="op">-</span> x)
@@ -263,6 +369,22 @@ data.drop_duplicates([<span class="st">&#39;k1&#39;</span>,<span class="st">&#39
 all_vars[<span class="st">&#39;LOH&#39;</span>] <span class="op">=</span> all_vars.VAF.transform(LOH)
 max_loh <span class="op">=</span> all_vars.groupby(<span class="st">&#39;Sample&#39;</span>).LOH.<span class="bu">max</span>().reset_index().rename(columns<span class="op">=</span>{<span class="st">&#39;LOH&#39;</span>:<span class="st">&#39;Max_LOH&#39;</span>})
 all_vars <span class="op">=</span> pd.merge(all_vars, max_loh, how<span class="op">=</span><span class="st">&#39;inner&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;Sample&#39;</span>])</code></pre></div>
+<p>Broadcasting arithmetic is an efficient method of calculating across an entire DataFrame.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">frame <span class="op">=</span> pd.DataFrame(np.arange(<span class="dv">12</span>.).reshape((<span class="dv">4</span>,<span class="dv">3</span>)), columns<span class="op">=</span><span class="bu">list</span>(<span class="st">&#39;bde&#39;</span>), index<span class="op">=</span>[<span class="st">&#39;Utah&#39;</span>,<span class="st">&#39;Ohio&#39;</span>,<span class="st">&#39;Texas&#39;</span>,<span class="st">&#39;Oregon&#39;</span>]
+series <span class="op">=</span> frame.iloc[<span class="dv">0</span>]
+frame <span class="op">-</span> series
+<span class="co"># the subtraction function could also be used</span>
+<span class="co"># frame.sub(series, axis=&#39;columns&#39;)</span></code></pre></div>
+<p>Apply a function to each row or column.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">f <span class="op">=</span> <span class="kw">lambda</span> x: x.<span class="bu">max</span>() <span class="op">-</span> x.<span class="bu">min</span>()
+frame.<span class="bu">apply</span>(f, axis<span class="op">=</span><span class="st">&#39;index&#39;</span>)</code></pre></div>
+<p>Add two sets of data together, and use fill_value to avoid replacing any missing data with <code>NaN</code>.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x <span class="op">=</span> pd.DataFrame([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>], columns<span class="op">=</span><span class="bu">list</span>(<span class="st">&#39;0&#39;</span>))    
+y <span class="op">=</span> pd.DataFrame([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>], columns<span class="op">=</span><span class="bu">list</span>(<span class="st">&#39;1&#39;</span>))
+x <span class="op">=</span> x.add(y, fill_value<span class="op">=</span><span class="dv">0</span>)</code></pre></div>
+<p>Take the mean or std across specified columns and append as a new column. Below the DataFrame has columns 1-7 that will be used in computing the mean or std and this new data will be appended in a new column labeled ‘Mean’ or ‘Std’.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x[<span class="st">&#39;Mean&#39;</span>]<span class="op">=</span>x[[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>]].mean(axis<span class="op">=</span><span class="dv">1</span>)
+x[<span class="st">&#39;Std&#39;</span>]<span class="op">=</span>x[[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>]].std(axis<span class="op">=</span><span class="dv">1</span>)</code></pre></div>
 
 </div>
 </div>
@@ -317,19 +439,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

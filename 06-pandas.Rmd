@@ -11,6 +11,159 @@ Write a DataFrame to a file.
 x.to_csv(path_or_buf='outputDir', sep='\n', header=False, index=False)
 ```
 
+## Data Structure Creation
+Create a DataFrame.
+```{python eval=FALSE}
+frame = pd.DataFrame(np.random.randn(4,3), columns=list('bde'), index=['Utah','Ohio','Texas','Oregon'])
+```
+
+A DataFrame can conveniently be created from a dictionary.
+```{python}
+import pandas as pd
+data = {'AAA' : [4,5,6,7], 'BBB' : [10,20,30,40],'CCC' : [100,50,-30,-50]}
+df2 = pd.DataFrame(data=data,index=[1,2,3,4]) #Note index starts at 1.
+df2
+```
+
+## Selection
+Is data within a DataFrame found within a dictionary or list? (Instead of a dictionary a series can be used and maybe another DataFrame)
+```{python}
+import pandas as pd
+df = pd.DataFrame({'A': [1, 2, 3], 'B': ['a', 'b', 'f']})
+df.isin([1, 3, 12, 'a'])
+df[df.isin([1, 3, 12, 'a'])]
+```
+
+Data within a DataFrame can be selected based on position within the DataFrame.
+```{python}
+import pandas as pd
+df2.iloc[1:3]
+```
+
+Data within a DataFrame can be selected based on position within the DataFrame.
+```{python}
+import pandas as pd
+df2.loc[1:3]
+```
+
+The opposite of matching data can be selected with the inverse operator.
+```{python eval=FALSE}
+df[~((df.AAA <= 6) & (df.index.isin([0,2,4])))]
+```
+
+## Splitting
+Concatenate two DataFrames together without dropping any values or renaming indices.
+```{python eval=FALSE}
+left = pd.concat([left,left])
+```
+
+Concatenate two DataFrames together without dropping values, but renaming index.
+```{python eval=FALSE}
+left = pd.concat([left,left], ignore_index=True)
+```
+
+Count the number of each unique value in a specified column.
+```{python eval=FALSE}
+left['key1'].value_counts()
+left.key1.value_counts()
+```
+
+Value counts can also be calculated as percentages so that raw counts as percent makeup can be compared.
+```{python eval=FALSE}
+left['key1'].value_counts(normalize=True) * 100
+```
+
+Two DataFrames can be merged such that only the data containing matching keys is retained.
+```{python eval=FALSE}
+result = pd.merge(left, right, how='inner', on=['key1', 'key2'])
+```
+
+This DataFrame merge will retain all of the data in the right DataFrame.
+```{python eval=FALSE}
+result = pd.merge(left, right, how='right', on=['key1', 'key2'])
+```
+
+Filter by multiple columns.
+```{python eval=FALSE}
+df[(df.one == 1) & (df.two == 2)]
+```
+
+Filter by multiple columns but only return certain values.
+```{python eval=FALSE}
+# this just returns the data in column AAA
+df = pd.DataFrame({'AAA' : [4,5,6,7], 'BBB' : [10,20,30,40],'CCC' : [100,50,-30,-50]})
+newseries = df.loc[(df['BBB'] < 25) & (df['CCC'] >= -40), 'AAA']
+```
+
+Filtering by values and using assignment will modify the original DataFrame.
+```{python eval=FALSE}
+df.loc[(df['BBB'] > 25) | (df['CCC'] >= 75), 'AAA'] = 0.1
+```
+
+Select multiple values from a particular column, where Letter is the column header.
+```{python eval=FALSE}
+df[df.Letter.isin(['a','b'])]
+```
+
+Use itertools to find combinations of data within a column of two DataFrames.
+```{python eval=FALSE}
+itertools.product(df1['a'], df2['a'])
+```
+
+Add data to a particular cell within a DataFrame.
+```{python eval=FALSE}
+df.loc[index,column]=num
+```
+
+Make a copy of a DataFrame.
+```{python eval=FALSE}
+df.copy(deep=True)
+```
+Iterate through a DataFrame.
+```{python eval=FALSE}
+for i in df.itertuples():
+	pass
+```
+
+Change order of columns.
+```{python eval=FALSE}
+x = x.reindex(columns=['header','seq','plus','qual'])
+```
+
+Make a DataFrame from a dictionary
+```{python eval=FALSE}
+d = {'col1': [1, 2], 'col2': [3, 4]}
+x = pd.DataFrame(d)
+```
+
+Sample from a DataFrame.
+```{python eval=FALSE}
+df.sample(frac=1)
+df.sample(n=20, axis=1)
+```
+
+Append to a DataFrame.
+```{python eval=FALSE}
+df=df.append(newdf, ignore_index=True) # without ignore_index, the original indices will be used
+```
+
+Remove duplicates
+```{python eval=FALSE}
+x = x[~x.index.duplicated(keep='first')] # most ideal method
+
+data = pd.DataFrame({'k1':['one','two']*3+['two'],'k2':[1,1,2,3,3,4,4]})
+data.duplicated() # identify duplicate data
+data[‘k1’].duplicated()
+data['k1'].drop_duplicates()
+data.drop_duplicates['k1'] # this does the same thing as the previous line
+data.drop_duplicates(['k1','k2'], keep='last') # drops unique found in k1 and k2 and keeps the last indexed duplicate
+```
+
+Check if string is within strings in a given column
+```{python eval=FALSE}
+x[x['strLoc'].str.contains(region)]
+```
+
 ## Relabeling
 Rename a column or group of columns can be done by passing a dictionary of the changes.
 ```{python eval=FALSE}
@@ -22,6 +175,11 @@ The data in a DataFrame can be sorted in numeric or lexicographic order.
 The following code sorts the values within the columns a and b.
 ```{python eval=FALSE}
 df.sort_values(['a','b'], ascending=False)
+```
+
+Set a column as the new index
+```{python eval=FALSE}
+x.set_index(['uniques'])
 ```
 
 ## Editing Data 
@@ -40,6 +198,12 @@ print(df)
 Changing the datatype of a column of data can be done by just changing column type.
 ```{python eval=FALSE}
 df.Age = df.Age.astype(str)
+```
+
+Replace values.
+```{python eval=FALSE}
+data = pd.Series([1., -999., 2., -999., -1000., 3.])
+data.replace(-999, np.nan)
 ```
 
 ### Replace values 
@@ -76,27 +240,14 @@ df2 = pd.DataFrame([[5, 6], [7, 8]], columns=list('AB'))
 df.append(df2)
 ```
 
-## Splitting
-Remove duplicates
-```{python eval=FALSE}
-x = x[~x.index.duplicated(keep='first')] # most ideal method
-
-data = pd.DataFrame({'k1':['one','two']*3+['two'],'k2':[1,1,2,3,3,4,4]})
-data.duplicated() # identify duplicate data
-data[‘k1’].duplicated()
-data['k1'].drop_duplicates()
-data.drop_duplicates['k1'] # this does the same thing as the previous line
-data.drop_duplicates(['k1','k2'], keep='last') # drops unique found in k1 and k2 and keeps the last indexed duplicate
-```
-
 ## Summarizing
 The mean of column values can be calculated where each of the columns is grouped by the data in a specified column.
 ```{python eval=FALSE}
 temp[['Sample','VAF','Var_Count']].groupby('Sample').mean()
 ```
 
-## Arithmetic and Row-wise Analysis
-Sometimes it is helpful to analyze the value in a particular cell in a conditional manner depending on it's value and then set the result of this analysis to a corresponding cell in a new column. Here is an example where the VAF of a variant is conditionally analyzed
+## Arithmetic and Row/Column-wise Analysis
+Sometimes it is helpful to analyze the value in a particular cell in a conditional manner depending on it's value and then set the result of this analysis to a corresponding cell in a new column. Here is an example where the VAF of a variant is conditionally analyzed.
 ```{python eval=FALSE}
 def LOH(x):
     if x > 0.75: return 1 - x
@@ -105,5 +256,33 @@ def LOH(x):
 all_vars['LOH'] = all_vars.VAF.transform(LOH)
 max_loh = all_vars.groupby('Sample').LOH.max().reset_index().rename(columns={'LOH':'Max_LOH'})
 all_vars = pd.merge(all_vars, max_loh, how='inner', on=['Sample'])
+```
+
+Broadcasting arithmetic is an efficient method of calculating across an entire DataFrame.
+```{python eval=FALSE}
+frame = pd.DataFrame(np.arange(12.).reshape((4,3)), columns=list('bde'), index=['Utah','Ohio','Texas','Oregon']
+series = frame.iloc[0]
+frame - series
+# the subtraction function could also be used
+# frame.sub(series, axis='columns')
+```
+
+Apply a function to each row or column.
+```{python eval=FALSE}
+f = lambda x: x.max() - x.min()
+frame.apply(f, axis='index')
+```
+
+Add two sets of data together, and use fill_value to avoid replacing any missing data with `NaN`.
+```{python eval=FALSE}
+x = pd.DataFrame([1,2,3], columns=list('0'))	
+y = pd.DataFrame([1,2,3], columns=list('1'))
+x = x.add(y, fill_value=0)
+```
+
+Take the mean or std across specified columns and append as a new column. Below the DataFrame has columns 1-7 that will be used in computing the mean or std and this new data will be appended in a new column labeled 'Mean' or 'Std'.
+```{python eval=FALSE}
+x['Mean']=x[[1,2,3,4,5,6,7]].mean(axis=1)
+x['Std']=x[[1,2,3,4,5,6,7]].std(axis=1)
 ```
 
