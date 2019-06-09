@@ -1623,6 +1623,739 @@ overidden with the following.
 :set textwidth=0 wrapmargin=0
 \end{verbatim}
 
+\section{Installation}\label{installation}
+
+Installation of linuxbrea
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sh}\NormalTok{ -c }\StringTok{"}\VariableTok{$(}\ExtensionTok{curl}\NormalTok{ -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh}\VariableTok{)}\StringTok{"}
+\CommentTok{# Add to path}
+\BuiltInTok{test}\NormalTok{ -d ~/.linuxbrew }\KeywordTok{&&} \BuiltInTok{eval} \VariableTok{$(}\ExtensionTok{~/.linuxbrew/bin/brew}\NormalTok{ shellenv}\VariableTok{)}
+\BuiltInTok{test}\NormalTok{ -d /home/linuxbrew/.linuxbrew }\KeywordTok{&&} \BuiltInTok{eval} \VariableTok{$(}\ExtensionTok{/home/linuxbrew/.linuxbrew/bin/brew}\NormalTok{ shellenv}\VariableTok{)}
+\BuiltInTok{test}\NormalTok{ -r ~/.bash_profile }\KeywordTok{&&} \BuiltInTok{echo} \StringTok{"eval }\DataTypeTok{\textbackslash{}$}\StringTok{(}\VariableTok{$(}\ExtensionTok{brew}\NormalTok{ --prefix}\VariableTok{)}\StringTok{/bin/brew shellenv)"} \OperatorTok{>>}\NormalTok{~/.bash_profile}
+\BuiltInTok{echo} \StringTok{"eval }\DataTypeTok{\textbackslash{}$}\StringTok{(}\VariableTok{$(}\ExtensionTok{brew}\NormalTok{ --prefix}\VariableTok{)}\StringTok{/bin/brew shellenv)"} \OperatorTok{>>}\NormalTok{~/.profile}
+\CommentTok{# debian/ubuntu dependencies}
+\FunctionTok{sudo}\NormalTok{ apt-get install build-essential curl file git}
+\end{Highlighting}
+\end{Shaded}
+
+LinuxBrew golang installation
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{brew}\NormalTok{ install go}
+\end{Highlighting}
+\end{Shaded}
+
+The GO PATH should then be checked; it should typically exist at
+\textasciitilde{}/go but it can be checked like this
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{echo} \VariableTok{$GOPATH}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Updating}\label{updating}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{brew}\NormalTok{ install dep}
+\ExtensionTok{brew}\NormalTok{ upgrade dep}
+\ExtensionTok{brew}\NormalTok{ cask install spotify}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Sample Program}\label{sample-program}
+
+Create a file called hello.go
+
+\begin{verbatim}
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Printf("hello, world\n")
+}
+
+The program can just be run with
+go run main.go
+
+Then compile the program
+    go build
+
+Importing multiple things can be done on one line separated by a semicolon
+    import ("fmt"; "math")
+\end{verbatim}
+
+\section{Type conversion}\label{type-conversion}
+
+Convert int to float64
+
+\begin{verbatim}
+var i int = 5
+j := float64(i)
+\end{verbatim}
+
+int to string
+
+\begin{verbatim}
+s := strconv.Itoa(97) // s == "97"
+\end{verbatim}
+
+int64 to string
+
+\begin{verbatim}
+var n int64 = 97
+s := strconv.FormatInt(n, 10) // s == "97" (decimal) in base 10
+\end{verbatim}
+
+string to int
+
+\begin{verbatim}
+s := "97"
+if n, err := strconv.Atoi(s); err == nil {
+    fmt.Println(n+1)
+} else {
+    fmt.Println(s, "is not an integer.")
+}
+\end{verbatim}
+
+string to int64
+
+\begin{verbatim}
+s := "97"
+n, err := strconv.ParseInt(s, 10, 64)
+if err == nil {
+    fmt.Printf("%d of type %T", n, n)
+}
+\end{verbatim}
+
+int to int64
+
+\begin{verbatim}
+var n int = 97
+m := int64(n) // safe
+\end{verbatim}
+
+\section{Strings}\label{strings}
+
+Numbers can be converted to strings using strconv
+
+\begin{verbatim}
+s := strconv.FormatFloat(3.1415, 'E', -1, 64)
+s := strconv.FormatInt(-42, 16)
+\end{verbatim}
+
+Strings can be assigned with ` ` or " ``, but only the double quotes can
+use escape characters like newlines \n or \t
+
+\begin{verbatim}
+fmt.Println("Hello\n World")
+\end{verbatim}
+
+Indexing returns bytes rather than strings so they must be converted if
+you want a string back
+
+\begin{verbatim}
+string("Hello World"[1])
+\end{verbatim}
+
+Test if a string is a substring of another
+
+\begin{verbatim}
+import "strings"
+strings.Contains("something","some") // true
+\end{verbatim}
+
+\section{Boolean Functions}\label{boolean-functions}
+
+\begin{verbatim}
+&&, ||, !, true, false
+\end{verbatim}
+
+\section{Variables}\label{variables}
+
+Variables are statically typed and therefore must be declared when
+assigned
+
+\begin{verbatim}
+var x string = "Hello World"
+\end{verbatim}
+
+Type declaration can be offloaded to the compiler using the following
+notation, and the compiler will try to infer the correct type
+
+\begin{verbatim}
+var x = "Hello World"
+x := "Hello World"
+\end{verbatim}
+
+Constants are similar to variables, but their values cannot be
+reassigned
+
+\begin{verbatim}
+const x string = "Hello"
+\end{verbatim}
+
+Multiple variables can also be declared at once, where each variable
+must occupy its own line
+
+\begin{verbatim}
+var (
+    a = 5
+    b = 10
+    c = 15
+)
+\end{verbatim}
+
+\section{Input}\label{input}
+
+User input
+
+\begin{verbatim}
+var input float64
+fmt.Scanf("%f", &input)
+\end{verbatim}
+
+\section{Control Structures}\label{control-structures}
+
+For loops can be written like the following
+
+\begin{verbatim}
+i := 1
+for i <= 10 {
+    fmt.Println(i)
+    i += 1
+\end{verbatim}
+
+Probably the easier for loop is like this one
+
+\begin{verbatim}
+for i := 1; i <= 10; i++ {
+    fmt.Println(i)
+}
+\end{verbatim}
+
+A nice for loop to iterate through a range
+
+\begin{verbatim}
+for i := range str1 {
+    if str1[i] == str2[i] { count++ }
+}
+return count
+\end{verbatim}
+
+For loops can be used to iterate through slices too
+
+\begin{verbatim}
+for _, num := range nums {
+\end{verbatim}
+
+If loops look gross, but it is required that the else statement is
+placed where it is shown here
+
+\begin{verbatim}
+if true {
+} else if false {
+}
+\end{verbatim}
+
+Switches are also a thing
+
+\begin{verbatim}
+switch input {                          
+    case 1: fmt.Println("You entered one")  
+    case 2: fmt.Println("You entered two")  
+    case 3: fmt.Println("You entered three")
+}                                           
+\end{verbatim}
+
+\section{Data Structures}\label{data-structures}
+
+A blank array
+
+\begin{verbatim}
+var x []int
+\end{verbatim}
+
+An array with five elements
+
+\begin{verbatim}
+var x [5]int
+x[0] = 50 // the first element of the array equals 50
+\end{verbatim}
+
+An easier way to create an array and can be multiline broken by the
+commas
+
+\begin{verbatim}
+x := [5]float64{ 98, 93, 77, 82, 83 }
+\end{verbatim}
+
+Slices can have variable lengths and are typically associated with an
+array of fixed length. The following slice is 5 elements long, and is a
+segment of a 10 element-long array
+
+\begin{verbatim}
+x := make([]float64, 5, 10)
+\end{verbatim}
+
+In a way that seems more similar to python, slicing an array can be done
+like this
+
+\begin{verbatim}
+arr := [5]float64{1,2,3,4,5}
+x := arr[0:2]
+\end{verbatim}
+
+Adding data to a slice
+
+\begin{verbatim}
+slice1 := []int{1,2,3}
+slice2 := append(slice1,4,5)
+\end{verbatim}
+
+Or multiple values can be added at once
+
+\begin{verbatim}
+s = append(s, 2, 3, 4)
+\end{verbatim}
+
+A map is an unordered collection of key-value pairs (also known as a
+dictionary). A map is defined by assigning it to a variable and then
+defining the key type in brackets and the value type after the brackets
+
+\begin{verbatim}
+var x make(map[string]int)
+x["key"] = 10 
+fmt.Println(x)
+\end{verbatim}
+
+Creating a map with multiple items simultaneously
+
+\begin{verbatim}
+elements := map[string]string{
+  "H":  "Hydrogen",
+  "He": "Helium",
+  "Li": "Lithium",
+}
+\end{verbatim}
+
+Items can be deleted from a map using the delete function
+
+\begin{verbatim}
+delete(x, "key")
+\end{verbatim}
+
+Go provides functionality that checks whether a key lookup from a map
+was successful or not
+
+\begin{verbatim}
+m,n := x["unknown"] // this key does not exist
+fmt.Println(m,n) // m will equal 0 and n will equal false
+\end{verbatim}
+
+This check can be used in an if loop to only run a chunk of code if a
+key exists within a map. In the below code el equals the value and ok is
+true or false, if the key is found, ok equals true and the print
+statement is run
+
+\begin{verbatim}
+if el, ok := elements["Li"]; ok {
+fmt.Println(el["name"], el["state"])
+}
+\end{verbatim}
+
+Iterate through a map
+
+\begin{verbatim}
+for k, v := range kmers {                  
+    fmt.Printf("key: %s value: %d\n", k, v)
+}
+\end{verbatim}
+
+\section{Functions}\label{functions}
+
+Below is a basic function that computes the mean of a map
+
+\begin{verbatim}
+func average(xs []float64) (float64) {
+    total := 0.0                      
+    for _, v := range xs {            
+        total += v                    
+    }
+    return total / float64(len(xs))   
+}                                     
+\end{verbatim}
+
+A function can also take multiple different types of variables
+
+\begin{verbatim}
+func lots_of_stuff(a int, b map[string]int64, c float64) (string, string, int64) {
+// do stuff
+}
+\end{verbatim}
+
+If it is desirable that a function takes maps of variable lengths a
+function can be designed like the one below
+
+\begin{verbatim}
+func add(args ...int) int { 
+    total := 0              
+    for _, v := range args {
+        total += v          
+    }                       
+    return total            
+}  
+\end{verbatim}
+
+Functions can also be placed within other functions like this
+
+\begin{verbatim}
+func main() {
+  add := func(x, y int) int {
+    return x + y
+  }
+  fmt.Println(add(1,1))
+}
+\end{verbatim}
+
+Closure refers to functions that utilize non-local variables
+
+\begin{verbatim}
+func main() {
+  x := 0
+  increment := func() int {
+    x++
+    return x
+  }
+  fmt.Println(increment())
+  fmt.Println(increment())
+}
+\end{verbatim}
+
+Recursion uses the same function recursively
+
+\begin{verbatim}
+// a recursive function      
+func factorial(x uint) uint {
+    if x == 0 {              
+        return 1             
+    }                        
+    return x * factorial(x-1)
+}      
+\end{verbatim}
+
+Deferring essentially moves a function call to the end of a function,
+like the following which closes the file after it is used
+
+\begin{verbatim}
+f, _ := os.Open(filename)
+defer f.Close()
+\end{verbatim}
+
+\section{While loops}\label{while-loops}
+
+These are not actually included in golang as in other languages but
+instead utilize for loops.
+
+This is a repeat-until loop:
+
+\begin{verbatim}
+for {
+    work()
+    if condition {
+        break
+    }
+}
+\end{verbatim}
+
+or
+
+\begin{verbatim}
+for ok := true; ok; ok = !condition {
+    work()
+}
+\end{verbatim}
+
+A do-while loop
+
+\begin{verbatim}
+for {
+    work()
+    if !condition {
+        break
+    }
+}
+\end{verbatim}
+
+or
+
+\begin{verbatim}
+for ok := true; ok; ok = condition {
+    work()
+}
+\end{verbatim}
+
+\section{Timing a function}\label{timing-a-function}
+
+\begin{verbatim}
+start := time.Now()
+t := time.Now()
+elapsed := t.Sub(start)
+fmt.Println(elapsed)
+\end{verbatim}
+
+\section{Pointers}\label{pointers}
+
+Pointers can be used to access the memory location of a variable and
+alter the value stored in that location
+
+\begin{verbatim}
+func zero(xPtr *int) {                                              
+    *xPtr = 0 // asterisk signifies a pointer                                                       
+}                                                                   
+                                                                    
+func main() {                                                       
+    x := 5                                                          
+    zero(&x) // & finds the address of a variable                                                       
+    fmt.Println(x) // using a pointer allows the value to be changed
+}                                                                   
+\end{verbatim}
+
+There is a built in function called new that takes a type as an
+argument, and allocates sufficient memory to hold that type and returns
+a pointer to it, and unlike other languages, because go is a garbage
+collected language, it will delete anything created by new when nothing
+refers to it anymore
+
+\begin{verbatim}
+func one(xPtr *int) {
+    *xPtr = 1        
+}
+                    
+func main() {                                                                                                                 
+    xPtr := new(int)                                                
+    one(xPtr)                                                       
+    fmt.Println(*xPtr)                                              
+}                                                                   
+\end{verbatim}
+
+\section{Structures}\label{structures}
+
+These seem similar to classes and allow a new `type' to be created
+
+\begin{verbatim}
+type Circle struct {
+x float64
+y float64
+r float64
+
+    // values of the same type can be combined like this
+    x, y, r float64 
+}                   
+\end{verbatim}
+
+A new structure can be created just like a typical variable
+
+\begin{verbatim}
+var c Circle
+\end{verbatim}
+
+A structure can be created like pointers which will set all values to
+their zero value like 0, 0.0, ``'' and return a pointer
+
+\begin{verbatim}
+c := new(Circle)
+\end{verbatim}
+
+Values for a structure can also be defined at variable creation time
+
+\begin{verbatim}
+c := Circle{x: 0, y: 0, r: 5}
+// this is possible if you remember the order vars were defined
+c := Circle{0, 0, 5}
+\end{verbatim}
+
+Structure fields are accessed like class methods
+
+\begin{verbatim}
+fmt.Println(c.x, c.y, c.r)
+c.x = 10
+c.y = 5
+\end{verbatim}
+
+When passing a structure to another function, its type is the name of
+the structure
+
+\begin{verbatim}
+func circleArea(c Circle) float64 {
+    return math.Pi * c.r * c.r     
+}                                  
+\end{verbatim}
+
+Fields of a structure that has been defined are not altered unless a
+pointer is used
+
+\begin{verbatim}
+func circleArea(c *Circle) float64 {
+    c.r = 10                        
+    return math.Pi * c.r * c.r      
+}                                   
+                                    
+func main() {                       
+    c:= Circle{0, 0, 5}             
+    fmt.Println(circleArea(&c), c)  
+}
+\end{verbatim}
+
+\section{Methods}\label{methods}
+
+These can be added to structures so they can be directly accessed by
+automatically passing a pointer to the method. The area() receiver can
+be used for other structures, and does not have to be a unique word
+
+\begin{verbatim}
+type Circle struct {             
+    x, y, r float64              
+}                                
+                                 
+func (c *Circle) area() float64 {
+    return math.Pi * c.r * c.r   
+}                                
+                                 
+func main() {                    
+    c:= Circle{0, 0, 5}          
+    fmt.Println(c.area())        
+}   
+\end{verbatim}
+
+Embedded Types is sort of like inheritance and gives a method access to
+all of the features of another structure.
+
+Here is a person structure
+
+\begin{verbatim}
+type Person struct {
+  Name string
+}
+func (p *Person) Talk() {
+  fmt.Println("Hi, my name is", p.Name)
+}
+\end{verbatim}
+
+Here Android is defined to have the same properties as the person
+structure
+
+\begin{verbatim}
+type Android struct {
+  Person
+  Model string
+}
+
+a := new(Android)
+a.Talk()
+\end{verbatim}
+
+\section{Packaging}\label{packaging}
+
+Building code into a package is a convenient way of then accessing the
+same methods without having to rebuild them.
+
+To create a package, make a folder with the same name as the package so
+\texttt{math} in this case. Then refer to the package name in a file
+within this folder like this: package math
+
+\begin{verbatim}
+func Average(xs []float64) float64 {
+    total := float64(0)             
+    for _, x := range xs {          
+        total += x                  
+    }                               
+    return total / float64(len(xs)) 
+}                                   
+\end{verbatim}
+
+Then save this file and build it from the same directory using:
+
+\begin{verbatim}
+go install
+\end{verbatim}
+
+Finally, use this package by referring to its directory like this:
+
+\begin{verbatim}
+package main                          
+                                      
+import "fmt"                          
+// import "chapter11/math" //this format can be used if put in ~/go/src/
+import "./math"                       
+                                      
+func main() {                         
+    xs := []float64{1,2,3,4}          
+    avg := math.Average(xs)           
+    fmt.Println(avg)                  
+}                                     
+\end{verbatim}
+
+\section{Read/Write Files}\label{readwrite-files}
+
+Here is how a file is opened
+
+\begin{verbatim}
+f, err := os.Open("./data/genomes/schisto_small.fa")
+check(err)
+f.Close() // when done
+
+func check(e error) {
+    if e != nil {    
+        panic(e)     
+    }                
+}
+\end{verbatim}
+
+Read by a certain number of bytes at a time
+
+\begin{verbatim}
+b1 := make([]byte, 61)                      
+n1, err := f.Read(b1)                       
+check(err)                                  
+fmt.Printf("%d bytes: %s\n", n1, string(b1))
+\end{verbatim}
+
+Peek might be more efficient with many small read calls but reads next n
+bytes without advancing the reader
+
+\begin{verbatim}
+r4 := bufio.NewReader(f)                                  
+b4, err := r4.Peek(61)                                    
+check(err)                                                
+fmt.Printf("5 bytes: %s\n", string(b4))
+\end{verbatim}
+
+Scanners are useful ways to read newline delimited files
+
+\begin{verbatim}
+scanner := bufio.NewScanner(f)                             
+for scanner.Scan() {                                       
+    fmt.Println(scanner.Text()) // Println retains the \n  
+}                                                          
+if err := scanner.Err(); err != nil {                      
+    fmt.Fprintln(os.Stderr, "reading standard input:", err)
+}
+\end{verbatim}
+
+Read from gzip file
+
+\begin{verbatim}
+import("compress/gzip")                                                          
+file, err := os.Open("./data/genomes/schisto_small_2.fa.gz")
+f, err := gzip.NewReader(file)
+\end{verbatim}
+
 \bibliography{book.bib,packages.bib}
 
 

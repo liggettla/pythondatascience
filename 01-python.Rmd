@@ -23,7 +23,7 @@ if __name__ == '__main__':
 ## Numba
 Numba speeds up python code without having to switch to a different interpreter, and doesn't require static typing of variables as Cython does. Just calling Numba will increase the speed of a script (except during the compilation which will add some time). But this isn't the best way to take advantage of the speed boost.
 
-Here is an example script that uses @jit to invoke Numba.
+Here is an example script that uses jit to invoke Numba.
 ```{python, eval=FALSE}
 #!/usr/bin/env python
 

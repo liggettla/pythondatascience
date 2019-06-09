@@ -17,8 +17,25 @@
 ## Alzheimer's
 * [The Alzheimers sequencing project](https://www.niagads.org/adsp/content/home) is gathering data to understand late onset alzheimer's
 
+## Genome Resources
+* Jax has a human to mouse gene matching [list](http://www.informatics.jax.org/downloads/reports/HOM_MouseHumanSequence.rpt) that provides gene location matching between human and mouse
+* UCSC genome browser has an [API](http://genomewiki.ucsc.edu/index.php/Programmatic_access_to_the_Genome_Browser) for programmatic access
+
 ## Genomic Datasets 
 * [AllOfUs](ttps://www.joinallofus.org/en/how-to-join) is sequencing and collecting other health data on a million individuals
 * [Color Genomics](https://www.color.com/) is one of three companies that will be doing the sequencing and testing for AllOfUs
 * [1000 genomes](http://www.internationalgenome.org/data/)
 * [100,000 genomes](https://www.genomicsengland.co.uk/)
+
+## Computing Tools
+* [AWS](https://aws.amazon.com/health/) looks like it has some healthcare and life sciences resources
+
+## eQTL/RNASeq and other Tools
+* [Here](https://adinasarapu.github.io/year-archive/) are a good number of general tools to check out
+* [Here](https://github.com/molgenis/systemsgenetics/wiki/eQTL-mapping-analysis-cookbook-for-RNA-seq-data) is a good python eQTL analysis
+* [genenetwork2](http://gn2.genenetwork.org/) has a great deal of data and eQTL mapping [tools](https://github.com/genenetwork/genenetwork2)
+
+## Other Data Resources
+* [The Earth Microbiome Project](http://www.earthmicrobiome.org/data-and-code/) already has data available, and is trying to sequence all non-eukaryotic life on earth
+    + They have detailed information about the project in their [PNAS paper](http://www.pnas.org/content/115/17/4325.long) from 2018
+* [Information is Beautiful](https://informationisbeautiful.net/) has some interesting datasets

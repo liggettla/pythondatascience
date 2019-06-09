@@ -12,5 +12,5 @@ github-repo: rstudio/bookdown-demo
 description: "Data Science With Python."
 ---
 
-# Prerequisites
-These are some notes that may be helpful for computational biology analysis that mainly uses Python.
+# Overview 
+These are some notes that may be helpful for computational biology analysis that focuses on Python use.

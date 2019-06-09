@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 11 Golang | Data Science With Python</title>
+  <meta name="description" content="Chapter 11 Golang | Data Science With Python.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 11 Golang | Data Science With Python" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Chapter 11 Golang | Data Science With Python." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 11 Golang | Data Science With Python" />
+  
+  <meta name="twitter:description" content="Chapter 11 Golang | Data Science With Python." />
+  
+
+<meta name="author" content="L A Liggett">
+
+
+<meta name="date" content="2019-06-08">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="resources.html">
+<link rel="next" href="references.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Science With Python</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a></li>
+<li class="chapter" data-level="2" data-path="python.html"><a href="python.html"><i class="fa fa-check"></i><b>2</b> Python</a><ul>
+<li class="chapter" data-level="2.1" data-path="python.html"><a href="python.html#general"><i class="fa fa-check"></i><b>2.1</b> General</a></li>
+<li class="chapter" data-level="2.2" data-path="python.html"><a href="python.html#numba"><i class="fa fa-check"></i><b>2.2</b> Numba</a></li>
+<li class="chapter" data-level="2.3" data-path="python.html"><a href="python.html#cython"><i class="fa fa-check"></i><b>2.3</b> Cython</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="jupyter.html"><a href="jupyter.html"><i class="fa fa-check"></i><b>3</b> JupyterLab</a></li>
+<li class="chapter" data-level="4" data-path="visualization.html"><a href="visualization.html"><i class="fa fa-check"></i><b>4</b> Visualization</a><ul>
+<li class="chapter" data-level="4.1" data-path="visualization.html"><a href="visualization.html#color"><i class="fa fa-check"></i><b>4.1</b> Color</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="visualization.html"><a href="visualization.html#colorschemes"><i class="fa fa-check"></i><b>4.1.1</b> Colorschemes</a></li>
+<li class="chapter" data-level="4.1.2" data-path="visualization.html"><a href="visualization.html#controlling-coloration"><i class="fa fa-check"></i><b>4.1.2</b> Controlling Coloration</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="visualization.html"><a href="visualization.html#matplotlib"><i class="fa fa-check"></i><b>4.2</b> Matplotlib</a></li>
+<li class="chapter" data-level="4.3" data-path="visualization.html"><a href="visualization.html#seaborn"><i class="fa fa-check"></i><b>4.3</b> Seaborn</a></li>
+<li class="chapter" data-level="4.4" data-path="visualization.html"><a href="visualization.html#statistics"><i class="fa fa-check"></i><b>4.4</b> Statistics</a></li>
+<li class="chapter" data-level="4.5" data-path="visualization.html"><a href="visualization.html#various-plot-styles"><i class="fa fa-check"></i><b>4.5</b> Various Plot Styles</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="biology.html"><a href="biology.html"><i class="fa fa-check"></i><b>5</b> Biology</a><ul>
+<li class="chapter" data-level="5.1" data-path="biology.html"><a href="biology.html#general-1"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
+<li class="chapter" data-level="5.2" data-path="biology.html"><a href="biology.html#biopython"><i class="fa fa-check"></i><b>5.2</b> Biopython</a></li>
+<li class="chapter" data-level="5.3" data-path="biology.html"><a href="biology.html#ucsc-genome-browser"><i class="fa fa-check"></i><b>5.3</b> UCSC Genome Browser</a></li>
+<li class="chapter" data-level="5.4" data-path="biology.html"><a href="biology.html#ref-genome"><i class="fa fa-check"></i><b>5.4</b> Ref Genome</a></li>
+<li class="chapter" data-level="5.5" data-path="biology.html"><a href="biology.html#personal-information"><i class="fa fa-check"></i><b>5.5</b> Personal Information</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="io.html"><a href="io.html"><i class="fa fa-check"></i><b>6</b> Data I/O</a><ul>
+<li class="chapter" data-level="6.1" data-path="io.html"><a href="io.html#reading-data-files"><i class="fa fa-check"></i><b>6.1</b> Reading Data Files</a></li>
+<li class="chapter" data-level="6.2" data-path="io.html"><a href="io.html#pickles"><i class="fa fa-check"></i><b>6.2</b> Pickles</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="pandas.html"><a href="pandas.html"><i class="fa fa-check"></i><b>7</b> Pandas</a><ul>
+<li class="chapter" data-level="7.1" data-path="pandas.html"><a href="pandas.html#file-io"><i class="fa fa-check"></i><b>7.1</b> File I/O</a></li>
+<li class="chapter" data-level="7.2" data-path="pandas.html"><a href="pandas.html#data-structure-creation"><i class="fa fa-check"></i><b>7.2</b> Data Structure Creation</a></li>
+<li class="chapter" data-level="7.3" data-path="pandas.html"><a href="pandas.html#selection"><i class="fa fa-check"></i><b>7.3</b> Selection</a></li>
+<li class="chapter" data-level="7.4" data-path="pandas.html"><a href="pandas.html#splitting"><i class="fa fa-check"></i><b>7.4</b> Splitting</a></li>
+<li class="chapter" data-level="7.5" data-path="pandas.html"><a href="pandas.html#relabeling"><i class="fa fa-check"></i><b>7.5</b> Relabeling</a></li>
+<li class="chapter" data-level="7.6" data-path="pandas.html"><a href="pandas.html#sorting-and-arranging"><i class="fa fa-check"></i><b>7.6</b> Sorting and Arranging</a></li>
+<li class="chapter" data-level="7.7" data-path="pandas.html"><a href="pandas.html#editing-data"><i class="fa fa-check"></i><b>7.7</b> Editing Data</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="pandas.html"><a href="pandas.html#replace-values"><i class="fa fa-check"></i><b>7.7.1</b> Replace values</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="pandas.html"><a href="pandas.html#combining-data-structures"><i class="fa fa-check"></i><b>7.8</b> Combining Data Structures</a></li>
+<li class="chapter" data-level="7.9" data-path="pandas.html"><a href="pandas.html#summarizing"><i class="fa fa-check"></i><b>7.9</b> Summarizing</a></li>
+<li class="chapter" data-level="7.10" data-path="pandas.html"><a href="pandas.html#arithmetic-and-rowcolumn-wise-analysis"><i class="fa fa-check"></i><b>7.10</b> Arithmetic and Row/Column-wise Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="git.html"><a href="git.html"><i class="fa fa-check"></i><b>8</b> Git</a><ul>
+<li class="chapter" data-level="8.1" data-path="git.html"><a href="git.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="git.html"><a href="git.html#git-setup"><i class="fa fa-check"></i><b>8.1.1</b> Git Setup</a></li>
+<li class="chapter" data-level="8.1.2" data-path="git.html"><a href="git.html#repository-initiation"><i class="fa fa-check"></i><b>8.1.2</b> Repository Initiation</a></li>
+<li class="chapter" data-level="8.1.3" data-path="git.html"><a href="git.html#mirror-on-online-repository"><i class="fa fa-check"></i><b>8.1.3</b> Mirror on Online Repository</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="git.html"><a href="git.html#manipulating-commits"><i class="fa fa-check"></i><b>8.2</b> Manipulating Commits</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="git.html"><a href="git.html#repository-status"><i class="fa fa-check"></i><b>8.2.1</b> Repository Status</a></li>
+<li class="chapter" data-level="8.2.2" data-path="git.html"><a href="git.html#file-checkout"><i class="fa fa-check"></i><b>8.2.2</b> File Checkout</a></li>
+<li class="chapter" data-level="8.2.3" data-path="git.html"><a href="git.html#resetting-a-repository"><i class="fa fa-check"></i><b>8.2.3</b> Resetting a Repository</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="vim.html"><a href="vim.html"><i class="fa fa-check"></i><b>9</b> VIM</a><ul>
+<li class="chapter" data-level="9.1" data-path="vim.html"><a href="vim.html#formatting"><i class="fa fa-check"></i><b>9.1</b> Formatting</a></li>
+<li class="chapter" data-level="9.2" data-path="vim.html"><a href="vim.html#spellcheck"><i class="fa fa-check"></i><b>9.2</b> Spellcheck</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>10</b> Bioinformatics Resources</a><ul>
+<li class="chapter" data-level="10.1" data-path="resources.html"><a href="resources.html#cancer-datasets"><i class="fa fa-check"></i><b>10.1</b> Cancer Datasets</a></li>
+<li class="chapter" data-level="10.2" data-path="resources.html"><a href="resources.html#alzheimers"><i class="fa fa-check"></i><b>10.2</b> Alzheimer’s</a></li>
+<li class="chapter" data-level="10.3" data-path="resources.html"><a href="resources.html#genome-resources"><i class="fa fa-check"></i><b>10.3</b> Genome Resources</a></li>
+<li class="chapter" data-level="10.4" data-path="resources.html"><a href="resources.html#genomic-datasets"><i class="fa fa-check"></i><b>10.4</b> Genomic Datasets</a></li>
+<li class="chapter" data-level="10.5" data-path="resources.html"><a href="resources.html#computing-tools"><i class="fa fa-check"></i><b>10.5</b> Computing Tools</a></li>
+<li class="chapter" data-level="10.6" data-path="resources.html"><a href="resources.html#eqtlrnaseq-and-other-tools"><i class="fa fa-check"></i><b>10.6</b> eQTL/RNASeq and other Tools</a></li>
+<li class="chapter" data-level="10.7" data-path="resources.html"><a href="resources.html#other-data-resources"><i class="fa fa-check"></i><b>10.7</b> Other Data Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="golang.html"><a href="golang.html"><i class="fa fa-check"></i><b>11</b> Golang</a><ul>
+<li class="chapter" data-level="11.1" data-path="golang.html"><a href="golang.html#formatting-1"><i class="fa fa-check"></i><b>11.1</b> Formatting</a></li>
+<li class="chapter" data-level="11.2" data-path="golang.html"><a href="golang.html#installation"><i class="fa fa-check"></i><b>11.2</b> Installation</a></li>
+<li class="chapter" data-level="11.3" data-path="golang.html"><a href="golang.html#updating"><i class="fa fa-check"></i><b>11.3</b> Updating</a></li>
+<li class="chapter" data-level="11.4" data-path="golang.html"><a href="golang.html#sample-program"><i class="fa fa-check"></i><b>11.4</b> Sample Program</a></li>
+<li class="chapter" data-level="11.5" data-path="golang.html"><a href="golang.html#type-conversion"><i class="fa fa-check"></i><b>11.5</b> Type conversion</a></li>
+<li class="chapter" data-level="11.6" data-path="golang.html"><a href="golang.html#strings"><i class="fa fa-check"></i><b>11.6</b> Strings</a></li>
+<li class="chapter" data-level="11.7" data-path="golang.html"><a href="golang.html#boolean-functions"><i class="fa fa-check"></i><b>11.7</b> Boolean Functions</a></li>
+<li class="chapter" data-level="11.8" data-path="golang.html"><a href="golang.html#variables"><i class="fa fa-check"></i><b>11.8</b> Variables</a></li>
+<li class="chapter" data-level="11.9" data-path="golang.html"><a href="golang.html#input"><i class="fa fa-check"></i><b>11.9</b> Input</a></li>
+<li class="chapter" data-level="11.10" data-path="golang.html"><a href="golang.html#control-structures"><i class="fa fa-check"></i><b>11.10</b> Control Structures</a></li>
+<li class="chapter" data-level="11.11" data-path="golang.html"><a href="golang.html#data-structures"><i class="fa fa-check"></i><b>11.11</b> Data Structures</a></li>
+<li class="chapter" data-level="11.12" data-path="golang.html"><a href="golang.html#functions"><i class="fa fa-check"></i><b>11.12</b> Functions</a></li>
+<li class="chapter" data-level="11.13" data-path="golang.html"><a href="golang.html#while-loops"><i class="fa fa-check"></i><b>11.13</b> While loops</a></li>
+<li class="chapter" data-level="11.14" data-path="golang.html"><a href="golang.html#timing-a-function"><i class="fa fa-check"></i><b>11.14</b> Timing a function</a></li>
+<li class="chapter" data-level="11.15" data-path="golang.html"><a href="golang.html#pointers"><i class="fa fa-check"></i><b>11.15</b> Pointers</a></li>
+<li class="chapter" data-level="11.16" data-path="golang.html"><a href="golang.html#structures"><i class="fa fa-check"></i><b>11.16</b> Structures</a></li>
+<li class="chapter" data-level="11.17" data-path="golang.html"><a href="golang.html#methods"><i class="fa fa-check"></i><b>11.17</b> Methods</a></li>
+<li class="chapter" data-level="11.18" data-path="golang.html"><a href="golang.html#packaging"><i class="fa fa-check"></i><b>11.18</b> Packaging</a></li>
+<li class="chapter" data-level="11.19" data-path="golang.html"><a href="golang.html#readwrite-files"><i class="fa fa-check"></i><b>11.19</b> Read/Write Files</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science With Python</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="golang" class="section level1">
+<h1><span class="header-section-number">Chapter 11</span> Golang</h1>
+<div id="formatting-1" class="section level2">
+<h2><span class="header-section-number">11.1</span> Formatting</h2>
+<p>Automatic newlines are inserted by default; this behavior can be overidden with the following.</p>
+<pre class="golang"><code>:set wrap
+:set textwidth=0 wrapmargin=0</code></pre>
+</div>
+<div id="installation" class="section level2">
+<h2><span class="header-section-number">11.2</span> Installation</h2>
+<p>Installation of linuxbrea</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">sh</span> -c <span class="st">&quot;</span><span class="va">$(</span><span class="ex">curl</span> -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh<span class="va">)</span><span class="st">&quot;</span>
+<span class="co"># Add to path</span>
+<span class="bu">test</span> -d ~/.linuxbrew <span class="kw">&amp;&amp;</span> <span class="bu">eval</span> <span class="va">$(</span><span class="ex">~/.linuxbrew/bin/brew</span> shellenv<span class="va">)</span>
+<span class="bu">test</span> -d /home/linuxbrew/.linuxbrew <span class="kw">&amp;&amp;</span> <span class="bu">eval</span> <span class="va">$(</span><span class="ex">/home/linuxbrew/.linuxbrew/bin/brew</span> shellenv<span class="va">)</span>
+<span class="bu">test</span> -r ~/.bash_profile <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">&quot;eval </span><span class="dt">\$</span><span class="st">(</span><span class="va">$(</span><span class="ex">brew</span> --prefix<span class="va">)</span><span class="st">/bin/brew shellenv)&quot;</span> <span class="op">&gt;&gt;</span>~/.bash_profile
+<span class="bu">echo</span> <span class="st">&quot;eval </span><span class="dt">\$</span><span class="st">(</span><span class="va">$(</span><span class="ex">brew</span> --prefix<span class="va">)</span><span class="st">/bin/brew shellenv)&quot;</span> <span class="op">&gt;&gt;</span>~/.profile
+<span class="co"># debian/ubuntu dependencies</span>
+<span class="fu">sudo</span> apt-get install build-essential curl file git</code></pre></div>
+<p>LinuxBrew golang installation</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">brew</span> install go</code></pre></div>
+<p>The GO PATH should then be checked; it should typically exist at ~/go but it can be checked like this</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="bu">echo</span> <span class="va">$GOPATH</span></code></pre></div>
+</div>
+<div id="updating" class="section level2">
+<h2><span class="header-section-number">11.3</span> Updating</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">brew</span> install dep
+<span class="ex">brew</span> upgrade dep
+<span class="ex">brew</span> cask install spotify</code></pre></div>
+</div>
+<div id="sample-program" class="section level2">
+<h2><span class="header-section-number">11.4</span> Sample Program</h2>
+<p>Create a file called hello.go</p>
+<pre class="golang"><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Printf(&quot;hello, world\n&quot;)
+}
+
+The program can just be run with
+go run main.go
+
+Then compile the program
+    go build
+
+Importing multiple things can be done on one line separated by a semicolon
+    import (&quot;fmt&quot;; &quot;math&quot;)</code></pre>
+</div>
+<div id="type-conversion" class="section level2">
+<h2><span class="header-section-number">11.5</span> Type conversion</h2>
+<p>Convert int to float64</p>
+<pre class="golang"><code>var i int = 5
+j := float64(i)</code></pre>
+<p>int to string</p>
+<pre class="golang"><code>s := strconv.Itoa(97) // s == &quot;97&quot;</code></pre>
+<p>int64 to string</p>
+<pre class="golang"><code>var n int64 = 97
+s := strconv.FormatInt(n, 10) // s == &quot;97&quot; (decimal) in base 10</code></pre>
+<p>string to int</p>
+<pre class="golang"><code>s := &quot;97&quot;
+if n, err := strconv.Atoi(s); err == nil {
+    fmt.Println(n+1)
+} else {
+    fmt.Println(s, &quot;is not an integer.&quot;)
+}</code></pre>
+<p>string to int64</p>
+<pre class="golang"><code>s := &quot;97&quot;
+n, err := strconv.ParseInt(s, 10, 64)
+if err == nil {
+    fmt.Printf(&quot;%d of type %T&quot;, n, n)
+}</code></pre>
+<p>int to int64</p>
+<pre class="golang"><code>var n int = 97
+m := int64(n) // safe</code></pre>
+</div>
+<div id="strings" class="section level2">
+<h2><span class="header-section-number">11.6</span> Strings</h2>
+<p>Numbers can be converted to strings using strconv</p>
+<pre class="golang"><code>s := strconv.FormatFloat(3.1415, &#39;E&#39;, -1, 64)
+s := strconv.FormatInt(-42, 16)</code></pre>
+<p>Strings can be assigned with ` ` or &quot; “, but only the double quotes can use escape characters like newlines or </p>
+<pre class="golang"><code>fmt.Println(&quot;Hello\n World&quot;)</code></pre>
+<p>Indexing returns bytes rather than strings so they must be converted if you want a string back</p>
+<pre class="golang"><code>string(&quot;Hello World&quot;[1])</code></pre>
+<p>Test if a string is a substring of another</p>
+<pre class="golang"><code>import &quot;strings&quot;
+strings.Contains(&quot;something&quot;,&quot;some&quot;) // true</code></pre>
+</div>
+<div id="boolean-functions" class="section level2">
+<h2><span class="header-section-number">11.7</span> Boolean Functions</h2>
+<pre><code>&amp;&amp;, ||, !, true, false</code></pre>
+</div>
+<div id="variables" class="section level2">
+<h2><span class="header-section-number">11.8</span> Variables</h2>
+<p>Variables are statically typed and therefore must be declared when assigned</p>
+<pre class="golang"><code>var x string = &quot;Hello World&quot;</code></pre>
+<p>Type declaration can be offloaded to the compiler using the following notation, and the compiler will try to infer the correct type</p>
+<pre class="golang"><code>var x = &quot;Hello World&quot;
+x := &quot;Hello World&quot;</code></pre>
+<p>Constants are similar to variables, but their values cannot be reassigned</p>
+<pre class="golang"><code>const x string = &quot;Hello&quot;</code></pre>
+<p>Multiple variables can also be declared at once, where each variable must occupy its own line</p>
+<pre class="golang"><code>var (
+    a = 5
+    b = 10
+    c = 15
+)</code></pre>
+</div>
+<div id="input" class="section level2">
+<h2><span class="header-section-number">11.9</span> Input</h2>
+<p>User input</p>
+<pre class="golang"><code>var input float64
+fmt.Scanf(&quot;%f&quot;, &amp;input)</code></pre>
+</div>
+<div id="control-structures" class="section level2">
+<h2><span class="header-section-number">11.10</span> Control Structures</h2>
+<p>For loops can be written like the following</p>
+<pre class="golang"><code>i := 1
+for i &lt;= 10 {
+    fmt.Println(i)
+    i += 1</code></pre>
+<p>Probably the easier for loop is like this one</p>
+<pre class="golang"><code>for i := 1; i &lt;= 10; i++ {
+    fmt.Println(i)
+}</code></pre>
+<p>A nice for loop to iterate through a range</p>
+<pre class="golang"><code>for i := range str1 {
+    if str1[i] == str2[i] { count++ }
+}
+return count</code></pre>
+<p>For loops can be used to iterate through slices too</p>
+<pre class="golang"><code>for _, num := range nums {</code></pre>
+<p>If loops look gross, but it is required that the else statement is placed where it is shown here</p>
+<pre class="golang"><code>if true {
+} else if false {
+}</code></pre>
+<p>Switches are also a thing</p>
+<pre class="golang"><code>switch input {                          
+    case 1: fmt.Println(&quot;You entered one&quot;)  
+    case 2: fmt.Println(&quot;You entered two&quot;)  
+    case 3: fmt.Println(&quot;You entered three&quot;)
+}                                           </code></pre>
+</div>
+<div id="data-structures" class="section level2">
+<h2><span class="header-section-number">11.11</span> Data Structures</h2>
+<p>A blank array</p>
+<pre class="golang"><code>var x []int</code></pre>
+<p>An array with five elements</p>
+<pre class="golang"><code>var x [5]int
+x[0] = 50 // the first element of the array equals 50</code></pre>
+<p>An easier way to create an array and can be multiline broken by the commas</p>
+<pre class="golang"><code>x := [5]float64{ 98, 93, 77, 82, 83 }</code></pre>
+<p>Slices can have variable lengths and are typically associated with an array of fixed length. The following slice is 5 elements long, and is a segment of a 10 element-long array</p>
+<pre class="golang"><code>x := make([]float64, 5, 10)</code></pre>
+<p>In a way that seems more similar to python, slicing an array can be done like this</p>
+<pre class="golang"><code>arr := [5]float64{1,2,3,4,5}
+x := arr[0:2]</code></pre>
+<p>Adding data to a slice</p>
+<pre class="golang"><code>slice1 := []int{1,2,3}
+slice2 := append(slice1,4,5)</code></pre>
+<p>Or multiple values can be added at once</p>
+<pre class="golang"><code>s = append(s, 2, 3, 4)</code></pre>
+<p>A map is an unordered collection of key-value pairs (also known as a dictionary). A map is defined by assigning it to a variable and then defining the key type in brackets and the value type after the brackets</p>
+<pre class="golang"><code>var x make(map[string]int)
+x[&quot;key&quot;] = 10 
+fmt.Println(x)</code></pre>
+<p>Creating a map with multiple items simultaneously</p>
+<pre class="golang"><code>elements := map[string]string{
+  &quot;H&quot;:  &quot;Hydrogen&quot;,
+  &quot;He&quot;: &quot;Helium&quot;,
+  &quot;Li&quot;: &quot;Lithium&quot;,
+}</code></pre>
+<p>Items can be deleted from a map using the delete function</p>
+<pre class="golang"><code>delete(x, &quot;key&quot;)</code></pre>
+<p>Go provides functionality that checks whether a key lookup from a map was successful or not</p>
+<pre class="golang"><code>m,n := x[&quot;unknown&quot;] // this key does not exist
+fmt.Println(m,n) // m will equal 0 and n will equal false</code></pre>
+<p>This check can be used in an if loop to only run a chunk of code if a key exists within a map. In the below code el equals the value and ok is true or false, if the key is found, ok equals true and the print statement is run</p>
+<pre class="golang"><code>if el, ok := elements[&quot;Li&quot;]; ok {
+fmt.Println(el[&quot;name&quot;], el[&quot;state&quot;])
+}</code></pre>
+<p>Iterate through a map</p>
+<pre class="golang"><code>for k, v := range kmers {                  
+    fmt.Printf(&quot;key: %s value: %d\n&quot;, k, v)
+}</code></pre>
+</div>
+<div id="functions" class="section level2">
+<h2><span class="header-section-number">11.12</span> Functions</h2>
+<p>Below is a basic function that computes the mean of a map</p>
+<pre class="golang"><code>func average(xs []float64) (float64) {
+    total := 0.0                      
+    for _, v := range xs {            
+        total += v                    
+    }
+    return total / float64(len(xs))   
+}                                     </code></pre>
+<p>A function can also take multiple different types of variables</p>
+<pre class="golang"><code>func lots_of_stuff(a int, b map[string]int64, c float64) (string, string, int64) {
+// do stuff
+}</code></pre>
+<p>If it is desirable that a function takes maps of variable lengths a function can be designed like the one below</p>
+<pre class="golang"><code>func add(args ...int) int { 
+    total := 0              
+    for _, v := range args {
+        total += v          
+    }                       
+    return total            
+}  </code></pre>
+<p>Functions can also be placed within other functions like this</p>
+<pre class="golang"><code>func main() {
+  add := func(x, y int) int {
+    return x + y
+  }
+  fmt.Println(add(1,1))
+}</code></pre>
+<p>Closure refers to functions that utilize non-local variables</p>
+<pre class="golang"><code>func main() {
+  x := 0
+  increment := func() int {
+    x++
+    return x
+  }
+  fmt.Println(increment())
+  fmt.Println(increment())
+}</code></pre>
+<p>Recursion uses the same function recursively</p>
+<pre class="golang"><code>// a recursive function      
+func factorial(x uint) uint {
+    if x == 0 {              
+        return 1             
+    }                        
+    return x * factorial(x-1)
+}      </code></pre>
+<p>Deferring essentially moves a function call to the end of a function, like the following which closes the file after it is used</p>
+<pre class="golang"><code>f, _ := os.Open(filename)
+defer f.Close()</code></pre>
+</div>
+<div id="while-loops" class="section level2">
+<h2><span class="header-section-number">11.13</span> While loops</h2>
+<p>These are not actually included in golang as in other languages but instead utilize for loops.</p>
+<p>This is a repeat-until loop:</p>
+<pre class="golang"><code>for {
+    work()
+    if condition {
+        break
+    }
+}</code></pre>
+<p>or</p>
+<pre class="golang"><code>for ok := true; ok; ok = !condition {
+    work()
+}</code></pre>
+<p>A do-while loop</p>
+<pre class="golang"><code>for {
+    work()
+    if !condition {
+        break
+    }
+}</code></pre>
+<p>or</p>
+<pre class="golang"><code>for ok := true; ok; ok = condition {
+    work()
+}</code></pre>
+</div>
+<div id="timing-a-function" class="section level2">
+<h2><span class="header-section-number">11.14</span> Timing a function</h2>
+<pre class="golang"><code>start := time.Now()
+t := time.Now()
+elapsed := t.Sub(start)
+fmt.Println(elapsed)</code></pre>
+</div>
+<div id="pointers" class="section level2">
+<h2><span class="header-section-number">11.15</span> Pointers</h2>
+<p>Pointers can be used to access the memory location of a variable and alter the value stored in that location</p>
+<pre class="golang"><code>func zero(xPtr *int) {                                              
+    *xPtr = 0 // asterisk signifies a pointer                                                       
+}                                                                   
+                                                                    
+func main() {                                                       
+    x := 5                                                          
+    zero(&amp;x) // &amp; finds the address of a variable                                                       
+    fmt.Println(x) // using a pointer allows the value to be changed
+}                                                                   </code></pre>
+<p>There is a built in function called new that takes a type as an argument, and allocates sufficient memory to hold that type and returns a pointer to it, and unlike other languages, because go is a garbage collected language, it will delete anything created by new when nothing refers to it anymore</p>
+<pre class="golang"><code>func one(xPtr *int) {
+    *xPtr = 1        
+}
+                    
+func main() {                                                                                                                 
+    xPtr := new(int)                                                
+    one(xPtr)                                                       
+    fmt.Println(*xPtr)                                              
+}                                                                   </code></pre>
+</div>
+<div id="structures" class="section level2">
+<h2><span class="header-section-number">11.16</span> Structures</h2>
+<p>These seem similar to classes and allow a new ‘type’ to be created</p>
+<pre class="golang"><code>type Circle struct {
+x float64
+y float64
+r float64
+
+    // values of the same type can be combined like this
+    x, y, r float64 
+}                   </code></pre>
+<p>A new structure can be created just like a typical variable</p>
+<pre class="golang"><code>var c Circle</code></pre>
+<p>A structure can be created like pointers which will set all values to their zero value like 0, 0.0, “” and return a pointer</p>
+<pre class="golang"><code>c := new(Circle)</code></pre>
+<p>Values for a structure can also be defined at variable creation time</p>
+<pre class="golang"><code>c := Circle{x: 0, y: 0, r: 5}
+// this is possible if you remember the order vars were defined
+c := Circle{0, 0, 5}</code></pre>
+<p>Structure fields are accessed like class methods</p>
+<pre class="golang"><code>fmt.Println(c.x, c.y, c.r)
+c.x = 10
+c.y = 5</code></pre>
+<p>When passing a structure to another function, its type is the name of the structure</p>
+<pre class="golang"><code>func circleArea(c Circle) float64 {
+    return math.Pi * c.r * c.r     
+}                                  </code></pre>
+<p>Fields of a structure that has been defined are not altered unless a pointer is used</p>
+<pre class="golang"><code>func circleArea(c *Circle) float64 {
+    c.r = 10                        
+    return math.Pi * c.r * c.r      
+}                                   
+                                    
+func main() {                       
+    c:= Circle{0, 0, 5}             
+    fmt.Println(circleArea(&amp;c), c)  
+}</code></pre>
+</div>
+<div id="methods" class="section level2">
+<h2><span class="header-section-number">11.17</span> Methods</h2>
+<p>These can be added to structures so they can be directly accessed by automatically passing a pointer to the method. The area() receiver can be used for other structures, and does not have to be a unique word</p>
+<pre class="golang"><code>type Circle struct {             
+    x, y, r float64              
+}                                
+                                 
+func (c *Circle) area() float64 {
+    return math.Pi * c.r * c.r   
+}                                
+                                 
+func main() {                    
+    c:= Circle{0, 0, 5}          
+    fmt.Println(c.area())        
+}   </code></pre>
+<p>Embedded Types is sort of like inheritance and gives a method access to all of the features of another structure.</p>
+<p>Here is a person structure</p>
+<pre class="golang"><code>type Person struct {
+  Name string
+}
+func (p *Person) Talk() {
+  fmt.Println(&quot;Hi, my name is&quot;, p.Name)
+}</code></pre>
+<p>Here Android is defined to have the same properties as the person structure</p>
+<pre class="golang"><code>type Android struct {
+  Person
+  Model string
+}
+
+a := new(Android)
+a.Talk()</code></pre>
+</div>
+<div id="packaging" class="section level2">
+<h2><span class="header-section-number">11.18</span> Packaging</h2>
+<p>Building code into a package is a convenient way of then accessing the same methods without having to rebuild them.</p>
+<p>To create a package, make a folder with the same name as the package so <code>math</code> in this case. Then refer to the package name in a file within this folder like this: package math</p>
+<pre class="golang"><code>func Average(xs []float64) float64 {
+    total := float64(0)             
+    for _, x := range xs {          
+        total += x                  
+    }                               
+    return total / float64(len(xs)) 
+}                                   </code></pre>
+<p>Then save this file and build it from the same directory using:</p>
+<pre class="golang"><code>go install</code></pre>
+<p>Finally, use this package by referring to its directory like this:</p>
+<pre class="golang"><code>package main                          
+                                      
+import &quot;fmt&quot;                          
+// import &quot;chapter11/math&quot; //this format can be used if put in ~/go/src/
+import &quot;./math&quot;                       
+                                      
+func main() {                         
+    xs := []float64{1,2,3,4}          
+    avg := math.Average(xs)           
+    fmt.Println(avg)                  
+}                                     </code></pre>
+</div>
+<div id="readwrite-files" class="section level2">
+<h2><span class="header-section-number">11.19</span> Read/Write Files</h2>
+<p>Here is how a file is opened</p>
+<pre class="golang"><code>f, err := os.Open(&quot;./data/genomes/schisto_small.fa&quot;)
+check(err)
+f.Close() // when done
+
+func check(e error) {
+    if e != nil {    
+        panic(e)     
+    }                
+}</code></pre>
+<p>Read by a certain number of bytes at a time</p>
+<pre class="golang"><code>b1 := make([]byte, 61)                      
+n1, err := f.Read(b1)                       
+check(err)                                  
+fmt.Printf(&quot;%d bytes: %s\n&quot;, n1, string(b1))</code></pre>
+<p>Peek might be more efficient with many small read calls but reads next n bytes without advancing the reader</p>
+<pre class="golang"><code>r4 := bufio.NewReader(f)                                  
+b4, err := r4.Peek(61)                                    
+check(err)                                                
+fmt.Printf(&quot;5 bytes: %s\n&quot;, string(b4))</code></pre>
+<p>Scanners are useful ways to read newline delimited files</p>
+<pre class="golang"><code>scanner := bufio.NewScanner(f)                             
+for scanner.Scan() {                                       
+    fmt.Println(scanner.Text()) // Println retains the \n  
+}                                                          
+if err := scanner.Err(); err != nil {                      
+    fmt.Fprintln(os.Stderr, &quot;reading standard input:&quot;, err)
+}</code></pre>
+<p>Read from gzip file</p>
+<pre class="golang"><code>import(&quot;compress/gzip&quot;)                                                          
+file, err := os.Open(&quot;./data/genomes/schisto_small_2.fa.gz&quot;)
+f, err := gzip.NewReader(file)</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="resources.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "night",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/10-Golang.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
