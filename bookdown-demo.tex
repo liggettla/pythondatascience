@@ -109,7 +109,7 @@
 \usepackage{titling}
 
 % Create subtitle command for use in maketitle
-\providecommand{\subtitle}[1]{
+\newcommand{\subtitle}[1]{
   \posttitle{
     \begin{center}\large#1\end{center}
     }
@@ -125,7 +125,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-06-08}
+    \date{2019-06-10}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -1613,16 +1613,6 @@ Get suggestions for misspelled word.
 
 \chapter{Golang}\label{golang}
 
-\section{Formatting}\label{formatting-1}
-
-Automatic newlines are inserted by default; this behavior can be
-overidden with the following.
-
-\begin{verbatim}
-:set wrap
-:set textwidth=0 wrapmargin=0
-\end{verbatim}
-
 \section{Installation}\label{installation}
 
 Installation of linuxbrea
@@ -1671,104 +1661,126 @@ The GO PATH should then be checked; it should typically exist at
 
 Create a file called hello.go
 
-\begin{verbatim}
-package main
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{package main}
 
-import "fmt"
+\ImportTok{import} \StringTok{"fmt"}
 
-func main() {
-    fmt.Printf("hello, world\n")
-}
+\NormalTok{func main() \{}
+\NormalTok{    fmt.Printf(}\StringTok{"hello, world}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{\}}
 
-The program can just be run with
-go run main.go
+\NormalTok{The program can just be run }\ControlFlowTok{with}
+\NormalTok{go run main.go}
 
-Then compile the program
-    go build
+\NormalTok{Then }\BuiltInTok{compile}\NormalTok{ the program}
+\NormalTok{    go build}
 
-Importing multiple things can be done on one line separated by a semicolon
-    import ("fmt"; "math")
-\end{verbatim}
+\NormalTok{Importing multiple things can be done on one line separated by a semicolon}
+    \ImportTok{import}\NormalTok{ (}\StringTok{"fmt"}\OperatorTok{;} \StringTok{"math"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Type conversion}\label{type-conversion}
 
 Convert int to float64
 
-\begin{verbatim}
-var i int = 5
-j := float64(i)
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var i }\BuiltInTok{int} \OperatorTok{=} \DecValTok{5}
+\NormalTok{j :}\OperatorTok{=}\NormalTok{ float64(i)}
+\end{Highlighting}
+\end{Shaded}
 
 int to string
 
-\begin{verbatim}
-s := strconv.Itoa(97) // s == "97"
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s :}\OperatorTok{=}\NormalTok{ strconv.Itoa(}\DecValTok{97}\NormalTok{) }\OperatorTok{//}\NormalTok{ s }\OperatorTok{==} \StringTok{"97"}
+\end{Highlighting}
+\end{Shaded}
 
 int64 to string
 
-\begin{verbatim}
-var n int64 = 97
-s := strconv.FormatInt(n, 10) // s == "97" (decimal) in base 10
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var n int64 }\OperatorTok{=} \DecValTok{97}
+\NormalTok{s :}\OperatorTok{=}\NormalTok{ strconv.FormatInt(n, }\DecValTok{10}\NormalTok{) }\OperatorTok{//}\NormalTok{ s }\OperatorTok{==} \StringTok{"97"}\NormalTok{ (decimal) }\KeywordTok{in}\NormalTok{ base }\DecValTok{10}
+\end{Highlighting}
+\end{Shaded}
 
 string to int
 
-\begin{verbatim}
-s := "97"
-if n, err := strconv.Atoi(s); err == nil {
-    fmt.Println(n+1)
-} else {
-    fmt.Println(s, "is not an integer.")
-}
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s :}\OperatorTok{=} \StringTok{"97"}
+\ControlFlowTok{if}\NormalTok{ n, err :}\OperatorTok{=}\NormalTok{ strconv.Atoi(s)}\OperatorTok{;}\NormalTok{ err }\OperatorTok{==}\NormalTok{ nil \{}
+\NormalTok{    fmt.Println(n}\OperatorTok{+}\DecValTok{1}\NormalTok{)}
+\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{    fmt.Println(s, }\StringTok{"is not an integer."}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 string to int64
 
-\begin{verbatim}
-s := "97"
-n, err := strconv.ParseInt(s, 10, 64)
-if err == nil {
-    fmt.Printf("%d of type %T", n, n)
-}
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s :}\OperatorTok{=} \StringTok{"97"}
+\NormalTok{n, err :}\OperatorTok{=}\NormalTok{ strconv.ParseInt(s, }\DecValTok{10}\NormalTok{, }\DecValTok{64}\NormalTok{)}
+\ControlFlowTok{if}\NormalTok{ err }\OperatorTok{==}\NormalTok{ nil \{}
+\NormalTok{    fmt.Printf(}\StringTok{"}\SpecialCharTok{%d}\StringTok{ of type %T"}\NormalTok{, n, n)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 int to int64
 
-\begin{verbatim}
-var n int = 97
-m := int64(n) // safe
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var n }\BuiltInTok{int} \OperatorTok{=} \DecValTok{97}
+\NormalTok{m :}\OperatorTok{=}\NormalTok{ int64(n) }\OperatorTok{//}\NormalTok{ safe}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Strings}\label{strings}
 
 Numbers can be converted to strings using strconv
 
-\begin{verbatim}
-s := strconv.FormatFloat(3.1415, 'E', -1, 64)
-s := strconv.FormatInt(-42, 16)
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s :}\OperatorTok{=}\NormalTok{ strconv.FormatFloat(}\FloatTok{3.1415}\NormalTok{, }\StringTok{'E'}\NormalTok{, }\OperatorTok{-}\DecValTok{1}\NormalTok{, }\DecValTok{64}\NormalTok{)}
+\NormalTok{s :}\OperatorTok{=}\NormalTok{ strconv.FormatInt(}\OperatorTok{-}\DecValTok{42}\NormalTok{, }\DecValTok{16}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 Strings can be assigned with ` ` or " ``, but only the double quotes can
 use escape characters like newlines \n or \t
 
-\begin{verbatim}
-fmt.Println("Hello\n World")
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fmt.Println(}\StringTok{"Hello}\CharTok{\textbackslash{}n}\StringTok{ World"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 Indexing returns bytes rather than strings so they must be converted if
 you want a string back
 
-\begin{verbatim}
-string("Hello World"[1])
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{string(}\StringTok{"Hello World"}\NormalTok{[}\DecValTok{1}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
 
 Test if a string is a substring of another
 
-\begin{verbatim}
-import "strings"
-strings.Contains("something","some") // true
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import} \StringTok{"strings"}
+\NormalTok{strings.Contains(}\StringTok{"something"}\NormalTok{,}\StringTok{"some"}\NormalTok{) }\OperatorTok{//}\NormalTok{ true}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Boolean Functions}\label{boolean-functions}
 
@@ -1781,281 +1793,353 @@ strings.Contains("something","some") // true
 Variables are statically typed and therefore must be declared when
 assigned
 
-\begin{verbatim}
-var x string = "Hello World"
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var x string }\OperatorTok{=} \StringTok{"Hello World"}
+\end{Highlighting}
+\end{Shaded}
 
 Type declaration can be offloaded to the compiler using the following
 notation, and the compiler will try to infer the correct type
 
-\begin{verbatim}
-var x = "Hello World"
-x := "Hello World"
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var x }\OperatorTok{=} \StringTok{"Hello World"}
+\NormalTok{x :}\OperatorTok{=} \StringTok{"Hello World"}
+\end{Highlighting}
+\end{Shaded}
 
 Constants are similar to variables, but their values cannot be
 reassigned
 
-\begin{verbatim}
-const x string = "Hello"
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{const x string }\OperatorTok{=} \StringTok{"Hello"}
+\end{Highlighting}
+\end{Shaded}
 
 Multiple variables can also be declared at once, where each variable
 must occupy its own line
 
-\begin{verbatim}
-var (
-    a = 5
-    b = 10
-    c = 15
-)
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var (}
+\NormalTok{    a }\OperatorTok{=} \DecValTok{5}
+\NormalTok{    b }\OperatorTok{=} \DecValTok{10}
+\NormalTok{    c }\OperatorTok{=} \DecValTok{15}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Substrings
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s :}\OperatorTok{=} \StringTok{"something"}
+\NormalTok{fmt.Println(s[:}\BuiltInTok{len}\NormalTok{(s)}\OperatorTok{-}\DecValTok{5}\NormalTok{])}
+\NormalTok{fmt.Println(s[}\DecValTok{2}\NormalTok{:}\DecValTok{6}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Input}\label{input}
 
 User input
 
-\begin{verbatim}
-var input float64
-fmt.Scanf("%f", &input)
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var }\BuiltInTok{input}\NormalTok{ float64}
+\NormalTok{fmt.Scanf(}\StringTok{"}\SpecialCharTok{%f}\StringTok{"}\NormalTok{, }\OperatorTok{&}\BuiltInTok{input}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Control Structures}\label{control-structures}
 
 For loops can be written like the following
 
-\begin{verbatim}
-i := 1
-for i <= 10 {
-    fmt.Println(i)
-    i += 1
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{i :}\OperatorTok{=} \DecValTok{1}
+\ControlFlowTok{for}\NormalTok{ i }\OperatorTok{<=} \DecValTok{10}\NormalTok{ \{}
+\NormalTok{    fmt.Println(i)}
+\NormalTok{    i }\OperatorTok{+=} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
 
 Probably the easier for loop is like this one
 
-\begin{verbatim}
-for i := 1; i <= 10; i++ {
-    fmt.Println(i)
-}
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ i :}\OperatorTok{=} \DecValTok{1}\OperatorTok{;}\NormalTok{ i }\OperatorTok{<=} \DecValTok{10}\OperatorTok{;}\NormalTok{ i}\OperatorTok{++}\NormalTok{ \{}
+\NormalTok{    fmt.Println(i)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 A nice for loop to iterate through a range
 
-\begin{verbatim}
-for i := range str1 {
-    if str1[i] == str2[i] { count++ }
-}
-return count
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ i :}\OperatorTok{=} \BuiltInTok{range}\NormalTok{ str1 \{}
+    \ControlFlowTok{if}\NormalTok{ str1[i] }\OperatorTok{==}\NormalTok{ str2[i] \{ count}\OperatorTok{++}\NormalTok{ \}}
+\NormalTok{\}}
+\ControlFlowTok{return}\NormalTok{ count}
+\end{Highlighting}
+\end{Shaded}
 
 For loops can be used to iterate through slices too
 
-\begin{verbatim}
-for _, num := range nums {
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ _, num :}\OperatorTok{=} \BuiltInTok{range}\NormalTok{ nums \{}
+\end{Highlighting}
+\end{Shaded}
 
 If loops look gross, but it is required that the else statement is
 placed where it is shown here
 
-\begin{verbatim}
-if true {
-} else if false {
-}
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ true \{}
+\NormalTok{\} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ false \{}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 Switches are also a thing
 
-\begin{verbatim}
-switch input {                          
-    case 1: fmt.Println("You entered one")  
-    case 2: fmt.Println("You entered two")  
-    case 3: fmt.Println("You entered three")
-}                                           
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{switch }\BuiltInTok{input}\NormalTok{ \{                          }
+\NormalTok{    case }\DecValTok{1}\NormalTok{: fmt.Println(}\StringTok{"You entered one"}\NormalTok{)  }
+\NormalTok{    case }\DecValTok{2}\NormalTok{: fmt.Println(}\StringTok{"You entered two"}\NormalTok{)  }
+\NormalTok{    case }\DecValTok{3}\NormalTok{: fmt.Println(}\StringTok{"You entered three"}\NormalTok{)}
+\NormalTok{\}                                           }
+\end{Highlighting}
+\end{Shaded}
 
 \section{Data Structures}\label{data-structures}
 
 A blank array
 
-\begin{verbatim}
-var x []int
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var x []}\BuiltInTok{int}
+\end{Highlighting}
+\end{Shaded}
 
 An array with five elements
 
-\begin{verbatim}
-var x [5]int
-x[0] = 50 // the first element of the array equals 50
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var x [}\DecValTok{5}\NormalTok{]}\BuiltInTok{int}
+\NormalTok{x[}\DecValTok{0}\NormalTok{] }\OperatorTok{=} \DecValTok{50} \OperatorTok{//}\NormalTok{ the first element of the array equals }\DecValTok{50}
+\end{Highlighting}
+\end{Shaded}
 
 An easier way to create an array and can be multiline broken by the
 commas
 
-\begin{verbatim}
-x := [5]float64{ 98, 93, 77, 82, 83 }
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x :}\OperatorTok{=}\NormalTok{ [}\DecValTok{5}\NormalTok{]float64\{ }\DecValTok{98}\NormalTok{, }\DecValTok{93}\NormalTok{, }\DecValTok{77}\NormalTok{, }\DecValTok{82}\NormalTok{, }\DecValTok{83}\NormalTok{ \}}
+\end{Highlighting}
+\end{Shaded}
 
 Slices can have variable lengths and are typically associated with an
 array of fixed length. The following slice is 5 elements long, and is a
 segment of a 10 element-long array
 
-\begin{verbatim}
-x := make([]float64, 5, 10)
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x :}\OperatorTok{=}\NormalTok{ make([]float64, }\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 In a way that seems more similar to python, slicing an array can be done
 like this
 
-\begin{verbatim}
-arr := [5]float64{1,2,3,4,5}
-x := arr[0:2]
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{arr :}\OperatorTok{=}\NormalTok{ [}\DecValTok{5}\NormalTok{]float64\{}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{\}}
+\NormalTok{x :}\OperatorTok{=}\NormalTok{ arr[}\DecValTok{0}\NormalTok{:}\DecValTok{2}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
 
 Adding data to a slice
 
-\begin{verbatim}
-slice1 := []int{1,2,3}
-slice2 := append(slice1,4,5)
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{slice1 :}\OperatorTok{=}\NormalTok{ []}\BuiltInTok{int}\NormalTok{\{}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{\}}
+\NormalTok{slice2 :}\OperatorTok{=}\NormalTok{ append(slice1,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 Or multiple values can be added at once
 
-\begin{verbatim}
-s = append(s, 2, 3, 4)
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s }\OperatorTok{=}\NormalTok{ append(s, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 A map is an unordered collection of key-value pairs (also known as a
 dictionary). A map is defined by assigning it to a variable and then
 defining the key type in brackets and the value type after the brackets
 
-\begin{verbatim}
-var x make(map[string]int)
-x["key"] = 10 
-fmt.Println(x)
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var x make(}\BuiltInTok{map}\NormalTok{[string]}\BuiltInTok{int}\NormalTok{)}
+\NormalTok{x[}\StringTok{"key"}\NormalTok{] }\OperatorTok{=} \DecValTok{10} 
+\NormalTok{fmt.Println(x)}
+\end{Highlighting}
+\end{Shaded}
 
 Creating a map with multiple items simultaneously
 
-\begin{verbatim}
-elements := map[string]string{
-  "H":  "Hydrogen",
-  "He": "Helium",
-  "Li": "Lithium",
-}
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{elements :}\OperatorTok{=} \BuiltInTok{map}\NormalTok{[string]string\{}
+  \StringTok{"H"}\NormalTok{:  }\StringTok{"Hydrogen"}\NormalTok{,}
+  \StringTok{"He"}\NormalTok{: }\StringTok{"Helium"}\NormalTok{,}
+  \StringTok{"Li"}\NormalTok{: }\StringTok{"Lithium"}\NormalTok{,}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 Items can be deleted from a map using the delete function
 
-\begin{verbatim}
-delete(x, "key")
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{delete(x, }\StringTok{"key"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 Go provides functionality that checks whether a key lookup from a map
 was successful or not
 
-\begin{verbatim}
-m,n := x["unknown"] // this key does not exist
-fmt.Println(m,n) // m will equal 0 and n will equal false
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m,n :}\OperatorTok{=}\NormalTok{ x[}\StringTok{"unknown"}\NormalTok{] }\OperatorTok{//}\NormalTok{ this key does }\KeywordTok{not}\NormalTok{ exist}
+\NormalTok{fmt.Println(m,n) }\OperatorTok{//}\NormalTok{ m will equal }\DecValTok{0} \KeywordTok{and}\NormalTok{ n will equal false}
+\end{Highlighting}
+\end{Shaded}
 
 This check can be used in an if loop to only run a chunk of code if a
 key exists within a map. In the below code el equals the value and ok is
 true or false, if the key is found, ok equals true and the print
 statement is run
 
-\begin{verbatim}
-if el, ok := elements["Li"]; ok {
-fmt.Println(el["name"], el["state"])
-}
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ el, ok :}\OperatorTok{=}\NormalTok{ elements[}\StringTok{"Li"}\NormalTok{]}\OperatorTok{;}\NormalTok{ ok \{}
+\NormalTok{fmt.Println(el[}\StringTok{"name"}\NormalTok{], el[}\StringTok{"state"}\NormalTok{])}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 Iterate through a map
 
-\begin{verbatim}
-for k, v := range kmers {                  
-    fmt.Printf("key: %s value: %d\n", k, v)
-}
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ k, v :}\OperatorTok{=} \BuiltInTok{range}\NormalTok{ kmers \{                  }
+\NormalTok{    fmt.Printf(}\StringTok{"key: }\SpecialCharTok{%s}\StringTok{ value: }\SpecialCharTok{%d}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, k, v)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Functions}\label{functions}
 
 Below is a basic function that computes the mean of a map
 
-\begin{verbatim}
-func average(xs []float64) (float64) {
-    total := 0.0                      
-    for _, v := range xs {            
-        total += v                    
-    }
-    return total / float64(len(xs))   
-}                                     
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{func average(xs []float64) (float64) \{}
+\NormalTok{    total :}\OperatorTok{=} \FloatTok{0.0}                      
+    \ControlFlowTok{for}\NormalTok{ _, v :}\OperatorTok{=} \BuiltInTok{range}\NormalTok{ xs \{            }
+\NormalTok{        total }\OperatorTok{+=}\NormalTok{ v                    }
+\NormalTok{    \}}
+    \ControlFlowTok{return}\NormalTok{ total }\OperatorTok{/}\NormalTok{ float64(}\BuiltInTok{len}\NormalTok{(xs))   }
+\NormalTok{\}                                     }
+\end{Highlighting}
+\end{Shaded}
 
 A function can also take multiple different types of variables
 
-\begin{verbatim}
-func lots_of_stuff(a int, b map[string]int64, c float64) (string, string, int64) {
-// do stuff
-}
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{func lots_of_stuff(a }\BuiltInTok{int}\NormalTok{, b }\BuiltInTok{map}\NormalTok{[string]int64, c float64) (string, string, int64) \{}
+\OperatorTok{//}\NormalTok{ do stuff}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 If it is desirable that a function takes maps of variable lengths a
 function can be designed like the one below
 
-\begin{verbatim}
-func add(args ...int) int { 
-    total := 0              
-    for _, v := range args {
-        total += v          
-    }                       
-    return total            
-}  
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{func add(args ...}\BuiltInTok{int}\NormalTok{) }\BuiltInTok{int}\NormalTok{ \{ }
+\NormalTok{    total :}\OperatorTok{=} \DecValTok{0}              
+    \ControlFlowTok{for}\NormalTok{ _, v :}\OperatorTok{=} \BuiltInTok{range}\NormalTok{ args \{}
+\NormalTok{        total }\OperatorTok{+=}\NormalTok{ v          }
+\NormalTok{    \}                       }
+    \ControlFlowTok{return}\NormalTok{ total            }
+\NormalTok{\}  }
+\end{Highlighting}
+\end{Shaded}
 
 Functions can also be placed within other functions like this
 
-\begin{verbatim}
-func main() {
-  add := func(x, y int) int {
-    return x + y
-  }
-  fmt.Println(add(1,1))
-}
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{func main() \{}
+\NormalTok{  add :}\OperatorTok{=}\NormalTok{ func(x, y }\BuiltInTok{int}\NormalTok{) }\BuiltInTok{int}\NormalTok{ \{}
+    \ControlFlowTok{return}\NormalTok{ x }\OperatorTok{+}\NormalTok{ y}
+\NormalTok{  \}}
+\NormalTok{  fmt.Println(add(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 Closure refers to functions that utilize non-local variables
 
-\begin{verbatim}
-func main() {
-  x := 0
-  increment := func() int {
-    x++
-    return x
-  }
-  fmt.Println(increment())
-  fmt.Println(increment())
-}
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{func main() \{}
+\NormalTok{  x :}\OperatorTok{=} \DecValTok{0}
+\NormalTok{  increment :}\OperatorTok{=}\NormalTok{ func() }\BuiltInTok{int}\NormalTok{ \{}
+\NormalTok{    x}\OperatorTok{++}
+    \ControlFlowTok{return}\NormalTok{ x}
+\NormalTok{  \}}
+\NormalTok{  fmt.Println(increment())}
+\NormalTok{  fmt.Println(increment())}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 Recursion uses the same function recursively
 
-\begin{verbatim}
-// a recursive function      
-func factorial(x uint) uint {
-    if x == 0 {              
-        return 1             
-    }                        
-    return x * factorial(x-1)
-}      
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{//}\NormalTok{ a recursive function      }
+\NormalTok{func factorial(x uint) uint \{}
+    \ControlFlowTok{if}\NormalTok{ x }\OperatorTok{==} \DecValTok{0}\NormalTok{ \{              }
+        \ControlFlowTok{return} \DecValTok{1}             
+\NormalTok{    \}                        }
+    \ControlFlowTok{return}\NormalTok{ x }\OperatorTok{*}\NormalTok{ factorial(x}\OperatorTok{-}\DecValTok{1}\NormalTok{)}
+\NormalTok{\}      }
+\end{Highlighting}
+\end{Shaded}
 
 Deferring essentially moves a function call to the end of a function,
 like the following which closes the file after it is used
 
-\begin{verbatim}
-f, _ := os.Open(filename)
-defer f.Close()
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f, _ :}\OperatorTok{=}\NormalTok{ os.Open(filename)}
+\NormalTok{defer f.Close()}
+\end{Highlighting}
+\end{Shaded}
 
 \section{While loops}\label{while-loops}
 
@@ -2064,67 +2148,79 @@ instead utilize for loops.
 
 This is a repeat-until loop:
 
-\begin{verbatim}
-for {
-    work()
-    if condition {
-        break
-    }
-}
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ \{}
+\NormalTok{    work()}
+    \ControlFlowTok{if}\NormalTok{ condition \{}
+        \ControlFlowTok{break}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 or
 
-\begin{verbatim}
-for ok := true; ok; ok = !condition {
-    work()
-}
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ ok :}\OperatorTok{=}\NormalTok{ true}\OperatorTok{;}\NormalTok{ ok}\OperatorTok{;}\NormalTok{ ok }\OperatorTok{=} \OperatorTok{!}\NormalTok{condition \{}
+\NormalTok{    work()}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 A do-while loop
 
-\begin{verbatim}
-for {
-    work()
-    if !condition {
-        break
-    }
-}
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ \{}
+\NormalTok{    work()}
+    \ControlFlowTok{if} \OperatorTok{!}\NormalTok{condition \{}
+        \ControlFlowTok{break}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 or
 
-\begin{verbatim}
-for ok := true; ok; ok = condition {
-    work()
-}
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ ok :}\OperatorTok{=}\NormalTok{ true}\OperatorTok{;}\NormalTok{ ok}\OperatorTok{;}\NormalTok{ ok }\OperatorTok{=}\NormalTok{ condition \{}
+\NormalTok{    work()}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Timing a function}\label{timing-a-function}
 
-\begin{verbatim}
-start := time.Now()
-t := time.Now()
-elapsed := t.Sub(start)
-fmt.Println(elapsed)
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{start :}\OperatorTok{=}\NormalTok{ time.Now()}
+\NormalTok{t :}\OperatorTok{=}\NormalTok{ time.Now()}
+\NormalTok{elapsed :}\OperatorTok{=}\NormalTok{ t.Sub(start)}
+\NormalTok{fmt.Println(elapsed)}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Pointers}\label{pointers}
 
 Pointers can be used to access the memory location of a variable and
 alter the value stored in that location
 
-\begin{verbatim}
-func zero(xPtr *int) {                                              
-    *xPtr = 0 // asterisk signifies a pointer                                                       
-}                                                                   
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{func zero(xPtr }\OperatorTok{*}\BuiltInTok{int}\NormalTok{) \{                                              }
+    \OperatorTok{*}\NormalTok{xPtr }\OperatorTok{=} \DecValTok{0} \OperatorTok{//}\NormalTok{ asterisk signifies a pointer                                                       }
+\NormalTok{\}                                                                   }
                                                                     
-func main() {                                                       
-    x := 5                                                          
-    zero(&x) // & finds the address of a variable                                                       
-    fmt.Println(x) // using a pointer allows the value to be changed
-}                                                                   
-\end{verbatim}
+\NormalTok{func main() \{                                                       }
+\NormalTok{    x :}\OperatorTok{=} \DecValTok{5}                                                          
+\NormalTok{    zero(}\OperatorTok{&}\NormalTok{x) }\OperatorTok{//} \OperatorTok{&}\NormalTok{ finds the address of a variable                                                       }
+\NormalTok{    fmt.Println(x) }\OperatorTok{//}\NormalTok{ using a pointer allows the value to be changed}
+\NormalTok{\}                                                                   }
+\end{Highlighting}
+\end{Shaded}
 
 There is a built in function called new that takes a type as an
 argument, and allocates sufficient memory to hold that type and returns
@@ -2132,85 +2228,101 @@ a pointer to it, and unlike other languages, because go is a garbage
 collected language, it will delete anything created by new when nothing
 refers to it anymore
 
-\begin{verbatim}
-func one(xPtr *int) {
-    *xPtr = 1        
-}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{func one(xPtr }\OperatorTok{*}\BuiltInTok{int}\NormalTok{) \{}
+    \OperatorTok{*}\NormalTok{xPtr }\OperatorTok{=} \DecValTok{1}        
+\NormalTok{\}}
                     
-func main() {                                                                                                                 
-    xPtr := new(int)                                                
-    one(xPtr)                                                       
-    fmt.Println(*xPtr)                                              
-}                                                                   
-\end{verbatim}
+\NormalTok{func main() \{                                                                                                                 }
+\NormalTok{    xPtr :}\OperatorTok{=}\NormalTok{ new(}\BuiltInTok{int}\NormalTok{)                                                }
+\NormalTok{    one(xPtr)                                                       }
+\NormalTok{    fmt.Println(}\OperatorTok{*}\NormalTok{xPtr)                                              }
+\NormalTok{\}                                                                   }
+\end{Highlighting}
+\end{Shaded}
 
 \section{Structures}\label{structures}
 
 These seem similar to classes and allow a new `type' to be created
 
-\begin{verbatim}
-type Circle struct {
-x float64
-y float64
-r float64
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{type}\NormalTok{ Circle struct \{}
+\NormalTok{x float64}
+\NormalTok{y float64}
+\NormalTok{r float64}
 
-    // values of the same type can be combined like this
-    x, y, r float64 
-}                   
-\end{verbatim}
+    \OperatorTok{//}\NormalTok{ values of the same }\BuiltInTok{type}\NormalTok{ can be combined like this}
+\NormalTok{    x, y, r float64 }
+\NormalTok{\}                   }
+\end{Highlighting}
+\end{Shaded}
 
 A new structure can be created just like a typical variable
 
-\begin{verbatim}
-var c Circle
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var c Circle}
+\end{Highlighting}
+\end{Shaded}
 
 A structure can be created like pointers which will set all values to
 their zero value like 0, 0.0, ``'' and return a pointer
 
-\begin{verbatim}
-c := new(Circle)
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{c :}\OperatorTok{=}\NormalTok{ new(Circle)}
+\end{Highlighting}
+\end{Shaded}
 
 Values for a structure can also be defined at variable creation time
 
-\begin{verbatim}
-c := Circle{x: 0, y: 0, r: 5}
-// this is possible if you remember the order vars were defined
-c := Circle{0, 0, 5}
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{c :}\OperatorTok{=}\NormalTok{ Circle\{x: }\DecValTok{0}\NormalTok{, y: }\DecValTok{0}\NormalTok{, r: }\DecValTok{5}\NormalTok{\}}
+\OperatorTok{//}\NormalTok{ this }\KeywordTok{is}\NormalTok{ possible }\ControlFlowTok{if}\NormalTok{ you remember the order }\BuiltInTok{vars}\NormalTok{ were defined}
+\NormalTok{c :}\OperatorTok{=}\NormalTok{ Circle\{}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 Structure fields are accessed like class methods
 
-\begin{verbatim}
-fmt.Println(c.x, c.y, c.r)
-c.x = 10
-c.y = 5
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fmt.Println(c.x, c.y, c.r)}
+\NormalTok{c.x }\OperatorTok{=} \DecValTok{10}
+\NormalTok{c.y }\OperatorTok{=} \DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
 
 When passing a structure to another function, its type is the name of
 the structure
 
-\begin{verbatim}
-func circleArea(c Circle) float64 {
-    return math.Pi * c.r * c.r     
-}                                  
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{func circleArea(c Circle) float64 \{}
+    \ControlFlowTok{return}\NormalTok{ math.Pi }\OperatorTok{*}\NormalTok{ c.r }\OperatorTok{*}\NormalTok{ c.r     }
+\NormalTok{\}                                  }
+\end{Highlighting}
+\end{Shaded}
 
 Fields of a structure that has been defined are not altered unless a
 pointer is used
 
-\begin{verbatim}
-func circleArea(c *Circle) float64 {
-    c.r = 10                        
-    return math.Pi * c.r * c.r      
-}                                   
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{func circleArea(c }\OperatorTok{*}\NormalTok{Circle) float64 \{}
+\NormalTok{    c.r }\OperatorTok{=} \DecValTok{10}                        
+    \ControlFlowTok{return}\NormalTok{ math.Pi }\OperatorTok{*}\NormalTok{ c.r }\OperatorTok{*}\NormalTok{ c.r      }
+\NormalTok{\}                                   }
                                     
-func main() {                       
-    c:= Circle{0, 0, 5}             
-    fmt.Println(circleArea(&c), c)  
-}
-\end{verbatim}
+\NormalTok{func main() \{                       }
+\NormalTok{    c:}\OperatorTok{=}\NormalTok{ Circle\{}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{\}             }
+\NormalTok{    fmt.Println(circleArea(}\OperatorTok{&}\NormalTok{c), c)  }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Methods}\label{methods}
 
@@ -2218,47 +2330,53 @@ These can be added to structures so they can be directly accessed by
 automatically passing a pointer to the method. The area() receiver can
 be used for other structures, and does not have to be a unique word
 
-\begin{verbatim}
-type Circle struct {             
-    x, y, r float64              
-}                                
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{type}\NormalTok{ Circle struct \{             }
+\NormalTok{    x, y, r float64              }
+\NormalTok{\}                                }
                                  
-func (c *Circle) area() float64 {
-    return math.Pi * c.r * c.r   
-}                                
+\NormalTok{func (c }\OperatorTok{*}\NormalTok{Circle) area() float64 \{}
+    \ControlFlowTok{return}\NormalTok{ math.Pi }\OperatorTok{*}\NormalTok{ c.r }\OperatorTok{*}\NormalTok{ c.r   }
+\NormalTok{\}                                }
                                  
-func main() {                    
-    c:= Circle{0, 0, 5}          
-    fmt.Println(c.area())        
-}   
-\end{verbatim}
+\NormalTok{func main() \{                    }
+\NormalTok{    c:}\OperatorTok{=}\NormalTok{ Circle\{}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{\}          }
+\NormalTok{    fmt.Println(c.area())        }
+\NormalTok{\}   }
+\end{Highlighting}
+\end{Shaded}
 
 Embedded Types is sort of like inheritance and gives a method access to
 all of the features of another structure.
 
 Here is a person structure
 
-\begin{verbatim}
-type Person struct {
-  Name string
-}
-func (p *Person) Talk() {
-  fmt.Println("Hi, my name is", p.Name)
-}
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{type}\NormalTok{ Person struct \{}
+\NormalTok{  Name string}
+\NormalTok{\}}
+\NormalTok{func (p }\OperatorTok{*}\NormalTok{Person) Talk() \{}
+\NormalTok{  fmt.Println(}\StringTok{"Hi, my name is"}\NormalTok{, p.Name)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 Here Android is defined to have the same properties as the person
 structure
 
-\begin{verbatim}
-type Android struct {
-  Person
-  Model string
-}
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{type}\NormalTok{ Android struct \{}
+\NormalTok{  Person}
+\NormalTok{  Model string}
+\NormalTok{\}}
 
-a := new(Android)
-a.Talk()
-\end{verbatim}
+\NormalTok{a :}\OperatorTok{=}\NormalTok{ new(Android)}
+\NormalTok{a.Talk()}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Packaging}\label{packaging}
 
@@ -2269,92 +2387,108 @@ To create a package, make a folder with the same name as the package so
 \texttt{math} in this case. Then refer to the package name in a file
 within this folder like this: package math
 
-\begin{verbatim}
-func Average(xs []float64) float64 {
-    total := float64(0)             
-    for _, x := range xs {          
-        total += x                  
-    }                               
-    return total / float64(len(xs)) 
-}                                   
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{func Average(xs []float64) float64 \{}
+\NormalTok{    total :}\OperatorTok{=}\NormalTok{ float64(}\DecValTok{0}\NormalTok{)             }
+    \ControlFlowTok{for}\NormalTok{ _, x :}\OperatorTok{=} \BuiltInTok{range}\NormalTok{ xs \{          }
+\NormalTok{        total }\OperatorTok{+=}\NormalTok{ x                  }
+\NormalTok{    \}                               }
+    \ControlFlowTok{return}\NormalTok{ total }\OperatorTok{/}\NormalTok{ float64(}\BuiltInTok{len}\NormalTok{(xs)) }
+\NormalTok{\}                                   }
+\end{Highlighting}
+\end{Shaded}
 
 Then save this file and build it from the same directory using:
 
-\begin{verbatim}
-go install
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{go install}
+\end{Highlighting}
+\end{Shaded}
 
 Finally, use this package by referring to its directory like this:
 
-\begin{verbatim}
-package main                          
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{package main                          }
                                       
-import "fmt"                          
-// import "chapter11/math" //this format can be used if put in ~/go/src/
-import "./math"                       
+\ImportTok{import} \StringTok{"fmt"}                          
+\OperatorTok{//} \ImportTok{import} \StringTok{"chapter11/math"} \OperatorTok{//}\NormalTok{this }\BuiltInTok{format}\NormalTok{ can be used }\ControlFlowTok{if}\NormalTok{ put }\KeywordTok{in} \OperatorTok{~/}\NormalTok{go}\OperatorTok{/}\NormalTok{src}\OperatorTok{/}
+\ImportTok{import} \StringTok{"./math"}                       
                                       
-func main() {                         
-    xs := []float64{1,2,3,4}          
-    avg := math.Average(xs)           
-    fmt.Println(avg)                  
-}                                     
-\end{verbatim}
+\NormalTok{func main() \{                         }
+\NormalTok{    xs :}\OperatorTok{=}\NormalTok{ []float64\{}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{\}          }
+\NormalTok{    avg :}\OperatorTok{=}\NormalTok{ math.Average(xs)           }
+\NormalTok{    fmt.Println(avg)                  }
+\NormalTok{\}                                     }
+\end{Highlighting}
+\end{Shaded}
 
 \section{Read/Write Files}\label{readwrite-files}
 
 Here is how a file is opened
 
-\begin{verbatim}
-f, err := os.Open("./data/genomes/schisto_small.fa")
-check(err)
-f.Close() // when done
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f, err :}\OperatorTok{=}\NormalTok{ os.Open(}\StringTok{"./data/genomes/schisto_small.fa"}\NormalTok{)}
+\NormalTok{check(err)}
+\NormalTok{f.Close() }\OperatorTok{//}\NormalTok{ when done}
 
-func check(e error) {
-    if e != nil {    
-        panic(e)     
-    }                
-}
-\end{verbatim}
+\NormalTok{func check(e error) \{}
+    \ControlFlowTok{if}\NormalTok{ e }\OperatorTok{!=}\NormalTok{ nil \{    }
+\NormalTok{        panic(e)     }
+\NormalTok{    \}                }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 Read by a certain number of bytes at a time
 
-\begin{verbatim}
-b1 := make([]byte, 61)                      
-n1, err := f.Read(b1)                       
-check(err)                                  
-fmt.Printf("%d bytes: %s\n", n1, string(b1))
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b1 :}\OperatorTok{=}\NormalTok{ make([]byte, }\DecValTok{61}\NormalTok{)                      }
+\NormalTok{n1, err :}\OperatorTok{=}\NormalTok{ f.Read(b1)                       }
+\NormalTok{check(err)                                  }
+\NormalTok{fmt.Printf(}\StringTok{"}\SpecialCharTok{%d}\StringTok{ bytes: }\SpecialCharTok{%s}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, n1, string(b1))}
+\end{Highlighting}
+\end{Shaded}
 
 Peek might be more efficient with many small read calls but reads next n
 bytes without advancing the reader
 
-\begin{verbatim}
-r4 := bufio.NewReader(f)                                  
-b4, err := r4.Peek(61)                                    
-check(err)                                                
-fmt.Printf("5 bytes: %s\n", string(b4))
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{r4 :}\OperatorTok{=}\NormalTok{ bufio.NewReader(f)                                  }
+\NormalTok{b4, err :}\OperatorTok{=}\NormalTok{ r4.Peek(}\DecValTok{61}\NormalTok{)                                    }
+\NormalTok{check(err)                                                }
+\NormalTok{fmt.Printf(}\StringTok{"5 bytes: }\SpecialCharTok{%s}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, string(b4))}
+\end{Highlighting}
+\end{Shaded}
 
 Scanners are useful ways to read newline delimited files
 
-\begin{verbatim}
-scanner := bufio.NewScanner(f)                             
-for scanner.Scan() {                                       
-    fmt.Println(scanner.Text()) // Println retains the \n  
-}                                                          
-if err := scanner.Err(); err != nil {                      
-    fmt.Fprintln(os.Stderr, "reading standard input:", err)
-}
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scanner :}\OperatorTok{=}\NormalTok{ bufio.NewScanner(f)                             }
+\ControlFlowTok{for}\NormalTok{ scanner.Scan() \{                                       }
+\NormalTok{    fmt.Println(scanner.Text()) }\OperatorTok{//}\NormalTok{ Println retains the }\OperatorTok{\textbackslash{}}\NormalTok{n  }
+\NormalTok{\}                                                          }
+\ControlFlowTok{if}\NormalTok{ err :}\OperatorTok{=}\NormalTok{ scanner.Err()}\OperatorTok{;}\NormalTok{ err }\OperatorTok{!=}\NormalTok{ nil \{                      }
+\NormalTok{    fmt.Fprintln(os.Stderr, }\StringTok{"reading standard input:"}\NormalTok{, err)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 Read from gzip file
 
-\begin{verbatim}
-import("compress/gzip")                                                          
-file, err := os.Open("./data/genomes/schisto_small_2.fa.gz")
-f, err := gzip.NewReader(file)
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{(}\StringTok{"compress/gzip"}\NormalTok{)                                                          }
+\BuiltInTok{file}\NormalTok{, err :}\OperatorTok{=}\NormalTok{ os.Open(}\StringTok{"./data/genomes/schisto_small_2.fa.gz"}\NormalTok{)}
+\NormalTok{f, err :}\OperatorTok{=}\NormalTok{ gzip.NewReader(}\BuiltInTok{file}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \bibliography{book.bib,packages.bib}
 
