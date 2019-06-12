@@ -30,6 +30,10 @@
 ## Computing Tools
 * [AWS](https://aws.amazon.com/health/) looks like it has some healthcare and life sciences resources
 
+## Microbiome Datasets
+* [The Human Microbiome Project Data Portal](https://portal.hmpdacc.org/) from Michael Snyder's group has longitudinal 'omics data that includes diseased and healthy timepoints.
+* Michael Snyder's [iPOP Personal 'Omics Profiling](http://med.stanford.edu/ipop.html) has some interesting microbiome data specifically targeted to understanding diabetes.
+
 ## eQTL/RNASeq and other Tools
 * [Here](https://adinasarapu.github.io/year-archive/) are a good number of general tools to check out
 * [Here](https://github.com/molgenis/systemsgenetics/wiki/eQTL-mapping-analysis-cookbook-for-RNA-seq-data) is a good python eQTL analysis
