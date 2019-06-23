@@ -109,7 +109,7 @@
 \usepackage{titling}
 
 % Create subtitle command for use in maketitle
-\newcommand{\subtitle}[1]{
+\providecommand{\subtitle}[1]{
   \posttitle{
     \begin{center}\large#1\end{center}
     }
@@ -125,7 +125,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-06-12}
+    \date{2019-06-23}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -1468,6 +1468,11 @@ Get suggestions for misspelled word.
 
 \begin{itemize}
 \tightlist
+\item
+  \href{http://bionlp.bcgsc.ca/cancermine/}{CancerMine} is a site that
+  mines publication data to create a database of mutations labeled as
+  drivers, oncogenes, or tumor suppressors. These classifications may
+  help to understand the evolution of different cancers.
 \item
   \href{https://www.nature.com/articles/s41586-019-1186-3?WT.ec_id=NATURE-201905\&sap-outbound-id=720FBE4668F2FE14A299D42CB43EF50D90063A16\&mkt-key=005056A5C6311ED999AC3A52796F7641}{The
   Cancer Cell Line Encyclopedia} has a wealth of information from a
