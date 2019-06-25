@@ -109,7 +109,7 @@
 \usepackage{titling}
 
 % Create subtitle command for use in maketitle
-\providecommand{\subtitle}[1]{
+\newcommand{\subtitle}[1]{
   \posttitle{
     \begin{center}\large#1\end{center}
     }
@@ -125,7 +125,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-06-24}
+    \date{2019-06-25}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -1462,173 +1462,66 @@ Get suggestions for misspelled word.
 \end{Highlighting}
 \end{Shaded}
 
-\chapter{Bioinformatics Resources}\label{resources}
+\chapter{Web APIs}\label{apis}
 
-\section{Cancer Datasets}\label{cancer-datasets}
+\section{Ensembl}\label{ensembl}
 
-\begin{itemize}
-\tightlist
-\item
-  \href{http://bionlp.bcgsc.ca/cancermine/}{CancerMine} is a site that
-  mines publication data to create a database of mutations labeled as
-  drivers, oncogenes, or tumor suppressors. These classifications may
-  help to understand the evolution of different cancers.
-\item
-  \href{https://www.nature.com/articles/s41586-019-1186-3?WT.ec_id=NATURE-201905\&sap-outbound-id=720FBE4668F2FE14A299D42CB43EF50D90063A16\&mkt-key=005056A5C6311ED999AC3A52796F7641}{The
-  Cancer Cell Line Encyclopedia} has a wealth of information from a
-  large number of cancer cell lines.
-\item
-  \href{https://score.depmap.sanger.ac.uk/}{Project score} has a number
-  of genetic screens that may be useful in identifying pathways that are
-  critical to cancer growth and survival
-\item
-  \href{http://www.cbioportal.org/}{cbioportal} has information about
-  codon changes in cancer but does not seem to have any sequence data
-\item
-  \href{https://dbgap.ncbi.nlm.nih.gov/aa/wga.cgi?page=login}{dbGAP} has
-  info on genotypes and phenotypes, whatever the fuck that means
+The \href{https://rest.ensembl.org/}{Ensembl Rest API} has a number of
+different genomics tools.
 
-  \begin{itemize}
-  \tightlist
-  \item
-    \href{https://dbgap.ncbi.nlm.nih.gov/aa/wga.cgi?page=login}{Here} is
-    the page with instructions on how to get dbGAP access
-  \end{itemize}
-\item
-  \href{https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga}{TCGA}
+Here is an example where the Rest API is used to get the genomic locus
+and amino acid change using only the protein name and amino acid
+position and identities.
 
-  \begin{itemize}
-  \tightlist
-  \item
-    \href{https://gdc.cancer.gov/access-data/obtaining-access-controlled-data}{This}
-    page has the instructions on how to get TCGA access
-  \end{itemize}
-\item
-  \href{https://cancer.sanger.ac.uk/cosmic}{COSMIC}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{content-type}\NormalTok{=application/json}
+\FunctionTok{wget}\NormalTok{ -q --header=}\StringTok{'Content-type:application/json'} \StringTok{'https://rest.ensembl.org/map/translation/ENSMUSP00000020991/878..879?'}\NormalTok{  -O -}
+\end{Highlighting}
+\end{Shaded}
 
-  \begin{itemize}
-  \tightlist
-  \item
-    Cosmic has a project called the
-    \href{https://cancer.sanger.ac.uk/cosmic/census?genome=37}{Cancer
-    Gene Census} in which they are trying to catalog all mutations that
-    have been implicated in playing a causal role in cancer
-  \item
-    They also have implemented convenient
-    \href{https://cancer.sanger.ac.uk/cosmic/help/file_download}{ways}
-    of directly downloading information and files from the database in
-    python using the files hosted
-    \href{https://cancer.sanger.ac.uk/cosmic/download}{here}.
-  \end{itemize}
-\item
-  \href{https://mastermind.genomenon.com/api}{Mastermind} from genomenon
-  parsed all the articles on pubmed in order to find any and all
-  information for each possible mutation
-\item
-  \href{https://gtexportal.org/home/}{GTEx} has RNA-Seq, Exome Seq,
-  WGseq, SNP arrays, gene expression arrays and more for cancer and
-  non-cancer?
-\end{itemize}
+Alternatively python can be used to make the same call.
 
-\section{Alzheimer's}\label{alzheimers}
+\begin{Shaded}
+\begin{Highlighting}[]
+\ExtensionTok{import}\NormalTok{ requests, sys}
+ 
+\ExtensionTok{server}\NormalTok{ = }\StringTok{"https://rest.ensembl.org"}
+\ExtensionTok{ext}\NormalTok{ = }\StringTok{"/map/translation/ENSMUSP00000020991/878...879?"}
+ 
+\ExtensionTok{r}\NormalTok{ = requests.get(server+ext, headers=\{ }\StringTok{"Content-Type"}\NormalTok{ : }\StringTok{"application/json"}\NormalTok{\})}
+ 
+\KeywordTok{if} \ExtensionTok{not}\NormalTok{ r.ok:}
+  \ExtensionTok{r.raise_for_status}\NormalTok{()}
+  \ExtensionTok{sys.exit}\NormalTok{()}
+ 
+\ExtensionTok{decoded}\NormalTok{ = r.json()}
+\ExtensionTok{print}\NormalTok{(repr(decoded))}
+\end{Highlighting}
+\end{Shaded}
 
-\begin{itemize}
-\tightlist
-\item
-  \href{https://www.niagads.org/adsp/content/home}{The Alzheimers
-  sequencing project} is gathering data to understand late onset
-  alzheimer's
-\end{itemize}
+Here are examples getting variant effect consequences of a particular
+mutation.
 
-\section{Genome Resources}\label{genome-resources}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{wget}\NormalTok{ -q --header=}\StringTok{'Content-type:application/json'} \StringTok{'https://rest.ensembl.org/vep/mus_musculus/hgvs/ENSMUSP00000020991:p.Arg878His?'}\NormalTok{  -O -}
+\end{Highlighting}
+\end{Shaded}
 
-\begin{itemize}
-\tightlist
-\item
-  Jax has a human to mouse gene matching
-  \href{http://www.informatics.jax.org/downloads/reports/HOM_MouseHumanSequence.rpt}{list}
-  that provides gene location matching between human and mouse
-\item
-  UCSC genome browser has an
-  \href{http://genomewiki.ucsc.edu/index.php/Programmatic_access_to_the_Genome_Browser}{API}
-  for programmatic access
-\end{itemize}
+\section{UCSC Genome Browser}\label{ucsc-genome-browser-1}
 
-\section{Genomic Datasets}\label{genomic-datasets}
+Here is an example where human genomic regions are converted to the
+orthologous mouse regions. First the human sequence is obtained.
 
-\begin{itemize}
-\tightlist
-\item
-  \href{ttps://www.joinallofus.org/en/how-to-join}{AllOfUs} is
-  sequencing and collecting other health data on a million individuals
-\item
-  \href{https://www.color.com/}{Color Genomics} is one of three
-  companies that will be doing the sequencing and testing for AllOfUs
-\item
-  \href{http://www.internationalgenome.org/data/}{1000 genomes}
-\item
-  \href{https://www.genomicsengland.co.uk/}{100,000 genomes}
-\end{itemize}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{wget}\NormalTok{ -O - http://genome.ucsc.edu/cgi-bin/das/hg38/dna?segment=%s:%s,%s }\OperatorTok{>>}\NormalTok{ locs\textbackslash{}n}\StringTok{' % (chrom, low, high)}
+\end{Highlighting}
+\end{Shaded}
 
-\section{Computing Tools}\label{computing-tools}
-
-\begin{itemize}
-\tightlist
-\item
-  \href{https://aws.amazon.com/health/}{AWS} looks like it has some
-  healthcare and life sciences resources
-\end{itemize}
-
-\section{Microbiome Datasets}\label{microbiome-datasets}
-
-\begin{itemize}
-\tightlist
-\item
-  \href{https://portal.hmpdacc.org/}{The Human Microbiome Project Data
-  Portal} from Michael Snyder's group has longitudinal 'omics data that
-  includes diseased and healthy timepoints.
-\item
-  Michael Snyder's \href{http://med.stanford.edu/ipop.html}{iPOP
-  Personal 'Omics Profiling} has some interesting microbiome data
-  specifically targeted to understanding diabetes.
-\end{itemize}
-
-\section{eQTL/RNASeq and other Tools}\label{eqtlrnaseq-and-other-tools}
-
-\begin{itemize}
-\tightlist
-\item
-  \href{https://adinasarapu.github.io/year-archive/}{Here} are a good
-  number of general tools to check out
-\item
-  \href{https://github.com/molgenis/systemsgenetics/wiki/eQTL-mapping-analysis-cookbook-for-RNA-seq-data}{Here}
-  is a good python eQTL analysis
-\item
-  \href{http://gn2.genenetwork.org/}{genenetwork2} has a great deal of
-  data and eQTL mapping
-  \href{https://github.com/genenetwork/genenetwork2}{tools}
-\end{itemize}
-
-\section{Other Data Resources}\label{other-data-resources}
-
-\begin{itemize}
-\tightlist
-\item
-  \href{http://www.earthmicrobiome.org/data-and-code/}{The Earth
-  Microbiome Project} already has data available, and is trying to
-  sequence all non-eukaryotic life on earth
-
-  \begin{itemize}
-  \tightlist
-  \item
-    They have detailed information about the project in their
-    \href{http://www.pnas.org/content/115/17/4325.long}{PNAS paper} from
-    2018
-  \end{itemize}
-\item
-  \href{https://informationisbeautiful.net/}{Information is Beautiful}
-  has some interesting datasets
-\end{itemize}
+Then the above sequence is used in UCSC BLAT to find the orthologous
+region within mouse.
 
 \chapter{Golang}\label{golang}
 
@@ -2508,6 +2401,174 @@ Read from gzip file
 \NormalTok{f, err :}\OperatorTok{=}\NormalTok{ gzip.NewReader(}\BuiltInTok{file}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\chapter{Bioinformatics Resources}\label{resources}
+
+\section{Cancer Datasets}\label{cancer-datasets}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{http://bionlp.bcgsc.ca/cancermine/}{CancerMine} is a site that
+  mines publication data to create a database of mutations labeled as
+  drivers, oncogenes, or tumor suppressors. These classifications may
+  help to understand the evolution of different cancers.
+\item
+  \href{https://www.nature.com/articles/s41586-019-1186-3?WT.ec_id=NATURE-201905\&sap-outbound-id=720FBE4668F2FE14A299D42CB43EF50D90063A16\&mkt-key=005056A5C6311ED999AC3A52796F7641}{The
+  Cancer Cell Line Encyclopedia} has a wealth of information from a
+  large number of cancer cell lines.
+\item
+  \href{https://score.depmap.sanger.ac.uk/}{Project score} has a number
+  of genetic screens that may be useful in identifying pathways that are
+  critical to cancer growth and survival
+\item
+  \href{http://www.cbioportal.org/}{cbioportal} has information about
+  codon changes in cancer but does not seem to have any sequence data
+\item
+  \href{https://dbgap.ncbi.nlm.nih.gov/aa/wga.cgi?page=login}{dbGAP} has
+  info on genotypes and phenotypes, whatever the fuck that means
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://dbgap.ncbi.nlm.nih.gov/aa/wga.cgi?page=login}{Here} is
+    the page with instructions on how to get dbGAP access
+  \end{itemize}
+\item
+  \href{https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga}{TCGA}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{https://gdc.cancer.gov/access-data/obtaining-access-controlled-data}{This}
+    page has the instructions on how to get TCGA access
+  \end{itemize}
+\item
+  \href{https://cancer.sanger.ac.uk/cosmic}{COSMIC}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Cosmic has a project called the
+    \href{https://cancer.sanger.ac.uk/cosmic/census?genome=37}{Cancer
+    Gene Census} in which they are trying to catalog all mutations that
+    have been implicated in playing a causal role in cancer
+  \item
+    They also have implemented convenient
+    \href{https://cancer.sanger.ac.uk/cosmic/help/file_download}{ways}
+    of directly downloading information and files from the database in
+    python using the files hosted
+    \href{https://cancer.sanger.ac.uk/cosmic/download}{here}.
+  \end{itemize}
+\item
+  \href{https://mastermind.genomenon.com/api}{Mastermind} from genomenon
+  parsed all the articles on pubmed in order to find any and all
+  information for each possible mutation
+\item
+  \href{https://gtexportal.org/home/}{GTEx} has RNA-Seq, Exome Seq,
+  WGseq, SNP arrays, gene expression arrays and more for cancer and
+  non-cancer?
+\end{itemize}
+
+\section{Alzheimer's}\label{alzheimers}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://www.niagads.org/adsp/content/home}{The Alzheimers
+  sequencing project} is gathering data to understand late onset
+  alzheimer's
+\end{itemize}
+
+\section{Genome Resources}\label{genome-resources}
+
+\begin{itemize}
+\tightlist
+\item
+  Jax has a human to mouse gene matching
+  \href{http://www.informatics.jax.org/downloads/reports/HOM_MouseHumanSequence.rpt}{list}
+  that provides gene location matching between human and mouse
+\item
+  UCSC genome browser has an
+  \href{http://genomewiki.ucsc.edu/index.php/Programmatic_access_to_the_Genome_Browser}{API}
+  for programmatic access
+\end{itemize}
+
+\section{Genomic Datasets}\label{genomic-datasets}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{ttps://www.joinallofus.org/en/how-to-join}{AllOfUs} is
+  sequencing and collecting other health data on a million individuals
+\item
+  \href{https://www.color.com/}{Color Genomics} is one of three
+  companies that will be doing the sequencing and testing for AllOfUs
+\item
+  \href{http://www.internationalgenome.org/data/}{1000 genomes}
+\item
+  \href{https://www.genomicsengland.co.uk/}{100,000 genomes}
+\end{itemize}
+
+\section{Computing Tools}\label{computing-tools}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://aws.amazon.com/health/}{AWS} looks like it has some
+  healthcare and life sciences resources
+\end{itemize}
+
+\section{Microbiome Datasets}\label{microbiome-datasets}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://portal.hmpdacc.org/}{The Human Microbiome Project Data
+  Portal} from Michael Snyder's group has longitudinal 'omics data that
+  includes diseased and healthy timepoints.
+\item
+  Michael Snyder's \href{http://med.stanford.edu/ipop.html}{iPOP
+  Personal 'Omics Profiling} has some interesting microbiome data
+  specifically targeted to understanding diabetes.
+\end{itemize}
+
+\section{eQTL/RNASeq and other Tools}\label{eqtlrnaseq-and-other-tools}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://adinasarapu.github.io/year-archive/}{Here} are a good
+  number of general tools to check out
+\item
+  \href{https://github.com/molgenis/systemsgenetics/wiki/eQTL-mapping-analysis-cookbook-for-RNA-seq-data}{Here}
+  is a good python eQTL analysis
+\item
+  \href{http://gn2.genenetwork.org/}{genenetwork2} has a great deal of
+  data and eQTL mapping
+  \href{https://github.com/genenetwork/genenetwork2}{tools}
+\end{itemize}
+
+\section{Other Data Resources}\label{other-data-resources}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{http://www.earthmicrobiome.org/data-and-code/}{The Earth
+  Microbiome Project} already has data available, and is trying to
+  sequence all non-eukaryotic life on earth
+
+  \begin{itemize}
+  \tightlist
+  \item
+    They have detailed information about the project in their
+    \href{http://www.pnas.org/content/115/17/4325.long}{PNAS paper} from
+    2018
+  \end{itemize}
+\item
+  \href{https://informationisbeautiful.net/}{Information is Beautiful}
+  has some interesting datasets
+\end{itemize}
 
 \bibliography{book.bib,packages.bib}
 

@@ -1,0 +1,40 @@
+# Web APIs {#apis}
+
+## Ensembl
+The [Ensembl Rest API](https://rest.ensembl.org/) has a number of different genomics tools.
+
+Here is an example where the Rest API is used to get the genomic locus and amino acid change using only the protein name and amino acid position and identities.
+
+```{bash eval=FALSE}
+content-type=application/json
+wget -q --header='Content-type:application/json' 'https://rest.ensembl.org/map/translation/ENSMUSP00000020991/878..879?'  -O -
+```
+
+Alternatively python can be used to make the same call.
+```{bash eval=FALSE}
+import requests, sys
+ 
+server = "https://rest.ensembl.org"
+ext = "/map/translation/ENSMUSP00000020991/878...879?"
+ 
+r = requests.get(server+ext, headers={ "Content-Type" : "application/json"})
+ 
+if not r.ok:
+  r.raise_for_status()
+  sys.exit()
+ 
+decoded = r.json()
+print(repr(decoded))
+```
+
+Here are examples getting variant effect consequences of a particular mutation.
+```{bash eval=FALSE}
+wget -q --header='Content-type:application/json' 'https://rest.ensembl.org/vep/mus_musculus/hgvs/ENSMUSP00000020991:p.Arg878His?'  -O -
+```
+
+## UCSC Genome Browser
+Here is an example where human genomic regions are converted to the orthologous mouse regions. First the human sequence is obtained.
+```{bash eval=FALSE}
+wget -O - http://genome.ucsc.edu/cgi-bin/das/hg38/dna?segment=%s:%s,%s >> locs\n' % (chrom, low, high)
+```
+Then the above sequence is used in UCSC BLAT to find the orthologous region within mouse.

@@ -926,54 +926,48 @@ z=
 
 <!--chapter:end:08-VIM.Rmd-->
 
-# Bioinformatics Resources {#resources}
+# Web APIs {#apis}
 
-## Cancer Datasets
-* [CancerMine](http://bionlp.bcgsc.ca/cancermine/) is a site that mines publication data to create a database of mutations labeled as drivers, oncogenes, or tumor suppressors. These classifications may help to understand the evolution of different cancers.
-* [The Cancer Cell Line Encyclopedia](https://www.nature.com/articles/s41586-019-1186-3?WT.ec_id=NATURE-201905&sap-outbound-id=720FBE4668F2FE14A299D42CB43EF50D90063A16&mkt-key=005056A5C6311ED999AC3A52796F7641) has a wealth of information from a large number of cancer cell lines.
-* [Project score](https://score.depmap.sanger.ac.uk/) has a number of genetic screens that may be useful in identifying pathways that are critical to cancer growth and survival
-* [cbioportal](http://www.cbioportal.org/) has information about codon changes in cancer but does not seem to have any sequence data
-* [dbGAP](https://dbgap.ncbi.nlm.nih.gov/aa/wga.cgi?page=login) has info on genotypes and phenotypes, whatever the fuck that means
-	+ [Here](https://dbgap.ncbi.nlm.nih.gov/aa/wga.cgi?page=login) is the page with instructions on how to get dbGAP access
-* [TCGA](https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga)
-	+ [This](https://gdc.cancer.gov/access-data/obtaining-access-controlled-data) page has the instructions on how to get TCGA access
-* [COSMIC](https://cancer.sanger.ac.uk/cosmic)
-	+ Cosmic has a project called the [Cancer Gene Census](https://cancer.sanger.ac.uk/cosmic/census?genome=37) in which they are trying to catalog all mutations that have been implicated in playing a causal role in cancer
-	+ They also have implemented convenient [ways](https://cancer.sanger.ac.uk/cosmic/help/file_download) of directly downloading information and files from the database in python using the files hosted [here](https://cancer.sanger.ac.uk/cosmic/download).
-* [Mastermind](https://mastermind.genomenon.com/api) from genomenon parsed all the articles on pubmed in order to find any and all information for each possible mutation
-* [GTEx](https://gtexportal.org/home/) has RNA-Seq, Exome Seq, WGseq, SNP arrays, gene expression arrays and more for cancer and non-cancer? 
+## Ensembl
+The [Ensembl Rest API](https://rest.ensembl.org/) has a number of different genomics tools.
 
-## Alzheimer's
-* [The Alzheimers sequencing project](https://www.niagads.org/adsp/content/home) is gathering data to understand late onset alzheimer's
+Here is an example where the Rest API is used to get the genomic locus and amino acid change using only the protein name and amino acid position and identities.
 
-## Genome Resources
-* Jax has a human to mouse gene matching [list](http://www.informatics.jax.org/downloads/reports/HOM_MouseHumanSequence.rpt) that provides gene location matching between human and mouse
-* UCSC genome browser has an [API](http://genomewiki.ucsc.edu/index.php/Programmatic_access_to_the_Genome_Browser) for programmatic access
+```{bash eval=FALSE}
+content-type=application/json
+wget -q --header='Content-type:application/json' 'https://rest.ensembl.org/map/translation/ENSMUSP00000020991/878..879?'  -O -
+```
 
-## Genomic Datasets 
-* [AllOfUs](ttps://www.joinallofus.org/en/how-to-join) is sequencing and collecting other health data on a million individuals
-* [Color Genomics](https://www.color.com/) is one of three companies that will be doing the sequencing and testing for AllOfUs
-* [1000 genomes](http://www.internationalgenome.org/data/)
-* [100,000 genomes](https://www.genomicsengland.co.uk/)
+Alternatively python can be used to make the same call.
+```{bash eval=FALSE}
+import requests, sys
+ 
+server = "https://rest.ensembl.org"
+ext = "/map/translation/ENSMUSP00000020991/878...879?"
+ 
+r = requests.get(server+ext, headers={ "Content-Type" : "application/json"})
+ 
+if not r.ok:
+  r.raise_for_status()
+  sys.exit()
+ 
+decoded = r.json()
+print(repr(decoded))
+```
 
-## Computing Tools
-* [AWS](https://aws.amazon.com/health/) looks like it has some healthcare and life sciences resources
+Here are examples getting variant effect consequences of a particular mutation.
+```{bash eval=FALSE}
+wget -q --header='Content-type:application/json' 'https://rest.ensembl.org/vep/mus_musculus/hgvs/ENSMUSP00000020991:p.Arg878His?'  -O -
+```
 
-## Microbiome Datasets
-* [The Human Microbiome Project Data Portal](https://portal.hmpdacc.org/) from Michael Snyder's group has longitudinal 'omics data that includes diseased and healthy timepoints.
-* Michael Snyder's [iPOP Personal 'Omics Profiling](http://med.stanford.edu/ipop.html) has some interesting microbiome data specifically targeted to understanding diabetes.
+## UCSC Genome Browser
+Here is an example where human genomic regions are converted to the orthologous mouse regions. First the human sequence is obtained.
+```{bash eval=FALSE}
+wget -O - http://genome.ucsc.edu/cgi-bin/das/hg38/dna?segment=%s:%s,%s >> locs\n' % (chrom, low, high)
+```
+Then the above sequence is used in UCSC BLAT to find the orthologous region within mouse.
 
-## eQTL/RNASeq and other Tools
-* [Here](https://adinasarapu.github.io/year-archive/) are a good number of general tools to check out
-* [Here](https://github.com/molgenis/systemsgenetics/wiki/eQTL-mapping-analysis-cookbook-for-RNA-seq-data) is a good python eQTL analysis
-* [genenetwork2](http://gn2.genenetwork.org/) has a great deal of data and eQTL mapping [tools](https://github.com/genenetwork/genenetwork2)
-
-## Other Data Resources
-* [The Earth Microbiome Project](http://www.earthmicrobiome.org/data-and-code/) already has data available, and is trying to sequence all non-eukaryotic life on earth
-    + They have detailed information about the project in their [PNAS paper](http://www.pnas.org/content/115/17/4325.long) from 2018
-* [Information is Beautiful](https://informationisbeautiful.net/) has some interesting datasets
-
-<!--chapter:end:09-resources.Rmd-->
+<!--chapter:end:09-webcalls.Rmd-->
 
 # Golang {#golang}
 
@@ -1586,6 +1580,55 @@ f, err := gzip.NewReader(file)
 ```
 
 <!--chapter:end:10-Golang.Rmd-->
+
+# Bioinformatics Resources {#resources}
+
+## Cancer Datasets
+* [CancerMine](http://bionlp.bcgsc.ca/cancermine/) is a site that mines publication data to create a database of mutations labeled as drivers, oncogenes, or tumor suppressors. These classifications may help to understand the evolution of different cancers.
+* [The Cancer Cell Line Encyclopedia](https://www.nature.com/articles/s41586-019-1186-3?WT.ec_id=NATURE-201905&sap-outbound-id=720FBE4668F2FE14A299D42CB43EF50D90063A16&mkt-key=005056A5C6311ED999AC3A52796F7641) has a wealth of information from a large number of cancer cell lines.
+* [Project score](https://score.depmap.sanger.ac.uk/) has a number of genetic screens that may be useful in identifying pathways that are critical to cancer growth and survival
+* [cbioportal](http://www.cbioportal.org/) has information about codon changes in cancer but does not seem to have any sequence data
+* [dbGAP](https://dbgap.ncbi.nlm.nih.gov/aa/wga.cgi?page=login) has info on genotypes and phenotypes, whatever the fuck that means
+	+ [Here](https://dbgap.ncbi.nlm.nih.gov/aa/wga.cgi?page=login) is the page with instructions on how to get dbGAP access
+* [TCGA](https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga)
+	+ [This](https://gdc.cancer.gov/access-data/obtaining-access-controlled-data) page has the instructions on how to get TCGA access
+* [COSMIC](https://cancer.sanger.ac.uk/cosmic)
+	+ Cosmic has a project called the [Cancer Gene Census](https://cancer.sanger.ac.uk/cosmic/census?genome=37) in which they are trying to catalog all mutations that have been implicated in playing a causal role in cancer
+	+ They also have implemented convenient [ways](https://cancer.sanger.ac.uk/cosmic/help/file_download) of directly downloading information and files from the database in python using the files hosted [here](https://cancer.sanger.ac.uk/cosmic/download).
+* [Mastermind](https://mastermind.genomenon.com/api) from genomenon parsed all the articles on pubmed in order to find any and all information for each possible mutation
+* [GTEx](https://gtexportal.org/home/) has RNA-Seq, Exome Seq, WGseq, SNP arrays, gene expression arrays and more for cancer and non-cancer? 
+
+## Alzheimer's
+* [The Alzheimers sequencing project](https://www.niagads.org/adsp/content/home) is gathering data to understand late onset alzheimer's
+
+## Genome Resources
+* Jax has a human to mouse gene matching [list](http://www.informatics.jax.org/downloads/reports/HOM_MouseHumanSequence.rpt) that provides gene location matching between human and mouse
+* UCSC genome browser has an [API](http://genomewiki.ucsc.edu/index.php/Programmatic_access_to_the_Genome_Browser) for programmatic access
+
+## Genomic Datasets 
+* [AllOfUs](ttps://www.joinallofus.org/en/how-to-join) is sequencing and collecting other health data on a million individuals
+* [Color Genomics](https://www.color.com/) is one of three companies that will be doing the sequencing and testing for AllOfUs
+* [1000 genomes](http://www.internationalgenome.org/data/)
+* [100,000 genomes](https://www.genomicsengland.co.uk/)
+
+## Computing Tools
+* [AWS](https://aws.amazon.com/health/) looks like it has some healthcare and life sciences resources
+
+## Microbiome Datasets
+* [The Human Microbiome Project Data Portal](https://portal.hmpdacc.org/) from Michael Snyder's group has longitudinal 'omics data that includes diseased and healthy timepoints.
+* Michael Snyder's [iPOP Personal 'Omics Profiling](http://med.stanford.edu/ipop.html) has some interesting microbiome data specifically targeted to understanding diabetes.
+
+## eQTL/RNASeq and other Tools
+* [Here](https://adinasarapu.github.io/year-archive/) are a good number of general tools to check out
+* [Here](https://github.com/molgenis/systemsgenetics/wiki/eQTL-mapping-analysis-cookbook-for-RNA-seq-data) is a good python eQTL analysis
+* [genenetwork2](http://gn2.genenetwork.org/) has a great deal of data and eQTL mapping [tools](https://github.com/genenetwork/genenetwork2)
+
+## Other Data Resources
+* [The Earth Microbiome Project](http://www.earthmicrobiome.org/data-and-code/) already has data available, and is trying to sequence all non-eukaryotic life on earth
+    + They have detailed information about the project in their [PNAS paper](http://www.pnas.org/content/115/17/4325.long) from 2018
+* [Information is Beautiful](https://informationisbeautiful.net/) has some interesting datasets
+
+<!--chapter:end:11-resources.Rmd-->
 
 `r if (knitr:::is_html_output()) '
 # References {-}
