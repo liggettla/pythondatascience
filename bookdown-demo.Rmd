@@ -1023,6 +1023,13 @@ Importing multiple things can be done on one line separated by a semicolon
 ```
 
 ## Type conversion
+Check the type of a variable
+```{python eval=FALSE}
+import("fmt";"reflect")
+i := 5
+fmt.Println(reflect.TypeOf(i))
+```
+
 Convert int to float64
 ```{python eval=FALSE}
 var i int = 5

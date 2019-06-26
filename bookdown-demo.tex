@@ -125,7 +125,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-06-25}
+    \date{2019-06-26}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -1595,6 +1595,16 @@ Create a file called hello.go
 \end{Shaded}
 
 \section{Type conversion}\label{type-conversion}
+
+Check the type of a variable
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{(}\StringTok{"fmt"}\OperatorTok{;}\StringTok{"reflect"}\NormalTok{)}
+\NormalTok{i :}\OperatorTok{=} \DecValTok{5}
+\NormalTok{fmt.Println(reflect.TypeOf(i))}
+\end{Highlighting}
+\end{Shaded}
 
 Convert int to float64
 
