@@ -65,6 +65,12 @@ var i int = 5
 j := float64(i)
 ```
 
+Convert float64 to in
+```{python eval=FALSE}
+x := 4.0
+int(x)
+```
+
 int to string
 ```{python eval=FALSE}
 s := strconv.Itoa(97) // s == "97"
@@ -635,3 +641,22 @@ import("compress/gzip")
 file, err := os.Open("./data/genomes/schisto_small_2.fa.gz")
 f, err := gzip.NewReader(file)
 ```
+
+## Math
+Absolute value is pretty easy if using a float64
+```{python eval=FALSE}
+import("math")
+
+x := -4.0
+math.Abs(x)
+```
+
+Now, it seems to be super annoying to calculate the absolute value of an int.
+```{python eval=FALSE}
+import("math")
+
+x := -5
+int(math.Abs(float64(x)))
+```
+
+

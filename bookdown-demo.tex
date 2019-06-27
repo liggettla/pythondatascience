@@ -1615,6 +1615,15 @@ Convert int to float64
 \end{Highlighting}
 \end{Shaded}
 
+Convert float64 to in
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x :}\OperatorTok{=} \FloatTok{4.0}
+\BuiltInTok{int}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
 int to string
 
 \begin{Shaded}
@@ -2442,6 +2451,31 @@ Read from gzip file
 \ImportTok{import}\NormalTok{(}\StringTok{"compress/gzip"}\NormalTok{)                                                          }
 \BuiltInTok{file}\NormalTok{, err :}\OperatorTok{=}\NormalTok{ os.Open(}\StringTok{"./data/genomes/schisto_small_2.fa.gz"}\NormalTok{)}
 \NormalTok{f, err :}\OperatorTok{=}\NormalTok{ gzip.NewReader(}\BuiltInTok{file}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Math}\label{math}
+
+Absolute value is pretty easy if using a float64
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{(}\StringTok{"math"}\NormalTok{)}
+
+\NormalTok{x :}\OperatorTok{=} \OperatorTok{-}\FloatTok{4.0}
+\NormalTok{math.Abs(x)}
+\end{Highlighting}
+\end{Shaded}
+
+Now, it seems to be super annoying to calculate the absolute value of an
+int.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{(}\StringTok{"math"}\NormalTok{)}
+
+\NormalTok{x :}\OperatorTok{=} \OperatorTok{-}\DecValTok{5}
+\BuiltInTok{int}\NormalTok{(math.Abs(float64(x)))}
 \end{Highlighting}
 \end{Shaded}
 
