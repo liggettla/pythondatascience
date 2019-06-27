@@ -109,7 +109,7 @@
 \usepackage{titling}
 
 % Create subtitle command for use in maketitle
-\newcommand{\subtitle}[1]{
+\providecommand{\subtitle}[1]{
   \posttitle{
     \begin{center}\large#1\end{center}
     }
@@ -1784,6 +1784,19 @@ For loops can be written like the following
 \ControlFlowTok{for}\NormalTok{ i }\OperatorTok{<=} \DecValTok{10}\NormalTok{ \{}
 \NormalTok{    fmt.Println(i)}
 \NormalTok{    i }\OperatorTok{+=} \DecValTok{1}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The variables a function will return can be defined at the beginning of
+the functions and then implicitely returned.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{func something(x }\BuiltInTok{int}\NormalTok{) (product }\BuiltInTok{int}\NormalTok{) \{}
+\NormalTok{    product }\OperatorTok{=}\NormalTok{ x }\OperatorTok{*}\NormalTok{ x}
+    \ControlFlowTok{return}
+\NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2362,6 +2375,26 @@ Here is how a file is opened
 \NormalTok{        panic(e)     }
 \NormalTok{    \}                }
 \NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+In Go 2.0 the \texttt{try} function can be used to open files a bit more
+elegantly. Instead of this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f, err :}\OperatorTok{=}\NormalTok{ os.Open(filename)}
+    \ControlFlowTok{if}\NormalTok{ err }\OperatorTok{!=}\NormalTok{ nil \{}
+        \ControlFlowTok{return}\NormalTok{ …, err}
+\NormalTok{    \}}
+\end{Highlighting}
+\end{Shaded}
+
+Opening is simplified to this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f :}\OperatorTok{=} \ControlFlowTok{try}\NormalTok{(os.Open(filename))}
 \end{Highlighting}
 \end{Shaded}
 

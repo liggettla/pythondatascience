@@ -341,7 +341,13 @@ fmt.Scanf(<span class="st">&quot;</span><span class="sc">%f</span><span class="s
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">i :<span class="op">=</span> <span class="dv">1</span>
 <span class="cf">for</span> i <span class="op">&lt;=</span> <span class="dv">10</span> {
     fmt.Println(i)
-    i <span class="op">+=</span> <span class="dv">1</span></code></pre></div>
+    i <span class="op">+=</span> <span class="dv">1</span>
+}</code></pre></div>
+<p>The variables a function will return can be defined at the beginning of the functions and then implicitely returned.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">func something(x <span class="bu">int</span>) (product <span class="bu">int</span>) {
+    product <span class="op">=</span> x <span class="op">*</span> x
+    <span class="cf">return</span>
+}</code></pre></div>
 <p>Probably the easier for loop is like this one</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> i :<span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;=</span> <span class="dv">10</span><span class="op">;</span> i<span class="op">++</span> {
     fmt.Println(i)
@@ -622,6 +628,13 @@ func check(e error) {
         panic(e)     
     }                
 }</code></pre></div>
+<p>In Go 2.0 the <code>try</code> function can be used to open files a bit more elegantly. Instead of this:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">f, err :<span class="op">=</span> os.Open(filename)
+    <span class="cf">if</span> err <span class="op">!=</span> nil {
+        <span class="cf">return</span> …, err
+    }</code></pre></div>
+<p>Opening is simplified to this:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">f :<span class="op">=</span> <span class="cf">try</span>(os.Open(filename))</code></pre></div>
 <p>Read by a certain number of bytes at a time</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">b1 :<span class="op">=</span> make([]byte, <span class="dv">61</span>)                      
 n1, err :<span class="op">=</span> f.Read(b1)                       

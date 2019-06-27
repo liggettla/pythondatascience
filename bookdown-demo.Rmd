@@ -1145,6 +1145,14 @@ i := 1
 for i <= 10 {
 	fmt.Println(i)
 	i += 1
+}
+```
+The variables a function will return can be defined at the beginning of the functions and then implicitely returned.
+```{python eval=FALSE}
+func something(x int) (product int) {
+    product = x * x
+    return
+}
 ```
 
 Probably the easier for loop is like this one
@@ -1550,6 +1558,19 @@ func check(e error) {
         panic(e)     
     }                
 }
+```
+
+In Go 2.0 the `try` function can be used to open files a bit more elegantly.
+Instead of this:
+```{python eval=FALSE}
+f, err := os.Open(filename)
+    if err != nil {
+        return …, err
+    }
+```
+Opening is simplified to this:
+```{python eval=FALSE}
+f := try(os.Open(filename))
 ```
 
 Read by a certain number of bytes at a time
