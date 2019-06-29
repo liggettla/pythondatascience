@@ -34,6 +34,8 @@
 ## Microbiome Datasets
 * [The Human Microbiome Project Data Portal](https://portal.hmpdacc.org/) from Michael Snyder's group has longitudinal 'omics data that includes diseased and healthy timepoints.
 * Michael Snyder's [iPOP Personal 'Omics Profiling](http://med.stanford.edu/ipop.html) has some interesting microbiome data specifically targeted to understanding diabetes.
+* People respond differently to different drugs, and this appears to in part be due to the differential drug metabolism of their gut microbiome. Some of the differences can be observed when different strains of gut bacteria are isolated and directly exposed to drug to understand how the drugs are differentially metabolized [@zimmermann2019mapping]. The bacterial sequencing data is available [here](https://www.ebi.ac.uk/ena/data/search?query=PRJEB31790), and some of the extra drug
+  screening data is available [here](https://figshare.com/articles/Mapping_human_microbiome_drug_metabolism_by_gut_bacteria_and_their_genes/8119058).
 
 ## eQTL/RNASeq and other Tools
 * [Here](https://adinasarapu.github.io/year-archive/) are a good number of general tools to check out
