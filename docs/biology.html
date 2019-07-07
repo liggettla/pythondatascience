@@ -244,6 +244,13 @@ title(<span class="st">&#39;tcga&#39;</span>) <span class="co"># capitalize the 
 <p>Get sequence from UCSC genome browser</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> subprocess <span class="im">import</span> check_output, STDOUT
 temp <span class="op">=</span> check_output(<span class="st">&#39;wget -qO- http://genome.ucsc.edu/cgi-bin/das/hg19/dna?segment=</span><span class="sc">%s</span><span class="st">:</span><span class="sc">%s</span><span class="st">,</span><span class="sc">%s</span><span class="st">&#39;</span> <span class="op">%</span> (vcfObj.chrom,low,high), stderr<span class="op">=</span>STDOUT, shell<span class="op">=</span><span class="va">True</span>)</code></pre></div>
+<p>If the reference genome comes in the .2bit format, it is likely that it should then be converted to .fa format, and .2bittofa can accomplish this.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">twoBitToFa refgenomes<span class="op">/</span>hg19.2bit refgenomes<span class="op">/</span>hg19.fa</code></pre></div>
+<p>The newly created .fa file will need to be indexed if it is to be used with gatk and bwa mem.</p>
+<p>Here is an example of indexing where -a bwtsw specifies that we want to use the indexing algorithm that is capable of handling the whole human genome.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">bwa index <span class="op">-</span>a bwtsw reference.fa</code></pre></div>
+<p>Then create a file called reference.fa.fai, with one record per line for each of the contigs in the FASTA reference file. Each record is composed of the contig name, size, location, basesPerLine and bytesPerLine.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">samtools faidx reference.fa</code></pre></div>
 </div>
 <div id="ref-genome" class="section level2">
 <h2><span class="header-section-number">5.4</span> Ref Genome</h2>

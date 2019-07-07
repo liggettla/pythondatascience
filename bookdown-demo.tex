@@ -711,6 +711,39 @@ Get sequence from UCSC genome browser
 \end{Highlighting}
 \end{Shaded}
 
+If the reference genome comes in the .2bit format, it is likely that it
+should then be converted to .fa format, and .2bittofa can accomplish
+this.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{twoBitToFa refgenomes}\OperatorTok{/}\NormalTok{hg19.2bit refgenomes}\OperatorTok{/}\NormalTok{hg19.fa}
+\end{Highlighting}
+\end{Shaded}
+
+The newly created .fa file will need to be indexed if it is to be used
+with gatk and bwa mem.
+
+Here is an example of indexing where -a bwtsw specifies that we want to
+use the indexing algorithm that is capable of handling the whole human
+genome.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bwa index }\OperatorTok{-}\NormalTok{a bwtsw reference.fa}
+\end{Highlighting}
+\end{Shaded}
+
+Then create a file called reference.fa.fai, with one record per line for
+each of the contigs in the FASTA reference file. Each record is composed
+of the contig name, size, location, basesPerLine and bytesPerLine.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{samtools faidx reference.fa}
+\end{Highlighting}
+\end{Shaded}
+
 \section{Ref Genome}\label{ref-genome}
 
 Get sequence from reference genome

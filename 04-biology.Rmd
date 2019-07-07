@@ -24,6 +24,23 @@ from subprocess import check_output, STDOUT
 temp = check_output('wget -qO- http://genome.ucsc.edu/cgi-bin/das/hg19/dna?segment=%s:%s,%s' % (vcfObj.chrom,low,high), stderr=STDOUT, shell=True)
 ```
 
+If the reference genome comes in the .2bit format, it is likely that it should then be converted to .fa format, and .2bittofa can accomplish this.
+```{python eval=FALSE}
+twoBitToFa refgenomes/hg19.2bit refgenomes/hg19.fa
+```
+
+The newly created .fa file will need to be indexed if it is to be used with gatk and bwa mem.
+
+Here is an example of indexing where -a bwtsw specifies that we want to use the indexing algorithm that is capable of handling the whole human genome.
+```{python eval=FALSE}
+bwa index -a bwtsw reference.fa
+```
+
+Then create a file called reference.fa.fai, with one record per line for each of the contigs in the FASTA reference file. Each record is composed of the contig name, size, location, basesPerLine and bytesPerLine.
+```{python eval=FALSE}
+samtools faidx reference.fa
+```
+
 ## Ref Genome
 Get sequence from reference genome
 ```{python eval=FALSE}
