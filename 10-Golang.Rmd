@@ -114,9 +114,9 @@ s := strconv.FormatFloat(3.1415, 'E', -1, 64)
 s := strconv.FormatInt(-42, 16)
 ```
 
-Strings can be assigned with ` ` or " ", but only the double quotes can use escape characters like newlines \n or \t
+Strings can be assigned with ` ` or " ", but only the double quotes can use escape characters like newlines or tabs
 ```{python eval=FALSE}
-fmt.Println("Hello\n World")
+fmt.Println("Hello World\n")
 ```
 
 Indexing returns bytes rather than strings so they must be converted if you want a string back

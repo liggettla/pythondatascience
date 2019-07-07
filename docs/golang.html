@@ -25,7 +25,7 @@
 <meta name="author" content="L A Liggett">
 
 
-<meta name="date" content="2019-07-06">
+<meta name="date" content="2019-07-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -305,8 +305,8 @@ m :<span class="op">=</span> int64(n) <span class="op">//</span> safe</code></pr
 <p>Numbers can be converted to strings using strconv</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">s :<span class="op">=</span> strconv.FormatFloat(<span class="fl">3.1415</span>, <span class="st">&#39;E&#39;</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">64</span>)
 s :<span class="op">=</span> strconv.FormatInt(<span class="op">-</span><span class="dv">42</span>, <span class="dv">16</span>)</code></pre></div>
-<p>Strings can be assigned with ` ` or &quot; “, but only the double quotes can use escape characters like newlines or </p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">fmt.Println(<span class="st">&quot;Hello</span><span class="ch">\n</span><span class="st"> World&quot;</span>)</code></pre></div>
+<p>Strings can be assigned with ` ` or &quot; “, but only the double quotes can use escape characters like newlines or tabs</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">fmt.Println(<span class="st">&quot;Hello World</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre></div>
 <p>Indexing returns bytes rather than strings so they must be converted if you want a string back</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">string(<span class="st">&quot;Hello World&quot;</span>[<span class="dv">1</span>])</code></pre></div>
 <p>Test if a string is a substring of another</p>
