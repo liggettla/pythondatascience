@@ -25,7 +25,7 @@
 <meta name="author" content="L A Liggett">
 
 
-<meta name="date" content="2019-06-29">
+<meta name="date" content="2019-07-06">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -186,6 +186,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11.17" data-path="golang.html"><a href="golang.html#packaging"><i class="fa fa-check"></i><b>11.17</b> Packaging</a></li>
 <li class="chapter" data-level="11.18" data-path="golang.html"><a href="golang.html#readwrite-files"><i class="fa fa-check"></i><b>11.18</b> Read/Write Files</a></li>
 <li class="chapter" data-level="11.19" data-path="golang.html"><a href="golang.html#math"><i class="fa fa-check"></i><b>11.19</b> Math</a></li>
+<li class="chapter" data-level="11.20" data-path="golang.html"><a href="golang.html#concurrency"><i class="fa fa-check"></i><b>11.20</b> Concurrency</a><ul>
+<li class="chapter" data-level="11.20.1" data-path="golang.html"><a href="golang.html#goroutines"><i class="fa fa-check"></i><b>11.20.1</b> Goroutines</a></li>
+<li class="chapter" data-level="11.20.2" data-path="golang.html"><a href="golang.html#channels"><i class="fa fa-check"></i><b>11.20.2</b> Channels</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="resources.html"><a href="resources.html"><i class="fa fa-check"></i><b>12</b> Bioinformatics Resources</a><ul>
 <li class="chapter" data-level="12.1" data-path="resources.html"><a href="resources.html#cancer-datasets"><i class="fa fa-check"></i><b>12.1</b> Cancer Datasets</a></li>
@@ -674,7 +678,77 @@ math.Abs(x)</code></pre></div>
 
 x :<span class="op">=</span> <span class="op">-</span><span class="dv">5</span>
 <span class="bu">int</span>(math.Abs(float64(x)))</code></pre></div>
+</div>
+<div id="concurrency" class="section level2">
+<h2><span class="header-section-number">11.20</span> Concurrency</h2>
+<div id="goroutines" class="section level3">
+<h3><span class="header-section-number">11.20.1</span> Goroutines</h3>
+<p>Goroutines are lightweight threads that are managed by the Go runtime, and are run concurrently in the same address space as other function calls.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">package main
 
+<span class="im">import</span> (
+    <span class="st">&quot;fmt&quot;</span>
+    <span class="st">&quot;time&quot;</span>
+)
+
+func say(s string) {
+    <span class="cf">for</span> i :<span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">;</span> i<span class="op">++</span> {
+        time.Sleep(<span class="dv">100</span> <span class="op">*</span> time.Millisecond)
+        fmt.Println(s)
+    }
+}
+
+func main() {
+    go say(<span class="st">&quot;world&quot;</span>)
+    say(<span class="st">&quot;hello&quot;</span>)
+}</code></pre></div>
+</div>
+<div id="channels" class="section level3">
+<h3><span class="header-section-number">11.20.2</span> Channels</h3>
+<p>Channels are a typed conduit through which values can be sent and received. They function with the <code>&lt;-</code> operator.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">ch <span class="op">&lt;-</span> v    <span class="op">//</span> Send v to channel ch.
+v :<span class="op">=</span> <span class="op">&lt;-</span>ch  <span class="op">//</span> Receive <span class="im">from</span> ch, <span class="kw">and</span>
+           <span class="op">//</span> assign value to v.</code></pre></div>
+<p>The default function of a channel is to block communication until both sides are ready.</p>
+<p>In the example below, the sum of the first and last three values in an array are calculated separately and then added together when both goroutines have completed.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">package main
+
+<span class="im">import</span> <span class="st">&quot;fmt&quot;</span>
+
+func <span class="bu">sum</span>(s []<span class="bu">int</span>, c chan <span class="bu">int</span>) {
+    <span class="bu">sum</span> :<span class="op">=</span> <span class="dv">0</span>
+    <span class="cf">for</span> _, v :<span class="op">=</span> <span class="bu">range</span> s {
+        <span class="bu">sum</span> <span class="op">+=</span> v
+    }
+    c <span class="op">&lt;-</span> <span class="bu">sum</span> <span class="op">//</span> send <span class="bu">sum</span> to c
+}
+
+func main() {
+    s :<span class="op">=</span> []<span class="bu">int</span>{<span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="op">-</span><span class="dv">9</span>, <span class="dv">4</span>, <span class="dv">0</span>}
+
+    c :<span class="op">=</span> make(chan <span class="bu">int</span>)
+    go <span class="bu">sum</span>(s[:<span class="bu">len</span>(s)<span class="op">/</span><span class="dv">2</span>], c)
+    go <span class="bu">sum</span>(s[<span class="bu">len</span>(s)<span class="op">/</span><span class="dv">2</span>:], c)
+    x, y :<span class="op">=</span> <span class="op">&lt;-</span>c, <span class="op">&lt;-</span>c <span class="op">//</span> receive <span class="im">from</span> c
+
+    fmt.Println(x, y, x<span class="op">+</span>y)</code></pre></div>
+<p>Unlike typical channels, buffered channels only block receiving communication when the number of slots are full.</p>
+<p>In the below example, the buffered channel has room for two values, receives those two values and then prints them in order.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">package main
+
+<span class="im">import</span> <span class="st">&quot;fmt&quot;</span>
+
+func main() {
+    ch :<span class="op">=</span> make(chan <span class="bu">int</span>, <span class="dv">2</span>)
+    ch <span class="op">&lt;-</span> <span class="dv">1</span>
+    ch <span class="op">&lt;-</span> <span class="dv">20000</span>
+    
+    x :<span class="op">=</span> <span class="op">&lt;-</span> ch
+    fmt.Println(x)
+    fmt.Println(<span class="op">&lt;-</span>ch)
+}</code></pre></div>
+
+</div>
 </div>
 </div>
             </section>

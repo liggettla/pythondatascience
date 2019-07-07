@@ -125,7 +125,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-06-29}
+    \date{2019-07-06}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -2476,6 +2476,107 @@ int.
 
 \NormalTok{x :}\OperatorTok{=} \OperatorTok{-}\DecValTok{5}
 \BuiltInTok{int}\NormalTok{(math.Abs(float64(x)))}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Concurrency}\label{concurrency}
+
+\subsection{Goroutines}\label{goroutines}
+
+Goroutines are lightweight threads that are managed by the Go runtime,
+and are run concurrently in the same address space as other function
+calls.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{package main}
+
+\ImportTok{import}\NormalTok{ (}
+    \StringTok{"fmt"}
+    \StringTok{"time"}
+\NormalTok{)}
+
+\NormalTok{func say(s string) \{}
+    \ControlFlowTok{for}\NormalTok{ i :}\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{ i }\OperatorTok{<} \DecValTok{5}\OperatorTok{;}\NormalTok{ i}\OperatorTok{++}\NormalTok{ \{}
+\NormalTok{        time.Sleep(}\DecValTok{100} \OperatorTok{*}\NormalTok{ time.Millisecond)}
+\NormalTok{        fmt.Println(s)}
+\NormalTok{    \}}
+\NormalTok{\}}
+
+\NormalTok{func main() \{}
+\NormalTok{    go say(}\StringTok{"world"}\NormalTok{)}
+\NormalTok{    say(}\StringTok{"hello"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Channels}\label{channels}
+
+Channels are a typed conduit through which values can be sent and
+received. They function with the \texttt{\textless{}-} operator.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ch }\OperatorTok{<-}\NormalTok{ v    }\OperatorTok{//}\NormalTok{ Send v to channel ch.}
+\NormalTok{v :}\OperatorTok{=} \OperatorTok{<-}\NormalTok{ch  }\OperatorTok{//}\NormalTok{ Receive }\ImportTok{from}\NormalTok{ ch, }\KeywordTok{and}
+           \OperatorTok{//}\NormalTok{ assign value to v.}
+\end{Highlighting}
+\end{Shaded}
+
+The default function of a channel is to block communication until both
+sides are ready.
+
+In the example below, the sum of the first and last three values in an
+array are calculated separately and then added together when both
+goroutines have completed.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{package main}
+
+\ImportTok{import} \StringTok{"fmt"}
+
+\NormalTok{func }\BuiltInTok{sum}\NormalTok{(s []}\BuiltInTok{int}\NormalTok{, c chan }\BuiltInTok{int}\NormalTok{) \{}
+    \BuiltInTok{sum}\NormalTok{ :}\OperatorTok{=} \DecValTok{0}
+    \ControlFlowTok{for}\NormalTok{ _, v :}\OperatorTok{=} \BuiltInTok{range}\NormalTok{ s \{}
+        \BuiltInTok{sum} \OperatorTok{+=}\NormalTok{ v}
+\NormalTok{    \}}
+\NormalTok{    c }\OperatorTok{<-} \BuiltInTok{sum} \OperatorTok{//}\NormalTok{ send }\BuiltInTok{sum}\NormalTok{ to c}
+\NormalTok{\}}
+
+\NormalTok{func main() \{}
+\NormalTok{    s :}\OperatorTok{=}\NormalTok{ []}\BuiltInTok{int}\NormalTok{\{}\DecValTok{7}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{8}\NormalTok{, }\OperatorTok{-}\DecValTok{9}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{0}\NormalTok{\}}
+
+\NormalTok{    c :}\OperatorTok{=}\NormalTok{ make(chan }\BuiltInTok{int}\NormalTok{)}
+\NormalTok{    go }\BuiltInTok{sum}\NormalTok{(s[:}\BuiltInTok{len}\NormalTok{(s)}\OperatorTok{/}\DecValTok{2}\NormalTok{], c)}
+\NormalTok{    go }\BuiltInTok{sum}\NormalTok{(s[}\BuiltInTok{len}\NormalTok{(s)}\OperatorTok{/}\DecValTok{2}\NormalTok{:], c)}
+\NormalTok{    x, y :}\OperatorTok{=} \OperatorTok{<-}\NormalTok{c, }\OperatorTok{<-}\NormalTok{c }\OperatorTok{//}\NormalTok{ receive }\ImportTok{from}\NormalTok{ c}
+
+\NormalTok{    fmt.Println(x, y, x}\OperatorTok{+}\NormalTok{y)}
+\end{Highlighting}
+\end{Shaded}
+
+Unlike typical channels, buffered channels only block receiving
+communication when the number of slots are full.
+
+In the below example, the buffered channel has room for two values,
+receives those two values and then prints them in order.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{package main}
+
+\ImportTok{import} \StringTok{"fmt"}
+
+\NormalTok{func main() \{}
+\NormalTok{    ch :}\OperatorTok{=}\NormalTok{ make(chan }\BuiltInTok{int}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{    ch }\OperatorTok{<-} \DecValTok{1}
+\NormalTok{    ch }\OperatorTok{<-} \DecValTok{20000}
+    
+\NormalTok{    x :}\OperatorTok{=} \OperatorTok{<-}\NormalTok{ ch}
+\NormalTok{    fmt.Println(x)}
+\NormalTok{    fmt.Println(}\OperatorTok{<-}\NormalTok{ch)}
+\NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
