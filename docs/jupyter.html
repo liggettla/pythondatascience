@@ -246,6 +246,12 @@ sns.set_context(<span class="st">&#39;paper&#39;</span>, font_scale<span class="
 <p>To allow directory organization, dependcies can be separated into different directories and imported into a jupyter notebook using the following import statement.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> sys
 sys.path.append(<span class="st">&#39;../util&#39;</span>)</code></pre></div>
+<p>This is a simplified way to create a table of contents.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># Table of Contents</span>
+<span class="dv">1</span>. [Introduction](<span class="co">#Notebook-Setup)</span>
+<span class="dv">2</span>. [Parameters](<span class="co">#Parameters)</span>
+<span class="dv">3</span>. [Sample Processing](<span class="co">#Sample-Processing)</span>
+    <span class="dv">1</span>. [Variant Filtering](<span class="co">#Variant-Filtering)</span></code></pre></div>
 <p>A table of contents can be created to refer to each of the headers throughout a notebook in html format. The code is below (Obviously needs to be simplified.)</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">&lt;</span>h1<span class="op">&gt;</span>Table of Contents<span class="op">&lt;</span>span <span class="kw">class</span><span class="op">=</span><span class="st">&quot;tocSkip&quot;</span><span class="op">&gt;&lt;/</span>span<span class="op">&gt;&lt;/</span>h1<span class="op">&gt;</span>
 <span class="op">&lt;</span>div <span class="kw">class</span><span class="op">=</span><span class="st">&quot;toc&quot;</span><span class="op">&gt;</span>
