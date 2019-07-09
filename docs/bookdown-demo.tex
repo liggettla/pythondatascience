@@ -1186,6 +1186,15 @@ Replace values.
 \end{Highlighting}
 \end{Shaded}
 
+Substrings can be extracted from each row or column using the
+\texttt{str} functionality.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Series.}\BuiltInTok{str}\NormalTok{.}\BuiltInTok{slice}\NormalTok{(start}\OperatorTok{=}\DecValTok{0}\NormalTok{,stop}\OperatorTok{=}\DecValTok{7}\NormalTok{,step}\OperatorTok{=}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 \subsection{Replace values}\label{replace-values}
 
 New data can be set within a DataFrame one subset at a time in a way

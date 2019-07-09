@@ -206,6 +206,11 @@ data = pd.Series([1., -999., 2., -999., -1000., 3.])
 data.replace(-999, np.nan)
 ```
 
+Substrings can be extracted from each row or column using the `str` functionality.
+```{python eval=FALSE}
+Series.str.slice(start=0,stop=7,step=1)
+```
+
 ### Replace values 
 New data can be set within a DataFrame one subset at a time in a way that will avoid the SettingWithCopyWarning.
 ```{python}

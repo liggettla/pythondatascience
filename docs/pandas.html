@@ -361,6 +361,8 @@ df <span class="op">=</span> df.drop([<span class="st">&#39;B&#39;</span>, <span
 <p>Replace values.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">data <span class="op">=</span> pd.Series([<span class="dv">1</span>., <span class="op">-</span><span class="dv">999</span>., <span class="dv">2</span>., <span class="op">-</span><span class="dv">999</span>., <span class="op">-</span><span class="dv">1000</span>., <span class="dv">3</span>.])
 data.replace(<span class="op">-</span><span class="dv">999</span>, np.nan)</code></pre></div>
+<p>Substrings can be extracted from each row or column using the <code>str</code> functionality.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">Series.<span class="bu">str</span>.<span class="bu">slice</span>(start<span class="op">=</span><span class="dv">0</span>,stop<span class="op">=</span><span class="dv">7</span>,step<span class="op">=</span><span class="dv">1</span>)</code></pre></div>
 <div id="replace-values" class="section level3">
 <h3><span class="header-section-number">7.7.1</span> Replace values</h3>
 <p>New data can be set within a DataFrame one subset at a time in a way that will avoid the SettingWithCopyWarning.</p>
