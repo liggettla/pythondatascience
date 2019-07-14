@@ -40,6 +40,11 @@ import pandas as pd
 df2.iloc[1:3]
 ```
 
+Select data by the length of the strings in a given column.
+```{python eval=FALSE}
+df = df[df.Change.str.len() == 3]
+```
+
 Data within a DataFrame can be selected based on position within the DataFrame.
 ```{python}
 import pandas as pd

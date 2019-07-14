@@ -25,7 +25,7 @@
 <meta name="author" content="L A Liggett">
 
 
-<meta name="date" content="2019-07-09">
+<meta name="date" content="2019-07-14">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -267,6 +267,8 @@ df2.iloc[<span class="dv">1</span>:<span class="dv">3</span>]</code></pre></div>
 <pre><code>##    AAA  BBB  CCC
 ## 2    5   20   50
 ## 3    6   30  -30</code></pre>
+<p>Select data by the length of the strings in a given column.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">df <span class="op">=</span> df[df.Change.<span class="bu">str</span>.<span class="bu">len</span>() <span class="op">==</span> <span class="dv">3</span>]</code></pre></div>
 <p>Data within a DataFrame can be selected based on position within the DataFrame.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> pandas <span class="im">as</span> pd
 df2.loc[<span class="dv">1</span>:<span class="dv">3</span>]</code></pre></div>

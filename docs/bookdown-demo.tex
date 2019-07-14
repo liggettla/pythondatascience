@@ -109,7 +109,7 @@
 \usepackage{titling}
 
 % Create subtitle command for use in maketitle
-\newcommand{\subtitle}[1]{
+\providecommand{\subtitle}[1]{
   \posttitle{
     \begin{center}\large#1\end{center}
     }
@@ -125,7 +125,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-07-09}
+    \date{2019-07-14}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -925,6 +925,14 @@ DataFrame.
 ## 2    5   20   50
 ## 3    6   30  -30
 \end{verbatim}
+
+Select data by the length of the strings in a given column.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OperatorTok{=}\NormalTok{ df[df.Change.}\BuiltInTok{str}\NormalTok{.}\BuiltInTok{len}\NormalTok{() }\OperatorTok{==} \DecValTok{3}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
 
 Data within a DataFrame can be selected based on position within the
 DataFrame.
