@@ -42,6 +42,7 @@
 * [Here](https://adinasarapu.github.io/year-archive/) are a good number of general tools to check out
 * [Here](https://github.com/molgenis/systemsgenetics/wiki/eQTL-mapping-analysis-cookbook-for-RNA-seq-data) is a good python eQTL analysis
 * [genenetwork2](http://gn2.genenetwork.org/) has a great deal of data and eQTL mapping [tools](https://github.com/genenetwork/genenetwork2)
+* The Eske Derks lab has some [hosted data](https://github.com/MareesAT/GWA_tutorial/) that walks through how to properly run a GWAS analysis [@Marees2018-rc].
 
 ## Other Data Resources
 * [The Earth Microbiome Project](http://www.earthmicrobiome.org/data-and-code/) already has data available, and is trying to sequence all non-eukaryotic life on earth

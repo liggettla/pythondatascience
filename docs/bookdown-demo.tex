@@ -109,7 +109,7 @@
 \usepackage{titling}
 
 % Create subtitle command for use in maketitle
-\providecommand{\subtitle}[1]{
+\newcommand{\subtitle}[1]{
   \posttitle{
     \begin{center}\large#1\end{center}
     }
@@ -125,7 +125,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-07-18}
+    \date{2019-07-25}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -2802,6 +2802,11 @@ receives those two values and then prints them in order.
   \href{http://gn2.genenetwork.org/}{genenetwork2} has a great deal of
   data and eQTL mapping
   \href{https://github.com/genenetwork/genenetwork2}{tools}
+\item
+  The Eske Derks lab has some
+  \href{https://github.com/MareesAT/GWA_tutorial/}{hosted data} that
+  walks through how to properly run a GWAS analysis
+  \citep{Marees2018-rc}.
 \end{itemize}
 
 \section{Other Data Resources}\label{other-data-resources}
