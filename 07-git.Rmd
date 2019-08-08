@@ -55,4 +55,29 @@ The previous version of the a file can then be restored.
 git checkout -- file.txt
 ```
 
+### Branching
+Create a new branch.
+```{bash eval=FALSE}
+git branch somenewfeature
+```
+
+All current branches can then be listed.
+```{bash eval=FALSE}
+git branch
+```
+
+To then use the new branch, it needs to be checked out, and after checking it out, all changes will be specific to that new branch only.
+```{bash eval=FALSE}
+git checkout somenewfeature
+```
+
+After committing changes to the new branch, if the branch is changed back to the master branch or another branch those changes will not longer be present as they are branch specific. If the changes should be merged back to the master branch checkout the master and then merge them in.
+```{bash eval=FALSE}
+git checkout master
+git merge feature
+```
+
+
+
+
 

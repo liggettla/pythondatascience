@@ -25,7 +25,7 @@
 <meta name="author" content="L A Liggett">
 
 
-<meta name="date" content="2019-07-25">
+<meta name="date" content="2019-08-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -156,6 +156,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.2.1" data-path="git.html"><a href="git.html#repository-status"><i class="fa fa-check"></i><b>8.2.1</b> Repository Status</a></li>
 <li class="chapter" data-level="8.2.2" data-path="git.html"><a href="git.html#file-checkout"><i class="fa fa-check"></i><b>8.2.2</b> File Checkout</a></li>
 <li class="chapter" data-level="8.2.3" data-path="git.html"><a href="git.html#resetting-a-repository"><i class="fa fa-check"></i><b>8.2.3</b> Resetting a Repository</a></li>
+<li class="chapter" data-level="8.2.4" data-path="git.html"><a href="git.html#branching"><i class="fa fa-check"></i><b>8.2.4</b> Branching</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vim.html"><a href="vim.html"><i class="fa fa-check"></i><b>9</b> VIM</a><ul>
@@ -226,6 +227,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 2</span> Python</h1>
 <div id="general" class="section level2">
 <h2><span class="header-section-number">2.1</span> General</h2>
+<p>Format strings are new in python 3 and are a different manner of using variables within a string.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">name <span class="op">=</span> <span class="st">&#39;Torpal&#39;</span>
+<span class="bu">print</span>(<span class="ss">f&quot;hello, </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">!&quot;</span>)</code></pre></div>
+<p>Values can also be passed to the string in a manner similar to python 2.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">name <span class="op">=</span> <span class="st">&#39;Torpal&#39;</span>
+<span class="bu">print</span>(<span class="st">&quot;Hello </span><span class="sc">{}</span><span class="st">&quot;</span>.<span class="bu">format</span>(name))</code></pre></div>
 <p>Here is a general skeleton that can be used to start a python script that takes input.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co">#!/usr/bin/env python</span>
 

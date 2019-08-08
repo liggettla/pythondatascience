@@ -25,7 +25,7 @@
 <meta name="author" content="L A Liggett">
 
 
-<meta name="date" content="2019-07-25">
+<meta name="date" content="2019-08-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -156,6 +156,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.2.1" data-path="git.html"><a href="git.html#repository-status"><i class="fa fa-check"></i><b>8.2.1</b> Repository Status</a></li>
 <li class="chapter" data-level="8.2.2" data-path="git.html"><a href="git.html#file-checkout"><i class="fa fa-check"></i><b>8.2.2</b> File Checkout</a></li>
 <li class="chapter" data-level="8.2.3" data-path="git.html"><a href="git.html#resetting-a-repository"><i class="fa fa-check"></i><b>8.2.3</b> Resetting a Repository</a></li>
+<li class="chapter" data-level="8.2.4" data-path="git.html"><a href="git.html#branching"><i class="fa fa-check"></i><b>8.2.4</b> Branching</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vim.html"><a href="vim.html"><i class="fa fa-check"></i><b>9</b> VIM</a><ul>
@@ -269,6 +270,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> reset HEAD file.txt</code></pre></div>
 <p>The previous version of the a file can then be restored.</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> checkout -- file.txt</code></pre></div>
+</div>
+<div id="branching" class="section level3">
+<h3><span class="header-section-number">8.2.4</span> Branching</h3>
+<p>Create a new branch.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> branch somenewfeature</code></pre></div>
+<p>All current branches can then be listed.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> branch</code></pre></div>
+<p>To then use the new branch, it needs to be checked out, and after checking it out, all changes will be specific to that new branch only.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> checkout somenewfeature</code></pre></div>
+<p>After committing changes to the new branch, if the branch is changed back to the master branch or another branch those changes will not longer be present as they are branch specific. If the changes should be merged back to the master branch checkout the master and then merge them in.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> checkout master
+<span class="fu">git</span> merge feature</code></pre></div>
 
 </div>
 </div>

@@ -109,7 +109,7 @@
 \usepackage{titling}
 
 % Create subtitle command for use in maketitle
-\newcommand{\subtitle}[1]{
+\providecommand{\subtitle}[1]{
   \posttitle{
     \begin{center}\large#1\end{center}
     }
@@ -125,7 +125,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-07-25}
+    \date{2019-08-07}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -151,6 +151,25 @@ analysis that focuses on Python use.
 \chapter{Python}\label{python}
 
 \section{General}\label{general}
+
+Format strings are new in python 3 and are a different manner of using
+variables within a string.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{name }\OperatorTok{=} \StringTok{'Torpal'}
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"hello, }\SpecialCharTok{\{}\NormalTok{name}\SpecialCharTok{\}}\SpecialStringTok{!"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Values can also be passed to the string in a manner similar to python 2.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{name }\OperatorTok{=} \StringTok{'Torpal'}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Hello }\SpecialCharTok{\{\}}\StringTok{"}\NormalTok{.}\BuiltInTok{format}\NormalTok{(name))}
+\end{Highlighting}
+\end{Shaded}
 
 Here is a general skeleton that can be used to start a python script
 that takes input.
@@ -1452,6 +1471,46 @@ The previous version of the a file can then be restored.
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{git}\NormalTok{ checkout -- file.txt}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Branching}\label{branching}
+
+Create a new branch.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ branch somenewfeature}
+\end{Highlighting}
+\end{Shaded}
+
+All current branches can then be listed.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ branch}
+\end{Highlighting}
+\end{Shaded}
+
+To then use the new branch, it needs to be checked out, and after
+checking it out, all changes will be specific to that new branch only.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ checkout somenewfeature}
+\end{Highlighting}
+\end{Shaded}
+
+After committing changes to the new branch, if the branch is changed
+back to the master branch or another branch those changes will not
+longer be present as they are branch specific. If the changes should be
+merged back to the master branch checkout the master and then merge them
+in.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ checkout master}
+\FunctionTok{git}\NormalTok{ merge feature}
 \end{Highlighting}
 \end{Shaded}
 

@@ -1,6 +1,18 @@
 # Python {#python}
 
 ## General
+Format strings are new in python 3 and are a different manner of using variables within a string.
+```{python, eval=FALSE}
+name = 'Torpal'
+print(f"hello, {name}!")
+```
+
+Values can also be passed to the string in a manner similar to python 2.
+```{python, eval=FALSE}
+name = 'Torpal'
+print("Hello {}".format(name))
+```
+
 Here is a general skeleton that can be used to start a python script that takes input.
 ```{python, eval=FALSE}
 #!/usr/bin/env python
