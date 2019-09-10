@@ -201,6 +201,14 @@ plt.plot([x1,x1, x2, x2], [y1, y2, y2, y1], linewidth=1, color='k') # stats line
 plt.text((x1+x2)*.5, y2+2, "p=0.09", ha='center', va='bottom', fontsize=8) # p-value or sig
 ```
 
+Sometimes it is helpful to get the number of rows associated with a sample and plot that by sample. Here is a way to accomplish this.
+```{python eval=FALSE}
+counts = all_vars.Sample_Name.value_counts().reset_index()
+counts = counts.rename(columns={'index':'Sample_Name','Sample_Name':'Var_Count'})
+
+all_vars = pd.merge(all_vars, counts, how='inner', on=['Sample_Name'])
+```
+
 ## Statistics
 This is a two-sided T-test for the null hypothesis that two populations have the same means. It is important to note that it assumes the population variances are the same, so this must be changed if the assumption is incorrect.
 ```{python eval=FALSE}

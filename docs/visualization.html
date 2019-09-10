@@ -25,7 +25,7 @@
 <meta name="author" content="L A Liggett">
 
 
-<meta name="date" content="2019-08-07">
+<meta name="date" content="2019-09-10">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -392,6 +392,11 @@ plt.savefig(<span class="st">&quot;test.svg&quot;</span>, <span class="bu">forma
 y2, y1 <span class="op">=</span> <span class="dv">20</span>, <span class="dv">15</span> <span class="co"># placement of the line and how for down the vertical legs go</span>
 plt.plot([x1,x1, x2, x2], [y1, y2, y2, y1], linewidth<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">&#39;k&#39;</span>) <span class="co"># stats line</span>
 plt.text((x1<span class="op">+</span>x2)<span class="op">*</span>.<span class="dv">5</span>, y2<span class="op">+</span><span class="dv">2</span>, <span class="st">&quot;p=0.09&quot;</span>, ha<span class="op">=</span><span class="st">&#39;center&#39;</span>, va<span class="op">=</span><span class="st">&#39;bottom&#39;</span>, fontsize<span class="op">=</span><span class="dv">8</span>) <span class="co"># p-value or sig</span></code></pre></div>
+<p>Sometimes it is helpful to get the number of rows associated with a sample and plot that by sample. Here is a way to accomplish this.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">counts <span class="op">=</span> all_vars.Sample_Name.value_counts().reset_index()
+counts <span class="op">=</span> counts.rename(columns<span class="op">=</span>{<span class="st">&#39;index&#39;</span>:<span class="st">&#39;Sample_Name&#39;</span>,<span class="st">&#39;Sample_Name&#39;</span>:<span class="st">&#39;Var_Count&#39;</span>})
+
+all_vars <span class="op">=</span> pd.merge(all_vars, counts, how<span class="op">=</span><span class="st">&#39;inner&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;Sample_Name&#39;</span>])</code></pre></div>
 </div>
 <div id="statistics" class="section level2">
 <h2><span class="header-section-number">4.4</span> Statistics</h2>

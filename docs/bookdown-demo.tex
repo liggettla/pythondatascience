@@ -109,7 +109,7 @@
 \usepackage{titling}
 
 % Create subtitle command for use in maketitle
-\providecommand{\subtitle}[1]{
+\newcommand{\subtitle}[1]{
   \posttitle{
     \begin{center}\large#1\end{center}
     }
@@ -125,7 +125,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-08-07}
+    \date{2019-09-10}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -675,6 +675,18 @@ using the following code.
 \NormalTok{y2, y1 }\OperatorTok{=} \DecValTok{20}\NormalTok{, }\DecValTok{15} \CommentTok{# placement of the line and how for down the vertical legs go}
 \NormalTok{plt.plot([x1,x1, x2, x2], [y1, y2, y2, y1], linewidth}\OperatorTok{=}\DecValTok{1}\NormalTok{, color}\OperatorTok{=}\StringTok{'k'}\NormalTok{) }\CommentTok{# stats line}
 \NormalTok{plt.text((x1}\OperatorTok{+}\NormalTok{x2)}\OperatorTok{*}\NormalTok{.}\DecValTok{5}\NormalTok{, y2}\OperatorTok{+}\DecValTok{2}\NormalTok{, }\StringTok{"p=0.09"}\NormalTok{, ha}\OperatorTok{=}\StringTok{'center'}\NormalTok{, va}\OperatorTok{=}\StringTok{'bottom'}\NormalTok{, fontsize}\OperatorTok{=}\DecValTok{8}\NormalTok{) }\CommentTok{# p-value or sig}
+\end{Highlighting}
+\end{Shaded}
+
+Sometimes it is helpful to get the number of rows associated with a
+sample and plot that by sample. Here is a way to accomplish this.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{counts }\OperatorTok{=}\NormalTok{ all_vars.Sample_Name.value_counts().reset_index()}
+\NormalTok{counts }\OperatorTok{=}\NormalTok{ counts.rename(columns}\OperatorTok{=}\NormalTok{\{}\StringTok{'index'}\NormalTok{:}\StringTok{'Sample_Name'}\NormalTok{,}\StringTok{'Sample_Name'}\NormalTok{:}\StringTok{'Var_Count'}\NormalTok{\})}
+
+\NormalTok{all_vars }\OperatorTok{=}\NormalTok{ pd.merge(all_vars, counts, how}\OperatorTok{=}\StringTok{'inner'}\NormalTok{, on}\OperatorTok{=}\NormalTok{[}\StringTok{'Sample_Name'}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 
