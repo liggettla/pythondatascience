@@ -44,6 +44,9 @@
 * [genenetwork2](http://gn2.genenetwork.org/) has a great deal of data and eQTL mapping [tools](https://github.com/genenetwork/genenetwork2)
 * The Eske Derks lab has some [hosted data](https://github.com/MareesAT/GWA_tutorial/) that walks through how to properly run a GWAS analysis [@Marees2018-rc].
 
+## Cell Biology
+* HuBMAP is a group that is organizing tissues at the single-cell scale to map tissues and organisms spatially.
+
 ## Other Data Resources
 * [The Earth Microbiome Project](http://www.earthmicrobiome.org/data-and-code/) already has data available, and is trying to sequence all non-eukaryotic life on earth
     + They have detailed information about the project in their [PNAS paper](http://www.pnas.org/content/115/17/4325.long) from 2018
