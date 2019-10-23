@@ -1,5 +1,10 @@
 # JupyterLab {#jupyter}
 
+By default, notebooks are not trusted, to prevent them from executing malicious code. The following code will label a notebook as trustworthy.
+```{python eval=FALSE}
+jupyter trust my_notebook.ipyb
+```
+
 Here is a simple template that I use that controls a couple useful things when starting a new notebook.
 
 ```{python eval=FALSE}
