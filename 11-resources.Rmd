@@ -28,6 +28,7 @@
 * [Color Genomics](https://www.color.com/) is one of three companies that will be doing the sequencing and testing for AllOfUs
 * [1000 genomes](http://www.internationalgenome.org/data/)
 * [100,000 genomes](https://www.genomicsengland.co.uk/)
+* [TOPMed](https://www.nhlbiwgs.org/#Whole%20Genome%20Sequencing) has a large number of samples spanning a number of different studies that include whole genome sequencing which can be helpful for understanding clonal dynamics in CHIP.
 
 ## Computing Tools
 * [AWS](https://aws.amazon.com/health/) looks like it has some healthcare and life sciences resources
