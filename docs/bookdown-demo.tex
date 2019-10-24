@@ -125,7 +125,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-10-15}
+    \date{2019-10-24}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -286,6 +286,15 @@ Ipython usage
 \end{Shaded}
 
 \chapter{JupyterLab}\label{jupyter}
+
+By default, notebooks are not trusted, to prevent them from executing
+malicious code. The following code will label a notebook as trustworthy.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{jupyter trust my_notebook.ipyb}
+\end{Highlighting}
+\end{Shaded}
 
 Here is a simple template that I use that controls a couple useful
 things when starting a new notebook.
@@ -500,6 +509,17 @@ elegant way of achieving the same outcome.
 \end{Shaded}
 
 \section{Matplotlib}\label{matplotlib}
+
+Plot a straight line where \texttt{num\_points} is the number of
+elements to populate the array with (default is 50).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{=}\NormalTok{ np.linspace(x_min, x_max, num_points)}
+\NormalTok{y }\OperatorTok{=}\NormalTok{ m }\OperatorTok{*}\NormalTok{ x }\OperatorTok{+}\NormalTok{ b}
+\NormalTok{plt.plot(x, y, }\StringTok{'-b'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 Plotting a heatmap.
 
@@ -2779,6 +2799,9 @@ receives those two values and then prints them in order.
   \href{https://gtexportal.org/home/}{GTEx} has RNA-Seq, Exome Seq,
   WGseq, SNP arrays, gene expression arrays and more for cancer and
   non-cancer?
+\item
+  \href{https://ocg.cancer.gov/programs/target}{TARGET} is a dataset at
+  the NIH that has childhood cancer data.
 \end{itemize}
 
 \section{Alzheimer's}\label{alzheimers}
@@ -2819,6 +2842,11 @@ receives those two values and then prints them in order.
   \href{http://www.internationalgenome.org/data/}{1000 genomes}
 \item
   \href{https://www.genomicsengland.co.uk/}{100,000 genomes}
+\item
+  \href{https://www.nhlbiwgs.org/\#Whole\%20Genome\%20Sequencing}{TOPMed}
+  has a large number of samples spanning a number of different studies
+  that include whole genome sequencing which can be helpful for
+  understanding clonal dynamics in CHIP.
 \end{itemize}
 
 \section{Computing Tools}\label{computing-tools}
@@ -2885,8 +2913,9 @@ receives those two values and then prints them in order.
 \begin{itemize}
 \tightlist
 \item
-  HuBMAP is a group that is organizing tissues at the single-cell scale
-  to map tissues and organisms spatially.
+  \href{https://hubmapconsortium.org/}{HuBMAP} is a group that is
+  organizing tissues at the single-cell scale to map tissues and
+  organisms spatially.
 \end{itemize}
 
 \section{Other Data Resources}\label{other-data-resources}

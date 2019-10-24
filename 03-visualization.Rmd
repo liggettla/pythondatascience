@@ -54,6 +54,13 @@ plt.legend(handles=[egfr,pik3ca,myc],
 ```
 
 ## Matplotlib
+Plot a straight line where `num_points` is the number of elements to populate the array with (default is 50).
+```{python eval=FALSE}
+x = np.linspace(x_min, x_max, num_points)
+y = m * x + b
+plt.plot(x, y, '-b')
+```
+
 Plotting a heatmap.
 
 ```{python eval=FALSE}

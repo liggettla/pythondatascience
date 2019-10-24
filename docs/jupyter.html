@@ -25,7 +25,7 @@
 <meta name="author" content="L A Liggett">
 
 
-<meta name="date" content="2019-10-15">
+<meta name="date" content="2019-10-24">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -226,6 +226,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="jupyter" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> JupyterLab</h1>
+<p>By default, notebooks are not trusted, to prevent them from executing malicious code. The following code will label a notebook as trustworthy.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">jupyter trust my_notebook.ipyb</code></pre></div>
 <p>Here is a simple template that I use that controls a couple useful things when starting a new notebook.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> sys
 sys.path.append(<span class="st">&#39;../util&#39;</span>)

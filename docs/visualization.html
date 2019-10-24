@@ -25,7 +25,7 @@
 <meta name="author" content="L A Liggett">
 
 
-<meta name="date" content="2019-10-15">
+<meta name="date" content="2019-10-24">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -275,6 +275,10 @@ plt.legend(handles<span class="op">=</span>[egfr,pik3ca,myc],
 </div>
 <div id="matplotlib" class="section level2">
 <h2><span class="header-section-number">4.2</span> Matplotlib</h2>
+<p>Plot a straight line where <code>num_points</code> is the number of elements to populate the array with (default is 50).</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x <span class="op">=</span> np.linspace(x_min, x_max, num_points)
+y <span class="op">=</span> m <span class="op">*</span> x <span class="op">+</span> b
+plt.plot(x, y, <span class="st">&#39;-b&#39;</span>)</code></pre></div>
 <p>Plotting a heatmap.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt
 <span class="im">import</span> numpy <span class="im">as</span> np
