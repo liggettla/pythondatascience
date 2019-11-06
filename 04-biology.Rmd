@@ -73,4 +73,9 @@ The entire set of GATK software can be downloaded together [here]('https://softw
 Methods and algorithms as they are run at the Broad can be found [here]('https://software.broadinstitute.org/gatk/documentation/topic?name=methods').  
 The Broad also has a number of [tutorials]('https://software.broadinstitute.org/gatk/documentation/topic?name=tutorials') that introduce some of the software packaged within GATK. 
 ### Mutect2
-A [tutorial]('https://software.broadinstitute.org/gatk/documentation/article?id=24057') exists that introduces how Mutext2 can be used to call somatic mutations.
+A [tutorial]('https://software.broadinstitute.org/gatk/documentation/article?id=24057') exists that introduces how Mutect2 can be used to call somatic mutations.  
+In general Mutect2 can be run as in the following.  
+```{python eval=FALSE}
+../util/gatk-4.1.4.0/gatk Mutect2 -R /seq/references/Homo_sapiens_assembly38/v0/Homo_sapiens_assembly38.fasta -I tumor.bam -O unfiltered.vcf
+```
+
