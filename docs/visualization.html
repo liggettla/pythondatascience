@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Visualization | Data Science With Python</title>
-  <meta name="description" content="Chapter 4 Visualization | Data Science With Python.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Chapter 4 Visualization | Data Science With Python." />
+  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Visualization | Data Science With Python" />
   <meta property="og:type" content="book" />
@@ -22,18 +21,18 @@
   <meta name="twitter:description" content="Chapter 4 Visualization | Data Science With Python." />
   
 
-<meta name="author" content="L A Liggett">
+<meta name="author" content="L A Liggett" />
 
 
-<meta name="date" content="2019-10-24">
+<meta name="date" content="2019-11-06" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="jupyter.html">
-<link rel="next" href="biology.html">
+<link rel="prev" href="jupyter.html"/>
+<link rel="next" href="biology.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -51,41 +53,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -127,6 +154,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3" data-path="biology.html"><a href="biology.html#ucsc-genome-browser"><i class="fa fa-check"></i><b>5.3</b> UCSC Genome Browser</a></li>
 <li class="chapter" data-level="5.4" data-path="biology.html"><a href="biology.html#ref-genome"><i class="fa fa-check"></i><b>5.4</b> Ref Genome</a></li>
 <li class="chapter" data-level="5.5" data-path="biology.html"><a href="biology.html#personal-information"><i class="fa fa-check"></i><b>5.5</b> Personal Information</a></li>
+<li class="chapter" data-level="5.6" data-path="biology.html"><a href="biology.html#gatk"><i class="fa fa-check"></i><b>5.6</b> GATK</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="io.html"><a href="io.html"><i class="fa fa-check"></i><b>6</b> Data I/O</a><ul>
 <li class="chapter" data-level="6.1" data-path="io.html"><a href="io.html#reading-data-files"><i class="fa fa-check"></i><b>6.1</b> Reading Data Files</a></li>
@@ -231,190 +259,190 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="colorschemes" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> Colorschemes</h3>
 <p>Seaborn Themes</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">Pastel: {<span class="st">&#39;Blue&#39;</span>:<span class="st">&#39;#a3c6ff&#39;</span>, <span class="st">&#39;Orange&#39;</span>:<span class="st">&#39;#f7ab60&#39;</span>, <span class="st">&#39;Green&#39;</span>:<span class="st">&#39;#60f7a9&#39;</span>, <span class="st">&#39;Red&#39;</span>:<span class="st">&#39;#fc9d94&#39;</span>, <span class="st">&#39;Purple&#39;</span>:<span class="st">&#39;#bea3ff&#39;</span>, <span class="st">&#39;Brown&#39;</span>:<span class="st">&#39;#d1b485&#39;</span>, <span class="st">&#39;Pink&#39;</span>:<span class="st">&#39;#f7afdf&#39;</span>, <span class="st">&#39;Gray&#39;</span>:<span class="st">&#39;#c4c4c4&#39;</span>, <span class="st">&#39;Yellow&#39;</span>:<span class="st">&#39;#ffffaa&#39;</span>, <span class="st">&#39;LBlue&#39;</span>:<span class="st">&#39;#baf6ff&#39;</span>}</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">Deep: {<span class="st">&#39;Green&#39;</span>:<span class="st">&#39;#5baf68&#39;</span>}</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb14-1" data-line-number="1">Pastel: {<span class="st">&#39;Blue&#39;</span>:<span class="st">&#39;#a3c6ff&#39;</span>, <span class="st">&#39;Orange&#39;</span>:<span class="st">&#39;#f7ab60&#39;</span>, <span class="st">&#39;Green&#39;</span>:<span class="st">&#39;#60f7a9&#39;</span>, <span class="st">&#39;Red&#39;</span>:<span class="st">&#39;#fc9d94&#39;</span>, <span class="st">&#39;Purple&#39;</span>:<span class="st">&#39;#bea3ff&#39;</span>, <span class="st">&#39;Brown&#39;</span>:<span class="st">&#39;#d1b485&#39;</span>, <span class="st">&#39;Pink&#39;</span>:<span class="st">&#39;#f7afdf&#39;</span>, <span class="st">&#39;Gray&#39;</span>:<span class="st">&#39;#c4c4c4&#39;</span>, <span class="st">&#39;Yellow&#39;</span>:<span class="st">&#39;#ffffaa&#39;</span>, <span class="st">&#39;LBlue&#39;</span>:<span class="st">&#39;#baf6ff&#39;</span>}</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb15-1" data-line-number="1">Deep: {<span class="st">&#39;Green&#39;</span>:<span class="st">&#39;#5baf68&#39;</span>}</a></code></pre></div>
 </div>
 <div id="controlling-coloration" class="section level3">
 <h3><span class="header-section-number">4.1.2</span> Controlling Coloration</h3>
 <p>Not all plots automatically plot with a white background, and when using something dark like jupyterlab or a presentation this can be frustrating. The background color can be set in pyplot like this.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">fig.patch.set_facecolor(<span class="st">&#39;xkcd:mint green&#39;</span>)</code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb16-1" data-line-number="1">fig.patch.set_facecolor(<span class="st">&#39;xkcd:mint green&#39;</span>)</a></code></pre></div>
 <p>When plotting, samples will not always be colored with the same color, especially when different subsets of samples are included in different plots. Here is a manual workaround to specify the coloration of displayed data. This is a bit cumbersome so there might be a more elegant way of achieving the same outcome.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># here is an example where sample order is controlled from a pandas DataFrame</span>
-sample_order <span class="op">=</span> all_vars.sort_values([<span class="st">&#39;ID&#39;</span>]).drop_duplicates([<span class="st">&#39;Sample&#39;</span>]).Sample
-
-<span class="co"># the color order is specified here</span>
-<span class="co"># colors should be in the same order as the above sample_order Series, excluding samples with no data</span>
-colors <span class="op">=</span> [pastel[<span class="st">&#39;Brown&#39;</span>], pastel[<span class="st">&#39;Blue&#39;</span>],
-          pastel[<span class="st">&#39;Orange&#39;</span>], pastel[<span class="st">&#39;Purple&#39;</span>],
-          pastel[<span class="st">&#39;Green&#39;</span>], pastel[<span class="st">&#39;Red&#39;</span>],
-          ]
-
-plt.figure()
-<span class="co"># this is an example of plotting that uses the sample_order and palette to control coloration order</span>
-sns.catplot(x<span class="op">=</span><span class="st">&#39;Sample&#39;</span>, y<span class="op">=</span><span class="st">&#39;VAF&#39;</span>, hue<span class="op">=</span><span class="st">&#39;Gene&#39;</span>, jitter<span class="op">=</span><span class="va">True</span>,
-            data<span class="op">=</span>oncogenic[oncogenic.Location <span class="op">==</span> <span class="st">&#39;Peripheral&#39;</span>],
-            legend<span class="op">=</span><span class="va">False</span>, order<span class="op">=</span>sample_order, palette<span class="op">=</span>sns.color_palette(colors))
-
-<span class="co"># a colorscheme can be specified if desired</span>
-pastel <span class="op">=</span> {<span class="st">&#39;Blue&#39;</span>:<span class="st">&#39;#a3c6ff&#39;</span>, <span class="st">&#39;Orange&#39;</span>:<span class="st">&#39;#f7ab60&#39;</span>,
-          <span class="st">&#39;Green&#39;</span>:<span class="st">&#39;#60f7a9&#39;</span>, <span class="st">&#39;Red&#39;</span>:<span class="st">&#39;#fc9d94&#39;</span>,
-          <span class="st">&#39;Purple&#39;</span>:<span class="st">&#39;#bea3ff&#39;</span>, <span class="st">&#39;Brown&#39;</span>:<span class="st">&#39;#d1b485&#39;</span>,
-          <span class="st">&#39;Pink&#39;</span>:<span class="st">&#39;#f7afdf&#39;</span>, <span class="st">&#39;Gray&#39;</span>:<span class="st">&#39;#c4c4c4&#39;</span>,
-          <span class="st">&#39;Yellow&#39;</span>:<span class="st">&#39;#ffffaa&#39;</span>, <span class="st">&#39;LBlue&#39;</span>:<span class="st">&#39;#baf6ff&#39;</span>}
-
-<span class="co"># this controls the coloration in the legend</span>
-<span class="im">import</span> matplotlib.patches <span class="im">as</span> mpatches
-egfr <span class="op">=</span> mpatches.Patch(color<span class="op">=</span>pastel[<span class="st">&#39;Blue&#39;</span>], label<span class="op">=</span><span class="st">&#39;EGFR&#39;</span>)
-pik3ca <span class="op">=</span> mpatches.Patch(color<span class="op">=</span>pastel[<span class="st">&#39;Orange&#39;</span>], label<span class="op">=</span><span class="st">&#39;PIK3CA&#39;</span>)
-myc <span class="op">=</span> mpatches.Patch(color<span class="op">=</span>pastel[<span class="st">&#39;Green&#39;</span>], label<span class="op">=</span><span class="st">&#39;MYC&#39;</span>)
-
-plt.legend(handles<span class="op">=</span>[egfr,pik3ca,myc],
-           loc<span class="op">=</span><span class="st">&#39;upper right&#39;</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">1.5</span>, <span class="dv">1</span>),
-           ncol<span class="op">=</span><span class="dv">1</span>) <span class="co"># no legend overlap</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># here is an example where sample order is controlled from a pandas DataFrame</span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">sample_order <span class="op">=</span> all_vars.sort_values([<span class="st">&#39;ID&#39;</span>]).drop_duplicates([<span class="st">&#39;Sample&#39;</span>]).Sample</a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co"># the color order is specified here</span></a>
+<a class="sourceLine" id="cb17-5" data-line-number="5"><span class="co"># colors should be in the same order as the above sample_order Series, excluding samples with no data</span></a>
+<a class="sourceLine" id="cb17-6" data-line-number="6">colors <span class="op">=</span> [pastel[<span class="st">&#39;Brown&#39;</span>], pastel[<span class="st">&#39;Blue&#39;</span>],</a>
+<a class="sourceLine" id="cb17-7" data-line-number="7">          pastel[<span class="st">&#39;Orange&#39;</span>], pastel[<span class="st">&#39;Purple&#39;</span>],</a>
+<a class="sourceLine" id="cb17-8" data-line-number="8">          pastel[<span class="st">&#39;Green&#39;</span>], pastel[<span class="st">&#39;Red&#39;</span>],</a>
+<a class="sourceLine" id="cb17-9" data-line-number="9">          ]</a>
+<a class="sourceLine" id="cb17-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb17-11" data-line-number="11">plt.figure()</a>
+<a class="sourceLine" id="cb17-12" data-line-number="12"><span class="co"># this is an example of plotting that uses the sample_order and palette to control coloration order</span></a>
+<a class="sourceLine" id="cb17-13" data-line-number="13">sns.catplot(x<span class="op">=</span><span class="st">&#39;Sample&#39;</span>, y<span class="op">=</span><span class="st">&#39;VAF&#39;</span>, hue<span class="op">=</span><span class="st">&#39;Gene&#39;</span>, jitter<span class="op">=</span><span class="va">True</span>,</a>
+<a class="sourceLine" id="cb17-14" data-line-number="14">            data<span class="op">=</span>oncogenic[oncogenic.Location <span class="op">==</span> <span class="st">&#39;Peripheral&#39;</span>],</a>
+<a class="sourceLine" id="cb17-15" data-line-number="15">            legend<span class="op">=</span><span class="va">False</span>, order<span class="op">=</span>sample_order, palette<span class="op">=</span>sns.color_palette(colors))</a>
+<a class="sourceLine" id="cb17-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb17-17" data-line-number="17"><span class="co"># a colorscheme can be specified if desired</span></a>
+<a class="sourceLine" id="cb17-18" data-line-number="18">pastel <span class="op">=</span> {<span class="st">&#39;Blue&#39;</span>:<span class="st">&#39;#a3c6ff&#39;</span>, <span class="st">&#39;Orange&#39;</span>:<span class="st">&#39;#f7ab60&#39;</span>,</a>
+<a class="sourceLine" id="cb17-19" data-line-number="19">          <span class="st">&#39;Green&#39;</span>:<span class="st">&#39;#60f7a9&#39;</span>, <span class="st">&#39;Red&#39;</span>:<span class="st">&#39;#fc9d94&#39;</span>,</a>
+<a class="sourceLine" id="cb17-20" data-line-number="20">          <span class="st">&#39;Purple&#39;</span>:<span class="st">&#39;#bea3ff&#39;</span>, <span class="st">&#39;Brown&#39;</span>:<span class="st">&#39;#d1b485&#39;</span>,</a>
+<a class="sourceLine" id="cb17-21" data-line-number="21">          <span class="st">&#39;Pink&#39;</span>:<span class="st">&#39;#f7afdf&#39;</span>, <span class="st">&#39;Gray&#39;</span>:<span class="st">&#39;#c4c4c4&#39;</span>,</a>
+<a class="sourceLine" id="cb17-22" data-line-number="22">          <span class="st">&#39;Yellow&#39;</span>:<span class="st">&#39;#ffffaa&#39;</span>, <span class="st">&#39;LBlue&#39;</span>:<span class="st">&#39;#baf6ff&#39;</span>}</a>
+<a class="sourceLine" id="cb17-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb17-24" data-line-number="24"><span class="co"># this controls the coloration in the legend</span></a>
+<a class="sourceLine" id="cb17-25" data-line-number="25"><span class="im">import</span> matplotlib.patches <span class="im">as</span> mpatches</a>
+<a class="sourceLine" id="cb17-26" data-line-number="26">egfr <span class="op">=</span> mpatches.Patch(color<span class="op">=</span>pastel[<span class="st">&#39;Blue&#39;</span>], label<span class="op">=</span><span class="st">&#39;EGFR&#39;</span>)</a>
+<a class="sourceLine" id="cb17-27" data-line-number="27">pik3ca <span class="op">=</span> mpatches.Patch(color<span class="op">=</span>pastel[<span class="st">&#39;Orange&#39;</span>], label<span class="op">=</span><span class="st">&#39;PIK3CA&#39;</span>)</a>
+<a class="sourceLine" id="cb17-28" data-line-number="28">myc <span class="op">=</span> mpatches.Patch(color<span class="op">=</span>pastel[<span class="st">&#39;Green&#39;</span>], label<span class="op">=</span><span class="st">&#39;MYC&#39;</span>)</a>
+<a class="sourceLine" id="cb17-29" data-line-number="29"></a>
+<a class="sourceLine" id="cb17-30" data-line-number="30">plt.legend(handles<span class="op">=</span>[egfr,pik3ca,myc],</a>
+<a class="sourceLine" id="cb17-31" data-line-number="31">           loc<span class="op">=</span><span class="st">&#39;upper right&#39;</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">1.5</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb17-32" data-line-number="32">           ncol<span class="op">=</span><span class="dv">1</span>) <span class="co"># no legend overlap</span></a></code></pre></div>
 </div>
 </div>
 <div id="matplotlib" class="section level2">
 <h2><span class="header-section-number">4.2</span> Matplotlib</h2>
 <p>Plot a straight line where <code>num_points</code> is the number of elements to populate the array with (default is 50).</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x <span class="op">=</span> np.linspace(x_min, x_max, num_points)
-y <span class="op">=</span> m <span class="op">*</span> x <span class="op">+</span> b
-plt.plot(x, y, <span class="st">&#39;-b&#39;</span>)</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb18-1" data-line-number="1">x <span class="op">=</span> np.linspace(x_min, x_max, num_points)</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">y <span class="op">=</span> m <span class="op">*</span> x <span class="op">+</span> b</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3">plt.plot(x, y, <span class="st">&#39;-b&#39;</span>)</a></code></pre></div>
 <p>Plotting a heatmap.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt
-<span class="im">import</span> numpy <span class="im">as</span> np
-a <span class="op">=</span> np.random.random((<span class="dv">16</span>, <span class="dv">16</span>))
-plt.imshow(a, cmap<span class="op">=</span><span class="st">&#39;RdBu&#39;&#39;, interpolation=&#39;</span>nearest<span class="st">&#39;)</span>
-<span class="st">plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="im">import</span> numpy <span class="im">as</span> np</a>
+<a class="sourceLine" id="cb19-3" data-line-number="3">a <span class="op">=</span> np.random.random((<span class="dv">16</span>, <span class="dv">16</span>))</a>
+<a class="sourceLine" id="cb19-4" data-line-number="4">plt.imshow(a, cmap<span class="op">=</span><span class="st">&#39;RdBu&#39;&#39;, interpolation=&#39;</span>nearest<span class="st">&#39;)</span></a>
+<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="st">plt.show()</span></a></code></pre></div>
 <p>Possible heatmap colors are:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">Accent, Accent_r, Blues, Blues_r, BrBG, BrBG_r, BuGn, BuGn_r, BuPu, BuPu_r, CMRmap, CMRmap_r, Dark2, Dark2_r, GnBu, GnBu_r, Greens, Greens_r, Greys, Greys_r, OrRd, OrRd_r, Oranges, Oranges_r, PRGn, PRGn_r, Paired, Paired_r, Pastel1, Pastel1_r, Pastel2, Pastel2_r, PiYG, PiYG_r, PuBu, PuBuGn, PuBuGn_r, PuBu_r, PuOr, PuOr_r, PuRd, PuRd_r, Purples, Purples_r, RdBu, RdBu_r, RdGy, RdGy_r, RdPu, RdPu_r, RdYlBu, RdYlBu_r, RdYlGn, RdYlGn_r, Reds, Reds_r, Set1,
-Set1_r, Set2, Set2_r, Set3, Set3_r, Spectral, Spectral_r, Wistia, Wistia_r, YlGn, YlGnBu, YlGnBu_r, YlGn_r, YlOrBr, YlOrBr_r, YlOrRd, YlOrRd_r, afmhot, afmhot_r, autumn, autumn_r, binary, binary_r, bone, bone_r, brg, brg_r, bwr, bwr_r, cividis, cividis_r, cool, cool_r, coolwarm, coolwarm_r, copper, copper_r, cubehelix, cubehelix_r, flag, flag_r, gist_earth, gist_earth_r, gist_gray, gist_gray_r, gist_heat, gist_heat_r, gist_ncar, gist_ncar_r, gist_rainbow, gist_rainbow_r,
-gist_stern, gist_stern_r, gist_yarg, gist_yarg_r, gnuplot, gnuplot2, gnuplot2_r, gnuplot_r, gray, gray_r, hot, hot_r, hsv, hsv_r, icefire, icefire_r, inferno, inferno_r, jet, jet_r, magma, magma_r, mako, mako_r, nipy_spectral, nipy_spectral_r, ocean, ocean_r, pink, pink_r, plasma, plasma_r, prism, prism_r, rainbow, rainbow_r, rocket, rocket_r, seismic, seismic_r, spring, spring_r, summer, summer_r, tab10, tab10_r, tab20, tab20_r, tab20b, tab20b_r, tab20c, tab20c_r, terrain, terrain_r,
-twilight, twilight_r, twilight_shifted, twilight_shifted_r, viridis, viridis_r, vlag, vlag_r, winter, winter_r</code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb20-1" data-line-number="1">Accent, Accent_r, Blues, Blues_r, BrBG, BrBG_r, BuGn, BuGn_r, BuPu, BuPu_r, CMRmap, CMRmap_r, Dark2, Dark2_r, GnBu, GnBu_r, Greens, Greens_r, Greys, Greys_r, OrRd, OrRd_r, Oranges, Oranges_r, PRGn, PRGn_r, Paired, Paired_r, Pastel1, Pastel1_r, Pastel2, Pastel2_r, PiYG, PiYG_r, PuBu, PuBuGn, PuBuGn_r, PuBu_r, PuOr, PuOr_r, PuRd, PuRd_r, Purples, Purples_r, RdBu, RdBu_r, RdGy, RdGy_r, RdPu, RdPu_r, RdYlBu, RdYlBu_r, RdYlGn, RdYlGn_r, Reds, Reds_r, Set1,</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">Set1_r, Set2, Set2_r, Set3, Set3_r, Spectral, Spectral_r, Wistia, Wistia_r, YlGn, YlGnBu, YlGnBu_r, YlGn_r, YlOrBr, YlOrBr_r, YlOrRd, YlOrRd_r, afmhot, afmhot_r, autumn, autumn_r, binary, binary_r, bone, bone_r, brg, brg_r, bwr, bwr_r, cividis, cividis_r, cool, cool_r, coolwarm, coolwarm_r, copper, copper_r, cubehelix, cubehelix_r, flag, flag_r, gist_earth, gist_earth_r, gist_gray, gist_gray_r, gist_heat, gist_heat_r, gist_ncar, gist_ncar_r, gist_rainbow, gist_rainbow_r,</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">gist_stern, gist_stern_r, gist_yarg, gist_yarg_r, gnuplot, gnuplot2, gnuplot2_r, gnuplot_r, gray, gray_r, hot, hot_r, hsv, hsv_r, icefire, icefire_r, inferno, inferno_r, jet, jet_r, magma, magma_r, mako, mako_r, nipy_spectral, nipy_spectral_r, ocean, ocean_r, pink, pink_r, plasma, plasma_r, prism, prism_r, rainbow, rainbow_r, rocket, rocket_r, seismic, seismic_r, spring, spring_r, summer, summer_r, tab10, tab10_r, tab20, tab20_r, tab20b, tab20b_r, tab20c, tab20c_r, terrain, terrain_r,</a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">twilight, twilight_r, twilight_shifted, twilight_shifted_r, viridis, viridis_r, vlag, vlag_r, winter, winter_r</a></code></pre></div>
 <p>A simple venn diagram.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> matplotlib_venn <span class="im">import</span> venn2
-venn2(subsets <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>))</code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="im">from</span> matplotlib_venn <span class="im">import</span> venn2</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2">venn2(subsets <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>))</a></code></pre></div>
 <p>A more complicated venn diagram.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt
-<span class="im">import</span> numpy <span class="im">as</span> np
-<span class="im">from</span> matplotlib_venn <span class="im">import</span> venn3, venn3_circles
-plt.figure(figsize<span class="op">=</span>(<span class="dv">4</span>,<span class="dv">4</span>))
-v <span class="op">=</span> venn3(subsets<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), set_labels <span class="op">=</span> (<span class="st">&#39;A&#39;</span>, <span class="st">&#39;B&#39;</span>, <span class="st">&#39;C&#39;</span>))
-v.get_patch_by_id(<span class="st">&#39;100&#39;</span>).set_alpha(<span class="fl">1.0</span>)
-v.get_patch_by_id(<span class="st">&#39;100&#39;</span>).set_color(<span class="st">&#39;white&#39;</span>)
-v.get_label_by_id(<span class="st">&#39;100&#39;</span>).set_text(<span class="st">&#39;Unknown&#39;</span>)
-v.get_label_by_id(<span class="st">&#39;A&#39;</span>).set_text(<span class="st">&#39;Set &quot;A&quot;&#39;</span>)
-c <span class="op">=</span> venn3_circles(subsets<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), linestyle<span class="op">=</span><span class="st">&#39;dotted&#39;</span>)
-c[<span class="dv">0</span>].set_lw(<span class="fl">1.0</span>)
-c[<span class="dv">0</span>].set_ls(<span class="st">&#39;dotted&#39;</span>)
-plt.title(<span class="st">&quot;Sample Venn diagram&quot;</span>)
-plt.annotate(<span class="st">&#39;Unknown set&#39;</span>, xy<span class="op">=</span>v.get_label_by_id(<span class="st">&#39;100&#39;</span>).get_position() <span class="op">-</span> np.array([<span class="dv">0</span>, <span class="fl">0.05</span>]), xytext<span class="op">=</span>(<span class="op">-</span><span class="dv">70</span>,<span class="op">-</span><span class="dv">70</span>),
-             ha<span class="op">=</span><span class="st">&#39;center&#39;</span>, textcoords<span class="op">=</span><span class="st">&#39;offset points&#39;</span>, bbox<span class="op">=</span><span class="bu">dict</span>(boxstyle<span class="op">=</span><span class="st">&#39;round,pad=0.5&#39;</span>, fc<span class="op">=</span><span class="st">&#39;gray&#39;</span>, alpha<span class="op">=</span><span class="fl">0.1</span>),
-                          arrowprops<span class="op">=</span><span class="bu">dict</span>(arrowstyle<span class="op">=</span><span class="st">&#39;-&gt;&#39;</span>, connectionstyle<span class="op">=</span><span class="st">&#39;arc3,rad=0.5&#39;</span>,color<span class="op">=</span><span class="st">&#39;gray&#39;</span>))
-                          plt.show()</code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="im">import</span> numpy <span class="im">as</span> np</a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="im">from</span> matplotlib_venn <span class="im">import</span> venn3, venn3_circles</a>
+<a class="sourceLine" id="cb22-4" data-line-number="4">plt.figure(figsize<span class="op">=</span>(<span class="dv">4</span>,<span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb22-5" data-line-number="5">v <span class="op">=</span> venn3(subsets<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), set_labels <span class="op">=</span> (<span class="st">&#39;A&#39;</span>, <span class="st">&#39;B&#39;</span>, <span class="st">&#39;C&#39;</span>))</a>
+<a class="sourceLine" id="cb22-6" data-line-number="6">v.get_patch_by_id(<span class="st">&#39;100&#39;</span>).set_alpha(<span class="fl">1.0</span>)</a>
+<a class="sourceLine" id="cb22-7" data-line-number="7">v.get_patch_by_id(<span class="st">&#39;100&#39;</span>).set_color(<span class="st">&#39;white&#39;</span>)</a>
+<a class="sourceLine" id="cb22-8" data-line-number="8">v.get_label_by_id(<span class="st">&#39;100&#39;</span>).set_text(<span class="st">&#39;Unknown&#39;</span>)</a>
+<a class="sourceLine" id="cb22-9" data-line-number="9">v.get_label_by_id(<span class="st">&#39;A&#39;</span>).set_text(<span class="st">&#39;Set &quot;A&quot;&#39;</span>)</a>
+<a class="sourceLine" id="cb22-10" data-line-number="10">c <span class="op">=</span> venn3_circles(subsets<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), linestyle<span class="op">=</span><span class="st">&#39;dotted&#39;</span>)</a>
+<a class="sourceLine" id="cb22-11" data-line-number="11">c[<span class="dv">0</span>].set_lw(<span class="fl">1.0</span>)</a>
+<a class="sourceLine" id="cb22-12" data-line-number="12">c[<span class="dv">0</span>].set_ls(<span class="st">&#39;dotted&#39;</span>)</a>
+<a class="sourceLine" id="cb22-13" data-line-number="13">plt.title(<span class="st">&quot;Sample Venn diagram&quot;</span>)</a>
+<a class="sourceLine" id="cb22-14" data-line-number="14">plt.annotate(<span class="st">&#39;Unknown set&#39;</span>, xy<span class="op">=</span>v.get_label_by_id(<span class="st">&#39;100&#39;</span>).get_position() <span class="op">-</span> np.array([<span class="dv">0</span>, <span class="fl">0.05</span>]), xytext<span class="op">=</span>(<span class="op">-</span><span class="dv">70</span>,<span class="op">-</span><span class="dv">70</span>),</a>
+<a class="sourceLine" id="cb22-15" data-line-number="15">             ha<span class="op">=</span><span class="st">&#39;center&#39;</span>, textcoords<span class="op">=</span><span class="st">&#39;offset points&#39;</span>, bbox<span class="op">=</span><span class="bu">dict</span>(boxstyle<span class="op">=</span><span class="st">&#39;round,pad=0.5&#39;</span>, fc<span class="op">=</span><span class="st">&#39;gray&#39;</span>, alpha<span class="op">=</span><span class="fl">0.1</span>),</a>
+<a class="sourceLine" id="cb22-16" data-line-number="16">                          arrowprops<span class="op">=</span><span class="bu">dict</span>(arrowstyle<span class="op">=</span><span class="st">&#39;-&gt;&#39;</span>, connectionstyle<span class="op">=</span><span class="st">&#39;arc3,rad=0.5&#39;</span>,color<span class="op">=</span><span class="st">&#39;gray&#39;</span>))</a>
+<a class="sourceLine" id="cb22-17" data-line-number="17">                          plt.show()</a></code></pre></div>
 <p>An upset plot is a nice alternative to a traditional venn diagram. The project is hosted <a href="https://pypi.org/project/UpSetPlot/">here</a>, and <a href="https://buildmedia.readthedocs.org/media/pdf/upsetplot/latest/upsetplot.pdf">this</a> is the documentation.</p>
 <p>First install the library.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">pip</span> install upsetplot</code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="ex">pip</span> install upsetplot</a></code></pre></div>
 <p>Here is the code to create the plot.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy <span class="im">as</span> np
-
-arrays <span class="op">=</span> [[<span class="va">False</span>,<span class="va">False</span>,<span class="va">False</span>,<span class="va">False</span>,<span class="va">True</span>,<span class="va">True</span>,<span class="va">True</span>,<span class="va">True</span>],
-          [<span class="va">False</span>,<span class="va">False</span>,<span class="va">True</span>,<span class="va">True</span>,<span class="va">False</span>,<span class="va">False</span>,<span class="va">True</span>,<span class="va">True</span>],
-          [<span class="va">False</span>,<span class="va">True</span>,<span class="va">False</span>,<span class="va">True</span>,<span class="va">False</span>,<span class="va">True</span>,<span class="va">False</span>,<span class="va">True</span>]]
-tuples <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(<span class="op">*</span>arrays))
-
-<span class="kw">def</span> o(one<span class="op">=</span><span class="va">False</span>, two<span class="op">=</span><span class="va">False</span>, three<span class="op">=</span><span class="va">False</span>):
-    <span class="cf">if</span> three:
-        temp <span class="op">=</span> pd.merge(indels[(indels.Individual<span class="op">==</span>one)], indels[(indels.Individual<span class="op">==</span>two)], how<span class="op">=</span><span class="st">&#39;inner&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;Loc&#39;</span>, <span class="st">&#39;Var&#39;</span>])
-        <span class="cf">return</span> <span class="bu">len</span>(pd.merge(temp, indels[(indels.Individual<span class="op">==</span>three)], how<span class="op">=</span><span class="st">&#39;inner&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;Loc&#39;</span>, <span class="st">&#39;Var&#39;</span>]))
-    <span class="cf">elif</span> two:
-        <span class="cf">return</span> <span class="bu">len</span>(pd.merge(indels[(indels.Individual<span class="op">==</span>one)], indels[(indels.Individual<span class="op">==</span>two)], how<span class="op">=</span><span class="st">&#39;inner&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;Loc&#39;</span>, <span class="st">&#39;Var&#39;</span>]))
-    <span class="cf">elif</span> one:
-        <span class="cf">return</span> <span class="bu">len</span>(indels[(indels.Individual<span class="op">==</span>one)])
-    <span class="cf">else</span>:
-        <span class="cf">return</span> <span class="dv">0</span>
-
-index <span class="op">=</span> pd.MultiIndex.from_tuples(tuples, names<span class="op">=</span>[<span class="st">&#39;Ind 1&#39;</span>, <span class="st">&#39;Ind 2&#39;</span>, <span class="st">&#39;Ind 3&#39;</span>])
-s <span class="op">=</span> pd.Series([o(),
-               o(<span class="dv">3</span>),
-               o(<span class="dv">2</span>),
-               o(<span class="dv">2</span>,<span class="dv">3</span>),
-               o(<span class="dv">1</span>),
-               o(<span class="dv">1</span>,<span class="dv">3</span>),
-               o(<span class="dv">1</span>,<span class="dv">2</span>),
-               o(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)], index<span class="op">=</span>index)
-
-<span class="im">from</span> upsetplot <span class="im">import</span> plot <span class="im">as</span> up
-up(s)
-plt.savefig(<span class="st">&quot;../images/indels.svg&quot;</span>, <span class="bu">format</span><span class="op">=</span><span class="st">&quot;svg&quot;</span>, bbox_inches<span class="op">=</span><span class="st">&quot;tight&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="im">import</span> numpy <span class="im">as</span> np</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb24-3" data-line-number="3">arrays <span class="op">=</span> [[<span class="va">False</span>,<span class="va">False</span>,<span class="va">False</span>,<span class="va">False</span>,<span class="va">True</span>,<span class="va">True</span>,<span class="va">True</span>,<span class="va">True</span>],</a>
+<a class="sourceLine" id="cb24-4" data-line-number="4">          [<span class="va">False</span>,<span class="va">False</span>,<span class="va">True</span>,<span class="va">True</span>,<span class="va">False</span>,<span class="va">False</span>,<span class="va">True</span>,<span class="va">True</span>],</a>
+<a class="sourceLine" id="cb24-5" data-line-number="5">          [<span class="va">False</span>,<span class="va">True</span>,<span class="va">False</span>,<span class="va">True</span>,<span class="va">False</span>,<span class="va">True</span>,<span class="va">False</span>,<span class="va">True</span>]]</a>
+<a class="sourceLine" id="cb24-6" data-line-number="6">tuples <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(<span class="op">*</span>arrays))</a>
+<a class="sourceLine" id="cb24-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb24-8" data-line-number="8"><span class="kw">def</span> o(one<span class="op">=</span><span class="va">False</span>, two<span class="op">=</span><span class="va">False</span>, three<span class="op">=</span><span class="va">False</span>):</a>
+<a class="sourceLine" id="cb24-9" data-line-number="9">    <span class="cf">if</span> three:</a>
+<a class="sourceLine" id="cb24-10" data-line-number="10">        temp <span class="op">=</span> pd.merge(indels[(indels.Individual<span class="op">==</span>one)], indels[(indels.Individual<span class="op">==</span>two)], how<span class="op">=</span><span class="st">&#39;inner&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;Loc&#39;</span>, <span class="st">&#39;Var&#39;</span>])</a>
+<a class="sourceLine" id="cb24-11" data-line-number="11">        <span class="cf">return</span> <span class="bu">len</span>(pd.merge(temp, indels[(indels.Individual<span class="op">==</span>three)], how<span class="op">=</span><span class="st">&#39;inner&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;Loc&#39;</span>, <span class="st">&#39;Var&#39;</span>]))</a>
+<a class="sourceLine" id="cb24-12" data-line-number="12">    <span class="cf">elif</span> two:</a>
+<a class="sourceLine" id="cb24-13" data-line-number="13">        <span class="cf">return</span> <span class="bu">len</span>(pd.merge(indels[(indels.Individual<span class="op">==</span>one)], indels[(indels.Individual<span class="op">==</span>two)], how<span class="op">=</span><span class="st">&#39;inner&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;Loc&#39;</span>, <span class="st">&#39;Var&#39;</span>]))</a>
+<a class="sourceLine" id="cb24-14" data-line-number="14">    <span class="cf">elif</span> one:</a>
+<a class="sourceLine" id="cb24-15" data-line-number="15">        <span class="cf">return</span> <span class="bu">len</span>(indels[(indels.Individual<span class="op">==</span>one)])</a>
+<a class="sourceLine" id="cb24-16" data-line-number="16">    <span class="cf">else</span>:</a>
+<a class="sourceLine" id="cb24-17" data-line-number="17">        <span class="cf">return</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb24-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb24-19" data-line-number="19">index <span class="op">=</span> pd.MultiIndex.from_tuples(tuples, names<span class="op">=</span>[<span class="st">&#39;Ind 1&#39;</span>, <span class="st">&#39;Ind 2&#39;</span>, <span class="st">&#39;Ind 3&#39;</span>])</a>
+<a class="sourceLine" id="cb24-20" data-line-number="20">s <span class="op">=</span> pd.Series([o(),</a>
+<a class="sourceLine" id="cb24-21" data-line-number="21">               o(<span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb24-22" data-line-number="22">               o(<span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb24-23" data-line-number="23">               o(<span class="dv">2</span>,<span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb24-24" data-line-number="24">               o(<span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb24-25" data-line-number="25">               o(<span class="dv">1</span>,<span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb24-26" data-line-number="26">               o(<span class="dv">1</span>,<span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb24-27" data-line-number="27">               o(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)], index<span class="op">=</span>index)</a>
+<a class="sourceLine" id="cb24-28" data-line-number="28"></a>
+<a class="sourceLine" id="cb24-29" data-line-number="29"><span class="im">from</span> upsetplot <span class="im">import</span> plot <span class="im">as</span> up</a>
+<a class="sourceLine" id="cb24-30" data-line-number="30">up(s)</a>
+<a class="sourceLine" id="cb24-31" data-line-number="31">plt.savefig(<span class="st">&quot;../images/indels.svg&quot;</span>, <span class="bu">format</span><span class="op">=</span><span class="st">&quot;svg&quot;</span>, bbox_inches<span class="op">=</span><span class="st">&quot;tight&quot;</span>)</a></code></pre></div>
 <p>Log scales seem to always be a challenge. Here is at least one solution to change ticks to log manually.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">y_major_ticks <span class="op">=</span> [np.log(<span class="dv">100</span>),np.log(<span class="dv">200</span>),np.log(<span class="dv">300</span>),np.log(<span class="dv">400</span>),np.log(<span class="dv">500</span>),np.log(<span class="dv">600</span>),np.log(<span class="dv">700</span>),np.log(<span class="dv">800</span>),np.log(<span class="dv">900</span>),<span class="op">\</span>
-                 np.log(<span class="dv">1000</span>),np.log(<span class="dv">2000</span>),np.log(<span class="dv">3000</span>),np.log(<span class="dv">4000</span>),np.log(<span class="dv">5000</span>),np.log(<span class="dv">6000</span>),np.log(<span class="dv">7000</span>),np.log(<span class="dv">8000</span>),np.log(<span class="dv">9000</span>),<span class="op">\</span>
-                 np.log(<span class="dv">10000</span>),np.log(<span class="dv">20000</span>),np.log(<span class="dv">30000</span>),np.log(<span class="dv">40000</span>),np.log(<span class="dv">50000</span>),np.log(<span class="dv">60000</span>),np.log(<span class="dv">70000</span>),np.log(<span class="dv">80000</span>),np.log(<span class="dv">90000</span>),<span class="op">\</span>
-                 np.log(<span class="dv">100000</span>),np.log(<span class="dv">200000</span>),np.log(<span class="dv">300000</span>),np.log(<span class="dv">400000</span>),np.log(<span class="dv">500000</span>),np.log(<span class="dv">600000</span>),np.log(<span class="dv">700000</span>),np.log(<span class="dv">800000</span>),np.log(<span class="dv">900000</span>),<span class="op">\</span>
-                 np.log(<span class="dv">1000000</span>),np.log(<span class="dv">2000000</span>),np.log(<span class="dv">3000000</span>),np.log(<span class="dv">4000000</span>),np.log(<span class="dv">5000000</span>),np.log(<span class="dv">6000000</span>),np.log(<span class="dv">7000000</span>),np.log(<span class="dv">8000000</span>),np.log(<span class="dv">9000000</span>),<span class="op">\</span>
-                 np.log(<span class="dv">10000000</span>)]
-
-y_major_tick_labels <span class="op">=</span> [<span class="st">&quot;100&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>, <span class="st">&quot;1000&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>, <span class="st">&quot;10,000&quot;</span>,<span class="op">\</span>
-                       <span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;100,000&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>, <span class="st">&quot;1,000,000&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>, <span class="st">&quot;10,000,000&quot;</span> ]
-ax1.set_yticks(y_major_ticks)
-ax1.set_yticklabels(y_major_tick_labels, fontsize <span class="op">=</span> axisfont)
-ax1.yaxis.set_tick_params(width<span class="op">=</span>scale, color <span class="op">=</span> grey3, length <span class="op">=</span> <span class="dv">6</span>)</code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb25-1" data-line-number="1">y_major_ticks <span class="op">=</span> [np.log(<span class="dv">100</span>),np.log(<span class="dv">200</span>),np.log(<span class="dv">300</span>),np.log(<span class="dv">400</span>),np.log(<span class="dv">500</span>),np.log(<span class="dv">600</span>),np.log(<span class="dv">700</span>),np.log(<span class="dv">800</span>),np.log(<span class="dv">900</span>),<span class="op">\</span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2">                 np.log(<span class="dv">1000</span>),np.log(<span class="dv">2000</span>),np.log(<span class="dv">3000</span>),np.log(<span class="dv">4000</span>),np.log(<span class="dv">5000</span>),np.log(<span class="dv">6000</span>),np.log(<span class="dv">7000</span>),np.log(<span class="dv">8000</span>),np.log(<span class="dv">9000</span>),<span class="op">\</span></a>
+<a class="sourceLine" id="cb25-3" data-line-number="3">                 np.log(<span class="dv">10000</span>),np.log(<span class="dv">20000</span>),np.log(<span class="dv">30000</span>),np.log(<span class="dv">40000</span>),np.log(<span class="dv">50000</span>),np.log(<span class="dv">60000</span>),np.log(<span class="dv">70000</span>),np.log(<span class="dv">80000</span>),np.log(<span class="dv">90000</span>),<span class="op">\</span></a>
+<a class="sourceLine" id="cb25-4" data-line-number="4">                 np.log(<span class="dv">100000</span>),np.log(<span class="dv">200000</span>),np.log(<span class="dv">300000</span>),np.log(<span class="dv">400000</span>),np.log(<span class="dv">500000</span>),np.log(<span class="dv">600000</span>),np.log(<span class="dv">700000</span>),np.log(<span class="dv">800000</span>),np.log(<span class="dv">900000</span>),<span class="op">\</span></a>
+<a class="sourceLine" id="cb25-5" data-line-number="5">                 np.log(<span class="dv">1000000</span>),np.log(<span class="dv">2000000</span>),np.log(<span class="dv">3000000</span>),np.log(<span class="dv">4000000</span>),np.log(<span class="dv">5000000</span>),np.log(<span class="dv">6000000</span>),np.log(<span class="dv">7000000</span>),np.log(<span class="dv">8000000</span>),np.log(<span class="dv">9000000</span>),<span class="op">\</span></a>
+<a class="sourceLine" id="cb25-6" data-line-number="6">                 np.log(<span class="dv">10000000</span>)]</a>
+<a class="sourceLine" id="cb25-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb25-8" data-line-number="8">y_major_tick_labels <span class="op">=</span> [<span class="st">&quot;100&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>, <span class="st">&quot;1000&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>, <span class="st">&quot;10,000&quot;</span>,<span class="op">\</span></a>
+<a class="sourceLine" id="cb25-9" data-line-number="9">                       <span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;100,000&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>, <span class="st">&quot;1,000,000&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>, <span class="st">&quot;10,000,000&quot;</span> ]</a>
+<a class="sourceLine" id="cb25-10" data-line-number="10">ax1.set_yticks(y_major_ticks)</a>
+<a class="sourceLine" id="cb25-11" data-line-number="11">ax1.set_yticklabels(y_major_tick_labels, fontsize <span class="op">=</span> axisfont)</a>
+<a class="sourceLine" id="cb25-12" data-line-number="12">ax1.yaxis.set_tick_params(width<span class="op">=</span>scale, color <span class="op">=</span> grey3, length <span class="op">=</span> <span class="dv">6</span>)</a></code></pre></div>
 </div>
 <div id="seaborn" class="section level2">
 <h2><span class="header-section-number">4.3</span> Seaborn</h2>
 <p>Here is a general bar plot that includes some commonly used parameters.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># fits my 22 inch monitor</span>
-plt.figure(figsize<span class="op">=</span>(<span class="fl">19.17</span>,<span class="fl">11.98</span>))
-<span class="co"># order controls the display order of the samples</span>
-sns.catplot(x<span class="op">=</span><span class="st">&quot;Sample&quot;</span>, y<span class="op">=</span><span class="st">&quot;Somatic&quot;</span>, kind<span class="op">=</span><span class="st">&quot;bar&quot;</span>, data<span class="op">=</span>var_counts, order<span class="op">=</span>labels)<span class="op">;</span>
-<span class="co"># keeps x-axis labels, but eliminates the tick mark</span>
-plt.tick_params(labelbottom<span class="op">=</span><span class="va">True</span>, bottom<span class="op">=</span><span class="va">False</span>)
-<span class="co"># trim off the x-axis</span>
-sns.despine(offset<span class="op">=</span><span class="dv">10</span>, trim<span class="op">=</span><span class="va">True</span>, bottom<span class="op">=</span><span class="va">True</span>)
-<span class="co"># labels</span>
-plt.title(<span class="st">&#39;&#39;</span>)
-plt.ylabel(<span class="st">&#39;&#39;</span>, fontsize<span class="op">=</span><span class="dv">8</span>)
-plt.xlabel(<span class="st">&#39;&#39;</span>, fontsize<span class="op">=</span><span class="dv">8</span>)
-<span class="co"># manual control of xlabels</span>
-labels <span class="op">=</span> [<span class="st">&#39;Indiv_1-a&#39;</span>,<span class="st">&#39;Indiv_2&#39;</span>,<span class="st">&#39;Indiv_3&#39;</span>,<span class="st">&#39;Indiv_1-b&#39;</span>]
-<span class="co"># control xtick order</span>
-plt.xticks(<span class="bu">range</span>(<span class="bu">len</span>(labels)), labels, rotation<span class="op">=</span><span class="dv">45</span>)
-<span class="co"># control the number of x-ticks</span>
-plt.locator_params(axis<span class="op">=</span><span class="st">&#39;x&#39;</span>, nbins<span class="op">=</span><span class="dv">10</span>)
-<span class="co"># legend positioning</span>
-plt.legend(loc<span class="op">=</span><span class="st">&#39;upper right&#39;</span>)
-<span class="co"># log scale</span>
-plt.gca().set_yscale(<span class="st">&#39;log&#39;</span>)
-<span class="co"># this is better if neg values are needed</span>
-plt.gca().set_yscale(<span class="st">&#39;symlog&#39;</span>)
-<span class="co"># fit plot to display</span>
-plt.tight_layout()
-plt.show()
-<span class="co"># save figure with tight_layout</span>
-plt.savefig(<span class="st">&quot;test.svg&quot;</span>, <span class="bu">format</span><span class="op">=</span><span class="st">&quot;svg&quot;</span>, bbox_inches<span class="op">=</span><span class="st">&quot;tight&quot;</span>, dpi<span class="op">=</span><span class="dv">1000</span>)</code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="co"># fits my 22 inch monitor</span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2">plt.figure(figsize<span class="op">=</span>(<span class="fl">19.17</span>,<span class="fl">11.98</span>))</a>
+<a class="sourceLine" id="cb26-3" data-line-number="3"><span class="co"># order controls the display order of the samples</span></a>
+<a class="sourceLine" id="cb26-4" data-line-number="4">sns.catplot(x<span class="op">=</span><span class="st">&quot;Sample&quot;</span>, y<span class="op">=</span><span class="st">&quot;Somatic&quot;</span>, kind<span class="op">=</span><span class="st">&quot;bar&quot;</span>, data<span class="op">=</span>var_counts, order<span class="op">=</span>labels)<span class="op">;</span></a>
+<a class="sourceLine" id="cb26-5" data-line-number="5"><span class="co"># keeps x-axis labels, but eliminates the tick mark</span></a>
+<a class="sourceLine" id="cb26-6" data-line-number="6">plt.tick_params(labelbottom<span class="op">=</span><span class="va">True</span>, bottom<span class="op">=</span><span class="va">False</span>)</a>
+<a class="sourceLine" id="cb26-7" data-line-number="7"><span class="co"># trim off the x-axis</span></a>
+<a class="sourceLine" id="cb26-8" data-line-number="8">sns.despine(offset<span class="op">=</span><span class="dv">10</span>, trim<span class="op">=</span><span class="va">True</span>, bottom<span class="op">=</span><span class="va">True</span>)</a>
+<a class="sourceLine" id="cb26-9" data-line-number="9"><span class="co"># labels</span></a>
+<a class="sourceLine" id="cb26-10" data-line-number="10">plt.title(<span class="st">&#39;&#39;</span>)</a>
+<a class="sourceLine" id="cb26-11" data-line-number="11">plt.ylabel(<span class="st">&#39;&#39;</span>, fontsize<span class="op">=</span><span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb26-12" data-line-number="12">plt.xlabel(<span class="st">&#39;&#39;</span>, fontsize<span class="op">=</span><span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb26-13" data-line-number="13"><span class="co"># manual control of xlabels</span></a>
+<a class="sourceLine" id="cb26-14" data-line-number="14">labels <span class="op">=</span> [<span class="st">&#39;Indiv_1-a&#39;</span>,<span class="st">&#39;Indiv_2&#39;</span>,<span class="st">&#39;Indiv_3&#39;</span>,<span class="st">&#39;Indiv_1-b&#39;</span>]</a>
+<a class="sourceLine" id="cb26-15" data-line-number="15"><span class="co"># control xtick order</span></a>
+<a class="sourceLine" id="cb26-16" data-line-number="16">plt.xticks(<span class="bu">range</span>(<span class="bu">len</span>(labels)), labels, rotation<span class="op">=</span><span class="dv">45</span>)</a>
+<a class="sourceLine" id="cb26-17" data-line-number="17"><span class="co"># control the number of x-ticks</span></a>
+<a class="sourceLine" id="cb26-18" data-line-number="18">plt.locator_params(axis<span class="op">=</span><span class="st">&#39;x&#39;</span>, nbins<span class="op">=</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb26-19" data-line-number="19"><span class="co"># legend positioning</span></a>
+<a class="sourceLine" id="cb26-20" data-line-number="20">plt.legend(loc<span class="op">=</span><span class="st">&#39;upper right&#39;</span>)</a>
+<a class="sourceLine" id="cb26-21" data-line-number="21"><span class="co"># log scale</span></a>
+<a class="sourceLine" id="cb26-22" data-line-number="22">plt.gca().set_yscale(<span class="st">&#39;log&#39;</span>)</a>
+<a class="sourceLine" id="cb26-23" data-line-number="23"><span class="co"># this is better if neg values are needed</span></a>
+<a class="sourceLine" id="cb26-24" data-line-number="24">plt.gca().set_yscale(<span class="st">&#39;symlog&#39;</span>)</a>
+<a class="sourceLine" id="cb26-25" data-line-number="25"><span class="co"># fit plot to display</span></a>
+<a class="sourceLine" id="cb26-26" data-line-number="26">plt.tight_layout()</a>
+<a class="sourceLine" id="cb26-27" data-line-number="27">plt.show()</a>
+<a class="sourceLine" id="cb26-28" data-line-number="28"><span class="co"># save figure with tight_layout</span></a>
+<a class="sourceLine" id="cb26-29" data-line-number="29">plt.savefig(<span class="st">&quot;test.svg&quot;</span>, <span class="bu">format</span><span class="op">=</span><span class="st">&quot;svg&quot;</span>, bbox_inches<span class="op">=</span><span class="st">&quot;tight&quot;</span>, dpi<span class="op">=</span><span class="dv">1000</span>)</a></code></pre></div>
 <p>Signifance information can be added by including p-values and label bars using the following code.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x1, x2 <span class="op">=</span> <span class="dv">0</span>, <span class="dv">1</span> <span class="co"># columns to annotate on the plot</span>
-y2, y1 <span class="op">=</span> <span class="dv">20</span>, <span class="dv">15</span> <span class="co"># placement of the line and how for down the vertical legs go</span>
-plt.plot([x1,x1, x2, x2], [y1, y2, y2, y1], linewidth<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">&#39;k&#39;</span>) <span class="co"># stats line</span>
-plt.text((x1<span class="op">+</span>x2)<span class="op">*</span>.<span class="dv">5</span>, y2<span class="op">+</span><span class="dv">2</span>, <span class="st">&quot;p=0.09&quot;</span>, ha<span class="op">=</span><span class="st">&#39;center&#39;</span>, va<span class="op">=</span><span class="st">&#39;bottom&#39;</span>, fontsize<span class="op">=</span><span class="dv">8</span>) <span class="co"># p-value or sig</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb27-1" data-line-number="1">x1, x2 <span class="op">=</span> <span class="dv">0</span>, <span class="dv">1</span> <span class="co"># columns to annotate on the plot</span></a>
+<a class="sourceLine" id="cb27-2" data-line-number="2">y2, y1 <span class="op">=</span> <span class="dv">20</span>, <span class="dv">15</span> <span class="co"># placement of the line and how for down the vertical legs go</span></a>
+<a class="sourceLine" id="cb27-3" data-line-number="3">plt.plot([x1,x1, x2, x2], [y1, y2, y2, y1], linewidth<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">&#39;k&#39;</span>) <span class="co"># stats line</span></a>
+<a class="sourceLine" id="cb27-4" data-line-number="4">plt.text((x1<span class="op">+</span>x2)<span class="op">*</span>.<span class="dv">5</span>, y2<span class="op">+</span><span class="dv">2</span>, <span class="st">&quot;p=0.09&quot;</span>, ha<span class="op">=</span><span class="st">&#39;center&#39;</span>, va<span class="op">=</span><span class="st">&#39;bottom&#39;</span>, fontsize<span class="op">=</span><span class="dv">8</span>) <span class="co"># p-value or sig</span></a></code></pre></div>
 <p>Sometimes it is helpful to get the number of rows associated with a sample and plot that by sample. Here is a way to accomplish this.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">counts <span class="op">=</span> all_vars.Sample_Name.value_counts().reset_index()
-counts <span class="op">=</span> counts.rename(columns<span class="op">=</span>{<span class="st">&#39;index&#39;</span>:<span class="st">&#39;Sample_Name&#39;</span>,<span class="st">&#39;Sample_Name&#39;</span>:<span class="st">&#39;Var_Count&#39;</span>})
-
-all_vars <span class="op">=</span> pd.merge(all_vars, counts, how<span class="op">=</span><span class="st">&#39;inner&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;Sample_Name&#39;</span>])</code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb28-1" data-line-number="1">counts <span class="op">=</span> all_vars.Sample_Name.value_counts().reset_index()</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">counts <span class="op">=</span> counts.rename(columns<span class="op">=</span>{<span class="st">&#39;index&#39;</span>:<span class="st">&#39;Sample_Name&#39;</span>,<span class="st">&#39;Sample_Name&#39;</span>:<span class="st">&#39;Var_Count&#39;</span>})</a>
+<a class="sourceLine" id="cb28-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb28-4" data-line-number="4">all_vars <span class="op">=</span> pd.merge(all_vars, counts, how<span class="op">=</span><span class="st">&#39;inner&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;Sample_Name&#39;</span>])</a></code></pre></div>
 </div>
 <div id="statistics" class="section level2">
 <h2><span class="header-section-number">4.4</span> Statistics</h2>
 <p>This is a two-sided T-test for the null hypothesis that two populations have the same means. It is important to note that it assumes the population variances are the same, so this must be changed if the assumption is incorrect.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># ttest_ind(a, b, axis=0, equal_var=True, nan_policy=&#39;propagate&#39;)</span>
-<span class="im">from</span> scipy.stats <span class="im">import</span> ttest_ind
-ttest_ind(df[df[<span class="st">&#39;sample&#39;</span>] <span class="op">==</span> <span class="st">&#39;one&#39;</span>][<span class="st">&#39;means&#39;</span>], df[df[<span class="st">&#39;sample&#39;</span>] <span class="op">==</span> <span class="st">&#39;two&#39;</span>][<span class="st">&#39;means&#39;</span>])</code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="co"># ttest_ind(a, b, axis=0, equal_var=True, nan_policy=&#39;propagate&#39;)</span></a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="im">from</span> scipy.stats <span class="im">import</span> ttest_ind</a>
+<a class="sourceLine" id="cb29-3" data-line-number="3">ttest_ind(df[df[<span class="st">&#39;sample&#39;</span>] <span class="op">==</span> <span class="st">&#39;one&#39;</span>][<span class="st">&#39;means&#39;</span>], df[df[<span class="st">&#39;sample&#39;</span>] <span class="op">==</span> <span class="st">&#39;two&#39;</span>][<span class="st">&#39;means&#39;</span>])</a></code></pre></div>
 </div>
 <div id="various-plot-styles" class="section level2">
 <h2><span class="header-section-number">4.5</span> Various Plot Styles</h2>
 <p>This displays each individual datapoint overlayed on a boxplot</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">ax <span class="op">=</span> sns.boxplot(x<span class="op">=</span><span class="st">&#39;day&#39;</span>, y<span class="op">=</span><span class="st">&#39;total_bill&#39;</span>, data<span class="op">=</span>tips)
-ax <span class="op">=</span> sns.swarmplot(x<span class="op">=</span><span class="st">&#39;day&#39;</span>, y<span class="op">=</span><span class="st">&#39;total_bill&#39;</span>, data<span class="op">=</span>tips, color<span class="op">=</span><span class="st">&#39;.25&#39;</span>)</code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb30-1" data-line-number="1">ax <span class="op">=</span> sns.boxplot(x<span class="op">=</span><span class="st">&#39;day&#39;</span>, y<span class="op">=</span><span class="st">&#39;total_bill&#39;</span>, data<span class="op">=</span>tips)</a>
+<a class="sourceLine" id="cb30-2" data-line-number="2">ax <span class="op">=</span> sns.swarmplot(x<span class="op">=</span><span class="st">&#39;day&#39;</span>, y<span class="op">=</span><span class="st">&#39;total_bill&#39;</span>, data<span class="op">=</span>tips, color<span class="op">=</span><span class="st">&#39;.25&#39;</span>)</a></code></pre></div>
 
 </div>
 </div>
@@ -429,11 +457,13 @@ ax <span class="op">=</span> sns.swarmplot(x<span class="op">=</span><span class
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({

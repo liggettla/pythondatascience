@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Git | Data Science With Python</title>
-  <meta name="description" content="Chapter 8 Git | Data Science With Python.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Chapter 8 Git | Data Science With Python." />
+  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Git | Data Science With Python" />
   <meta property="og:type" content="book" />
@@ -22,18 +21,18 @@
   <meta name="twitter:description" content="Chapter 8 Git | Data Science With Python." />
   
 
-<meta name="author" content="L A Liggett">
+<meta name="author" content="L A Liggett" />
 
 
-<meta name="date" content="2019-10-24">
+<meta name="date" content="2019-11-06" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="pandas.html">
-<link rel="next" href="vim.html">
+<link rel="prev" href="pandas.html"/>
+<link rel="next" href="vim.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -51,41 +53,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -127,6 +154,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3" data-path="biology.html"><a href="biology.html#ucsc-genome-browser"><i class="fa fa-check"></i><b>5.3</b> UCSC Genome Browser</a></li>
 <li class="chapter" data-level="5.4" data-path="biology.html"><a href="biology.html#ref-genome"><i class="fa fa-check"></i><b>5.4</b> Ref Genome</a></li>
 <li class="chapter" data-level="5.5" data-path="biology.html"><a href="biology.html#personal-information"><i class="fa fa-check"></i><b>5.5</b> Personal Information</a></li>
+<li class="chapter" data-level="5.6" data-path="biology.html"><a href="biology.html#gatk"><i class="fa fa-check"></i><b>5.6</b> GATK</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="io.html"><a href="io.html"><i class="fa fa-check"></i><b>6</b> Data I/O</a><ul>
 <li class="chapter" data-level="6.1" data-path="io.html"><a href="io.html#reading-data-files"><i class="fa fa-check"></i><b>6.1</b> Reading Data Files</a></li>
@@ -231,24 +259,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="git-setup" class="section level3">
 <h3><span class="header-section-number">8.1.1</span> Git Setup</h3>
 <p>The username and email needs to be added after git is installed.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> config --global user.name <span class="st">&quot;me&quot;</span>
-<span class="fu">git</span> config --global user.email <span class="st">&quot;me@gmail.com&quot;</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="fu">git</span> config --global user.name <span class="st">&quot;me&quot;</span></a>
+<a class="sourceLine" id="cb95-2" data-line-number="2"><span class="fu">git</span> config --global user.email <span class="st">&quot;me@gmail.com&quot;</span></a></code></pre></div>
 <p>After this information has been set, it can be checked.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> config --list</code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb96-1" data-line-number="1"><span class="fu">git</span> config --list</a></code></pre></div>
 </div>
 <div id="repository-initiation" class="section level3">
 <h3><span class="header-section-number">8.1.2</span> Repository Initiation</h3>
 <p>To setup a repository, create a folder with an initial file like a README and then initiate it.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> init
-<span class="fu">git</span> status</code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb97-1" data-line-number="1"><span class="fu">git</span> init</a>
+<a class="sourceLine" id="cb97-2" data-line-number="2"><span class="fu">git</span> status</a></code></pre></div>
 </div>
 <div id="mirror-on-online-repository" class="section level3">
 <h3><span class="header-section-number">8.1.3</span> Mirror on Online Repository</h3>
 <p>Create a repository on a repository like github, gitlab, bitbucket, or sourceforge. Then the local git repository can be synched with the online repository.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> remote add origin url-of-online-repository-here
-<span class="fu">git</span> push -u origin master</code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb98-1" data-line-number="1"><span class="fu">git</span> remote add origin url-of-online-repository-here</a>
+<a class="sourceLine" id="cb98-2" data-line-number="2"><span class="fu">git</span> push -u origin master</a></code></pre></div>
 <p>Of course the repository could just be setup first and then cloned.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> clone url-of-online-repository-here</code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb99-1" data-line-number="1"><span class="fu">git</span> clone url-of-online-repository-here</a></code></pre></div>
 </div>
 </div>
 <div id="manipulating-commits" class="section level2">
@@ -256,33 +284,33 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="repository-status" class="section level3">
 <h3><span class="header-section-number">8.2.1</span> Repository Status</h3>
 <p>The commit history of a repository can be displayed in verbose form and in summarized form.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> log
-<span class="fu">git</span> log --oneline</code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb100-1" data-line-number="1"><span class="fu">git</span> log</a>
+<a class="sourceLine" id="cb100-2" data-line-number="2"><span class="fu">git</span> log --oneline</a></code></pre></div>
 </div>
 <div id="file-checkout" class="section level3">
 <h3><span class="header-section-number">8.2.2</span> File Checkout</h3>
 <p>To restore a previous version of a file it can be checked out by first identifying the version to be used using the log history and then restoring the desired file.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> log --oneline
-<span class="fu">git</span> checkout <span class="op">&lt;</span>commit number<span class="op">&gt;</span> file.txt</code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb101-1" data-line-number="1"><span class="fu">git</span> log --oneline</a>
+<a class="sourceLine" id="cb101-2" data-line-number="2"><span class="fu">git</span> checkout <span class="op">&lt;</span>commit number<span class="op">&gt;</span> file.txt</a></code></pre></div>
 </div>
 <div id="resetting-a-repository" class="section level3">
 <h3><span class="header-section-number">8.2.3</span> Resetting a Repository</h3>
 <p>To discard the effect of the previous operation on a file.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> reset HEAD file.txt</code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb102-1" data-line-number="1"><span class="fu">git</span> reset HEAD file.txt</a></code></pre></div>
 <p>The previous version of the a file can then be restored.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> checkout -- file.txt</code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb103-1" data-line-number="1"><span class="fu">git</span> checkout -- file.txt</a></code></pre></div>
 </div>
 <div id="branching" class="section level3">
 <h3><span class="header-section-number">8.2.4</span> Branching</h3>
 <p>Create a new branch.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> branch somenewfeature</code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb104-1" data-line-number="1"><span class="fu">git</span> branch somenewfeature</a></code></pre></div>
 <p>All current branches can then be listed.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> branch</code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb105-1" data-line-number="1"><span class="fu">git</span> branch</a></code></pre></div>
 <p>To then use the new branch, it needs to be checked out, and after checking it out, all changes will be specific to that new branch only.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> checkout somenewfeature</code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb106-1" data-line-number="1"><span class="fu">git</span> checkout somenewfeature</a></code></pre></div>
 <p>After committing changes to the new branch, if the branch is changed back to the master branch or another branch those changes will not longer be present as they are branch specific. If the changes should be merged back to the master branch checkout the master and then merge them in.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">git</span> checkout master
-<span class="fu">git</span> merge feature</code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb107-1" data-line-number="1"><span class="fu">git</span> checkout master</a>
+<a class="sourceLine" id="cb107-2" data-line-number="2"><span class="fu">git</span> merge feature</a></code></pre></div>
 
 </div>
 </div>
@@ -298,11 +326,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({

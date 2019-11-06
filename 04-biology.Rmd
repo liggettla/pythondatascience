@@ -67,3 +67,10 @@ from util import VCFObj
 vcfObj = VCFObj(vcfLine)
 # available attributes: ao, dp, af, wt, var, chrom, location
 ```
+
+## GATK
+The entire set of GATK software can be downloaded together [here]('https://software.broadinstitute.org/gatk/').  
+Methods and algorithms as they are run at the Broad can be found [here]('https://software.broadinstitute.org/gatk/documentation/topic?name=methods').  
+The Broad also has a number of [tutorials]('https://software.broadinstitute.org/gatk/documentation/topic?name=tutorials') that introduce some of the software packaged within GATK. 
+### Mutect2
+A [tutorial]('https://software.broadinstitute.org/gatk/documentation/article?id=24057') exists that introduces how Mutext2 can be used to call somatic mutations.
