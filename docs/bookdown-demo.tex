@@ -124,7 +124,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-11-06}
+    \date{2019-11-13}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -828,8 +828,29 @@ Get sequence from reference genome
 The entire set of GATK software can be downloaded together \href{'https://software.broadinstitute.org/gatk/'}{here}.\\
 Methods and algorithms as they are run at the Broad can be found \href{'https://software.broadinstitute.org/gatk/documentation/topic?name=methods'}{here}.\\
 The Broad also has a number of \href{'https://software.broadinstitute.org/gatk/documentation/topic?name=tutorials'}{tutorials} that introduce some of the software packaged within GATK.
-\#\#\# Mutect2
-A \href{'https://software.broadinstitute.org/gatk/documentation/article?id=24057'}{tutorial} exists that introduces how Mutext2 can be used to call somatic mutations.
+
+\hypertarget{mutect2}{%
+\subsection{Mutect2}\label{mutect2}}
+
+A \href{'https://software.broadinstitute.org/gatk/documentation/article?id=24057'}{tutorial} exists that introduces how Mutect2 can be used to call somatic mutations.\\
+In general Mutect2 can be run as in the following.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{..}\OperatorTok{/}\NormalTok{util}\OperatorTok{/}\NormalTok{gatk}\DecValTok{-4}\NormalTok{.}\DecValTok{1}\NormalTok{.}\FloatTok{4.0}\OperatorTok{/}\NormalTok{gatk Mutect2 }\OperatorTok{-}\NormalTok{R }\OperatorTok{/}\NormalTok{seq}\OperatorTok{/}\NormalTok{references}\OperatorTok{/}\NormalTok{Homo_sapiens_assembly38}\OperatorTok{/}\NormalTok{v0}\OperatorTok{/}\NormalTok{Homo_sapiens_assembly38.fasta }\OperatorTok{-}\NormalTok{I tumor.bam }\OperatorTok{-}\NormalTok{O unfiltered.vcf}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{samtools}{%
+\section{Samtools}\label{samtools}}
+
+Grab a single chromosomal region from a \texttt{.bam} file.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{samtools view }\OperatorTok{-}\NormalTok{b }\KeywordTok{in}\NormalTok{.bam chr1 }\OperatorTok{>}\NormalTok{ in_chr1.bam          }
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{io}{%
 \chapter{Data I/O}\label{io}}
@@ -1517,6 +1538,29 @@ After committing changes to the new branch, if the branch is changed back to the
 \begin{Highlighting}[]
 \FunctionTok{git}\NormalTok{ checkout master}
 \FunctionTok{git}\NormalTok{ merge feature}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{credential-caching}{%
+\section{Credential Caching}\label{credential-caching}}
+
+\href{'https://help.github.com/articles/caching-your-github-password-in-git/\#platform-linux'}{Credential caching} will allow the username and password to be stored so commits can be expedited.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ config credential.helper store}
+\FunctionTok{git}\NormalTok{ push https://github.com/owner/repo.git}
+
+\ExtensionTok{Username}\NormalTok{ for }\StringTok{'https://github.com'}\NormalTok{: }\OperatorTok{<}\NormalTok{USERNAME}\OperatorTok{>}
+\ExtensionTok{Password}\NormalTok{ for }\StringTok{'https://USERNAME@github.com'}\NormalTok{: }\OperatorTok{<}\NormalTok{PASSWORD}\OperatorTok{>}
+\end{Highlighting}
+\end{Shaded}
+
+To configure the caching to expire:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ config --global credential.helper }\StringTok{'cache --timeout 7200'}
 \end{Highlighting}
 \end{Shaded}
 

@@ -24,7 +24,7 @@
 <meta name="author" content="L A Liggett" />
 
 
-<meta name="date" content="2019-11-06" />
+<meta name="date" content="2019-11-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -154,7 +154,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3" data-path="biology.html"><a href="biology.html#ucsc-genome-browser"><i class="fa fa-check"></i><b>5.3</b> UCSC Genome Browser</a></li>
 <li class="chapter" data-level="5.4" data-path="biology.html"><a href="biology.html#ref-genome"><i class="fa fa-check"></i><b>5.4</b> Ref Genome</a></li>
 <li class="chapter" data-level="5.5" data-path="biology.html"><a href="biology.html#personal-information"><i class="fa fa-check"></i><b>5.5</b> Personal Information</a></li>
-<li class="chapter" data-level="5.6" data-path="biology.html"><a href="biology.html#gatk"><i class="fa fa-check"></i><b>5.6</b> GATK</a></li>
+<li class="chapter" data-level="5.6" data-path="biology.html"><a href="biology.html#gatk"><i class="fa fa-check"></i><b>5.6</b> GATK</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="biology.html"><a href="biology.html#mutect2"><i class="fa fa-check"></i><b>5.6.1</b> Mutect2</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="biology.html"><a href="biology.html#samtools"><i class="fa fa-check"></i><b>5.7</b> Samtools</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="io.html"><a href="io.html"><i class="fa fa-check"></i><b>6</b> Data I/O</a><ul>
 <li class="chapter" data-level="6.1" data-path="io.html"><a href="io.html#reading-data-files"><i class="fa fa-check"></i><b>6.1</b> Reading Data Files</a></li>
@@ -186,6 +189,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2.3" data-path="git.html"><a href="git.html#resetting-a-repository"><i class="fa fa-check"></i><b>8.2.3</b> Resetting a Repository</a></li>
 <li class="chapter" data-level="8.2.4" data-path="git.html"><a href="git.html#branching"><i class="fa fa-check"></i><b>8.2.4</b> Branching</a></li>
 </ul></li>
+<li class="chapter" data-level="8.3" data-path="git.html"><a href="git.html#credential-caching"><i class="fa fa-check"></i><b>8.3</b> Credential Caching</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vim.html"><a href="vim.html"><i class="fa fa-check"></i><b>9</b> VIM</a><ul>
 <li class="chapter" data-level="9.1" data-path="vim.html"><a href="vim.html#formatting"><i class="fa fa-check"></i><b>9.1</b> Formatting</a></li>
@@ -257,28 +261,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="formatting" class="section level2">
 <h2><span class="header-section-number">9.1</span> Formatting</h2>
 <p>Automatic newlines are inserted by default; this behavior can be overidden with the following.</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb108-1" data-line-number="1">:<span class="ex">set</span> wrap</a>
-<a class="sourceLine" id="cb108-2" data-line-number="2">:<span class="ex">set</span> textwidth=0 wrapmargin=0</a></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb112-1" data-line-number="1">:<span class="ex">set</span> wrap</a>
+<a class="sourceLine" id="cb112-2" data-line-number="2">:<span class="ex">set</span> textwidth=0 wrapmargin=0</a></code></pre></div>
 </div>
 <div id="spellcheck" class="section level2">
 <h2><span class="header-section-number">9.2</span> Spellcheck</h2>
 <p>To setup spellchecking first setup a personal dictionary file.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb109-1" data-line-number="1"><span class="co"># make a directory for personal dictionary</span></a>
-<a class="sourceLine" id="cb109-2" data-line-number="2"><span class="fu">mkdir</span> -p ~/.vim/spell/</a></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb113-1" data-line-number="1"><span class="co"># make a directory for personal dictionary</span></a>
+<a class="sourceLine" id="cb113-2" data-line-number="2"><span class="fu">mkdir</span> -p ~/.vim/spell/</a></code></pre></div>
 <p>Then refer to the dictionary file within VIM, and enable spellchecking.</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb110-1" data-line-number="1"><span class="co"># set personal dictionary</span></a>
-<a class="sourceLine" id="cb110-2" data-line-number="2">:<span class="ex">set</span> spellfile=~/.vim/spell/en.utf-8.add</a>
-<a class="sourceLine" id="cb110-3" data-line-number="3"><span class="co"># turn spellcheck on</span></a>
-<a class="sourceLine" id="cb110-4" data-line-number="4">:<span class="ex">set</span> spell</a></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb114-1" data-line-number="1"><span class="co"># set personal dictionary</span></a>
+<a class="sourceLine" id="cb114-2" data-line-number="2">:<span class="ex">set</span> spellfile=~/.vim/spell/en.utf-8.add</a>
+<a class="sourceLine" id="cb114-3" data-line-number="3"><span class="co"># turn spellcheck on</span></a>
+<a class="sourceLine" id="cb114-4" data-line-number="4">:<span class="ex">set</span> spell</a></code></pre></div>
 <p>Get spellcheck commands.</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb111-1" data-line-number="1">:<span class="ex">help</span> spell</a></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb115-1" data-line-number="1">:<span class="ex">help</span> spell</a></code></pre></div>
 <p>Add a word to personal dictionary.</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb112-1" data-line-number="1"><span class="ex">zg</span></a></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb116-1" data-line-number="1"><span class="ex">zg</span></a></code></pre></div>
 <p>Move to next and previous misspelled word.</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb113-1" data-line-number="1">]<span class="ex">s</span></a>
-<a class="sourceLine" id="cb113-2" data-line-number="2">[<span class="ex">s</span></a></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb117-1" data-line-number="1">]<span class="ex">s</span></a>
+<a class="sourceLine" id="cb117-2" data-line-number="2">[<span class="ex">s</span></a></code></pre></div>
 <p>Get suggestions for misspelled word.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb114-1" data-line-number="1"><span class="va">z=</span></a></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb118-1" data-line-number="1"><span class="va">z=</span></a></code></pre></div>
 
 </div>
 </div>
