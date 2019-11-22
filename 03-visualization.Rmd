@@ -230,3 +230,28 @@ This displays each individual datapoint overlayed on a boxplot
 ax = sns.boxplot(x='day', y='total_bill', data=tips)
 ax = sns.swarmplot(x='day', y='total_bill', data=tips, color='.25')
 ```
+
+### Countplot: Multiple Samples / Error Bars
+The typical seaborn countplot appears to only perform counts for each sample or a total from multiple samples, and therefore will not group by sample and compute error over the samples. The following code will group samples by a particular column, then calculate counts for the data in another column, and then plot the counts with error bars, colored by another column.
+```{python eval=FALSE}
+# only retain somatic substitutions
+substitutions = filtered[filtered.Change.str.len() == 3]
+somatic = substitutions[substitutions.Group == 'Somatic']
+
+# group mutations together by change
+somatic = pd.DataFrame(somatic.groupby('Sample').Change.value_counts())
+somatic.index = somatic.index.set_names(['Sample','Mut'])
+somatic.reset_index(inplace=True)
+somatic = somatic.rename(columns={'Mut':'Change', 'Change':'Count'})
+
+# label data as clonal or typical
+key = substitutions[['Sample','Clonality']].drop_duplicates('Sample')
+somatic = pd.merge(somatic, key, how='left', on=['Sample'])
+
+plt.figure()
+sns.barplot(x='Change', y='Count', hue='Clonality', data=somatic)
+plt.xticks(rotation=90)
+pretty()
+```
+
+

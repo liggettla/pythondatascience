@@ -718,6 +718,34 @@ This displays each individual datapoint overlayed on a boxplot
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{countplot-multiple-samples-error-bars}{%
+\subsection{Countplot: Multiple Samples / Error Bars}\label{countplot-multiple-samples-error-bars}}
+
+The typical seaborn countplot appears to only perform counts for each sample or a total from multiple samples, and therefore will not group by sample and compute error over the samples. The following code will group samples by a particular column, then calculate counts for the data in another column, and then plot the counts with error bars, colored by another column.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# only retain somatic substitutions}
+\NormalTok{substitutions }\OperatorTok{=}\NormalTok{ filtered[filtered.Change.}\BuiltInTok{str}\NormalTok{.}\BuiltInTok{len}\NormalTok{() }\OperatorTok{==} \DecValTok{3}\NormalTok{]}
+\NormalTok{somatic }\OperatorTok{=}\NormalTok{ substitutions[substitutions.Group }\OperatorTok{==} \StringTok{'Somatic'}\NormalTok{]}
+
+\CommentTok{# group mutations together by change}
+\NormalTok{somatic }\OperatorTok{=}\NormalTok{ pd.DataFrame(somatic.groupby(}\StringTok{'Sample'}\NormalTok{).Change.value_counts())}
+\NormalTok{somatic.index }\OperatorTok{=}\NormalTok{ somatic.index.set_names([}\StringTok{'Sample'}\NormalTok{,}\StringTok{'Mut'}\NormalTok{])}
+\NormalTok{somatic.reset_index(inplace}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\NormalTok{somatic }\OperatorTok{=}\NormalTok{ somatic.rename(columns}\OperatorTok{=}\NormalTok{\{}\StringTok{'Mut'}\NormalTok{:}\StringTok{'Change'}\NormalTok{, }\StringTok{'Change'}\NormalTok{:}\StringTok{'Count'}\NormalTok{\})}
+
+\CommentTok{# label data as clonal or typical}
+\NormalTok{key }\OperatorTok{=}\NormalTok{ substitutions[[}\StringTok{'Sample'}\NormalTok{,}\StringTok{'Clonality'}\NormalTok{]].drop_duplicates(}\StringTok{'Sample'}\NormalTok{)}
+\NormalTok{somatic }\OperatorTok{=}\NormalTok{ pd.merge(somatic, key, how}\OperatorTok{=}\StringTok{'left'}\NormalTok{, on}\OperatorTok{=}\NormalTok{[}\StringTok{'Sample'}\NormalTok{])}
+
+\NormalTok{plt.figure()}
+\NormalTok{sns.barplot(x}\OperatorTok{=}\StringTok{'Change'}\NormalTok{, y}\OperatorTok{=}\StringTok{'Count'}\NormalTok{, hue}\OperatorTok{=}\StringTok{'Clonality'}\NormalTok{, data}\OperatorTok{=}\NormalTok{somatic)}
+\NormalTok{plt.xticks(rotation}\OperatorTok{=}\DecValTok{90}\NormalTok{)}
+\NormalTok{pretty()}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{biology}{%
 \chapter{Biology}\label{biology}}
 

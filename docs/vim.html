@@ -146,7 +146,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="visualization.html"><a href="visualization.html#matplotlib"><i class="fa fa-check"></i><b>4.2</b> Matplotlib</a></li>
 <li class="chapter" data-level="4.3" data-path="visualization.html"><a href="visualization.html#seaborn"><i class="fa fa-check"></i><b>4.3</b> Seaborn</a></li>
 <li class="chapter" data-level="4.4" data-path="visualization.html"><a href="visualization.html#statistics"><i class="fa fa-check"></i><b>4.4</b> Statistics</a></li>
-<li class="chapter" data-level="4.5" data-path="visualization.html"><a href="visualization.html#various-plot-styles"><i class="fa fa-check"></i><b>4.5</b> Various Plot Styles</a></li>
+<li class="chapter" data-level="4.5" data-path="visualization.html"><a href="visualization.html#various-plot-styles"><i class="fa fa-check"></i><b>4.5</b> Various Plot Styles</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="visualization.html"><a href="visualization.html#countplot-multiple-samples-error-bars"><i class="fa fa-check"></i><b>4.5.1</b> Countplot: Multiple Samples / Error Bars</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="biology.html"><a href="biology.html"><i class="fa fa-check"></i><b>5</b> Biology</a><ul>
 <li class="chapter" data-level="5.1" data-path="biology.html"><a href="biology.html#general-1"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
@@ -263,28 +265,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="formatting" class="section level2">
 <h2><span class="header-section-number">9.1</span> Formatting</h2>
 <p>Automatic newlines are inserted by default; this behavior can be overidden with the following.</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb113-1" data-line-number="1">:<span class="ex">set</span> wrap</a>
-<a class="sourceLine" id="cb113-2" data-line-number="2">:<span class="ex">set</span> textwidth=0 wrapmargin=0</a></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb114-1" data-line-number="1">:<span class="ex">set</span> wrap</a>
+<a class="sourceLine" id="cb114-2" data-line-number="2">:<span class="ex">set</span> textwidth=0 wrapmargin=0</a></code></pre></div>
 </div>
 <div id="spellcheck" class="section level2">
 <h2><span class="header-section-number">9.2</span> Spellcheck</h2>
 <p>To setup spellchecking first setup a personal dictionary file.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb114-1" data-line-number="1"><span class="co"># make a directory for personal dictionary</span></a>
-<a class="sourceLine" id="cb114-2" data-line-number="2"><span class="fu">mkdir</span> -p ~/.vim/spell/</a></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb115-1" data-line-number="1"><span class="co"># make a directory for personal dictionary</span></a>
+<a class="sourceLine" id="cb115-2" data-line-number="2"><span class="fu">mkdir</span> -p ~/.vim/spell/</a></code></pre></div>
 <p>Then refer to the dictionary file within VIM, and enable spellchecking.</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb115-1" data-line-number="1"><span class="co"># set personal dictionary</span></a>
-<a class="sourceLine" id="cb115-2" data-line-number="2">:<span class="ex">set</span> spellfile=~/.vim/spell/en.utf-8.add</a>
-<a class="sourceLine" id="cb115-3" data-line-number="3"><span class="co"># turn spellcheck on</span></a>
-<a class="sourceLine" id="cb115-4" data-line-number="4">:<span class="ex">set</span> spell</a></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb116-1" data-line-number="1"><span class="co"># set personal dictionary</span></a>
+<a class="sourceLine" id="cb116-2" data-line-number="2">:<span class="ex">set</span> spellfile=~/.vim/spell/en.utf-8.add</a>
+<a class="sourceLine" id="cb116-3" data-line-number="3"><span class="co"># turn spellcheck on</span></a>
+<a class="sourceLine" id="cb116-4" data-line-number="4">:<span class="ex">set</span> spell</a></code></pre></div>
 <p>Get spellcheck commands.</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb116-1" data-line-number="1">:<span class="ex">help</span> spell</a></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb117-1" data-line-number="1">:<span class="ex">help</span> spell</a></code></pre></div>
 <p>Add a word to personal dictionary.</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb117-1" data-line-number="1"><span class="ex">zg</span></a></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb118-1" data-line-number="1"><span class="ex">zg</span></a></code></pre></div>
 <p>Move to next and previous misspelled word.</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb118-1" data-line-number="1">]<span class="ex">s</span></a>
-<a class="sourceLine" id="cb118-2" data-line-number="2">[<span class="ex">s</span></a></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb119-1" data-line-number="1">]<span class="ex">s</span></a>
+<a class="sourceLine" id="cb119-2" data-line-number="2">[<span class="ex">s</span></a></code></pre></div>
 <p>Get suggestions for misspelled word.</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb119-1" data-line-number="1"><span class="va">z=</span></a></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb120-1" data-line-number="1"><span class="va">z=</span></a></code></pre></div>
 
 </div>
 </div>

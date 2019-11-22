@@ -146,7 +146,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="visualization.html"><a href="visualization.html#matplotlib"><i class="fa fa-check"></i><b>4.2</b> Matplotlib</a></li>
 <li class="chapter" data-level="4.3" data-path="visualization.html"><a href="visualization.html#seaborn"><i class="fa fa-check"></i><b>4.3</b> Seaborn</a></li>
 <li class="chapter" data-level="4.4" data-path="visualization.html"><a href="visualization.html#statistics"><i class="fa fa-check"></i><b>4.4</b> Statistics</a></li>
-<li class="chapter" data-level="4.5" data-path="visualization.html"><a href="visualization.html#various-plot-styles"><i class="fa fa-check"></i><b>4.5</b> Various Plot Styles</a></li>
+<li class="chapter" data-level="4.5" data-path="visualization.html"><a href="visualization.html#various-plot-styles"><i class="fa fa-check"></i><b>4.5</b> Various Plot Styles</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="visualization.html"><a href="visualization.html#countplot-multiple-samples-error-bars"><i class="fa fa-check"></i><b>4.5.1</b> Countplot: Multiple Samples / Error Bars</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="biology.html"><a href="biology.html"><i class="fa fa-check"></i><b>5</b> Biology</a><ul>
 <li class="chapter" data-level="5.1" data-path="biology.html"><a href="biology.html#general-1"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
@@ -449,7 +451,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This displays each individual datapoint overlayed on a boxplot</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb30-1" data-line-number="1">ax <span class="op">=</span> sns.boxplot(x<span class="op">=</span><span class="st">&#39;day&#39;</span>, y<span class="op">=</span><span class="st">&#39;total_bill&#39;</span>, data<span class="op">=</span>tips)</a>
 <a class="sourceLine" id="cb30-2" data-line-number="2">ax <span class="op">=</span> sns.swarmplot(x<span class="op">=</span><span class="st">&#39;day&#39;</span>, y<span class="op">=</span><span class="st">&#39;total_bill&#39;</span>, data<span class="op">=</span>tips, color<span class="op">=</span><span class="st">&#39;.25&#39;</span>)</a></code></pre></div>
+<div id="countplot-multiple-samples-error-bars" class="section level3">
+<h3><span class="header-section-number">4.5.1</span> Countplot: Multiple Samples / Error Bars</h3>
+<p>The typical seaborn countplot appears to only perform counts for each sample or a total from multiple samples, and therefore will not group by sample and compute error over the samples. The following code will group samples by a particular column, then calculate counts for the data in another column, and then plot the counts with error bars, colored by another column.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co"># only retain somatic substitutions</span></a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">substitutions <span class="op">=</span> filtered[filtered.Change.<span class="bu">str</span>.<span class="bu">len</span>() <span class="op">==</span> <span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb31-3" data-line-number="3">somatic <span class="op">=</span> substitutions[substitutions.Group <span class="op">==</span> <span class="st">&#39;Somatic&#39;</span>]</a>
+<a class="sourceLine" id="cb31-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb31-5" data-line-number="5"><span class="co"># group mutations together by change</span></a>
+<a class="sourceLine" id="cb31-6" data-line-number="6">somatic <span class="op">=</span> pd.DataFrame(somatic.groupby(<span class="st">&#39;Sample&#39;</span>).Change.value_counts())</a>
+<a class="sourceLine" id="cb31-7" data-line-number="7">somatic.index <span class="op">=</span> somatic.index.set_names([<span class="st">&#39;Sample&#39;</span>,<span class="st">&#39;Mut&#39;</span>])</a>
+<a class="sourceLine" id="cb31-8" data-line-number="8">somatic.reset_index(inplace<span class="op">=</span><span class="va">True</span>)</a>
+<a class="sourceLine" id="cb31-9" data-line-number="9">somatic <span class="op">=</span> somatic.rename(columns<span class="op">=</span>{<span class="st">&#39;Mut&#39;</span>:<span class="st">&#39;Change&#39;</span>, <span class="st">&#39;Change&#39;</span>:<span class="st">&#39;Count&#39;</span>})</a>
+<a class="sourceLine" id="cb31-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb31-11" data-line-number="11"><span class="co"># label data as clonal or typical</span></a>
+<a class="sourceLine" id="cb31-12" data-line-number="12">key <span class="op">=</span> substitutions[[<span class="st">&#39;Sample&#39;</span>,<span class="st">&#39;Clonality&#39;</span>]].drop_duplicates(<span class="st">&#39;Sample&#39;</span>)</a>
+<a class="sourceLine" id="cb31-13" data-line-number="13">somatic <span class="op">=</span> pd.merge(somatic, key, how<span class="op">=</span><span class="st">&#39;left&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;Sample&#39;</span>])</a>
+<a class="sourceLine" id="cb31-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb31-15" data-line-number="15">plt.figure()</a>
+<a class="sourceLine" id="cb31-16" data-line-number="16">sns.barplot(x<span class="op">=</span><span class="st">&#39;Change&#39;</span>, y<span class="op">=</span><span class="st">&#39;Count&#39;</span>, hue<span class="op">=</span><span class="st">&#39;Clonality&#39;</span>, data<span class="op">=</span>somatic)</a>
+<a class="sourceLine" id="cb31-17" data-line-number="17">plt.xticks(rotation<span class="op">=</span><span class="dv">90</span>)</a>
+<a class="sourceLine" id="cb31-18" data-line-number="18">pretty()</a></code></pre></div>
 
+</div>
 </div>
 </div>
             </section>
