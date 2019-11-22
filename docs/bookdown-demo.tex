@@ -124,7 +124,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-11-13}
+    \date{2019-11-22}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -1276,7 +1276,7 @@ Substrings can be extracted from each row or column using the \texttt{str} funct
 \end{Shaded}
 
 \hypertarget{replace-values}{%
-\subsection{Replace values}\label{replace-values}}
+\subsection{Replace Values}\label{replace-values}}
 
 New data can be set within a DataFrame one subset at a time in a way that will avoid the SettingWithCopyWarning.
 
@@ -1341,6 +1341,17 @@ The mean of column values can be calculated where each of the columns is grouped
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{temp[[}\StringTok{'Sample'}\NormalTok{,}\StringTok{'VAF'}\NormalTok{,}\StringTok{'Var_Count'}\NormalTok{]].groupby(}\StringTok{'Sample'}\NormalTok{).mean()}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{adding-classifier-columns}{%
+\subsection{Adding Classifier Columns}\label{adding-classifier-columns}}
+
+New columns can be added that describe the data in another column using some conditional statement.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df[}\StringTok{'Size'}\NormalTok{] }\OperatorTok{=}\NormalTok{ np.where(df[}\StringTok{'Height'}\NormalTok{] }\OperatorTok{<=} \DecValTok{5}\NormalTok{, }\StringTok{'Short'}\NormalTok{, }\StringTok{'Tall'}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Pandas | Data Science With Python</title>
   <meta name="description" content="Chapter 7 Pandas | Data Science With Python." />
-  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Pandas | Data Science With Python" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="L A Liggett" />
 
 
-<meta name="date" content="2019-11-13" />
+<meta name="date" content="2019-11-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -171,10 +171,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.5" data-path="pandas.html"><a href="pandas.html#relabeling"><i class="fa fa-check"></i><b>7.5</b> Relabeling</a></li>
 <li class="chapter" data-level="7.6" data-path="pandas.html"><a href="pandas.html#sorting-and-arranging"><i class="fa fa-check"></i><b>7.6</b> Sorting and Arranging</a></li>
 <li class="chapter" data-level="7.7" data-path="pandas.html"><a href="pandas.html#editing-data"><i class="fa fa-check"></i><b>7.7</b> Editing Data</a><ul>
-<li class="chapter" data-level="7.7.1" data-path="pandas.html"><a href="pandas.html#replace-values"><i class="fa fa-check"></i><b>7.7.1</b> Replace values</a></li>
+<li class="chapter" data-level="7.7.1" data-path="pandas.html"><a href="pandas.html#replace-values"><i class="fa fa-check"></i><b>7.7.1</b> Replace Values</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="pandas.html"><a href="pandas.html#combining-data-structures"><i class="fa fa-check"></i><b>7.8</b> Combining Data Structures</a></li>
-<li class="chapter" data-level="7.9" data-path="pandas.html"><a href="pandas.html#summarizing"><i class="fa fa-check"></i><b>7.9</b> Summarizing</a></li>
+<li class="chapter" data-level="7.9" data-path="pandas.html"><a href="pandas.html#summarizing"><i class="fa fa-check"></i><b>7.9</b> Summarizing</a><ul>
+<li class="chapter" data-level="7.9.1" data-path="pandas.html"><a href="pandas.html#adding-classifier-columns"><i class="fa fa-check"></i><b>7.9.1</b> Adding Classifier Columns</a></li>
+</ul></li>
 <li class="chapter" data-level="7.10" data-path="pandas.html"><a href="pandas.html#arithmetic-and-rowcolumn-wise-analysis"><i class="fa fa-check"></i><b>7.10</b> Arithmetic and Row/Column-wise Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="git.html"><a href="git.html"><i class="fa fa-check"></i><b>8</b> Git</a><ul>
@@ -401,7 +403,7 @@ The following code sorts the values within the columns a and b.</p>
 <p>Substrings can be extracted from each row or column using the <code>str</code> functionality.</p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb85-1" data-line-number="1">Series.<span class="bu">str</span>.<span class="bu">slice</span>(start<span class="op">=</span><span class="dv">0</span>,stop<span class="op">=</span><span class="dv">7</span>,step<span class="op">=</span><span class="dv">1</span>)</a></code></pre></div>
 <div id="replace-values" class="section level3">
-<h3><span class="header-section-number">7.7.1</span> Replace values</h3>
+<h3><span class="header-section-number">7.7.1</span> Replace Values</h3>
 <p>New data can be set within a DataFrame one subset at a time in a way that will avoid the SettingWithCopyWarning.</p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="im">import</span> pandas <span class="im">as</span> pd</a>
 <a class="sourceLine" id="cb86-2" data-line-number="2">df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;Trait&#39;</span>:[<span class="st">&#39;Seed_Shape&#39;</span>,<span class="st">&#39;Seed_Shape&#39;</span>,<span class="st">&#39;Flower_Color&#39;</span>,<span class="st">&#39;Flower_Color&#39;</span>],</a>
@@ -436,33 +438,38 @@ inner: use intersection of keys from both frames, similar to a SQL inner join; p
 <h2><span class="header-section-number">7.9</span> Summarizing</h2>
 <p>The mean of column values can be calculated where each of the columns is grouped by the data in a specified column.</p>
 <div class="sourceCode" id="cb91"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb91-1" data-line-number="1">temp[[<span class="st">&#39;Sample&#39;</span>,<span class="st">&#39;VAF&#39;</span>,<span class="st">&#39;Var_Count&#39;</span>]].groupby(<span class="st">&#39;Sample&#39;</span>).mean()</a></code></pre></div>
+<div id="adding-classifier-columns" class="section level3">
+<h3><span class="header-section-number">7.9.1</span> Adding Classifier Columns</h3>
+<p>New columns can be added that describe the data in another column using some conditional statement.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb92-1" data-line-number="1">df[<span class="st">&#39;Size&#39;</span>] <span class="op">=</span> np.where(df[<span class="st">&#39;Height&#39;</span>] <span class="op">&lt;=</span> <span class="dv">5</span>, <span class="st">&#39;Short&#39;</span>, <span class="st">&#39;Tall&#39;</span>)</a></code></pre></div>
+</div>
 </div>
 <div id="arithmetic-and-rowcolumn-wise-analysis" class="section level2">
 <h2><span class="header-section-number">7.10</span> Arithmetic and Row/Column-wise Analysis</h2>
 <p>Sometimes it is helpful to analyze the value in a particular cell in a conditional manner depending on it’s value and then set the result of this analysis to a corresponding cell in a new column. Here is an example where the VAF of a variant is conditionally analyzed.</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="kw">def</span> LOH(x):</a>
-<a class="sourceLine" id="cb92-2" data-line-number="2">    <span class="cf">if</span> x <span class="op">&gt;</span> <span class="fl">0.75</span>: <span class="cf">return</span> <span class="dv">1</span> <span class="op">-</span> x</a>
-<a class="sourceLine" id="cb92-3" data-line-number="3">    <span class="cf">elif</span> x <span class="op">&lt;=</span> <span class="fl">0.75</span> <span class="kw">and</span> x <span class="op">&gt;</span> <span class="fl">0.25</span>: <span class="cf">return</span> <span class="bu">abs</span>(<span class="fl">0.5</span> <span class="op">-</span> x)</a>
-<a class="sourceLine" id="cb92-4" data-line-number="4">    <span class="cf">else</span>: <span class="cf">return</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb92-5" data-line-number="5">all_vars[<span class="st">&#39;LOH&#39;</span>] <span class="op">=</span> all_vars.VAF.transform(LOH)</a>
-<a class="sourceLine" id="cb92-6" data-line-number="6">max_loh <span class="op">=</span> all_vars.groupby(<span class="st">&#39;Sample&#39;</span>).LOH.<span class="bu">max</span>().reset_index().rename(columns<span class="op">=</span>{<span class="st">&#39;LOH&#39;</span>:<span class="st">&#39;Max_LOH&#39;</span>})</a>
-<a class="sourceLine" id="cb92-7" data-line-number="7">all_vars <span class="op">=</span> pd.merge(all_vars, max_loh, how<span class="op">=</span><span class="st">&#39;inner&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;Sample&#39;</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="kw">def</span> LOH(x):</a>
+<a class="sourceLine" id="cb93-2" data-line-number="2">    <span class="cf">if</span> x <span class="op">&gt;</span> <span class="fl">0.75</span>: <span class="cf">return</span> <span class="dv">1</span> <span class="op">-</span> x</a>
+<a class="sourceLine" id="cb93-3" data-line-number="3">    <span class="cf">elif</span> x <span class="op">&lt;=</span> <span class="fl">0.75</span> <span class="kw">and</span> x <span class="op">&gt;</span> <span class="fl">0.25</span>: <span class="cf">return</span> <span class="bu">abs</span>(<span class="fl">0.5</span> <span class="op">-</span> x)</a>
+<a class="sourceLine" id="cb93-4" data-line-number="4">    <span class="cf">else</span>: <span class="cf">return</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb93-5" data-line-number="5">all_vars[<span class="st">&#39;LOH&#39;</span>] <span class="op">=</span> all_vars.VAF.transform(LOH)</a>
+<a class="sourceLine" id="cb93-6" data-line-number="6">max_loh <span class="op">=</span> all_vars.groupby(<span class="st">&#39;Sample&#39;</span>).LOH.<span class="bu">max</span>().reset_index().rename(columns<span class="op">=</span>{<span class="st">&#39;LOH&#39;</span>:<span class="st">&#39;Max_LOH&#39;</span>})</a>
+<a class="sourceLine" id="cb93-7" data-line-number="7">all_vars <span class="op">=</span> pd.merge(all_vars, max_loh, how<span class="op">=</span><span class="st">&#39;inner&#39;</span>, on<span class="op">=</span>[<span class="st">&#39;Sample&#39;</span>])</a></code></pre></div>
 <p>Broadcasting arithmetic is an efficient method of calculating across an entire DataFrame.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb93-1" data-line-number="1">frame <span class="op">=</span> pd.DataFrame(np.arange(<span class="fl">12.</span>).reshape((<span class="dv">4</span>,<span class="dv">3</span>)), columns<span class="op">=</span><span class="bu">list</span>(<span class="st">&#39;bde&#39;</span>), index<span class="op">=</span>[<span class="st">&#39;Utah&#39;</span>,<span class="st">&#39;Ohio&#39;</span>,<span class="st">&#39;Texas&#39;</span>,<span class="st">&#39;Oregon&#39;</span>]</a>
-<a class="sourceLine" id="cb93-2" data-line-number="2">series <span class="op">=</span> frame.iloc[<span class="dv">0</span>]</a>
-<a class="sourceLine" id="cb93-3" data-line-number="3">frame <span class="op">-</span> series</a>
-<a class="sourceLine" id="cb93-4" data-line-number="4"><span class="co"># the subtraction function could also be used</span></a>
-<a class="sourceLine" id="cb93-5" data-line-number="5"><span class="co"># frame.sub(series, axis=&#39;columns&#39;)</span></a></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb94-1" data-line-number="1">frame <span class="op">=</span> pd.DataFrame(np.arange(<span class="fl">12.</span>).reshape((<span class="dv">4</span>,<span class="dv">3</span>)), columns<span class="op">=</span><span class="bu">list</span>(<span class="st">&#39;bde&#39;</span>), index<span class="op">=</span>[<span class="st">&#39;Utah&#39;</span>,<span class="st">&#39;Ohio&#39;</span>,<span class="st">&#39;Texas&#39;</span>,<span class="st">&#39;Oregon&#39;</span>]</a>
+<a class="sourceLine" id="cb94-2" data-line-number="2">series <span class="op">=</span> frame.iloc[<span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb94-3" data-line-number="3">frame <span class="op">-</span> series</a>
+<a class="sourceLine" id="cb94-4" data-line-number="4"><span class="co"># the subtraction function could also be used</span></a>
+<a class="sourceLine" id="cb94-5" data-line-number="5"><span class="co"># frame.sub(series, axis=&#39;columns&#39;)</span></a></code></pre></div>
 <p>Apply a function to each row or column.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb94-1" data-line-number="1">f <span class="op">=</span> <span class="kw">lambda</span> x: x.<span class="bu">max</span>() <span class="op">-</span> x.<span class="bu">min</span>()</a>
-<a class="sourceLine" id="cb94-2" data-line-number="2">frame.<span class="bu">apply</span>(f, axis<span class="op">=</span><span class="st">&#39;index&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb95-1" data-line-number="1">f <span class="op">=</span> <span class="kw">lambda</span> x: x.<span class="bu">max</span>() <span class="op">-</span> x.<span class="bu">min</span>()</a>
+<a class="sourceLine" id="cb95-2" data-line-number="2">frame.<span class="bu">apply</span>(f, axis<span class="op">=</span><span class="st">&#39;index&#39;</span>)</a></code></pre></div>
 <p>Add two sets of data together, and use fill_value to avoid replacing any missing data with <code>NaN</code>.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb95-1" data-line-number="1">x <span class="op">=</span> pd.DataFrame([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>], columns<span class="op">=</span><span class="bu">list</span>(<span class="st">&#39;0&#39;</span>))    </a>
-<a class="sourceLine" id="cb95-2" data-line-number="2">y <span class="op">=</span> pd.DataFrame([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>], columns<span class="op">=</span><span class="bu">list</span>(<span class="st">&#39;1&#39;</span>))</a>
-<a class="sourceLine" id="cb95-3" data-line-number="3">x <span class="op">=</span> x.add(y, fill_value<span class="op">=</span><span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb96-1" data-line-number="1">x <span class="op">=</span> pd.DataFrame([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>], columns<span class="op">=</span><span class="bu">list</span>(<span class="st">&#39;0&#39;</span>))    </a>
+<a class="sourceLine" id="cb96-2" data-line-number="2">y <span class="op">=</span> pd.DataFrame([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>], columns<span class="op">=</span><span class="bu">list</span>(<span class="st">&#39;1&#39;</span>))</a>
+<a class="sourceLine" id="cb96-3" data-line-number="3">x <span class="op">=</span> x.add(y, fill_value<span class="op">=</span><span class="dv">0</span>)</a></code></pre></div>
 <p>Take the mean or std across specified columns and append as a new column. Below the DataFrame has columns 1-7 that will be used in computing the mean or std and this new data will be appended in a new column labeled ‘Mean’ or ‘Std’.</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb96-1" data-line-number="1">x[<span class="st">&#39;Mean&#39;</span>]<span class="op">=</span>x[[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>]].mean(axis<span class="op">=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb96-2" data-line-number="2">x[<span class="st">&#39;Std&#39;</span>]<span class="op">=</span>x[[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>]].std(axis<span class="op">=</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb97-1" data-line-number="1">x[<span class="st">&#39;Mean&#39;</span>]<span class="op">=</span>x[[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>]].mean(axis<span class="op">=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb97-2" data-line-number="2">x[<span class="st">&#39;Std&#39;</span>]<span class="op">=</span>x[[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>]].std(axis<span class="op">=</span><span class="dv">1</span>)</a></code></pre></div>
 
 </div>
 </div>
@@ -488,15 +495,13 @@ inner: use intersection of keys from both frames, similar to a SQL inner join; p
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "night",

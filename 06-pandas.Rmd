@@ -216,7 +216,7 @@ Substrings can be extracted from each row or column using the `str` functionalit
 Series.str.slice(start=0,stop=7,step=1)
 ```
 
-### Replace values 
+### Replace Values 
 New data can be set within a DataFrame one subset at a time in a way that will avoid the SettingWithCopyWarning.
 ```{python}
 import pandas as pd
@@ -254,6 +254,12 @@ df.append(df2)
 The mean of column values can be calculated where each of the columns is grouped by the data in a specified column.
 ```{python eval=FALSE}
 temp[['Sample','VAF','Var_Count']].groupby('Sample').mean()
+```
+
+### Adding Classifier Columns
+New columns can be added that describe the data in another column using some conditional statement.
+```{python eval=FALSE}
+df['Size'] = np.where(df['Height'] <= 5, 'Short', 'Tall')
 ```
 
 ## Arithmetic and Row/Column-wise Analysis

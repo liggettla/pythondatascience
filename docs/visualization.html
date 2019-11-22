@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Visualization | Data Science With Python</title>
   <meta name="description" content="Chapter 4 Visualization | Data Science With Python." />
-  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Visualization | Data Science With Python" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="L A Liggett" />
 
 
-<meta name="date" content="2019-11-13" />
+<meta name="date" content="2019-11-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -171,10 +171,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.5" data-path="pandas.html"><a href="pandas.html#relabeling"><i class="fa fa-check"></i><b>7.5</b> Relabeling</a></li>
 <li class="chapter" data-level="7.6" data-path="pandas.html"><a href="pandas.html#sorting-and-arranging"><i class="fa fa-check"></i><b>7.6</b> Sorting and Arranging</a></li>
 <li class="chapter" data-level="7.7" data-path="pandas.html"><a href="pandas.html#editing-data"><i class="fa fa-check"></i><b>7.7</b> Editing Data</a><ul>
-<li class="chapter" data-level="7.7.1" data-path="pandas.html"><a href="pandas.html#replace-values"><i class="fa fa-check"></i><b>7.7.1</b> Replace values</a></li>
+<li class="chapter" data-level="7.7.1" data-path="pandas.html"><a href="pandas.html#replace-values"><i class="fa fa-check"></i><b>7.7.1</b> Replace Values</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="pandas.html"><a href="pandas.html#combining-data-structures"><i class="fa fa-check"></i><b>7.8</b> Combining Data Structures</a></li>
-<li class="chapter" data-level="7.9" data-path="pandas.html"><a href="pandas.html#summarizing"><i class="fa fa-check"></i><b>7.9</b> Summarizing</a></li>
+<li class="chapter" data-level="7.9" data-path="pandas.html"><a href="pandas.html#summarizing"><i class="fa fa-check"></i><b>7.9</b> Summarizing</a><ul>
+<li class="chapter" data-level="7.9.1" data-path="pandas.html"><a href="pandas.html#adding-classifier-columns"><i class="fa fa-check"></i><b>7.9.1</b> Adding Classifier Columns</a></li>
+</ul></li>
 <li class="chapter" data-level="7.10" data-path="pandas.html"><a href="pandas.html#arithmetic-and-rowcolumn-wise-analysis"><i class="fa fa-check"></i><b>7.10</b> Arithmetic and Row/Column-wise Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="git.html"><a href="git.html"><i class="fa fa-check"></i><b>8</b> Git</a><ul>
@@ -472,15 +474,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "night",
