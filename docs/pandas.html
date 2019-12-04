@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Pandas | Data Science With Python</title>
   <meta name="description" content="Chapter 7 Pandas | Data Science With Python." />
-  <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Pandas | Data Science With Python" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="L A Liggett" />
 
 
-<meta name="date" content="2019-11-22" />
+<meta name="date" content="2019-12-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -180,6 +180,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.9.1" data-path="pandas.html"><a href="pandas.html#adding-classifier-columns"><i class="fa fa-check"></i><b>7.9.1</b> Adding Classifier Columns</a></li>
 </ul></li>
 <li class="chapter" data-level="7.10" data-path="pandas.html"><a href="pandas.html#arithmetic-and-rowcolumn-wise-analysis"><i class="fa fa-check"></i><b>7.10</b> Arithmetic and Row/Column-wise Analysis</a></li>
+<li class="chapter" data-level="7.11" data-path="pandas.html"><a href="pandas.html#restructuring-dataframes"><i class="fa fa-check"></i><b>7.11</b> Restructuring DataFrames</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="git.html"><a href="git.html"><i class="fa fa-check"></i><b>8</b> Git</a><ul>
 <li class="chapter" data-level="8.1" data-path="git.html"><a href="git.html#setup"><i class="fa fa-check"></i><b>8.1</b> Setup</a><ul>
@@ -472,6 +473,24 @@ inner: use intersection of keys from both frames, similar to a SQL inner join; p
 <p>Take the mean or std across specified columns and append as a new column. Below the DataFrame has columns 1-7 that will be used in computing the mean or std and this new data will be appended in a new column labeled ‘Mean’ or ‘Std’.</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb98-1" data-line-number="1">x[<span class="st">&#39;Mean&#39;</span>]<span class="op">=</span>x[[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>]].mean(axis<span class="op">=</span><span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb98-2" data-line-number="2">x[<span class="st">&#39;Std&#39;</span>]<span class="op">=</span>x[[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>]].std(axis<span class="op">=</span><span class="dv">1</span>)</a></code></pre></div>
+</div>
+<div id="restructuring-dataframes" class="section level2">
+<h2><span class="header-section-number">7.11</span> Restructuring DataFrames</h2>
+<p>Converting between dataframes being structured to use “dummy” or “indicator” variables, and categorical variables is easy using pandas.</p>
+<p>The following converts a DataFrame to use dummy/indicator variables.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb99-1" data-line-number="1">df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;A&#39;</span>: [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;a&#39;</span>], <span class="st">&#39;B&#39;</span>: [<span class="st">&#39;b&#39;</span>, <span class="st">&#39;a&#39;</span>, <span class="st">&#39;c&#39;</span>], <span class="st">&#39;C&#39;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]})</a>
+<a class="sourceLine" id="cb99-2" data-line-number="2">pd.get_dummies(df, prefix<span class="op">=</span>[<span class="st">&#39;col1&#39;</span>, <span class="st">&#39;col2&#39;</span>])</a></code></pre></div>
+<pre><code>##    C  col1_a  col1_b  col2_a  col2_b  col2_c
+## 0  1       1       0       0       1       0
+## 1  2       0       1       1       0       0
+## 2  3       1       0       0       0       1</code></pre>
+<p>The following converts a DataFrame that uses dummy/indicator variables to instead use categorical variables.</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb101-1" data-line-number="1">df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;Blue&#39;</span>:[<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>],<span class="st">&#39;Green&#39;</span>:[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>],<span class="st">&#39;Red&#39;</span>:[<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>]}, index<span class="op">=</span>[<span class="st">&#39;One&#39;</span>,<span class="st">&#39;Two&#39;</span>,<span class="st">&#39;Three&#39;</span>])</a>
+<a class="sourceLine" id="cb101-2" data-line-number="2">df.eq(<span class="dv">1</span>) <span class="op">@</span> df.columns</a></code></pre></div>
+<pre><code>## One       Blue
+## Two      Green
+## Three    Green
+## dtype: object</code></pre>
 
 </div>
 </div>
@@ -497,13 +516,15 @@ inner: use intersection of keys from both frames, similar to a SQL inner join; p
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
+"github": false,
 "facebook": true,
 "twitter": true,
+"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "night",

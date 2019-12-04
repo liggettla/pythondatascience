@@ -124,7 +124,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-11-22}
+    \date{2019-12-04}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -1439,6 +1439,43 @@ Take the mean or std across specified columns and append as a new column. Below 
 \NormalTok{x[}\StringTok{'Std'}\NormalTok{]}\OperatorTok{=}\NormalTok{x[[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{]].std(axis}\OperatorTok{=}\DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\hypertarget{restructuring-dataframes}{%
+\section{Restructuring DataFrames}\label{restructuring-dataframes}}
+
+Converting between dataframes being structured to use ``dummy'' or ``indicator'' variables, and categorical variables is easy using pandas.
+
+The following converts a DataFrame to use dummy/indicator variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}\StringTok{'A'}\NormalTok{: [}\StringTok{'a'}\NormalTok{, }\StringTok{'b'}\NormalTok{, }\StringTok{'a'}\NormalTok{], }\StringTok{'B'}\NormalTok{: [}\StringTok{'b'}\NormalTok{, }\StringTok{'a'}\NormalTok{, }\StringTok{'c'}\NormalTok{], }\StringTok{'C'}\NormalTok{: [}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{]\})}
+\NormalTok{pd.get_dummies(df, prefix}\OperatorTok{=}\NormalTok{[}\StringTok{'col1'}\NormalTok{, }\StringTok{'col2'}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    C  col1_a  col1_b  col2_a  col2_b  col2_c
+## 0  1       1       0       0       1       0
+## 1  2       0       1       1       0       0
+## 2  3       1       0       0       0       1
+\end{verbatim}
+
+The following converts a DataFrame that uses dummy/indicator variables to instead use categorical variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}\StringTok{'Blue'}\NormalTok{:[}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{],}\StringTok{'Green'}\NormalTok{:[}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{],}\StringTok{'Red'}\NormalTok{:[}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{]\}, index}\OperatorTok{=}\NormalTok{[}\StringTok{'One'}\NormalTok{,}\StringTok{'Two'}\NormalTok{,}\StringTok{'Three'}\NormalTok{])}
+\NormalTok{df.eq(}\DecValTok{1}\NormalTok{) }\OperatorTok{@}\NormalTok{ df.columns}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## One       Blue
+## Two      Green
+## Three    Green
+## dtype: object
+\end{verbatim}
 
 \hypertarget{git}{%
 \chapter{Git}\label{git}}
