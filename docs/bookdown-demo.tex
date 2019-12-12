@@ -124,7 +124,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-11-06}
+    \date{2019-12-11}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -829,7 +829,14 @@ The entire set of GATK software can be downloaded together \href{'https://softwa
 Methods and algorithms as they are run at the Broad can be found \href{'https://software.broadinstitute.org/gatk/documentation/topic?name=methods'}{here}.\\
 The Broad also has a number of \href{'https://software.broadinstitute.org/gatk/documentation/topic?name=tutorials'}{tutorials} that introduce some of the software packaged within GATK.
 \#\#\# Mutect2
-A \href{'https://software.broadinstitute.org/gatk/documentation/article?id=24057'}{tutorial} exists that introduces how Mutext2 can be used to call somatic mutations.
+A \href{'https://software.broadinstitute.org/gatk/documentation/article?id=24057'}{tutorial} exists that introduces how Mutect2 can be used to call somatic mutations.\\
+In general Mutect2 can be run as in the following.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{..}\OperatorTok{/}\NormalTok{util}\OperatorTok{/}\NormalTok{gatk}\DecValTok{-4}\NormalTok{.}\DecValTok{1}\NormalTok{.}\FloatTok{4.0}\OperatorTok{/}\NormalTok{gatk Mutect2 }\OperatorTok{-}\NormalTok{R }\OperatorTok{/}\NormalTok{seq}\OperatorTok{/}\NormalTok{references}\OperatorTok{/}\NormalTok{Homo_sapiens_assembly38}\OperatorTok{/}\NormalTok{v0}\OperatorTok{/}\NormalTok{Homo_sapiens_assembly38.fasta }\OperatorTok{-}\NormalTok{I tumor.bam }\OperatorTok{-}\NormalTok{O unfiltered.vcf}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{io}{%
 \chapter{Data I/O}\label{io}}
@@ -1517,6 +1524,26 @@ After committing changes to the new branch, if the branch is changed back to the
 \begin{Highlighting}[]
 \FunctionTok{git}\NormalTok{ checkout master}
 \FunctionTok{git}\NormalTok{ merge feature}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{errors}{%
+\subsection{Errors}\label{errors}}
+
+There is an error where objects in the repository get corrupted resulting in an error message like this: \texttt{object\ corrupt\ or\ missing:\ .git/objects/93/17fdbd6436bfaf7b0eeae2c56}.\\
+To fix this error remove all of the corrupted objects until there are none left.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rm}\NormalTok{ .git/objects/93/17fdbd6436bfaf7b0eeae2c56}
+\end{Highlighting}
+\end{Shaded}
+
+There should then be plenty of remaining errors as the files are still missing, some of the errors may look like this: \texttt{dangling\ blob\ 750718546640b5b14c19cbdb9958d7bcc4b1114c}. At this point it should be possible to push/push the current repository.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ push origin master}
 \end{Highlighting}
 \end{Shaded}
 

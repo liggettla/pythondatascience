@@ -24,7 +24,7 @@
 <meta name="author" content="L A Liggett" />
 
 
-<meta name="date" content="2019-11-06" />
+<meta name="date" content="2019-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -185,6 +185,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2.2" data-path="git.html"><a href="git.html#file-checkout"><i class="fa fa-check"></i><b>8.2.2</b> File Checkout</a></li>
 <li class="chapter" data-level="8.2.3" data-path="git.html"><a href="git.html#resetting-a-repository"><i class="fa fa-check"></i><b>8.2.3</b> Resetting a Repository</a></li>
 <li class="chapter" data-level="8.2.4" data-path="git.html"><a href="git.html#branching"><i class="fa fa-check"></i><b>8.2.4</b> Branching</a></li>
+<li class="chapter" data-level="8.2.5" data-path="git.html"><a href="git.html#errors"><i class="fa fa-check"></i><b>8.2.5</b> Errors</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vim.html"><a href="vim.html"><i class="fa fa-check"></i><b>9</b> VIM</a><ul>
@@ -257,22 +258,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="reading-data-files" class="section level2">
 <h2><span class="header-section-number">6.1</span> Reading Data Files</h2>
 <p>Opening .gz files</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="im">import</span> gzip</a>
-<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="cf">for</span> line <span class="kw">in</span> gzip.<span class="bu">open</span>(<span class="st">&#39;myFile.gz&#39;</span>):</a>
-<a class="sourceLine" id="cb39-3" data-line-number="3">    <span class="bu">print</span> line</a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="im">import</span> gzip</a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="cf">for</span> line <span class="kw">in</span> gzip.<span class="bu">open</span>(<span class="st">&#39;myFile.gz&#39;</span>):</a>
+<a class="sourceLine" id="cb40-3" data-line-number="3">    <span class="bu">print</span> line</a></code></pre></div>
 </div>
 <div id="pickles" class="section level2">
 <h2><span class="header-section-number">6.2</span> Pickles</h2>
 <p>Writing data in pickle format</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="im">import</span> pickle</a>
-<a class="sourceLine" id="cb40-2" data-line-number="2">p <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;principle.pkl&#39;</span>, <span class="st">&#39;wb&#39;</span>)</a>
-<a class="sourceLine" id="cb40-3" data-line-number="3">pickle.dump(principleData, p)</a>
-<a class="sourceLine" id="cb40-4" data-line-number="4">p.close()</a></code></pre></div>
-<p>Reading data in pickle format</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="im">import</span> pickle</a>
-<a class="sourceLine" id="cb41-2" data-line-number="2">p <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;principle.pkl&#39;</span>, <span class="st">&#39;rb&#39;</span>)</a>
-<a class="sourceLine" id="cb41-3" data-line-number="3">principleData <span class="op">=</span> pickle.load(p)</a>
+<a class="sourceLine" id="cb41-2" data-line-number="2">p <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;principle.pkl&#39;</span>, <span class="st">&#39;wb&#39;</span>)</a>
+<a class="sourceLine" id="cb41-3" data-line-number="3">pickle.dump(principleData, p)</a>
 <a class="sourceLine" id="cb41-4" data-line-number="4">p.close()</a></code></pre></div>
+<p>Reading data in pickle format</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="im">import</span> pickle</a>
+<a class="sourceLine" id="cb42-2" data-line-number="2">p <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;principle.pkl&#39;</span>, <span class="st">&#39;rb&#39;</span>)</a>
+<a class="sourceLine" id="cb42-3" data-line-number="3">principleData <span class="op">=</span> pickle.load(p)</a>
+<a class="sourceLine" id="cb42-4" data-line-number="4">p.close()</a></code></pre></div>
 
 </div>
 </div>

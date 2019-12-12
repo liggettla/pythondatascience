@@ -24,7 +24,7 @@
 <meta name="author" content="L A Liggett" />
 
 
-<meta name="date" content="2019-11-06" />
+<meta name="date" content="2019-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -185,6 +185,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2.2" data-path="git.html"><a href="git.html#file-checkout"><i class="fa fa-check"></i><b>8.2.2</b> File Checkout</a></li>
 <li class="chapter" data-level="8.2.3" data-path="git.html"><a href="git.html#resetting-a-repository"><i class="fa fa-check"></i><b>8.2.3</b> Resetting a Repository</a></li>
 <li class="chapter" data-level="8.2.4" data-path="git.html"><a href="git.html#branching"><i class="fa fa-check"></i><b>8.2.4</b> Branching</a></li>
+<li class="chapter" data-level="8.2.5" data-path="git.html"><a href="git.html#errors"><i class="fa fa-check"></i><b>8.2.5</b> Errors</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vim.html"><a href="vim.html"><i class="fa fa-check"></i><b>9</b> VIM</a><ul>
@@ -257,91 +258,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="installation" class="section level2">
 <h2><span class="header-section-number">11.1</span> Installation</h2>
 <p>Installation of linuxbrea</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb119-1" data-line-number="1"><span class="fu">sh</span> -c <span class="st">&quot;</span><span class="va">$(</span><span class="ex">curl</span> -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh<span class="va">)</span><span class="st">&quot;</span></a>
-<a class="sourceLine" id="cb119-2" data-line-number="2"><span class="co"># Add to path</span></a>
-<a class="sourceLine" id="cb119-3" data-line-number="3"><span class="bu">test</span> -d ~/.linuxbrew <span class="kw">&amp;&amp;</span> <span class="bu">eval</span> <span class="va">$(</span><span class="ex">~/.linuxbrew/bin/brew</span> shellenv<span class="va">)</span></a>
-<a class="sourceLine" id="cb119-4" data-line-number="4"><span class="bu">test</span> -d /home/linuxbrew/.linuxbrew <span class="kw">&amp;&amp;</span> <span class="bu">eval</span> <span class="va">$(</span><span class="ex">/home/linuxbrew/.linuxbrew/bin/brew</span> shellenv<span class="va">)</span></a>
-<a class="sourceLine" id="cb119-5" data-line-number="5"><span class="bu">test</span> -r ~/.bash_profile <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">&quot;eval </span><span class="dt">\$</span><span class="st">(</span><span class="va">$(</span><span class="ex">brew</span> --prefix<span class="va">)</span><span class="st">/bin/brew shellenv)&quot;</span> <span class="op">&gt;&gt;</span>~/.bash_profile</a>
-<a class="sourceLine" id="cb119-6" data-line-number="6"><span class="bu">echo</span> <span class="st">&quot;eval </span><span class="dt">\$</span><span class="st">(</span><span class="va">$(</span><span class="ex">brew</span> --prefix<span class="va">)</span><span class="st">/bin/brew shellenv)&quot;</span> <span class="op">&gt;&gt;</span>~/.profile</a>
-<a class="sourceLine" id="cb119-7" data-line-number="7"><span class="co"># debian/ubuntu dependencies</span></a>
-<a class="sourceLine" id="cb119-8" data-line-number="8"><span class="fu">sudo</span> apt-get install build-essential curl file git</a></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb122-1" data-line-number="1"><span class="fu">sh</span> -c <span class="st">&quot;</span><span class="va">$(</span><span class="ex">curl</span> -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh<span class="va">)</span><span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb122-2" data-line-number="2"><span class="co"># Add to path</span></a>
+<a class="sourceLine" id="cb122-3" data-line-number="3"><span class="bu">test</span> -d ~/.linuxbrew <span class="kw">&amp;&amp;</span> <span class="bu">eval</span> <span class="va">$(</span><span class="ex">~/.linuxbrew/bin/brew</span> shellenv<span class="va">)</span></a>
+<a class="sourceLine" id="cb122-4" data-line-number="4"><span class="bu">test</span> -d /home/linuxbrew/.linuxbrew <span class="kw">&amp;&amp;</span> <span class="bu">eval</span> <span class="va">$(</span><span class="ex">/home/linuxbrew/.linuxbrew/bin/brew</span> shellenv<span class="va">)</span></a>
+<a class="sourceLine" id="cb122-5" data-line-number="5"><span class="bu">test</span> -r ~/.bash_profile <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">&quot;eval </span><span class="dt">\$</span><span class="st">(</span><span class="va">$(</span><span class="ex">brew</span> --prefix<span class="va">)</span><span class="st">/bin/brew shellenv)&quot;</span> <span class="op">&gt;&gt;</span>~/.bash_profile</a>
+<a class="sourceLine" id="cb122-6" data-line-number="6"><span class="bu">echo</span> <span class="st">&quot;eval </span><span class="dt">\$</span><span class="st">(</span><span class="va">$(</span><span class="ex">brew</span> --prefix<span class="va">)</span><span class="st">/bin/brew shellenv)&quot;</span> <span class="op">&gt;&gt;</span>~/.profile</a>
+<a class="sourceLine" id="cb122-7" data-line-number="7"><span class="co"># debian/ubuntu dependencies</span></a>
+<a class="sourceLine" id="cb122-8" data-line-number="8"><span class="fu">sudo</span> apt-get install build-essential curl file git</a></code></pre></div>
 <p>LinuxBrew golang installation</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb120-1" data-line-number="1"><span class="ex">brew</span> install go</a></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb123-1" data-line-number="1"><span class="ex">brew</span> install go</a></code></pre></div>
 <p>The GO PATH should then be checked; it should typically exist at ~/go but it can be checked like this</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb121-1" data-line-number="1"><span class="bu">echo</span> <span class="va">$GOPATH</span></a></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb124-1" data-line-number="1"><span class="bu">echo</span> <span class="va">$GOPATH</span></a></code></pre></div>
 </div>
 <div id="updating" class="section level2">
 <h2><span class="header-section-number">11.2</span> Updating</h2>
-<div class="sourceCode" id="cb122"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb122-1" data-line-number="1"><span class="ex">brew</span> install dep</a>
-<a class="sourceLine" id="cb122-2" data-line-number="2"><span class="ex">brew</span> upgrade dep</a>
-<a class="sourceLine" id="cb122-3" data-line-number="3"><span class="ex">brew</span> cask install spotify</a></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb125-1" data-line-number="1"><span class="ex">brew</span> install dep</a>
+<a class="sourceLine" id="cb125-2" data-line-number="2"><span class="ex">brew</span> upgrade dep</a>
+<a class="sourceLine" id="cb125-3" data-line-number="3"><span class="ex">brew</span> cask install spotify</a></code></pre></div>
 </div>
 <div id="sample-program" class="section level2">
 <h2><span class="header-section-number">11.3</span> Sample Program</h2>
 <p>Create a file called hello.go</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb123-1" data-line-number="1">package main</a>
-<a class="sourceLine" id="cb123-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb123-3" data-line-number="3"><span class="im">import</span> <span class="st">&quot;fmt&quot;</span></a>
-<a class="sourceLine" id="cb123-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb123-5" data-line-number="5">func main() {</a>
-<a class="sourceLine" id="cb123-6" data-line-number="6">    fmt.Printf(<span class="st">&quot;hello, world</span><span class="ch">\n</span><span class="st">&quot;</span>)</a>
-<a class="sourceLine" id="cb123-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb123-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb123-9" data-line-number="9">The program can just be run <span class="cf">with</span></a>
-<a class="sourceLine" id="cb123-10" data-line-number="10">go run main.go</a>
-<a class="sourceLine" id="cb123-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb123-12" data-line-number="12">Then <span class="bu">compile</span> the program</a>
-<a class="sourceLine" id="cb123-13" data-line-number="13">    go build</a>
-<a class="sourceLine" id="cb123-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb123-15" data-line-number="15">Importing multiple things can be done on one line separated by a semicolon</a>
-<a class="sourceLine" id="cb123-16" data-line-number="16">    <span class="im">import</span> (<span class="st">&quot;fmt&quot;</span><span class="op">;</span> <span class="st">&quot;math&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb126-1" data-line-number="1">package main</a>
+<a class="sourceLine" id="cb126-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb126-3" data-line-number="3"><span class="im">import</span> <span class="st">&quot;fmt&quot;</span></a>
+<a class="sourceLine" id="cb126-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb126-5" data-line-number="5">func main() {</a>
+<a class="sourceLine" id="cb126-6" data-line-number="6">    fmt.Printf(<span class="st">&quot;hello, world</span><span class="ch">\n</span><span class="st">&quot;</span>)</a>
+<a class="sourceLine" id="cb126-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb126-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb126-9" data-line-number="9">The program can just be run <span class="cf">with</span></a>
+<a class="sourceLine" id="cb126-10" data-line-number="10">go run main.go</a>
+<a class="sourceLine" id="cb126-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb126-12" data-line-number="12">Then <span class="bu">compile</span> the program</a>
+<a class="sourceLine" id="cb126-13" data-line-number="13">    go build</a>
+<a class="sourceLine" id="cb126-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb126-15" data-line-number="15">Importing multiple things can be done on one line separated by a semicolon</a>
+<a class="sourceLine" id="cb126-16" data-line-number="16">    <span class="im">import</span> (<span class="st">&quot;fmt&quot;</span><span class="op">;</span> <span class="st">&quot;math&quot;</span>)</a></code></pre></div>
 </div>
 <div id="type-conversion" class="section level2">
 <h2><span class="header-section-number">11.4</span> Type conversion</h2>
 <p>Check the type of a variable</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb124-1" data-line-number="1"><span class="im">import</span>(<span class="st">&quot;fmt&quot;</span><span class="op">;</span><span class="st">&quot;reflect&quot;</span>)</a>
-<a class="sourceLine" id="cb124-2" data-line-number="2">i :<span class="op">=</span> <span class="dv">5</span></a>
-<a class="sourceLine" id="cb124-3" data-line-number="3">fmt.Println(reflect.TypeOf(i))</a></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb127-1" data-line-number="1"><span class="im">import</span>(<span class="st">&quot;fmt&quot;</span><span class="op">;</span><span class="st">&quot;reflect&quot;</span>)</a>
+<a class="sourceLine" id="cb127-2" data-line-number="2">i :<span class="op">=</span> <span class="dv">5</span></a>
+<a class="sourceLine" id="cb127-3" data-line-number="3">fmt.Println(reflect.TypeOf(i))</a></code></pre></div>
 <p>Convert int to float64</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb125-1" data-line-number="1">var i <span class="bu">int</span> <span class="op">=</span> <span class="dv">5</span></a>
-<a class="sourceLine" id="cb125-2" data-line-number="2">j :<span class="op">=</span> float64(i)</a></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb128-1" data-line-number="1">var i <span class="bu">int</span> <span class="op">=</span> <span class="dv">5</span></a>
+<a class="sourceLine" id="cb128-2" data-line-number="2">j :<span class="op">=</span> float64(i)</a></code></pre></div>
 <p>Convert float64 to in</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb126-1" data-line-number="1">x :<span class="op">=</span> <span class="fl">4.0</span></a>
-<a class="sourceLine" id="cb126-2" data-line-number="2"><span class="bu">int</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb129-1" data-line-number="1">x :<span class="op">=</span> <span class="fl">4.0</span></a>
+<a class="sourceLine" id="cb129-2" data-line-number="2"><span class="bu">int</span>(x)</a></code></pre></div>
 <p>int to string</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb127-1" data-line-number="1">s :<span class="op">=</span> strconv.Itoa(<span class="dv">97</span>) <span class="op">//</span> s <span class="op">==</span> <span class="st">&quot;97&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb130-1" data-line-number="1">s :<span class="op">=</span> strconv.Itoa(<span class="dv">97</span>) <span class="op">//</span> s <span class="op">==</span> <span class="st">&quot;97&quot;</span></a></code></pre></div>
 <p>int64 to string</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb128-1" data-line-number="1">var n int64 <span class="op">=</span> <span class="dv">97</span></a>
-<a class="sourceLine" id="cb128-2" data-line-number="2">s :<span class="op">=</span> strconv.FormatInt(n, <span class="dv">10</span>) <span class="op">//</span> s <span class="op">==</span> <span class="st">&quot;97&quot;</span> (decimal) <span class="kw">in</span> base <span class="dv">10</span></a></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb131-1" data-line-number="1">var n int64 <span class="op">=</span> <span class="dv">97</span></a>
+<a class="sourceLine" id="cb131-2" data-line-number="2">s :<span class="op">=</span> strconv.FormatInt(n, <span class="dv">10</span>) <span class="op">//</span> s <span class="op">==</span> <span class="st">&quot;97&quot;</span> (decimal) <span class="kw">in</span> base <span class="dv">10</span></a></code></pre></div>
 <p>string to int</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb129-1" data-line-number="1">s :<span class="op">=</span> <span class="st">&quot;97&quot;</span></a>
-<a class="sourceLine" id="cb129-2" data-line-number="2"><span class="cf">if</span> n, err :<span class="op">=</span> strconv.Atoi(s)<span class="op">;</span> err <span class="op">==</span> nil {</a>
-<a class="sourceLine" id="cb129-3" data-line-number="3">    fmt.Println(n<span class="op">+</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb129-4" data-line-number="4">} <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb129-5" data-line-number="5">    fmt.Println(s, <span class="st">&quot;is not an integer.&quot;</span>)</a>
-<a class="sourceLine" id="cb129-6" data-line-number="6">}</a></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb132-1" data-line-number="1">s :<span class="op">=</span> <span class="st">&quot;97&quot;</span></a>
+<a class="sourceLine" id="cb132-2" data-line-number="2"><span class="cf">if</span> n, err :<span class="op">=</span> strconv.Atoi(s)<span class="op">;</span> err <span class="op">==</span> nil {</a>
+<a class="sourceLine" id="cb132-3" data-line-number="3">    fmt.Println(n<span class="op">+</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb132-4" data-line-number="4">} <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb132-5" data-line-number="5">    fmt.Println(s, <span class="st">&quot;is not an integer.&quot;</span>)</a>
+<a class="sourceLine" id="cb132-6" data-line-number="6">}</a></code></pre></div>
 <p>string to int64</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb130-1" data-line-number="1">s :<span class="op">=</span> <span class="st">&quot;97&quot;</span></a>
-<a class="sourceLine" id="cb130-2" data-line-number="2">n, err :<span class="op">=</span> strconv.ParseInt(s, <span class="dv">10</span>, <span class="dv">64</span>)</a>
-<a class="sourceLine" id="cb130-3" data-line-number="3"><span class="cf">if</span> err <span class="op">==</span> nil {</a>
-<a class="sourceLine" id="cb130-4" data-line-number="4">    fmt.Printf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st"> of type %T&quot;</span>, n, n)</a>
-<a class="sourceLine" id="cb130-5" data-line-number="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb133-1" data-line-number="1">s :<span class="op">=</span> <span class="st">&quot;97&quot;</span></a>
+<a class="sourceLine" id="cb133-2" data-line-number="2">n, err :<span class="op">=</span> strconv.ParseInt(s, <span class="dv">10</span>, <span class="dv">64</span>)</a>
+<a class="sourceLine" id="cb133-3" data-line-number="3"><span class="cf">if</span> err <span class="op">==</span> nil {</a>
+<a class="sourceLine" id="cb133-4" data-line-number="4">    fmt.Printf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st"> of type %T&quot;</span>, n, n)</a>
+<a class="sourceLine" id="cb133-5" data-line-number="5">}</a></code></pre></div>
 <p>int to int64</p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb131-1" data-line-number="1">var n <span class="bu">int</span> <span class="op">=</span> <span class="dv">97</span></a>
-<a class="sourceLine" id="cb131-2" data-line-number="2">m :<span class="op">=</span> int64(n) <span class="op">//</span> safe</a></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb134-1" data-line-number="1">var n <span class="bu">int</span> <span class="op">=</span> <span class="dv">97</span></a>
+<a class="sourceLine" id="cb134-2" data-line-number="2">m :<span class="op">=</span> int64(n) <span class="op">//</span> safe</a></code></pre></div>
 </div>
 <div id="strings" class="section level2">
 <h2><span class="header-section-number">11.5</span> Strings</h2>
 <p>Numbers can be converted to strings using strconv</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb132-1" data-line-number="1">s :<span class="op">=</span> strconv.FormatFloat(<span class="fl">3.1415</span>, <span class="st">&#39;E&#39;</span>, <span class="dv">-1</span>, <span class="dv">64</span>)</a>
-<a class="sourceLine" id="cb132-2" data-line-number="2">s :<span class="op">=</span> strconv.FormatInt(<span class="op">-</span><span class="dv">42</span>, <span class="dv">16</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb135-1" data-line-number="1">s :<span class="op">=</span> strconv.FormatFloat(<span class="fl">3.1415</span>, <span class="st">&#39;E&#39;</span>, <span class="dv">-1</span>, <span class="dv">64</span>)</a>
+<a class="sourceLine" id="cb135-2" data-line-number="2">s :<span class="op">=</span> strconv.FormatInt(<span class="op">-</span><span class="dv">42</span>, <span class="dv">16</span>)</a></code></pre></div>
 <p>Strings can be assigned with <code></code> or &quot; &quot;, but only the double quotes can use escape characters like newlines or tabs</p>
-<div class="sourceCode" id="cb133"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb133-1" data-line-number="1">fmt.Println(<span class="st">&quot;Hello World</span><span class="ch">\n</span><span class="st">&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb136-1" data-line-number="1">fmt.Println(<span class="st">&quot;Hello World</span><span class="ch">\n</span><span class="st">&quot;</span>)</a></code></pre></div>
 <p>Indexing returns bytes rather than strings so they must be converted if you want a string back</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb134-1" data-line-number="1">string(<span class="st">&quot;Hello World&quot;</span>[<span class="dv">1</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb137-1" data-line-number="1">string(<span class="st">&quot;Hello World&quot;</span>[<span class="dv">1</span>])</a></code></pre></div>
 <p>Test if a string is a substring of another</p>
-<div class="sourceCode" id="cb135"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb135-1" data-line-number="1"><span class="im">import</span> <span class="st">&quot;strings&quot;</span></a>
-<a class="sourceLine" id="cb135-2" data-line-number="2">strings.Contains(<span class="st">&quot;something&quot;</span>,<span class="st">&quot;some&quot;</span>) <span class="op">//</span> true</a></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb138-1" data-line-number="1"><span class="im">import</span> <span class="st">&quot;strings&quot;</span></a>
+<a class="sourceLine" id="cb138-2" data-line-number="2">strings.Contains(<span class="st">&quot;something&quot;</span>,<span class="st">&quot;some&quot;</span>) <span class="op">//</span> true</a></code></pre></div>
 </div>
 <div id="boolean-functions" class="section level2">
 <h2><span class="header-section-number">11.6</span> Boolean Functions</h2>
@@ -350,435 +351,435 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="variables" class="section level2">
 <h2><span class="header-section-number">11.7</span> Variables</h2>
 <p>Variables are statically typed and therefore must be declared when assigned</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb137-1" data-line-number="1">var x string <span class="op">=</span> <span class="st">&quot;Hello World&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb140-1" data-line-number="1">var x string <span class="op">=</span> <span class="st">&quot;Hello World&quot;</span></a></code></pre></div>
 <p>Type declaration can be offloaded to the compiler using the following notation, and the compiler will try to infer the correct type</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb138-1" data-line-number="1">var x <span class="op">=</span> <span class="st">&quot;Hello World&quot;</span></a>
-<a class="sourceLine" id="cb138-2" data-line-number="2">x :<span class="op">=</span> <span class="st">&quot;Hello World&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb141-1" data-line-number="1">var x <span class="op">=</span> <span class="st">&quot;Hello World&quot;</span></a>
+<a class="sourceLine" id="cb141-2" data-line-number="2">x :<span class="op">=</span> <span class="st">&quot;Hello World&quot;</span></a></code></pre></div>
 <p>Constants are similar to variables, but their values cannot be reassigned</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb139-1" data-line-number="1">const x string <span class="op">=</span> <span class="st">&quot;Hello&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb142-1" data-line-number="1">const x string <span class="op">=</span> <span class="st">&quot;Hello&quot;</span></a></code></pre></div>
 <p>Multiple variables can also be declared at once, where each variable must occupy its own line</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb140-1" data-line-number="1">var (</a>
-<a class="sourceLine" id="cb140-2" data-line-number="2">    a <span class="op">=</span> <span class="dv">5</span></a>
-<a class="sourceLine" id="cb140-3" data-line-number="3">    b <span class="op">=</span> <span class="dv">10</span></a>
-<a class="sourceLine" id="cb140-4" data-line-number="4">    c <span class="op">=</span> <span class="dv">15</span></a>
-<a class="sourceLine" id="cb140-5" data-line-number="5">)</a></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb143-1" data-line-number="1">var (</a>
+<a class="sourceLine" id="cb143-2" data-line-number="2">    a <span class="op">=</span> <span class="dv">5</span></a>
+<a class="sourceLine" id="cb143-3" data-line-number="3">    b <span class="op">=</span> <span class="dv">10</span></a>
+<a class="sourceLine" id="cb143-4" data-line-number="4">    c <span class="op">=</span> <span class="dv">15</span></a>
+<a class="sourceLine" id="cb143-5" data-line-number="5">)</a></code></pre></div>
 <p>Substrings</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb141-1" data-line-number="1">s :<span class="op">=</span> <span class="st">&quot;something&quot;</span></a>
-<a class="sourceLine" id="cb141-2" data-line-number="2">fmt.Println(s[:<span class="bu">len</span>(s)<span class="op">-</span><span class="dv">5</span>])</a>
-<a class="sourceLine" id="cb141-3" data-line-number="3">fmt.Println(s[<span class="dv">2</span>:<span class="dv">6</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb144-1" data-line-number="1">s :<span class="op">=</span> <span class="st">&quot;something&quot;</span></a>
+<a class="sourceLine" id="cb144-2" data-line-number="2">fmt.Println(s[:<span class="bu">len</span>(s)<span class="op">-</span><span class="dv">5</span>])</a>
+<a class="sourceLine" id="cb144-3" data-line-number="3">fmt.Println(s[<span class="dv">2</span>:<span class="dv">6</span>])</a></code></pre></div>
 </div>
 <div id="input" class="section level2">
 <h2><span class="header-section-number">11.8</span> Input</h2>
 <p>User input</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb142-1" data-line-number="1">var <span class="bu">input</span> float64</a>
-<a class="sourceLine" id="cb142-2" data-line-number="2">fmt.Scanf(<span class="st">&quot;</span><span class="sc">%f</span><span class="st">&quot;</span>, <span class="op">&amp;</span><span class="bu">input</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb145-1" data-line-number="1">var <span class="bu">input</span> float64</a>
+<a class="sourceLine" id="cb145-2" data-line-number="2">fmt.Scanf(<span class="st">&quot;</span><span class="sc">%f</span><span class="st">&quot;</span>, <span class="op">&amp;</span><span class="bu">input</span>)</a></code></pre></div>
 </div>
 <div id="control-structures" class="section level2">
 <h2><span class="header-section-number">11.9</span> Control Structures</h2>
 <p>For loops can be written like the following</p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb143-1" data-line-number="1">i :<span class="op">=</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb143-2" data-line-number="2"><span class="cf">for</span> i <span class="op">&lt;=</span> <span class="dv">10</span> {</a>
-<a class="sourceLine" id="cb143-3" data-line-number="3">    fmt.Println(i)</a>
-<a class="sourceLine" id="cb143-4" data-line-number="4">    i <span class="op">+=</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb143-5" data-line-number="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb146-1" data-line-number="1">i :<span class="op">=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb146-2" data-line-number="2"><span class="cf">for</span> i <span class="op">&lt;=</span> <span class="dv">10</span> {</a>
+<a class="sourceLine" id="cb146-3" data-line-number="3">    fmt.Println(i)</a>
+<a class="sourceLine" id="cb146-4" data-line-number="4">    i <span class="op">+=</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb146-5" data-line-number="5">}</a></code></pre></div>
 <p>The variables a function will return can be defined at the beginning of the functions and then implicitely returned.</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb144-1" data-line-number="1">func something(x <span class="bu">int</span>) (product <span class="bu">int</span>) {</a>
-<a class="sourceLine" id="cb144-2" data-line-number="2">    product <span class="op">=</span> x <span class="op">*</span> x</a>
-<a class="sourceLine" id="cb144-3" data-line-number="3">    <span class="cf">return</span></a>
-<a class="sourceLine" id="cb144-4" data-line-number="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb147-1" data-line-number="1">func something(x <span class="bu">int</span>) (product <span class="bu">int</span>) {</a>
+<a class="sourceLine" id="cb147-2" data-line-number="2">    product <span class="op">=</span> x <span class="op">*</span> x</a>
+<a class="sourceLine" id="cb147-3" data-line-number="3">    <span class="cf">return</span></a>
+<a class="sourceLine" id="cb147-4" data-line-number="4">}</a></code></pre></div>
 <p>Probably the easier for loop is like this one</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb145-1" data-line-number="1"><span class="cf">for</span> i :<span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;=</span> <span class="dv">10</span><span class="op">;</span> i<span class="op">++</span> {</a>
-<a class="sourceLine" id="cb145-2" data-line-number="2">    fmt.Println(i)</a>
-<a class="sourceLine" id="cb145-3" data-line-number="3">}</a></code></pre></div>
-<p>A nice for loop to iterate through a range</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb146-1" data-line-number="1"><span class="cf">for</span> i :<span class="op">=</span> <span class="bu">range</span> str1 {</a>
-<a class="sourceLine" id="cb146-2" data-line-number="2">    <span class="cf">if</span> str1[i] <span class="op">==</span> str2[i] { count<span class="op">++</span> }</a>
-<a class="sourceLine" id="cb146-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb146-4" data-line-number="4"><span class="cf">return</span> count</a></code></pre></div>
-<p>For loops can be used to iterate through slices too</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb147-1" data-line-number="1"><span class="cf">for</span> _, num :<span class="op">=</span> <span class="bu">range</span> nums {</a></code></pre></div>
-<p>If loops look gross, but it is required that the else statement is placed where it is shown here</p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb148-1" data-line-number="1"><span class="cf">if</span> true {</a>
-<a class="sourceLine" id="cb148-2" data-line-number="2">} <span class="cf">else</span> <span class="cf">if</span> false {</a>
+<div class="sourceCode" id="cb148"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb148-1" data-line-number="1"><span class="cf">for</span> i :<span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;=</span> <span class="dv">10</span><span class="op">;</span> i<span class="op">++</span> {</a>
+<a class="sourceLine" id="cb148-2" data-line-number="2">    fmt.Println(i)</a>
 <a class="sourceLine" id="cb148-3" data-line-number="3">}</a></code></pre></div>
+<p>A nice for loop to iterate through a range</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb149-1" data-line-number="1"><span class="cf">for</span> i :<span class="op">=</span> <span class="bu">range</span> str1 {</a>
+<a class="sourceLine" id="cb149-2" data-line-number="2">    <span class="cf">if</span> str1[i] <span class="op">==</span> str2[i] { count<span class="op">++</span> }</a>
+<a class="sourceLine" id="cb149-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb149-4" data-line-number="4"><span class="cf">return</span> count</a></code></pre></div>
+<p>For loops can be used to iterate through slices too</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb150-1" data-line-number="1"><span class="cf">for</span> _, num :<span class="op">=</span> <span class="bu">range</span> nums {</a></code></pre></div>
+<p>If loops look gross, but it is required that the else statement is placed where it is shown here</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb151-1" data-line-number="1"><span class="cf">if</span> true {</a>
+<a class="sourceLine" id="cb151-2" data-line-number="2">} <span class="cf">else</span> <span class="cf">if</span> false {</a>
+<a class="sourceLine" id="cb151-3" data-line-number="3">}</a></code></pre></div>
 <p>Switches are also a thing</p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb149-1" data-line-number="1">switch <span class="bu">input</span> {                          </a>
-<a class="sourceLine" id="cb149-2" data-line-number="2">    case <span class="dv">1</span>: fmt.Println(<span class="st">&quot;You entered one&quot;</span>)  </a>
-<a class="sourceLine" id="cb149-3" data-line-number="3">    case <span class="dv">2</span>: fmt.Println(<span class="st">&quot;You entered two&quot;</span>)  </a>
-<a class="sourceLine" id="cb149-4" data-line-number="4">    case <span class="dv">3</span>: fmt.Println(<span class="st">&quot;You entered three&quot;</span>)</a>
-<a class="sourceLine" id="cb149-5" data-line-number="5">}                                           </a></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb152-1" data-line-number="1">switch <span class="bu">input</span> {                          </a>
+<a class="sourceLine" id="cb152-2" data-line-number="2">    case <span class="dv">1</span>: fmt.Println(<span class="st">&quot;You entered one&quot;</span>)  </a>
+<a class="sourceLine" id="cb152-3" data-line-number="3">    case <span class="dv">2</span>: fmt.Println(<span class="st">&quot;You entered two&quot;</span>)  </a>
+<a class="sourceLine" id="cb152-4" data-line-number="4">    case <span class="dv">3</span>: fmt.Println(<span class="st">&quot;You entered three&quot;</span>)</a>
+<a class="sourceLine" id="cb152-5" data-line-number="5">}                                           </a></code></pre></div>
 </div>
 <div id="data-structures" class="section level2">
 <h2><span class="header-section-number">11.10</span> Data Structures</h2>
 <p>A blank array</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb150-1" data-line-number="1">var x []<span class="bu">int</span></a></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb153-1" data-line-number="1">var x []<span class="bu">int</span></a></code></pre></div>
 <p>An array with five elements</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb151-1" data-line-number="1">var x [<span class="dv">5</span>]<span class="bu">int</span></a>
-<a class="sourceLine" id="cb151-2" data-line-number="2">x[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">50</span> <span class="op">//</span> the first element of the array equals <span class="dv">50</span></a></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb154-1" data-line-number="1">var x [<span class="dv">5</span>]<span class="bu">int</span></a>
+<a class="sourceLine" id="cb154-2" data-line-number="2">x[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">50</span> <span class="op">//</span> the first element of the array equals <span class="dv">50</span></a></code></pre></div>
 <p>An easier way to create an array and can be multiline broken by the commas</p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb152-1" data-line-number="1">x :<span class="op">=</span> [<span class="dv">5</span>]float64{ <span class="dv">98</span>, <span class="dv">93</span>, <span class="dv">77</span>, <span class="dv">82</span>, <span class="dv">83</span> }</a></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb155-1" data-line-number="1">x :<span class="op">=</span> [<span class="dv">5</span>]float64{ <span class="dv">98</span>, <span class="dv">93</span>, <span class="dv">77</span>, <span class="dv">82</span>, <span class="dv">83</span> }</a></code></pre></div>
 <p>Slices can have variable lengths and are typically associated with an array of fixed length. The following slice is 5 elements long, and is a segment of a 10 element-long array</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb153-1" data-line-number="1">x :<span class="op">=</span> make([]float64, <span class="dv">5</span>, <span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb156-1" data-line-number="1">x :<span class="op">=</span> make([]float64, <span class="dv">5</span>, <span class="dv">10</span>)</a></code></pre></div>
 <p>In a way that seems more similar to python, slicing an array can be done like this</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb154-1" data-line-number="1">arr :<span class="op">=</span> [<span class="dv">5</span>]float64{<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>}</a>
-<a class="sourceLine" id="cb154-2" data-line-number="2">x :<span class="op">=</span> arr[<span class="dv">0</span>:<span class="dv">2</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb157-1" data-line-number="1">arr :<span class="op">=</span> [<span class="dv">5</span>]float64{<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>}</a>
+<a class="sourceLine" id="cb157-2" data-line-number="2">x :<span class="op">=</span> arr[<span class="dv">0</span>:<span class="dv">2</span>]</a></code></pre></div>
 <p>Adding data to a slice</p>
-<div class="sourceCode" id="cb155"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb155-1" data-line-number="1">slice1 :<span class="op">=</span> []<span class="bu">int</span>{<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>}</a>
-<a class="sourceLine" id="cb155-2" data-line-number="2">slice2 :<span class="op">=</span> append(slice1,<span class="dv">4</span>,<span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb158-1" data-line-number="1">slice1 :<span class="op">=</span> []<span class="bu">int</span>{<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>}</a>
+<a class="sourceLine" id="cb158-2" data-line-number="2">slice2 :<span class="op">=</span> append(slice1,<span class="dv">4</span>,<span class="dv">5</span>)</a></code></pre></div>
 <p>Or multiple values can be added at once</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb156-1" data-line-number="1">s <span class="op">=</span> append(s, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb159-1" data-line-number="1">s <span class="op">=</span> append(s, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</a></code></pre></div>
 <p>A map is an unordered collection of key-value pairs (also known as a dictionary). A map is defined by assigning it to a variable and then defining the key type in brackets and the value type after the brackets</p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb157-1" data-line-number="1">var x make(<span class="bu">map</span>[string]<span class="bu">int</span>)</a>
-<a class="sourceLine" id="cb157-2" data-line-number="2">x[<span class="st">&quot;key&quot;</span>] <span class="op">=</span> <span class="dv">10</span> </a>
-<a class="sourceLine" id="cb157-3" data-line-number="3">fmt.Println(x)</a></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb160-1" data-line-number="1">var x make(<span class="bu">map</span>[string]<span class="bu">int</span>)</a>
+<a class="sourceLine" id="cb160-2" data-line-number="2">x[<span class="st">&quot;key&quot;</span>] <span class="op">=</span> <span class="dv">10</span> </a>
+<a class="sourceLine" id="cb160-3" data-line-number="3">fmt.Println(x)</a></code></pre></div>
 <p>Creating a map with multiple items simultaneously</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb158-1" data-line-number="1">elements :<span class="op">=</span> <span class="bu">map</span>[string]string{</a>
-<a class="sourceLine" id="cb158-2" data-line-number="2">  <span class="st">&quot;H&quot;</span>:  <span class="st">&quot;Hydrogen&quot;</span>,</a>
-<a class="sourceLine" id="cb158-3" data-line-number="3">  <span class="st">&quot;He&quot;</span>: <span class="st">&quot;Helium&quot;</span>,</a>
-<a class="sourceLine" id="cb158-4" data-line-number="4">  <span class="st">&quot;Li&quot;</span>: <span class="st">&quot;Lithium&quot;</span>,</a>
-<a class="sourceLine" id="cb158-5" data-line-number="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb161-1" data-line-number="1">elements :<span class="op">=</span> <span class="bu">map</span>[string]string{</a>
+<a class="sourceLine" id="cb161-2" data-line-number="2">  <span class="st">&quot;H&quot;</span>:  <span class="st">&quot;Hydrogen&quot;</span>,</a>
+<a class="sourceLine" id="cb161-3" data-line-number="3">  <span class="st">&quot;He&quot;</span>: <span class="st">&quot;Helium&quot;</span>,</a>
+<a class="sourceLine" id="cb161-4" data-line-number="4">  <span class="st">&quot;Li&quot;</span>: <span class="st">&quot;Lithium&quot;</span>,</a>
+<a class="sourceLine" id="cb161-5" data-line-number="5">}</a></code></pre></div>
 <p>Items can be deleted from a map using the delete function</p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb159-1" data-line-number="1">delete(x, <span class="st">&quot;key&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb162-1" data-line-number="1">delete(x, <span class="st">&quot;key&quot;</span>)</a></code></pre></div>
 <p>Go provides functionality that checks whether a key lookup from a map was successful or not</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb160-1" data-line-number="1">m,n :<span class="op">=</span> x[<span class="st">&quot;unknown&quot;</span>] <span class="op">//</span> this key does <span class="kw">not</span> exist</a>
-<a class="sourceLine" id="cb160-2" data-line-number="2">fmt.Println(m,n) <span class="op">//</span> m will equal <span class="dv">0</span> <span class="kw">and</span> n will equal false</a></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb163-1" data-line-number="1">m,n :<span class="op">=</span> x[<span class="st">&quot;unknown&quot;</span>] <span class="op">//</span> this key does <span class="kw">not</span> exist</a>
+<a class="sourceLine" id="cb163-2" data-line-number="2">fmt.Println(m,n) <span class="op">//</span> m will equal <span class="dv">0</span> <span class="kw">and</span> n will equal false</a></code></pre></div>
 <p>This check can be used in an if loop to only run a chunk of code if a key exists within a map. In the below code el equals the value and ok is true or false, if the key is found, ok equals true and the print statement is run</p>
-<div class="sourceCode" id="cb161"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb161-1" data-line-number="1"><span class="cf">if</span> el, ok :<span class="op">=</span> elements[<span class="st">&quot;Li&quot;</span>]<span class="op">;</span> ok {</a>
-<a class="sourceLine" id="cb161-2" data-line-number="2">fmt.Println(el[<span class="st">&quot;name&quot;</span>], el[<span class="st">&quot;state&quot;</span>])</a>
-<a class="sourceLine" id="cb161-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb164-1" data-line-number="1"><span class="cf">if</span> el, ok :<span class="op">=</span> elements[<span class="st">&quot;Li&quot;</span>]<span class="op">;</span> ok {</a>
+<a class="sourceLine" id="cb164-2" data-line-number="2">fmt.Println(el[<span class="st">&quot;name&quot;</span>], el[<span class="st">&quot;state&quot;</span>])</a>
+<a class="sourceLine" id="cb164-3" data-line-number="3">}</a></code></pre></div>
 <p>Iterate through a map</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb162-1" data-line-number="1"><span class="cf">for</span> k, v :<span class="op">=</span> <span class="bu">range</span> kmers {                  </a>
-<a class="sourceLine" id="cb162-2" data-line-number="2">    fmt.Printf(<span class="st">&quot;key: </span><span class="sc">%s</span><span class="st"> value: </span><span class="sc">%d</span><span class="ch">\n</span><span class="st">&quot;</span>, k, v)</a>
-<a class="sourceLine" id="cb162-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb165-1" data-line-number="1"><span class="cf">for</span> k, v :<span class="op">=</span> <span class="bu">range</span> kmers {                  </a>
+<a class="sourceLine" id="cb165-2" data-line-number="2">    fmt.Printf(<span class="st">&quot;key: </span><span class="sc">%s</span><span class="st"> value: </span><span class="sc">%d</span><span class="ch">\n</span><span class="st">&quot;</span>, k, v)</a>
+<a class="sourceLine" id="cb165-3" data-line-number="3">}</a></code></pre></div>
 </div>
 <div id="functions" class="section level2">
 <h2><span class="header-section-number">11.11</span> Functions</h2>
 <p>Below is a basic function that computes the mean of a map</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb163-1" data-line-number="1">func average(xs []float64) (float64) {</a>
-<a class="sourceLine" id="cb163-2" data-line-number="2">    total :<span class="op">=</span> <span class="fl">0.0</span>                      </a>
-<a class="sourceLine" id="cb163-3" data-line-number="3">    <span class="cf">for</span> _, v :<span class="op">=</span> <span class="bu">range</span> xs {            </a>
-<a class="sourceLine" id="cb163-4" data-line-number="4">        total <span class="op">+=</span> v                    </a>
-<a class="sourceLine" id="cb163-5" data-line-number="5">    }</a>
-<a class="sourceLine" id="cb163-6" data-line-number="6">    <span class="cf">return</span> total <span class="op">/</span> float64(<span class="bu">len</span>(xs))   </a>
-<a class="sourceLine" id="cb163-7" data-line-number="7">}                                     </a></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb166-1" data-line-number="1">func average(xs []float64) (float64) {</a>
+<a class="sourceLine" id="cb166-2" data-line-number="2">    total :<span class="op">=</span> <span class="fl">0.0</span>                      </a>
+<a class="sourceLine" id="cb166-3" data-line-number="3">    <span class="cf">for</span> _, v :<span class="op">=</span> <span class="bu">range</span> xs {            </a>
+<a class="sourceLine" id="cb166-4" data-line-number="4">        total <span class="op">+=</span> v                    </a>
+<a class="sourceLine" id="cb166-5" data-line-number="5">    }</a>
+<a class="sourceLine" id="cb166-6" data-line-number="6">    <span class="cf">return</span> total <span class="op">/</span> float64(<span class="bu">len</span>(xs))   </a>
+<a class="sourceLine" id="cb166-7" data-line-number="7">}                                     </a></code></pre></div>
 <p>A function can also take multiple different types of variables</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb164-1" data-line-number="1">func lots_of_stuff(a <span class="bu">int</span>, b <span class="bu">map</span>[string]int64, c float64) (string, string, int64) {</a>
-<a class="sourceLine" id="cb164-2" data-line-number="2"><span class="op">//</span> do stuff</a>
-<a class="sourceLine" id="cb164-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb167-1" data-line-number="1">func lots_of_stuff(a <span class="bu">int</span>, b <span class="bu">map</span>[string]int64, c float64) (string, string, int64) {</a>
+<a class="sourceLine" id="cb167-2" data-line-number="2"><span class="op">//</span> do stuff</a>
+<a class="sourceLine" id="cb167-3" data-line-number="3">}</a></code></pre></div>
 <p>If it is desirable that a function takes maps of variable lengths a function can be designed like the one below</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb165-1" data-line-number="1">func add(args ...<span class="bu">int</span>) <span class="bu">int</span> { </a>
-<a class="sourceLine" id="cb165-2" data-line-number="2">    total :<span class="op">=</span> <span class="dv">0</span>              </a>
-<a class="sourceLine" id="cb165-3" data-line-number="3">    <span class="cf">for</span> _, v :<span class="op">=</span> <span class="bu">range</span> args {</a>
-<a class="sourceLine" id="cb165-4" data-line-number="4">        total <span class="op">+=</span> v          </a>
-<a class="sourceLine" id="cb165-5" data-line-number="5">    }                       </a>
-<a class="sourceLine" id="cb165-6" data-line-number="6">    <span class="cf">return</span> total            </a>
-<a class="sourceLine" id="cb165-7" data-line-number="7">}  </a></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb168-1" data-line-number="1">func add(args ...<span class="bu">int</span>) <span class="bu">int</span> { </a>
+<a class="sourceLine" id="cb168-2" data-line-number="2">    total :<span class="op">=</span> <span class="dv">0</span>              </a>
+<a class="sourceLine" id="cb168-3" data-line-number="3">    <span class="cf">for</span> _, v :<span class="op">=</span> <span class="bu">range</span> args {</a>
+<a class="sourceLine" id="cb168-4" data-line-number="4">        total <span class="op">+=</span> v          </a>
+<a class="sourceLine" id="cb168-5" data-line-number="5">    }                       </a>
+<a class="sourceLine" id="cb168-6" data-line-number="6">    <span class="cf">return</span> total            </a>
+<a class="sourceLine" id="cb168-7" data-line-number="7">}  </a></code></pre></div>
 <p>Functions can also be placed within other functions like this</p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb166-1" data-line-number="1">func main() {</a>
-<a class="sourceLine" id="cb166-2" data-line-number="2">  add :<span class="op">=</span> func(x, y <span class="bu">int</span>) <span class="bu">int</span> {</a>
-<a class="sourceLine" id="cb166-3" data-line-number="3">    <span class="cf">return</span> x <span class="op">+</span> y</a>
-<a class="sourceLine" id="cb166-4" data-line-number="4">  }</a>
-<a class="sourceLine" id="cb166-5" data-line-number="5">  fmt.Println(add(<span class="dv">1</span>,<span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb166-6" data-line-number="6">}</a></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb169-1" data-line-number="1">func main() {</a>
+<a class="sourceLine" id="cb169-2" data-line-number="2">  add :<span class="op">=</span> func(x, y <span class="bu">int</span>) <span class="bu">int</span> {</a>
+<a class="sourceLine" id="cb169-3" data-line-number="3">    <span class="cf">return</span> x <span class="op">+</span> y</a>
+<a class="sourceLine" id="cb169-4" data-line-number="4">  }</a>
+<a class="sourceLine" id="cb169-5" data-line-number="5">  fmt.Println(add(<span class="dv">1</span>,<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb169-6" data-line-number="6">}</a></code></pre></div>
 <p>Closure refers to functions that utilize non-local variables</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb167-1" data-line-number="1">func main() {</a>
-<a class="sourceLine" id="cb167-2" data-line-number="2">  x :<span class="op">=</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb167-3" data-line-number="3">  increment :<span class="op">=</span> func() <span class="bu">int</span> {</a>
-<a class="sourceLine" id="cb167-4" data-line-number="4">    x<span class="op">++</span></a>
-<a class="sourceLine" id="cb167-5" data-line-number="5">    <span class="cf">return</span> x</a>
-<a class="sourceLine" id="cb167-6" data-line-number="6">  }</a>
-<a class="sourceLine" id="cb167-7" data-line-number="7">  fmt.Println(increment())</a>
-<a class="sourceLine" id="cb167-8" data-line-number="8">  fmt.Println(increment())</a>
-<a class="sourceLine" id="cb167-9" data-line-number="9">}</a></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb170-1" data-line-number="1">func main() {</a>
+<a class="sourceLine" id="cb170-2" data-line-number="2">  x :<span class="op">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb170-3" data-line-number="3">  increment :<span class="op">=</span> func() <span class="bu">int</span> {</a>
+<a class="sourceLine" id="cb170-4" data-line-number="4">    x<span class="op">++</span></a>
+<a class="sourceLine" id="cb170-5" data-line-number="5">    <span class="cf">return</span> x</a>
+<a class="sourceLine" id="cb170-6" data-line-number="6">  }</a>
+<a class="sourceLine" id="cb170-7" data-line-number="7">  fmt.Println(increment())</a>
+<a class="sourceLine" id="cb170-8" data-line-number="8">  fmt.Println(increment())</a>
+<a class="sourceLine" id="cb170-9" data-line-number="9">}</a></code></pre></div>
 <p>Recursion uses the same function recursively</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb168-1" data-line-number="1"><span class="op">//</span> a recursive function      </a>
-<a class="sourceLine" id="cb168-2" data-line-number="2">func factorial(x uint) uint {</a>
-<a class="sourceLine" id="cb168-3" data-line-number="3">    <span class="cf">if</span> x <span class="op">==</span> <span class="dv">0</span> {              </a>
-<a class="sourceLine" id="cb168-4" data-line-number="4">        <span class="cf">return</span> <span class="dv">1</span>             </a>
-<a class="sourceLine" id="cb168-5" data-line-number="5">    }                        </a>
-<a class="sourceLine" id="cb168-6" data-line-number="6">    <span class="cf">return</span> x <span class="op">*</span> factorial(x<span class="dv">-1</span>)</a>
-<a class="sourceLine" id="cb168-7" data-line-number="7">}      </a></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb171-1" data-line-number="1"><span class="op">//</span> a recursive function      </a>
+<a class="sourceLine" id="cb171-2" data-line-number="2">func factorial(x uint) uint {</a>
+<a class="sourceLine" id="cb171-3" data-line-number="3">    <span class="cf">if</span> x <span class="op">==</span> <span class="dv">0</span> {              </a>
+<a class="sourceLine" id="cb171-4" data-line-number="4">        <span class="cf">return</span> <span class="dv">1</span>             </a>
+<a class="sourceLine" id="cb171-5" data-line-number="5">    }                        </a>
+<a class="sourceLine" id="cb171-6" data-line-number="6">    <span class="cf">return</span> x <span class="op">*</span> factorial(x<span class="dv">-1</span>)</a>
+<a class="sourceLine" id="cb171-7" data-line-number="7">}      </a></code></pre></div>
 <p>Deferring essentially moves a function call to the end of a function, like the following which closes the file after it is used</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb169-1" data-line-number="1">f, _ :<span class="op">=</span> os.Open(filename)</a>
-<a class="sourceLine" id="cb169-2" data-line-number="2">defer f.Close()</a></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb172-1" data-line-number="1">f, _ :<span class="op">=</span> os.Open(filename)</a>
+<a class="sourceLine" id="cb172-2" data-line-number="2">defer f.Close()</a></code></pre></div>
 </div>
 <div id="while-loops" class="section level2">
 <h2><span class="header-section-number">11.12</span> While loops</h2>
 <p>These are not actually included in golang as in other languages but instead utilize for loops.</p>
 <p>This is a repeat-until loop:</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb170-1" data-line-number="1"><span class="cf">for</span> {</a>
-<a class="sourceLine" id="cb170-2" data-line-number="2">    work()</a>
-<a class="sourceLine" id="cb170-3" data-line-number="3">    <span class="cf">if</span> condition {</a>
-<a class="sourceLine" id="cb170-4" data-line-number="4">        <span class="cf">break</span></a>
-<a class="sourceLine" id="cb170-5" data-line-number="5">    }</a>
-<a class="sourceLine" id="cb170-6" data-line-number="6">}</a></code></pre></div>
-<p>or</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb171-1" data-line-number="1"><span class="cf">for</span> ok :<span class="op">=</span> true<span class="op">;</span> ok<span class="op">;</span> ok <span class="op">=</span> <span class="op">!</span>condition {</a>
-<a class="sourceLine" id="cb171-2" data-line-number="2">    work()</a>
-<a class="sourceLine" id="cb171-3" data-line-number="3">}</a></code></pre></div>
-<p>A do-while loop</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb172-1" data-line-number="1"><span class="cf">for</span> {</a>
-<a class="sourceLine" id="cb172-2" data-line-number="2">    work()</a>
-<a class="sourceLine" id="cb172-3" data-line-number="3">    <span class="cf">if</span> <span class="op">!</span>condition {</a>
-<a class="sourceLine" id="cb172-4" data-line-number="4">        <span class="cf">break</span></a>
-<a class="sourceLine" id="cb172-5" data-line-number="5">    }</a>
-<a class="sourceLine" id="cb172-6" data-line-number="6">}</a></code></pre></div>
-<p>or</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb173-1" data-line-number="1"><span class="cf">for</span> ok :<span class="op">=</span> true<span class="op">;</span> ok<span class="op">;</span> ok <span class="op">=</span> condition {</a>
+<div class="sourceCode" id="cb173"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb173-1" data-line-number="1"><span class="cf">for</span> {</a>
 <a class="sourceLine" id="cb173-2" data-line-number="2">    work()</a>
-<a class="sourceLine" id="cb173-3" data-line-number="3">}</a></code></pre></div>
+<a class="sourceLine" id="cb173-3" data-line-number="3">    <span class="cf">if</span> condition {</a>
+<a class="sourceLine" id="cb173-4" data-line-number="4">        <span class="cf">break</span></a>
+<a class="sourceLine" id="cb173-5" data-line-number="5">    }</a>
+<a class="sourceLine" id="cb173-6" data-line-number="6">}</a></code></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb174-1" data-line-number="1"><span class="cf">for</span> ok :<span class="op">=</span> true<span class="op">;</span> ok<span class="op">;</span> ok <span class="op">=</span> <span class="op">!</span>condition {</a>
+<a class="sourceLine" id="cb174-2" data-line-number="2">    work()</a>
+<a class="sourceLine" id="cb174-3" data-line-number="3">}</a></code></pre></div>
+<p>A do-while loop</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb175-1" data-line-number="1"><span class="cf">for</span> {</a>
+<a class="sourceLine" id="cb175-2" data-line-number="2">    work()</a>
+<a class="sourceLine" id="cb175-3" data-line-number="3">    <span class="cf">if</span> <span class="op">!</span>condition {</a>
+<a class="sourceLine" id="cb175-4" data-line-number="4">        <span class="cf">break</span></a>
+<a class="sourceLine" id="cb175-5" data-line-number="5">    }</a>
+<a class="sourceLine" id="cb175-6" data-line-number="6">}</a></code></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb176-1" data-line-number="1"><span class="cf">for</span> ok :<span class="op">=</span> true<span class="op">;</span> ok<span class="op">;</span> ok <span class="op">=</span> condition {</a>
+<a class="sourceLine" id="cb176-2" data-line-number="2">    work()</a>
+<a class="sourceLine" id="cb176-3" data-line-number="3">}</a></code></pre></div>
 </div>
 <div id="timing-a-function" class="section level2">
 <h2><span class="header-section-number">11.13</span> Timing a function</h2>
-<div class="sourceCode" id="cb174"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb174-1" data-line-number="1">start :<span class="op">=</span> time.Now()</a>
-<a class="sourceLine" id="cb174-2" data-line-number="2">t :<span class="op">=</span> time.Now()</a>
-<a class="sourceLine" id="cb174-3" data-line-number="3">elapsed :<span class="op">=</span> t.Sub(start)</a>
-<a class="sourceLine" id="cb174-4" data-line-number="4">fmt.Println(elapsed)</a></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb177-1" data-line-number="1">start :<span class="op">=</span> time.Now()</a>
+<a class="sourceLine" id="cb177-2" data-line-number="2">t :<span class="op">=</span> time.Now()</a>
+<a class="sourceLine" id="cb177-3" data-line-number="3">elapsed :<span class="op">=</span> t.Sub(start)</a>
+<a class="sourceLine" id="cb177-4" data-line-number="4">fmt.Println(elapsed)</a></code></pre></div>
 </div>
 <div id="pointers" class="section level2">
 <h2><span class="header-section-number">11.14</span> Pointers</h2>
 <p>Pointers can be used to access the memory location of a variable and alter the value stored in that location</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb175-1" data-line-number="1">func zero(xPtr <span class="op">*</span><span class="bu">int</span>) {                                              </a>
-<a class="sourceLine" id="cb175-2" data-line-number="2">    <span class="op">*</span>xPtr <span class="op">=</span> <span class="dv">0</span> <span class="op">//</span> asterisk signifies a pointer                                                       </a>
-<a class="sourceLine" id="cb175-3" data-line-number="3">}                                                                   </a>
-<a class="sourceLine" id="cb175-4" data-line-number="4">                                                                    </a>
-<a class="sourceLine" id="cb175-5" data-line-number="5">func main() {                                                       </a>
-<a class="sourceLine" id="cb175-6" data-line-number="6">    x :<span class="op">=</span> <span class="dv">5</span>                                                          </a>
-<a class="sourceLine" id="cb175-7" data-line-number="7">    zero(<span class="op">&amp;</span>x) <span class="op">//</span> <span class="op">&amp;</span> finds the address of a variable                                                       </a>
-<a class="sourceLine" id="cb175-8" data-line-number="8">    fmt.Println(x) <span class="op">//</span> using a pointer allows the value to be changed</a>
-<a class="sourceLine" id="cb175-9" data-line-number="9">}                                                                   </a></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb178-1" data-line-number="1">func zero(xPtr <span class="op">*</span><span class="bu">int</span>) {                                              </a>
+<a class="sourceLine" id="cb178-2" data-line-number="2">    <span class="op">*</span>xPtr <span class="op">=</span> <span class="dv">0</span> <span class="op">//</span> asterisk signifies a pointer                                                       </a>
+<a class="sourceLine" id="cb178-3" data-line-number="3">}                                                                   </a>
+<a class="sourceLine" id="cb178-4" data-line-number="4">                                                                    </a>
+<a class="sourceLine" id="cb178-5" data-line-number="5">func main() {                                                       </a>
+<a class="sourceLine" id="cb178-6" data-line-number="6">    x :<span class="op">=</span> <span class="dv">5</span>                                                          </a>
+<a class="sourceLine" id="cb178-7" data-line-number="7">    zero(<span class="op">&amp;</span>x) <span class="op">//</span> <span class="op">&amp;</span> finds the address of a variable                                                       </a>
+<a class="sourceLine" id="cb178-8" data-line-number="8">    fmt.Println(x) <span class="op">//</span> using a pointer allows the value to be changed</a>
+<a class="sourceLine" id="cb178-9" data-line-number="9">}                                                                   </a></code></pre></div>
 <p>There is a built in function called new that takes a type as an argument, and allocates sufficient memory to hold that type and returns a pointer to it, and unlike other languages, because go is a garbage collected language, it will delete anything created by new when nothing refers to it anymore</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb176-1" data-line-number="1">func one(xPtr <span class="op">*</span><span class="bu">int</span>) {</a>
-<a class="sourceLine" id="cb176-2" data-line-number="2">    <span class="op">*</span>xPtr <span class="op">=</span> <span class="dv">1</span>        </a>
-<a class="sourceLine" id="cb176-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb176-4" data-line-number="4">                    </a>
-<a class="sourceLine" id="cb176-5" data-line-number="5">func main() {                                                                                                                 </a>
-<a class="sourceLine" id="cb176-6" data-line-number="6">    xPtr :<span class="op">=</span> new(<span class="bu">int</span>)                                                </a>
-<a class="sourceLine" id="cb176-7" data-line-number="7">    one(xPtr)                                                       </a>
-<a class="sourceLine" id="cb176-8" data-line-number="8">    fmt.Println(<span class="op">*</span>xPtr)                                              </a>
-<a class="sourceLine" id="cb176-9" data-line-number="9">}                                                                   </a></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb179-1" data-line-number="1">func one(xPtr <span class="op">*</span><span class="bu">int</span>) {</a>
+<a class="sourceLine" id="cb179-2" data-line-number="2">    <span class="op">*</span>xPtr <span class="op">=</span> <span class="dv">1</span>        </a>
+<a class="sourceLine" id="cb179-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb179-4" data-line-number="4">                    </a>
+<a class="sourceLine" id="cb179-5" data-line-number="5">func main() {                                                                                                                 </a>
+<a class="sourceLine" id="cb179-6" data-line-number="6">    xPtr :<span class="op">=</span> new(<span class="bu">int</span>)                                                </a>
+<a class="sourceLine" id="cb179-7" data-line-number="7">    one(xPtr)                                                       </a>
+<a class="sourceLine" id="cb179-8" data-line-number="8">    fmt.Println(<span class="op">*</span>xPtr)                                              </a>
+<a class="sourceLine" id="cb179-9" data-line-number="9">}                                                                   </a></code></pre></div>
 </div>
 <div id="structures" class="section level2">
 <h2><span class="header-section-number">11.15</span> Structures</h2>
 <p>These seem similar to classes and allow a new ‘type’ to be created</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb177-1" data-line-number="1"><span class="bu">type</span> Circle struct {</a>
-<a class="sourceLine" id="cb177-2" data-line-number="2">x float64</a>
-<a class="sourceLine" id="cb177-3" data-line-number="3">y float64</a>
-<a class="sourceLine" id="cb177-4" data-line-number="4">r float64</a>
-<a class="sourceLine" id="cb177-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb177-6" data-line-number="6">    <span class="op">//</span> values of the same <span class="bu">type</span> can be combined like this</a>
-<a class="sourceLine" id="cb177-7" data-line-number="7">    x, y, r float64 </a>
-<a class="sourceLine" id="cb177-8" data-line-number="8">}                   </a></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb180-1" data-line-number="1"><span class="bu">type</span> Circle struct {</a>
+<a class="sourceLine" id="cb180-2" data-line-number="2">x float64</a>
+<a class="sourceLine" id="cb180-3" data-line-number="3">y float64</a>
+<a class="sourceLine" id="cb180-4" data-line-number="4">r float64</a>
+<a class="sourceLine" id="cb180-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb180-6" data-line-number="6">    <span class="op">//</span> values of the same <span class="bu">type</span> can be combined like this</a>
+<a class="sourceLine" id="cb180-7" data-line-number="7">    x, y, r float64 </a>
+<a class="sourceLine" id="cb180-8" data-line-number="8">}                   </a></code></pre></div>
 <p>A new structure can be created just like a typical variable</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb178-1" data-line-number="1">var c Circle</a></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb181-1" data-line-number="1">var c Circle</a></code></pre></div>
 <p>A structure can be created like pointers which will set all values to their zero value like 0, 0.0, &quot;&quot; and return a pointer</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb179-1" data-line-number="1">c :<span class="op">=</span> new(Circle)</a></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb182-1" data-line-number="1">c :<span class="op">=</span> new(Circle)</a></code></pre></div>
 <p>Values for a structure can also be defined at variable creation time</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb180-1" data-line-number="1">c :<span class="op">=</span> Circle{x: <span class="dv">0</span>, y: <span class="dv">0</span>, r: <span class="dv">5</span>}</a>
-<a class="sourceLine" id="cb180-2" data-line-number="2"><span class="op">//</span> this <span class="kw">is</span> possible <span class="cf">if</span> you remember the order <span class="bu">vars</span> were defined</a>
-<a class="sourceLine" id="cb180-3" data-line-number="3">c :<span class="op">=</span> Circle{<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>}</a></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb183-1" data-line-number="1">c :<span class="op">=</span> Circle{x: <span class="dv">0</span>, y: <span class="dv">0</span>, r: <span class="dv">5</span>}</a>
+<a class="sourceLine" id="cb183-2" data-line-number="2"><span class="op">//</span> this <span class="kw">is</span> possible <span class="cf">if</span> you remember the order <span class="bu">vars</span> were defined</a>
+<a class="sourceLine" id="cb183-3" data-line-number="3">c :<span class="op">=</span> Circle{<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>}</a></code></pre></div>
 <p>Structure fields are accessed like class methods</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb181-1" data-line-number="1">fmt.Println(c.x, c.y, c.r)</a>
-<a class="sourceLine" id="cb181-2" data-line-number="2">c.x <span class="op">=</span> <span class="dv">10</span></a>
-<a class="sourceLine" id="cb181-3" data-line-number="3">c.y <span class="op">=</span> <span class="dv">5</span></a></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb184-1" data-line-number="1">fmt.Println(c.x, c.y, c.r)</a>
+<a class="sourceLine" id="cb184-2" data-line-number="2">c.x <span class="op">=</span> <span class="dv">10</span></a>
+<a class="sourceLine" id="cb184-3" data-line-number="3">c.y <span class="op">=</span> <span class="dv">5</span></a></code></pre></div>
 <p>When passing a structure to another function, its type is the name of the structure</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb182-1" data-line-number="1">func circleArea(c Circle) float64 {</a>
-<a class="sourceLine" id="cb182-2" data-line-number="2">    <span class="cf">return</span> math.Pi <span class="op">*</span> c.r <span class="op">*</span> c.r     </a>
-<a class="sourceLine" id="cb182-3" data-line-number="3">}                                  </a></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb185-1" data-line-number="1">func circleArea(c Circle) float64 {</a>
+<a class="sourceLine" id="cb185-2" data-line-number="2">    <span class="cf">return</span> math.Pi <span class="op">*</span> c.r <span class="op">*</span> c.r     </a>
+<a class="sourceLine" id="cb185-3" data-line-number="3">}                                  </a></code></pre></div>
 <p>Fields of a structure that has been defined are not altered unless a pointer is used</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb183-1" data-line-number="1">func circleArea(c <span class="op">*</span>Circle) float64 {</a>
-<a class="sourceLine" id="cb183-2" data-line-number="2">    c.r <span class="op">=</span> <span class="dv">10</span>                        </a>
-<a class="sourceLine" id="cb183-3" data-line-number="3">    <span class="cf">return</span> math.Pi <span class="op">*</span> c.r <span class="op">*</span> c.r      </a>
-<a class="sourceLine" id="cb183-4" data-line-number="4">}                                   </a>
-<a class="sourceLine" id="cb183-5" data-line-number="5">                                    </a>
-<a class="sourceLine" id="cb183-6" data-line-number="6">func main() {                       </a>
-<a class="sourceLine" id="cb183-7" data-line-number="7">    c:<span class="op">=</span> Circle{<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>}             </a>
-<a class="sourceLine" id="cb183-8" data-line-number="8">    fmt.Println(circleArea(<span class="op">&amp;</span>c), c)  </a>
-<a class="sourceLine" id="cb183-9" data-line-number="9">}</a></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb186-1" data-line-number="1">func circleArea(c <span class="op">*</span>Circle) float64 {</a>
+<a class="sourceLine" id="cb186-2" data-line-number="2">    c.r <span class="op">=</span> <span class="dv">10</span>                        </a>
+<a class="sourceLine" id="cb186-3" data-line-number="3">    <span class="cf">return</span> math.Pi <span class="op">*</span> c.r <span class="op">*</span> c.r      </a>
+<a class="sourceLine" id="cb186-4" data-line-number="4">}                                   </a>
+<a class="sourceLine" id="cb186-5" data-line-number="5">                                    </a>
+<a class="sourceLine" id="cb186-6" data-line-number="6">func main() {                       </a>
+<a class="sourceLine" id="cb186-7" data-line-number="7">    c:<span class="op">=</span> Circle{<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>}             </a>
+<a class="sourceLine" id="cb186-8" data-line-number="8">    fmt.Println(circleArea(<span class="op">&amp;</span>c), c)  </a>
+<a class="sourceLine" id="cb186-9" data-line-number="9">}</a></code></pre></div>
 </div>
 <div id="methods" class="section level2">
 <h2><span class="header-section-number">11.16</span> Methods</h2>
 <p>These can be added to structures so they can be directly accessed by automatically passing a pointer to the method. The area() receiver can be used for other structures, and does not have to be a unique word</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb184-1" data-line-number="1"><span class="bu">type</span> Circle struct {             </a>
-<a class="sourceLine" id="cb184-2" data-line-number="2">    x, y, r float64              </a>
-<a class="sourceLine" id="cb184-3" data-line-number="3">}                                </a>
-<a class="sourceLine" id="cb184-4" data-line-number="4">                                 </a>
-<a class="sourceLine" id="cb184-5" data-line-number="5">func (c <span class="op">*</span>Circle) area() float64 {</a>
-<a class="sourceLine" id="cb184-6" data-line-number="6">    <span class="cf">return</span> math.Pi <span class="op">*</span> c.r <span class="op">*</span> c.r   </a>
-<a class="sourceLine" id="cb184-7" data-line-number="7">}                                </a>
-<a class="sourceLine" id="cb184-8" data-line-number="8">                                 </a>
-<a class="sourceLine" id="cb184-9" data-line-number="9">func main() {                    </a>
-<a class="sourceLine" id="cb184-10" data-line-number="10">    c:<span class="op">=</span> Circle{<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>}          </a>
-<a class="sourceLine" id="cb184-11" data-line-number="11">    fmt.Println(c.area())        </a>
-<a class="sourceLine" id="cb184-12" data-line-number="12">}   </a></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb187-1" data-line-number="1"><span class="bu">type</span> Circle struct {             </a>
+<a class="sourceLine" id="cb187-2" data-line-number="2">    x, y, r float64              </a>
+<a class="sourceLine" id="cb187-3" data-line-number="3">}                                </a>
+<a class="sourceLine" id="cb187-4" data-line-number="4">                                 </a>
+<a class="sourceLine" id="cb187-5" data-line-number="5">func (c <span class="op">*</span>Circle) area() float64 {</a>
+<a class="sourceLine" id="cb187-6" data-line-number="6">    <span class="cf">return</span> math.Pi <span class="op">*</span> c.r <span class="op">*</span> c.r   </a>
+<a class="sourceLine" id="cb187-7" data-line-number="7">}                                </a>
+<a class="sourceLine" id="cb187-8" data-line-number="8">                                 </a>
+<a class="sourceLine" id="cb187-9" data-line-number="9">func main() {                    </a>
+<a class="sourceLine" id="cb187-10" data-line-number="10">    c:<span class="op">=</span> Circle{<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>}          </a>
+<a class="sourceLine" id="cb187-11" data-line-number="11">    fmt.Println(c.area())        </a>
+<a class="sourceLine" id="cb187-12" data-line-number="12">}   </a></code></pre></div>
 <p>Embedded Types is sort of like inheritance and gives a method access to all of the features of another structure.</p>
 <p>Here is a person structure</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb185-1" data-line-number="1"><span class="bu">type</span> Person struct {</a>
-<a class="sourceLine" id="cb185-2" data-line-number="2">  Name string</a>
-<a class="sourceLine" id="cb185-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb185-4" data-line-number="4">func (p <span class="op">*</span>Person) Talk() {</a>
-<a class="sourceLine" id="cb185-5" data-line-number="5">  fmt.Println(<span class="st">&quot;Hi, my name is&quot;</span>, p.Name)</a>
-<a class="sourceLine" id="cb185-6" data-line-number="6">}</a></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb188-1" data-line-number="1"><span class="bu">type</span> Person struct {</a>
+<a class="sourceLine" id="cb188-2" data-line-number="2">  Name string</a>
+<a class="sourceLine" id="cb188-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb188-4" data-line-number="4">func (p <span class="op">*</span>Person) Talk() {</a>
+<a class="sourceLine" id="cb188-5" data-line-number="5">  fmt.Println(<span class="st">&quot;Hi, my name is&quot;</span>, p.Name)</a>
+<a class="sourceLine" id="cb188-6" data-line-number="6">}</a></code></pre></div>
 <p>Here Android is defined to have the same properties as the person structure</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb186-1" data-line-number="1"><span class="bu">type</span> Android struct {</a>
-<a class="sourceLine" id="cb186-2" data-line-number="2">  Person</a>
-<a class="sourceLine" id="cb186-3" data-line-number="3">  Model string</a>
-<a class="sourceLine" id="cb186-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb186-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb186-6" data-line-number="6">a :<span class="op">=</span> new(Android)</a>
-<a class="sourceLine" id="cb186-7" data-line-number="7">a.Talk()</a></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb189-1" data-line-number="1"><span class="bu">type</span> Android struct {</a>
+<a class="sourceLine" id="cb189-2" data-line-number="2">  Person</a>
+<a class="sourceLine" id="cb189-3" data-line-number="3">  Model string</a>
+<a class="sourceLine" id="cb189-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb189-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb189-6" data-line-number="6">a :<span class="op">=</span> new(Android)</a>
+<a class="sourceLine" id="cb189-7" data-line-number="7">a.Talk()</a></code></pre></div>
 </div>
 <div id="packaging" class="section level2">
 <h2><span class="header-section-number">11.17</span> Packaging</h2>
 <p>Building code into a package is a convenient way of then accessing the same methods without having to rebuild them.</p>
 <p>To create a package, make a folder with the same name as the package so <code>math</code> in this case. Then refer to the package name in a file within this folder like this:
 package math</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb187-1" data-line-number="1">func Average(xs []float64) float64 {</a>
-<a class="sourceLine" id="cb187-2" data-line-number="2">    total :<span class="op">=</span> float64(<span class="dv">0</span>)             </a>
-<a class="sourceLine" id="cb187-3" data-line-number="3">    <span class="cf">for</span> _, x :<span class="op">=</span> <span class="bu">range</span> xs {          </a>
-<a class="sourceLine" id="cb187-4" data-line-number="4">        total <span class="op">+=</span> x                  </a>
-<a class="sourceLine" id="cb187-5" data-line-number="5">    }                               </a>
-<a class="sourceLine" id="cb187-6" data-line-number="6">    <span class="cf">return</span> total <span class="op">/</span> float64(<span class="bu">len</span>(xs)) </a>
-<a class="sourceLine" id="cb187-7" data-line-number="7">}                                   </a></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb190-1" data-line-number="1">func Average(xs []float64) float64 {</a>
+<a class="sourceLine" id="cb190-2" data-line-number="2">    total :<span class="op">=</span> float64(<span class="dv">0</span>)             </a>
+<a class="sourceLine" id="cb190-3" data-line-number="3">    <span class="cf">for</span> _, x :<span class="op">=</span> <span class="bu">range</span> xs {          </a>
+<a class="sourceLine" id="cb190-4" data-line-number="4">        total <span class="op">+=</span> x                  </a>
+<a class="sourceLine" id="cb190-5" data-line-number="5">    }                               </a>
+<a class="sourceLine" id="cb190-6" data-line-number="6">    <span class="cf">return</span> total <span class="op">/</span> float64(<span class="bu">len</span>(xs)) </a>
+<a class="sourceLine" id="cb190-7" data-line-number="7">}                                   </a></code></pre></div>
 <p>Then save this file and build it from the same directory using:</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb188-1" data-line-number="1">go install</a></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb191-1" data-line-number="1">go install</a></code></pre></div>
 <p>Finally, use this package by referring to its directory like this:</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb189-1" data-line-number="1">package main                          </a>
-<a class="sourceLine" id="cb189-2" data-line-number="2">                                      </a>
-<a class="sourceLine" id="cb189-3" data-line-number="3"><span class="im">import</span> <span class="st">&quot;fmt&quot;</span>                          </a>
-<a class="sourceLine" id="cb189-4" data-line-number="4"><span class="op">//</span> <span class="im">import</span> <span class="st">&quot;chapter11/math&quot;</span> <span class="op">//</span>this <span class="bu">format</span> can be used <span class="cf">if</span> put <span class="kw">in</span> <span class="op">~/</span>go<span class="op">/</span>src<span class="op">/</span></a>
-<a class="sourceLine" id="cb189-5" data-line-number="5"><span class="im">import</span> <span class="st">&quot;./math&quot;</span>                       </a>
-<a class="sourceLine" id="cb189-6" data-line-number="6">                                      </a>
-<a class="sourceLine" id="cb189-7" data-line-number="7">func main() {                         </a>
-<a class="sourceLine" id="cb189-8" data-line-number="8">    xs :<span class="op">=</span> []float64{<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>}          </a>
-<a class="sourceLine" id="cb189-9" data-line-number="9">    avg :<span class="op">=</span> math.Average(xs)           </a>
-<a class="sourceLine" id="cb189-10" data-line-number="10">    fmt.Println(avg)                  </a>
-<a class="sourceLine" id="cb189-11" data-line-number="11">}                                     </a></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb192-1" data-line-number="1">package main                          </a>
+<a class="sourceLine" id="cb192-2" data-line-number="2">                                      </a>
+<a class="sourceLine" id="cb192-3" data-line-number="3"><span class="im">import</span> <span class="st">&quot;fmt&quot;</span>                          </a>
+<a class="sourceLine" id="cb192-4" data-line-number="4"><span class="op">//</span> <span class="im">import</span> <span class="st">&quot;chapter11/math&quot;</span> <span class="op">//</span>this <span class="bu">format</span> can be used <span class="cf">if</span> put <span class="kw">in</span> <span class="op">~/</span>go<span class="op">/</span>src<span class="op">/</span></a>
+<a class="sourceLine" id="cb192-5" data-line-number="5"><span class="im">import</span> <span class="st">&quot;./math&quot;</span>                       </a>
+<a class="sourceLine" id="cb192-6" data-line-number="6">                                      </a>
+<a class="sourceLine" id="cb192-7" data-line-number="7">func main() {                         </a>
+<a class="sourceLine" id="cb192-8" data-line-number="8">    xs :<span class="op">=</span> []float64{<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>}          </a>
+<a class="sourceLine" id="cb192-9" data-line-number="9">    avg :<span class="op">=</span> math.Average(xs)           </a>
+<a class="sourceLine" id="cb192-10" data-line-number="10">    fmt.Println(avg)                  </a>
+<a class="sourceLine" id="cb192-11" data-line-number="11">}                                     </a></code></pre></div>
 </div>
 <div id="readwrite-files" class="section level2">
 <h2><span class="header-section-number">11.18</span> Read/Write Files</h2>
 <p>Here is how a file is opened</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb190-1" data-line-number="1">f, err :<span class="op">=</span> os.Open(<span class="st">&quot;./data/genomes/schisto_small.fa&quot;</span>)</a>
-<a class="sourceLine" id="cb190-2" data-line-number="2">check(err)</a>
-<a class="sourceLine" id="cb190-3" data-line-number="3">f.Close() <span class="op">//</span> when done</a>
-<a class="sourceLine" id="cb190-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb190-5" data-line-number="5">func check(e error) {</a>
-<a class="sourceLine" id="cb190-6" data-line-number="6">    <span class="cf">if</span> e <span class="op">!=</span> nil {    </a>
-<a class="sourceLine" id="cb190-7" data-line-number="7">        panic(e)     </a>
-<a class="sourceLine" id="cb190-8" data-line-number="8">    }                </a>
-<a class="sourceLine" id="cb190-9" data-line-number="9">}</a></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb193-1" data-line-number="1">f, err :<span class="op">=</span> os.Open(<span class="st">&quot;./data/genomes/schisto_small.fa&quot;</span>)</a>
+<a class="sourceLine" id="cb193-2" data-line-number="2">check(err)</a>
+<a class="sourceLine" id="cb193-3" data-line-number="3">f.Close() <span class="op">//</span> when done</a>
+<a class="sourceLine" id="cb193-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb193-5" data-line-number="5">func check(e error) {</a>
+<a class="sourceLine" id="cb193-6" data-line-number="6">    <span class="cf">if</span> e <span class="op">!=</span> nil {    </a>
+<a class="sourceLine" id="cb193-7" data-line-number="7">        panic(e)     </a>
+<a class="sourceLine" id="cb193-8" data-line-number="8">    }                </a>
+<a class="sourceLine" id="cb193-9" data-line-number="9">}</a></code></pre></div>
 <p>In Go 2.0 the <code>try</code> function can be used to open files a bit more elegantly.
 Instead of this:</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb191-1" data-line-number="1">f, err :<span class="op">=</span> os.Open(filename)</a>
-<a class="sourceLine" id="cb191-2" data-line-number="2">    <span class="cf">if</span> err <span class="op">!=</span> nil {</a>
-<a class="sourceLine" id="cb191-3" data-line-number="3">        <span class="cf">return</span> …, err</a>
-<a class="sourceLine" id="cb191-4" data-line-number="4">    }</a></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb194-1" data-line-number="1">f, err :<span class="op">=</span> os.Open(filename)</a>
+<a class="sourceLine" id="cb194-2" data-line-number="2">    <span class="cf">if</span> err <span class="op">!=</span> nil {</a>
+<a class="sourceLine" id="cb194-3" data-line-number="3">        <span class="cf">return</span> …, err</a>
+<a class="sourceLine" id="cb194-4" data-line-number="4">    }</a></code></pre></div>
 <p>Opening is simplified to this:</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb192-1" data-line-number="1">f :<span class="op">=</span> <span class="cf">try</span>(os.Open(filename))</a></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb195-1" data-line-number="1">f :<span class="op">=</span> <span class="cf">try</span>(os.Open(filename))</a></code></pre></div>
 <p>Read by a certain number of bytes at a time</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb193-1" data-line-number="1">b1 :<span class="op">=</span> make([]byte, <span class="dv">61</span>)                      </a>
-<a class="sourceLine" id="cb193-2" data-line-number="2">n1, err :<span class="op">=</span> f.Read(b1)                       </a>
-<a class="sourceLine" id="cb193-3" data-line-number="3">check(err)                                  </a>
-<a class="sourceLine" id="cb193-4" data-line-number="4">fmt.Printf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st"> bytes: </span><span class="sc">%s</span><span class="ch">\n</span><span class="st">&quot;</span>, n1, string(b1))</a></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb196-1" data-line-number="1">b1 :<span class="op">=</span> make([]byte, <span class="dv">61</span>)                      </a>
+<a class="sourceLine" id="cb196-2" data-line-number="2">n1, err :<span class="op">=</span> f.Read(b1)                       </a>
+<a class="sourceLine" id="cb196-3" data-line-number="3">check(err)                                  </a>
+<a class="sourceLine" id="cb196-4" data-line-number="4">fmt.Printf(<span class="st">&quot;</span><span class="sc">%d</span><span class="st"> bytes: </span><span class="sc">%s</span><span class="ch">\n</span><span class="st">&quot;</span>, n1, string(b1))</a></code></pre></div>
 <p>Peek might be more efficient with many small read calls but reads next n bytes without advancing the reader</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb194-1" data-line-number="1">r4 :<span class="op">=</span> bufio.NewReader(f)                                  </a>
-<a class="sourceLine" id="cb194-2" data-line-number="2">b4, err :<span class="op">=</span> r4.Peek(<span class="dv">61</span>)                                    </a>
-<a class="sourceLine" id="cb194-3" data-line-number="3">check(err)                                                </a>
-<a class="sourceLine" id="cb194-4" data-line-number="4">fmt.Printf(<span class="st">&quot;5 bytes: </span><span class="sc">%s</span><span class="ch">\n</span><span class="st">&quot;</span>, string(b4))</a></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb197-1" data-line-number="1">r4 :<span class="op">=</span> bufio.NewReader(f)                                  </a>
+<a class="sourceLine" id="cb197-2" data-line-number="2">b4, err :<span class="op">=</span> r4.Peek(<span class="dv">61</span>)                                    </a>
+<a class="sourceLine" id="cb197-3" data-line-number="3">check(err)                                                </a>
+<a class="sourceLine" id="cb197-4" data-line-number="4">fmt.Printf(<span class="st">&quot;5 bytes: </span><span class="sc">%s</span><span class="ch">\n</span><span class="st">&quot;</span>, string(b4))</a></code></pre></div>
 <p>Scanners are useful ways to read newline delimited files</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb195-1" data-line-number="1">scanner :<span class="op">=</span> bufio.NewScanner(f)                             </a>
-<a class="sourceLine" id="cb195-2" data-line-number="2"><span class="cf">for</span> scanner.Scan() {                                       </a>
-<a class="sourceLine" id="cb195-3" data-line-number="3">    fmt.Println(scanner.Text()) <span class="op">//</span> Println retains the <span class="op">\</span>n  </a>
-<a class="sourceLine" id="cb195-4" data-line-number="4">}                                                          </a>
-<a class="sourceLine" id="cb195-5" data-line-number="5"><span class="cf">if</span> err :<span class="op">=</span> scanner.Err()<span class="op">;</span> err <span class="op">!=</span> nil {                      </a>
-<a class="sourceLine" id="cb195-6" data-line-number="6">    fmt.Fprintln(os.Stderr, <span class="st">&quot;reading standard input:&quot;</span>, err)</a>
-<a class="sourceLine" id="cb195-7" data-line-number="7">}</a></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb198-1" data-line-number="1">scanner :<span class="op">=</span> bufio.NewScanner(f)                             </a>
+<a class="sourceLine" id="cb198-2" data-line-number="2"><span class="cf">for</span> scanner.Scan() {                                       </a>
+<a class="sourceLine" id="cb198-3" data-line-number="3">    fmt.Println(scanner.Text()) <span class="op">//</span> Println retains the <span class="op">\</span>n  </a>
+<a class="sourceLine" id="cb198-4" data-line-number="4">}                                                          </a>
+<a class="sourceLine" id="cb198-5" data-line-number="5"><span class="cf">if</span> err :<span class="op">=</span> scanner.Err()<span class="op">;</span> err <span class="op">!=</span> nil {                      </a>
+<a class="sourceLine" id="cb198-6" data-line-number="6">    fmt.Fprintln(os.Stderr, <span class="st">&quot;reading standard input:&quot;</span>, err)</a>
+<a class="sourceLine" id="cb198-7" data-line-number="7">}</a></code></pre></div>
 <p>Read from gzip file</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb196-1" data-line-number="1"><span class="im">import</span>(<span class="st">&quot;compress/gzip&quot;</span>)                                                          </a>
-<a class="sourceLine" id="cb196-2" data-line-number="2"><span class="bu">file</span>, err :<span class="op">=</span> os.Open(<span class="st">&quot;./data/genomes/schisto_small_2.fa.gz&quot;</span>)</a>
-<a class="sourceLine" id="cb196-3" data-line-number="3">f, err :<span class="op">=</span> gzip.NewReader(<span class="bu">file</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb199-1" data-line-number="1"><span class="im">import</span>(<span class="st">&quot;compress/gzip&quot;</span>)                                                          </a>
+<a class="sourceLine" id="cb199-2" data-line-number="2"><span class="bu">file</span>, err :<span class="op">=</span> os.Open(<span class="st">&quot;./data/genomes/schisto_small_2.fa.gz&quot;</span>)</a>
+<a class="sourceLine" id="cb199-3" data-line-number="3">f, err :<span class="op">=</span> gzip.NewReader(<span class="bu">file</span>)</a></code></pre></div>
 </div>
 <div id="math" class="section level2">
 <h2><span class="header-section-number">11.19</span> Math</h2>
 <p>Absolute value is pretty easy if using a float64</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb197-1" data-line-number="1"><span class="im">import</span>(<span class="st">&quot;math&quot;</span>)</a>
-<a class="sourceLine" id="cb197-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb197-3" data-line-number="3">x :<span class="op">=</span> <span class="fl">-4.0</span></a>
-<a class="sourceLine" id="cb197-4" data-line-number="4">math.Abs(x)</a></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb200-1" data-line-number="1"><span class="im">import</span>(<span class="st">&quot;math&quot;</span>)</a>
+<a class="sourceLine" id="cb200-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb200-3" data-line-number="3">x :<span class="op">=</span> <span class="fl">-4.0</span></a>
+<a class="sourceLine" id="cb200-4" data-line-number="4">math.Abs(x)</a></code></pre></div>
 <p>Now, it seems to be super annoying to calculate the absolute value of an int.</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb198-1" data-line-number="1"><span class="im">import</span>(<span class="st">&quot;math&quot;</span>)</a>
-<a class="sourceLine" id="cb198-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb198-3" data-line-number="3">x :<span class="op">=</span> <span class="dv">-5</span></a>
-<a class="sourceLine" id="cb198-4" data-line-number="4"><span class="bu">int</span>(math.Abs(float64(x)))</a></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb201-1" data-line-number="1"><span class="im">import</span>(<span class="st">&quot;math&quot;</span>)</a>
+<a class="sourceLine" id="cb201-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb201-3" data-line-number="3">x :<span class="op">=</span> <span class="dv">-5</span></a>
+<a class="sourceLine" id="cb201-4" data-line-number="4"><span class="bu">int</span>(math.Abs(float64(x)))</a></code></pre></div>
 </div>
 <div id="concurrency" class="section level2">
 <h2><span class="header-section-number">11.20</span> Concurrency</h2>
 <div id="goroutines" class="section level3">
 <h3><span class="header-section-number">11.20.1</span> Goroutines</h3>
 <p>Goroutines are lightweight threads that are managed by the Go runtime, and are run concurrently in the same address space as other function calls.</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb199-1" data-line-number="1">package main</a>
-<a class="sourceLine" id="cb199-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb199-3" data-line-number="3"><span class="im">import</span> (</a>
-<a class="sourceLine" id="cb199-4" data-line-number="4">    <span class="st">&quot;fmt&quot;</span></a>
-<a class="sourceLine" id="cb199-5" data-line-number="5">    <span class="st">&quot;time&quot;</span></a>
-<a class="sourceLine" id="cb199-6" data-line-number="6">)</a>
-<a class="sourceLine" id="cb199-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb199-8" data-line-number="8">func say(s string) {</a>
-<a class="sourceLine" id="cb199-9" data-line-number="9">    <span class="cf">for</span> i :<span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">;</span> i<span class="op">++</span> {</a>
-<a class="sourceLine" id="cb199-10" data-line-number="10">        time.Sleep(<span class="dv">100</span> <span class="op">*</span> time.Millisecond)</a>
-<a class="sourceLine" id="cb199-11" data-line-number="11">        fmt.Println(s)</a>
-<a class="sourceLine" id="cb199-12" data-line-number="12">    }</a>
-<a class="sourceLine" id="cb199-13" data-line-number="13">}</a>
-<a class="sourceLine" id="cb199-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb199-15" data-line-number="15">func main() {</a>
-<a class="sourceLine" id="cb199-16" data-line-number="16">    go say(<span class="st">&quot;world&quot;</span>)</a>
-<a class="sourceLine" id="cb199-17" data-line-number="17">    say(<span class="st">&quot;hello&quot;</span>)</a>
-<a class="sourceLine" id="cb199-18" data-line-number="18">}</a></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb202-1" data-line-number="1">package main</a>
+<a class="sourceLine" id="cb202-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb202-3" data-line-number="3"><span class="im">import</span> (</a>
+<a class="sourceLine" id="cb202-4" data-line-number="4">    <span class="st">&quot;fmt&quot;</span></a>
+<a class="sourceLine" id="cb202-5" data-line-number="5">    <span class="st">&quot;time&quot;</span></a>
+<a class="sourceLine" id="cb202-6" data-line-number="6">)</a>
+<a class="sourceLine" id="cb202-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb202-8" data-line-number="8">func say(s string) {</a>
+<a class="sourceLine" id="cb202-9" data-line-number="9">    <span class="cf">for</span> i :<span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">;</span> i<span class="op">++</span> {</a>
+<a class="sourceLine" id="cb202-10" data-line-number="10">        time.Sleep(<span class="dv">100</span> <span class="op">*</span> time.Millisecond)</a>
+<a class="sourceLine" id="cb202-11" data-line-number="11">        fmt.Println(s)</a>
+<a class="sourceLine" id="cb202-12" data-line-number="12">    }</a>
+<a class="sourceLine" id="cb202-13" data-line-number="13">}</a>
+<a class="sourceLine" id="cb202-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb202-15" data-line-number="15">func main() {</a>
+<a class="sourceLine" id="cb202-16" data-line-number="16">    go say(<span class="st">&quot;world&quot;</span>)</a>
+<a class="sourceLine" id="cb202-17" data-line-number="17">    say(<span class="st">&quot;hello&quot;</span>)</a>
+<a class="sourceLine" id="cb202-18" data-line-number="18">}</a></code></pre></div>
 </div>
 <div id="channels" class="section level3">
 <h3><span class="header-section-number">11.20.2</span> Channels</h3>
 <p>Channels are a typed conduit through which values can be sent and received. They function with the <code>&lt;-</code> operator.</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb200-1" data-line-number="1">ch <span class="op">&lt;-</span> v    <span class="op">//</span> Send v to channel ch.</a>
-<a class="sourceLine" id="cb200-2" data-line-number="2">v :<span class="op">=</span> <span class="op">&lt;-</span>ch  <span class="op">//</span> Receive <span class="im">from</span> ch, <span class="kw">and</span></a>
-<a class="sourceLine" id="cb200-3" data-line-number="3">           <span class="op">//</span> assign value to v.</a></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb203-1" data-line-number="1">ch <span class="op">&lt;-</span> v    <span class="op">//</span> Send v to channel ch.</a>
+<a class="sourceLine" id="cb203-2" data-line-number="2">v :<span class="op">=</span> <span class="op">&lt;-</span>ch  <span class="op">//</span> Receive <span class="im">from</span> ch, <span class="kw">and</span></a>
+<a class="sourceLine" id="cb203-3" data-line-number="3">           <span class="op">//</span> assign value to v.</a></code></pre></div>
 <p>The default function of a channel is to block communication until both sides are ready.</p>
 <p>In the example below, the sum of the first and last three values in an array are calculated separately and then added together when both goroutines have completed.</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb201-1" data-line-number="1">package main</a>
-<a class="sourceLine" id="cb201-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb201-3" data-line-number="3"><span class="im">import</span> <span class="st">&quot;fmt&quot;</span></a>
-<a class="sourceLine" id="cb201-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb201-5" data-line-number="5">func <span class="bu">sum</span>(s []<span class="bu">int</span>, c chan <span class="bu">int</span>) {</a>
-<a class="sourceLine" id="cb201-6" data-line-number="6">    <span class="bu">sum</span> :<span class="op">=</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb201-7" data-line-number="7">    <span class="cf">for</span> _, v :<span class="op">=</span> <span class="bu">range</span> s {</a>
-<a class="sourceLine" id="cb201-8" data-line-number="8">        <span class="bu">sum</span> <span class="op">+=</span> v</a>
-<a class="sourceLine" id="cb201-9" data-line-number="9">    }</a>
-<a class="sourceLine" id="cb201-10" data-line-number="10">    c <span class="op">&lt;-</span> <span class="bu">sum</span> <span class="op">//</span> send <span class="bu">sum</span> to c</a>
-<a class="sourceLine" id="cb201-11" data-line-number="11">}</a>
-<a class="sourceLine" id="cb201-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb201-13" data-line-number="13">func main() {</a>
-<a class="sourceLine" id="cb201-14" data-line-number="14">    s :<span class="op">=</span> []<span class="bu">int</span>{<span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">-9</span>, <span class="dv">4</span>, <span class="dv">0</span>}</a>
-<a class="sourceLine" id="cb201-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb201-16" data-line-number="16">    c :<span class="op">=</span> make(chan <span class="bu">int</span>)</a>
-<a class="sourceLine" id="cb201-17" data-line-number="17">    go <span class="bu">sum</span>(s[:<span class="bu">len</span>(s)<span class="op">/</span><span class="dv">2</span>], c)</a>
-<a class="sourceLine" id="cb201-18" data-line-number="18">    go <span class="bu">sum</span>(s[<span class="bu">len</span>(s)<span class="op">/</span><span class="dv">2</span>:], c)</a>
-<a class="sourceLine" id="cb201-19" data-line-number="19">    x, y :<span class="op">=</span> <span class="op">&lt;-</span>c, <span class="op">&lt;-</span>c <span class="op">//</span> receive <span class="im">from</span> c</a>
-<a class="sourceLine" id="cb201-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb201-21" data-line-number="21">    fmt.Println(x, y, x<span class="op">+</span>y)</a></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb204-1" data-line-number="1">package main</a>
+<a class="sourceLine" id="cb204-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb204-3" data-line-number="3"><span class="im">import</span> <span class="st">&quot;fmt&quot;</span></a>
+<a class="sourceLine" id="cb204-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb204-5" data-line-number="5">func <span class="bu">sum</span>(s []<span class="bu">int</span>, c chan <span class="bu">int</span>) {</a>
+<a class="sourceLine" id="cb204-6" data-line-number="6">    <span class="bu">sum</span> :<span class="op">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb204-7" data-line-number="7">    <span class="cf">for</span> _, v :<span class="op">=</span> <span class="bu">range</span> s {</a>
+<a class="sourceLine" id="cb204-8" data-line-number="8">        <span class="bu">sum</span> <span class="op">+=</span> v</a>
+<a class="sourceLine" id="cb204-9" data-line-number="9">    }</a>
+<a class="sourceLine" id="cb204-10" data-line-number="10">    c <span class="op">&lt;-</span> <span class="bu">sum</span> <span class="op">//</span> send <span class="bu">sum</span> to c</a>
+<a class="sourceLine" id="cb204-11" data-line-number="11">}</a>
+<a class="sourceLine" id="cb204-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb204-13" data-line-number="13">func main() {</a>
+<a class="sourceLine" id="cb204-14" data-line-number="14">    s :<span class="op">=</span> []<span class="bu">int</span>{<span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">-9</span>, <span class="dv">4</span>, <span class="dv">0</span>}</a>
+<a class="sourceLine" id="cb204-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb204-16" data-line-number="16">    c :<span class="op">=</span> make(chan <span class="bu">int</span>)</a>
+<a class="sourceLine" id="cb204-17" data-line-number="17">    go <span class="bu">sum</span>(s[:<span class="bu">len</span>(s)<span class="op">/</span><span class="dv">2</span>], c)</a>
+<a class="sourceLine" id="cb204-18" data-line-number="18">    go <span class="bu">sum</span>(s[<span class="bu">len</span>(s)<span class="op">/</span><span class="dv">2</span>:], c)</a>
+<a class="sourceLine" id="cb204-19" data-line-number="19">    x, y :<span class="op">=</span> <span class="op">&lt;-</span>c, <span class="op">&lt;-</span>c <span class="op">//</span> receive <span class="im">from</span> c</a>
+<a class="sourceLine" id="cb204-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb204-21" data-line-number="21">    fmt.Println(x, y, x<span class="op">+</span>y)</a></code></pre></div>
 <p>Unlike typical channels, buffered channels only block receiving communication when the number of slots are full.</p>
 <p>In the below example, the buffered channel has room for two values, receives those two values and then prints them in order.</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb202-1" data-line-number="1">package main</a>
-<a class="sourceLine" id="cb202-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb202-3" data-line-number="3"><span class="im">import</span> <span class="st">&quot;fmt&quot;</span></a>
-<a class="sourceLine" id="cb202-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb202-5" data-line-number="5">func main() {</a>
-<a class="sourceLine" id="cb202-6" data-line-number="6">    ch :<span class="op">=</span> make(chan <span class="bu">int</span>, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb202-7" data-line-number="7">    ch <span class="op">&lt;-</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb202-8" data-line-number="8">    ch <span class="op">&lt;-</span> <span class="dv">20000</span></a>
-<a class="sourceLine" id="cb202-9" data-line-number="9">    </a>
-<a class="sourceLine" id="cb202-10" data-line-number="10">    x :<span class="op">=</span> <span class="op">&lt;-</span> ch</a>
-<a class="sourceLine" id="cb202-11" data-line-number="11">    fmt.Println(x)</a>
-<a class="sourceLine" id="cb202-12" data-line-number="12">    fmt.Println(<span class="op">&lt;-</span>ch)</a>
-<a class="sourceLine" id="cb202-13" data-line-number="13">}</a></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb205-1" data-line-number="1">package main</a>
+<a class="sourceLine" id="cb205-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb205-3" data-line-number="3"><span class="im">import</span> <span class="st">&quot;fmt&quot;</span></a>
+<a class="sourceLine" id="cb205-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb205-5" data-line-number="5">func main() {</a>
+<a class="sourceLine" id="cb205-6" data-line-number="6">    ch :<span class="op">=</span> make(chan <span class="bu">int</span>, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb205-7" data-line-number="7">    ch <span class="op">&lt;-</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb205-8" data-line-number="8">    ch <span class="op">&lt;-</span> <span class="dv">20000</span></a>
+<a class="sourceLine" id="cb205-9" data-line-number="9">    </a>
+<a class="sourceLine" id="cb205-10" data-line-number="10">    x :<span class="op">=</span> <span class="op">&lt;-</span> ch</a>
+<a class="sourceLine" id="cb205-11" data-line-number="11">    fmt.Println(x)</a>
+<a class="sourceLine" id="cb205-12" data-line-number="12">    fmt.Println(<span class="op">&lt;-</span>ch)</a>
+<a class="sourceLine" id="cb205-13" data-line-number="13">}</a></code></pre></div>
 
 </div>
 </div>
