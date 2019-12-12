@@ -124,7 +124,11 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
+<<<<<<< HEAD
     \date{2019-12-11}
+=======
+    \date{2019-12-04}
+>>>>>>> 325964ef5965c277600913d4433186ee42658f01
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -718,6 +722,34 @@ This displays each individual datapoint overlayed on a boxplot
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{countplot-multiple-samples-error-bars}{%
+\subsection{Countplot: Multiple Samples / Error Bars}\label{countplot-multiple-samples-error-bars}}
+
+The typical seaborn countplot appears to only perform counts for each sample or a total from multiple samples, and therefore will not group by sample and compute error over the samples. The following code will group samples by a particular column, then calculate counts for the data in another column, and then plot the counts with error bars, colored by another column.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# only retain somatic substitutions}
+\NormalTok{substitutions }\OperatorTok{=}\NormalTok{ filtered[filtered.Change.}\BuiltInTok{str}\NormalTok{.}\BuiltInTok{len}\NormalTok{() }\OperatorTok{==} \DecValTok{3}\NormalTok{]}
+\NormalTok{somatic }\OperatorTok{=}\NormalTok{ substitutions[substitutions.Group }\OperatorTok{==} \StringTok{'Somatic'}\NormalTok{]}
+
+\CommentTok{# group mutations together by change}
+\NormalTok{somatic }\OperatorTok{=}\NormalTok{ pd.DataFrame(somatic.groupby(}\StringTok{'Sample'}\NormalTok{).Change.value_counts())}
+\NormalTok{somatic.index }\OperatorTok{=}\NormalTok{ somatic.index.set_names([}\StringTok{'Sample'}\NormalTok{,}\StringTok{'Mut'}\NormalTok{])}
+\NormalTok{somatic.reset_index(inplace}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\NormalTok{somatic }\OperatorTok{=}\NormalTok{ somatic.rename(columns}\OperatorTok{=}\NormalTok{\{}\StringTok{'Mut'}\NormalTok{:}\StringTok{'Change'}\NormalTok{, }\StringTok{'Change'}\NormalTok{:}\StringTok{'Count'}\NormalTok{\})}
+
+\CommentTok{# label data as clonal or typical}
+\NormalTok{key }\OperatorTok{=}\NormalTok{ substitutions[[}\StringTok{'Sample'}\NormalTok{,}\StringTok{'Clonality'}\NormalTok{]].drop_duplicates(}\StringTok{'Sample'}\NormalTok{)}
+\NormalTok{somatic }\OperatorTok{=}\NormalTok{ pd.merge(somatic, key, how}\OperatorTok{=}\StringTok{'left'}\NormalTok{, on}\OperatorTok{=}\NormalTok{[}\StringTok{'Sample'}\NormalTok{])}
+
+\NormalTok{plt.figure()}
+\NormalTok{sns.barplot(x}\OperatorTok{=}\StringTok{'Change'}\NormalTok{, y}\OperatorTok{=}\StringTok{'Count'}\NormalTok{, hue}\OperatorTok{=}\StringTok{'Clonality'}\NormalTok{, data}\OperatorTok{=}\NormalTok{somatic)}
+\NormalTok{plt.xticks(rotation}\OperatorTok{=}\DecValTok{90}\NormalTok{)}
+\NormalTok{pretty()}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{biology}{%
 \chapter{Biology}\label{biology}}
 
@@ -828,7 +860,14 @@ Get sequence from reference genome
 The entire set of GATK software can be downloaded together \href{'https://software.broadinstitute.org/gatk/'}{here}.\\
 Methods and algorithms as they are run at the Broad can be found \href{'https://software.broadinstitute.org/gatk/documentation/topic?name=methods'}{here}.\\
 The Broad also has a number of \href{'https://software.broadinstitute.org/gatk/documentation/topic?name=tutorials'}{tutorials} that introduce some of the software packaged within GATK.
+<<<<<<< HEAD
 \#\#\# Mutect2
+=======
+
+\hypertarget{mutect2}{%
+\subsection{Mutect2}\label{mutect2}}
+
+>>>>>>> 325964ef5965c277600913d4433186ee42658f01
 A \href{'https://software.broadinstitute.org/gatk/documentation/article?id=24057'}{tutorial} exists that introduces how Mutect2 can be used to call somatic mutations.\\
 In general Mutect2 can be run as in the following.
 
@@ -837,6 +876,20 @@ In general Mutect2 can be run as in the following.
 \NormalTok{..}\OperatorTok{/}\NormalTok{util}\OperatorTok{/}\NormalTok{gatk}\DecValTok{-4}\NormalTok{.}\DecValTok{1}\NormalTok{.}\FloatTok{4.0}\OperatorTok{/}\NormalTok{gatk Mutect2 }\OperatorTok{-}\NormalTok{R }\OperatorTok{/}\NormalTok{seq}\OperatorTok{/}\NormalTok{references}\OperatorTok{/}\NormalTok{Homo_sapiens_assembly38}\OperatorTok{/}\NormalTok{v0}\OperatorTok{/}\NormalTok{Homo_sapiens_assembly38.fasta }\OperatorTok{-}\NormalTok{I tumor.bam }\OperatorTok{-}\NormalTok{O unfiltered.vcf}
 \end{Highlighting}
 \end{Shaded}
+<<<<<<< HEAD
+=======
+
+\hypertarget{samtools}{%
+\section{Samtools}\label{samtools}}
+
+Grab a single chromosomal region from a \texttt{.bam} file.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{samtools view }\OperatorTok{-}\NormalTok{b }\KeywordTok{in}\NormalTok{.bam chr1 }\OperatorTok{>}\NormalTok{ in_chr1.bam          }
+\end{Highlighting}
+\end{Shaded}
+>>>>>>> 325964ef5965c277600913d4433186ee42658f01
 
 \hypertarget{io}{%
 \chapter{Data I/O}\label{io}}
@@ -1262,7 +1315,7 @@ Substrings can be extracted from each row or column using the \texttt{str} funct
 \end{Shaded}
 
 \hypertarget{replace-values}{%
-\subsection{Replace values}\label{replace-values}}
+\subsection{Replace Values}\label{replace-values}}
 
 New data can be set within a DataFrame one subset at a time in a way that will avoid the SettingWithCopyWarning.
 
@@ -1330,6 +1383,17 @@ The mean of column values can be calculated where each of the columns is grouped
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{adding-classifier-columns}{%
+\subsection{Adding Classifier Columns}\label{adding-classifier-columns}}
+
+New columns can be added that describe the data in another column using some conditional statement.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df[}\StringTok{'Size'}\NormalTok{] }\OperatorTok{=}\NormalTok{ np.where(df[}\StringTok{'Height'}\NormalTok{] }\OperatorTok{<=} \DecValTok{5}\NormalTok{, }\StringTok{'Short'}\NormalTok{, }\StringTok{'Tall'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{arithmetic-and-rowcolumn-wise-analysis}{%
 \section{Arithmetic and Row/Column-wise Analysis}\label{arithmetic-and-rowcolumn-wise-analysis}}
 
@@ -1386,6 +1450,43 @@ Take the mean or std across specified columns and append as a new column. Below 
 \NormalTok{x[}\StringTok{'Std'}\NormalTok{]}\OperatorTok{=}\NormalTok{x[[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{]].std(axis}\OperatorTok{=}\DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\hypertarget{restructuring-dataframes}{%
+\section{Restructuring DataFrames}\label{restructuring-dataframes}}
+
+Converting between dataframes being structured to use ``dummy'' or ``indicator'' variables, and categorical variables is easy using pandas.
+
+The following converts a DataFrame to use dummy/indicator variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}\StringTok{'A'}\NormalTok{: [}\StringTok{'a'}\NormalTok{, }\StringTok{'b'}\NormalTok{, }\StringTok{'a'}\NormalTok{], }\StringTok{'B'}\NormalTok{: [}\StringTok{'b'}\NormalTok{, }\StringTok{'a'}\NormalTok{, }\StringTok{'c'}\NormalTok{], }\StringTok{'C'}\NormalTok{: [}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{]\})}
+\NormalTok{pd.get_dummies(df, prefix}\OperatorTok{=}\NormalTok{[}\StringTok{'col1'}\NormalTok{, }\StringTok{'col2'}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    C  col1_a  col1_b  col2_a  col2_b  col2_c
+## 0  1       1       0       0       1       0
+## 1  2       0       1       1       0       0
+## 2  3       1       0       0       0       1
+\end{verbatim}
+
+The following converts a DataFrame that uses dummy/indicator variables to instead use categorical variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}\StringTok{'Blue'}\NormalTok{:[}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{],}\StringTok{'Green'}\NormalTok{:[}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{],}\StringTok{'Red'}\NormalTok{:[}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{]\}, index}\OperatorTok{=}\NormalTok{[}\StringTok{'One'}\NormalTok{,}\StringTok{'Two'}\NormalTok{,}\StringTok{'Three'}\NormalTok{])}
+\NormalTok{df.eq(}\DecValTok{1}\NormalTok{) }\OperatorTok{@}\NormalTok{ df.columns}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## One       Blue
+## Two      Green
+## Three    Green
+## dtype: object
+\end{verbatim}
 
 \hypertarget{git}{%
 \chapter{Git}\label{git}}
@@ -1527,6 +1628,7 @@ After committing changes to the new branch, if the branch is changed back to the
 \end{Highlighting}
 \end{Shaded}
 
+<<<<<<< HEAD
 \hypertarget{errors}{%
 \subsection{Errors}\label{errors}}
 
@@ -1544,6 +1646,28 @@ There should then be plenty of remaining errors as the files are still missing, 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{git}\NormalTok{ push origin master}
+=======
+\hypertarget{credential-caching}{%
+\section{Credential Caching}\label{credential-caching}}
+
+\href{'https://help.github.com/articles/caching-your-github-password-in-git/\#platform-linux'}{Credential caching} will allow the username and password to be stored so commits can be expedited.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ config credential.helper store}
+\FunctionTok{git}\NormalTok{ push https://github.com/owner/repo.git}
+
+\ExtensionTok{Username}\NormalTok{ for }\StringTok{'https://github.com'}\NormalTok{: }\OperatorTok{<}\NormalTok{USERNAME}\OperatorTok{>}
+\ExtensionTok{Password}\NormalTok{ for }\StringTok{'https://USERNAME@github.com'}\NormalTok{: }\OperatorTok{<}\NormalTok{PASSWORD}\OperatorTok{>}
+\end{Highlighting}
+\end{Shaded}
+
+To configure the caching to expire:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ config --global credential.helper }\StringTok{'cache --timeout 7200'}
+>>>>>>> 325964ef5965c277600913d4433186ee42658f01
 \end{Highlighting}
 \end{Shaded}
 
