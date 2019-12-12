@@ -77,20 +77,6 @@ git checkout master
 git merge feature
 ```
 
-<<<<<<< HEAD
-### Errors
-There is an error where objects in the repository get corrupted resulting in an error message like this: `object corrupt or missing: .git/objects/93/17fdbd6436bfaf7b0eeae2c56`.  
-To fix this error remove all of the corrupted objects until there are none left.
-```{bash eval=FALSE}
-rm .git/objects/93/17fdbd6436bfaf7b0eeae2c56
-```
-
-There should then be plenty of remaining errors as the files are still missing, some of the errors may look like this: `dangling blob 750718546640b5b14c19cbdb9958d7bcc4b1114c`. At this point it should be possible to push/push the current repository.
-```{bash eval=FALSE}
-git push origin master
-```
-
-=======
 ## Credential Caching
 [Credential caching]('https://help.github.com/articles/caching-your-github-password-in-git/#platform-linux') will allow the username and password to be stored so commits can be expedited.
 ```{bash eval=FALSE}
@@ -105,4 +91,16 @@ Password for 'https://USERNAME@github.com': <PASSWORD>
 To configure the caching to expire:
 ```{bash eval=FALSE}
 git config --global credential.helper 'cache --timeout 7200'
+```
+
+## Errors
+There is an error where objects in the repository get corrupted resulting in an error message like this: `object corrupt or missing: .git/objects/93/17fdbd6436bfaf7b0eeae2c56`.  
+To fix this error remove all of the corrupted objects until there are none left.
+```{bash eval=FALSE}
+rm .git/objects/93/17fdbd6436bfaf7b0eeae2c56
+```
+
+There should then be plenty of remaining errors as the files are still missing, some of the errors may look like this: `dangling blob 750718546640b5b14c19cbdb9958d7bcc4b1114c`. At this point it should be possible to push/push the current repository.
+```{bash eval=FALSE}
+git push origin master
 ```

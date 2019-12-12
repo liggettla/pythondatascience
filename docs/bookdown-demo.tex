@@ -124,11 +124,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-<<<<<<< HEAD
     \date{2019-12-11}
-=======
-    \date{2019-12-04}
->>>>>>> 325964ef5965c277600913d4433186ee42658f01
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -860,14 +856,10 @@ Get sequence from reference genome
 The entire set of GATK software can be downloaded together \href{'https://software.broadinstitute.org/gatk/'}{here}.\\
 Methods and algorithms as they are run at the Broad can be found \href{'https://software.broadinstitute.org/gatk/documentation/topic?name=methods'}{here}.\\
 The Broad also has a number of \href{'https://software.broadinstitute.org/gatk/documentation/topic?name=tutorials'}{tutorials} that introduce some of the software packaged within GATK.
-<<<<<<< HEAD
-\#\#\# Mutect2
-=======
 
 \hypertarget{mutect2}{%
 \subsection{Mutect2}\label{mutect2}}
 
->>>>>>> 325964ef5965c277600913d4433186ee42658f01
 A \href{'https://software.broadinstitute.org/gatk/documentation/article?id=24057'}{tutorial} exists that introduces how Mutect2 can be used to call somatic mutations.\\
 In general Mutect2 can be run as in the following.
 
@@ -876,8 +868,6 @@ In general Mutect2 can be run as in the following.
 \NormalTok{..}\OperatorTok{/}\NormalTok{util}\OperatorTok{/}\NormalTok{gatk}\DecValTok{-4}\NormalTok{.}\DecValTok{1}\NormalTok{.}\FloatTok{4.0}\OperatorTok{/}\NormalTok{gatk Mutect2 }\OperatorTok{-}\NormalTok{R }\OperatorTok{/}\NormalTok{seq}\OperatorTok{/}\NormalTok{references}\OperatorTok{/}\NormalTok{Homo_sapiens_assembly38}\OperatorTok{/}\NormalTok{v0}\OperatorTok{/}\NormalTok{Homo_sapiens_assembly38.fasta }\OperatorTok{-}\NormalTok{I tumor.bam }\OperatorTok{-}\NormalTok{O unfiltered.vcf}
 \end{Highlighting}
 \end{Shaded}
-<<<<<<< HEAD
-=======
 
 \hypertarget{samtools}{%
 \section{Samtools}\label{samtools}}
@@ -889,7 +879,6 @@ Grab a single chromosomal region from a \texttt{.bam} file.
 \NormalTok{samtools view }\OperatorTok{-}\NormalTok{b }\KeywordTok{in}\NormalTok{.bam chr1 }\OperatorTok{>}\NormalTok{ in_chr1.bam          }
 \end{Highlighting}
 \end{Shaded}
->>>>>>> 325964ef5965c277600913d4433186ee42658f01
 
 \hypertarget{io}{%
 \chapter{Data I/O}\label{io}}
@@ -1628,9 +1617,32 @@ After committing changes to the new branch, if the branch is changed back to the
 \end{Highlighting}
 \end{Shaded}
 
-<<<<<<< HEAD
+\hypertarget{credential-caching}{%
+\section{Credential Caching}\label{credential-caching}}
+
+\href{'https://help.github.com/articles/caching-your-github-password-in-git/\#platform-linux'}{Credential caching} will allow the username and password to be stored so commits can be expedited.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ config credential.helper store}
+\FunctionTok{git}\NormalTok{ push https://github.com/owner/repo.git}
+\OperatorTok{>>>>>>>} \ExtensionTok{325964ef5965c277600913d4433186ee42658f01}
+
+\ExtensionTok{Username}\NormalTok{ for }\StringTok{'https://github.com'}\NormalTok{: }\OperatorTok{<}\NormalTok{USERNAME}\OperatorTok{>}
+\ExtensionTok{Password}\NormalTok{ for }\StringTok{'https://USERNAME@github.com'}\NormalTok{: }\OperatorTok{<}\NormalTok{PASSWORD}\OperatorTok{>}
+\end{Highlighting}
+\end{Shaded}
+
+To configure the caching to expire:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ config --global credential.helper }\StringTok{'cache --timeout 7200'}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{errors}{%
-\subsection{Errors}\label{errors}}
+\section{Errors}\label{errors}}
 
 There is an error where objects in the repository get corrupted resulting in an error message like this: \texttt{object\ corrupt\ or\ missing:\ .git/objects/93/17fdbd6436bfaf7b0eeae2c56}.\\
 To fix this error remove all of the corrupted objects until there are none left.
@@ -1646,28 +1658,6 @@ There should then be plenty of remaining errors as the files are still missing, 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{git}\NormalTok{ push origin master}
-=======
-\hypertarget{credential-caching}{%
-\section{Credential Caching}\label{credential-caching}}
-
-\href{'https://help.github.com/articles/caching-your-github-password-in-git/\#platform-linux'}{Credential caching} will allow the username and password to be stored so commits can be expedited.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ config credential.helper store}
-\FunctionTok{git}\NormalTok{ push https://github.com/owner/repo.git}
-
-\ExtensionTok{Username}\NormalTok{ for }\StringTok{'https://github.com'}\NormalTok{: }\OperatorTok{<}\NormalTok{USERNAME}\OperatorTok{>}
-\ExtensionTok{Password}\NormalTok{ for }\StringTok{'https://USERNAME@github.com'}\NormalTok{: }\OperatorTok{<}\NormalTok{PASSWORD}\OperatorTok{>}
-\end{Highlighting}
-\end{Shaded}
-
-To configure the caching to expire:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ config --global credential.helper }\StringTok{'cache --timeout 7200'}
->>>>>>> 325964ef5965c277600913d4433186ee42658f01
 \end{Highlighting}
 \end{Shaded}
 

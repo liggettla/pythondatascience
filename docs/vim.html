@@ -24,11 +24,7 @@
 <meta name="author" content="L A Liggett" />
 
 
-<<<<<<< HEAD
 <meta name="date" content="2019-12-11" />
-=======
-<meta name="date" content="2019-12-04" />
->>>>>>> 325964ef5965c277600913d4433186ee42658f01
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -197,9 +193,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2.2" data-path="git.html"><a href="git.html#file-checkout"><i class="fa fa-check"></i><b>8.2.2</b> File Checkout</a></li>
 <li class="chapter" data-level="8.2.3" data-path="git.html"><a href="git.html#resetting-a-repository"><i class="fa fa-check"></i><b>8.2.3</b> Resetting a Repository</a></li>
 <li class="chapter" data-level="8.2.4" data-path="git.html"><a href="git.html#branching"><i class="fa fa-check"></i><b>8.2.4</b> Branching</a></li>
-<li class="chapter" data-level="8.2.5" data-path="git.html"><a href="git.html#errors"><i class="fa fa-check"></i><b>8.2.5</b> Errors</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="git.html"><a href="git.html#credential-caching"><i class="fa fa-check"></i><b>8.3</b> Credential Caching</a></li>
+<li class="chapter" data-level="8.4" data-path="git.html"><a href="git.html#errors"><i class="fa fa-check"></i><b>8.4</b> Errors</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vim.html"><a href="vim.html"><i class="fa fa-check"></i><b>9</b> VIM</a><ul>
 <li class="chapter" data-level="9.1" data-path="vim.html"><a href="vim.html#formatting"><i class="fa fa-check"></i><b>9.1</b> Formatting</a></li>
@@ -271,52 +267,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="formatting" class="section level2">
 <h2><span class="header-section-number">9.1</span> Formatting</h2>
 <p>Automatic newlines are inserted by default; this behavior can be overidden with the following.</p>
-<<<<<<< HEAD
-<div class="sourceCode" id="cb111"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb111-1" data-line-number="1">:<span class="ex">set</span> wrap</a>
-<a class="sourceLine" id="cb111-2" data-line-number="2">:<span class="ex">set</span> textwidth=0 wrapmargin=0</a></code></pre></div>
-=======
-<div class="sourceCode" id="cb118"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb118-1" data-line-number="1">:<span class="ex">set</span> wrap</a>
-<a class="sourceLine" id="cb118-2" data-line-number="2">:<span class="ex">set</span> textwidth=0 wrapmargin=0</a></code></pre></div>
->>>>>>> 325964ef5965c277600913d4433186ee42658f01
+<div class="sourceCode" id="cb120"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb120-1" data-line-number="1">:<span class="ex">set</span> wrap</a>
+<a class="sourceLine" id="cb120-2" data-line-number="2">:<span class="ex">set</span> textwidth=0 wrapmargin=0</a></code></pre></div>
 </div>
 <div id="spellcheck" class="section level2">
 <h2><span class="header-section-number">9.2</span> Spellcheck</h2>
 <p>To setup spellchecking first setup a personal dictionary file.</p>
-<<<<<<< HEAD
-<div class="sourceCode" id="cb112"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb112-1" data-line-number="1"><span class="co"># make a directory for personal dictionary</span></a>
-<a class="sourceLine" id="cb112-2" data-line-number="2"><span class="fu">mkdir</span> -p ~/.vim/spell/</a></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb121-1" data-line-number="1"><span class="co"># make a directory for personal dictionary</span></a>
+<a class="sourceLine" id="cb121-2" data-line-number="2"><span class="fu">mkdir</span> -p ~/.vim/spell/</a></code></pre></div>
 <p>Then refer to the dictionary file within VIM, and enable spellchecking.</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb113-1" data-line-number="1"><span class="co"># set personal dictionary</span></a>
-<a class="sourceLine" id="cb113-2" data-line-number="2">:<span class="ex">set</span> spellfile=~/.vim/spell/en.utf-8.add</a>
-<a class="sourceLine" id="cb113-3" data-line-number="3"><span class="co"># turn spellcheck on</span></a>
-<a class="sourceLine" id="cb113-4" data-line-number="4">:<span class="ex">set</span> spell</a></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb122-1" data-line-number="1"><span class="co"># set personal dictionary</span></a>
+<a class="sourceLine" id="cb122-2" data-line-number="2">:<span class="ex">set</span> spellfile=~/.vim/spell/en.utf-8.add</a>
+<a class="sourceLine" id="cb122-3" data-line-number="3"><span class="co"># turn spellcheck on</span></a>
+<a class="sourceLine" id="cb122-4" data-line-number="4">:<span class="ex">set</span> spell</a></code></pre></div>
 <p>Get spellcheck commands.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb114-1" data-line-number="1">:<span class="ex">help</span> spell</a></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb123-1" data-line-number="1">:<span class="ex">help</span> spell</a></code></pre></div>
 <p>Add a word to personal dictionary.</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb115-1" data-line-number="1"><span class="ex">zg</span></a></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb124-1" data-line-number="1"><span class="ex">zg</span></a></code></pre></div>
 <p>Move to next and previous misspelled word.</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb116-1" data-line-number="1">]<span class="ex">s</span></a>
-<a class="sourceLine" id="cb116-2" data-line-number="2">[<span class="ex">s</span></a></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb125-1" data-line-number="1">]<span class="ex">s</span></a>
+<a class="sourceLine" id="cb125-2" data-line-number="2">[<span class="ex">s</span></a></code></pre></div>
 <p>Get suggestions for misspelled word.</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb117-1" data-line-number="1"><span class="va">z=</span></a></code></pre></div>
-=======
-<div class="sourceCode" id="cb119"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb119-1" data-line-number="1"><span class="co"># make a directory for personal dictionary</span></a>
-<a class="sourceLine" id="cb119-2" data-line-number="2"><span class="fu">mkdir</span> -p ~/.vim/spell/</a></code></pre></div>
-<p>Then refer to the dictionary file within VIM, and enable spellchecking.</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb120-1" data-line-number="1"><span class="co"># set personal dictionary</span></a>
-<a class="sourceLine" id="cb120-2" data-line-number="2">:<span class="ex">set</span> spellfile=~/.vim/spell/en.utf-8.add</a>
-<a class="sourceLine" id="cb120-3" data-line-number="3"><span class="co"># turn spellcheck on</span></a>
-<a class="sourceLine" id="cb120-4" data-line-number="4">:<span class="ex">set</span> spell</a></code></pre></div>
-<p>Get spellcheck commands.</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb121-1" data-line-number="1">:<span class="ex">help</span> spell</a></code></pre></div>
-<p>Add a word to personal dictionary.</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb122-1" data-line-number="1"><span class="ex">zg</span></a></code></pre></div>
-<p>Move to next and previous misspelled word.</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb123-1" data-line-number="1">]<span class="ex">s</span></a>
-<a class="sourceLine" id="cb123-2" data-line-number="2">[<span class="ex">s</span></a></code></pre></div>
-<p>Get suggestions for misspelled word.</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb124-1" data-line-number="1"><span class="va">z=</span></a></code></pre></div>
->>>>>>> 325964ef5965c277600913d4433186ee42658f01
+<div class="sourceCode" id="cb126"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb126-1" data-line-number="1"><span class="va">z=</span></a></code></pre></div>
 
 </div>
 </div>

@@ -24,11 +24,7 @@
 <meta name="author" content="L A Liggett" />
 
 
-<<<<<<< HEAD
 <meta name="date" content="2019-12-11" />
-=======
-<meta name="date" content="2019-12-04" />
->>>>>>> 325964ef5965c277600913d4433186ee42658f01
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -197,9 +193,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2.2" data-path="git.html"><a href="git.html#file-checkout"><i class="fa fa-check"></i><b>8.2.2</b> File Checkout</a></li>
 <li class="chapter" data-level="8.2.3" data-path="git.html"><a href="git.html#resetting-a-repository"><i class="fa fa-check"></i><b>8.2.3</b> Resetting a Repository</a></li>
 <li class="chapter" data-level="8.2.4" data-path="git.html"><a href="git.html#branching"><i class="fa fa-check"></i><b>8.2.4</b> Branching</a></li>
-<li class="chapter" data-level="8.2.5" data-path="git.html"><a href="git.html#errors"><i class="fa fa-check"></i><b>8.2.5</b> Errors</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="git.html"><a href="git.html#credential-caching"><i class="fa fa-check"></i><b>8.3</b> Credential Caching</a></li>
+<li class="chapter" data-level="8.4" data-path="git.html"><a href="git.html#errors"><i class="fa fa-check"></i><b>8.4</b> Errors</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vim.html"><a href="vim.html"><i class="fa fa-check"></i><b>9</b> VIM</a><ul>
 <li class="chapter" data-level="9.1" data-path="vim.html"><a href="vim.html#formatting"><i class="fa fa-check"></i><b>9.1</b> Formatting</a></li>
@@ -325,13 +321,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">5.6</span> GATK</h2>
 <p>The entire set of GATK software can be downloaded together <a href="&#39;https://software.broadinstitute.org/gatk/&#39;">here</a>.<br />
 Methods and algorithms as they are run at the Broad can be found <a href="&#39;https://software.broadinstitute.org/gatk/documentation/topic?name=methods&#39;">here</a>.<br />
-<<<<<<< HEAD
-The Broad also has a number of <a href="&#39;https://software.broadinstitute.org/gatk/documentation/topic?name=tutorials&#39;">tutorials</a> that introduce some of the software packaged within GATK.
-### Mutect2
-A <a href="&#39;https://software.broadinstitute.org/gatk/documentation/article?id=24057&#39;">tutorial</a> exists that introduces how Mutect2 can be used to call somatic mutations.<br />
-In general Mutect2 can be run as in the following.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb39-1" data-line-number="1">..<span class="op">/</span>util<span class="op">/</span>gatk<span class="dv">-4</span>.<span class="dv">1</span>.<span class="fl">4.0</span><span class="op">/</span>gatk Mutect2 <span class="op">-</span>R <span class="op">/</span>seq<span class="op">/</span>references<span class="op">/</span>Homo_sapiens_assembly38<span class="op">/</span>v0<span class="op">/</span>Homo_sapiens_assembly38.fasta <span class="op">-</span>I tumor.bam <span class="op">-</span>O unfiltered.vcf</a></code></pre></div>
-=======
 The Broad also has a number of <a href="&#39;https://software.broadinstitute.org/gatk/documentation/topic?name=tutorials&#39;">tutorials</a> that introduce some of the software packaged within GATK.</p>
 <div id="mutect2" class="section level3">
 <h3><span class="header-section-number">5.6.1</span> Mutect2</h3>
@@ -344,7 +333,6 @@ In general Mutect2 can be run as in the following.</p>
 <h2><span class="header-section-number">5.7</span> Samtools</h2>
 <p>Grab a single chromosomal region from a <code>.bam</code> file.</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb41-1" data-line-number="1">samtools view <span class="op">-</span>b <span class="kw">in</span>.bam chr1 <span class="op">&gt;</span> in_chr1.bam          </a></code></pre></div>
->>>>>>> 325964ef5965c277600913d4433186ee42658f01
 
 </div>
 </div>
