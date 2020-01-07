@@ -32,6 +32,7 @@
 
 ## Computing Tools
 * [AWS](https://aws.amazon.com/health/) looks like it has some healthcare and life sciences resources
+* UCSC has a bunch of helpful [scripts]('http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/') that can be used into interact with their hosted data.
 
 ## Microbiome Datasets
 * [The Human Microbiome Project Data Portal](https://portal.hmpdacc.org/) from Michael Snyder's group has longitudinal 'omics data that includes diseased and healthy timepoints.
