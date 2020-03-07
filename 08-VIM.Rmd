@@ -37,3 +37,12 @@ Get suggestions for misspelled word.
 ```{bash eval=FALSE}
 z=
 ```
+
+## Special Characters
+Inserting tabs can be tricky sometimes as other software may not recognize the tab VIM inserted. The following will insert a more universally recognized tab.
+```{bash eval=FALSE}
+i           # enter insert mode
+Ctrl + v    # enter special insert mode
+tab         # insert tab
+```
+
