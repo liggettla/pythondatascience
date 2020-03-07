@@ -655,7 +655,7 @@ frame = pd.DataFrame(np.random.randn(4,3), columns=list('bde'), index=['Utah','O
 ```
 
 A DataFrame can conveniently be created from a dictionary.
-```{python}
+```{python eval=FALSE}
 import pandas as pd
 data = {'AAA' : [4,5,6,7], 'BBB' : [10,20,30,40],'CCC' : [100,50,-30,-50]}
 df2 = pd.DataFrame(data=data,index=[1,2,3,4]) #Note index starts at 1.
@@ -664,7 +664,7 @@ df2
 
 ## Selection
 Is data within a DataFrame found within a dictionary or list? (Instead of a dictionary a series can be used and maybe another DataFrame)
-```{python}
+```{python eval=FALSE}
 import pandas as pd
 df = pd.DataFrame({'A': [1, 2, 3], 'B': ['a', 'b', 'f']})
 df.isin([1, 3, 12, 'a'])
@@ -672,7 +672,7 @@ df[df.isin([1, 3, 12, 'a'])]
 ```
 
 Data within a DataFrame can be selected based on position within the DataFrame.
-```{python}
+```{python eval=FALSE}
 import pandas as pd
 df2.iloc[1:3]
 ```
@@ -683,7 +683,7 @@ df = df[df.Change.str.len() == 3]
 ```
 
 Data within a DataFrame can be selected based on position within the DataFrame.
-```{python}
+```{python eval=FALSE}
 import pandas as pd
 df2.loc[1:3]
 ```
@@ -855,7 +855,7 @@ Series.str.slice(start=0,stop=7,step=1)
 
 ### Replace Values 
 New data can be set within a DataFrame one subset at a time in a way that will avoid the SettingWithCopyWarning.
-```{python}
+```{python eval=FALSE}
 import pandas as pd
 df = pd.DataFrame({'Trait':['Seed_Shape','Seed_Shape','Flower_Color','Flower_Color'],
                     'Phenotype':['Round','Wrinkled','Purple','White']})
@@ -1970,6 +1970,31 @@ rsync -a --delete empty_dir/ my_dir/
 ```
 
 <!--chapter:end:12-bash.Rmd-->
+
+# GSUTIL {#gsutil}
+
+## Google Buckets
+To upload data to a google bucket cp from the source.
+```{python, eval=FALSE}
+gsutil cp [OBJECT_LOCATION] gs://[DESTINATION_BUCKET_NAME]/
+```
+
+Interacting with the data is pretty similar to other bash commands with a prepended `gsutil` command.
+```{python, eval=FALSE}
+gsutil mv [OBJECT_LOCATION] gs://[DESTINATION_BUCKET_NAME]/
+```
+
+This gets a list of files and locations within a particular directory.
+```{python, eval=FALSE}
+echo gs://[DESTINATION_BUCKET_NAME]/
+```
+
+Moving mutiple a large number of files there might be a significant performance gain by using a multi-threaded/multi-processing move.
+```{python, eval=FALSE}
+gsutil -m mv gs://my_bucket/oldprefix gs://my_bucket/newprefix
+```
+
+<!--chapter:end:13-gsutil.Rmd-->
 
 `r if (knitr:::is_html_output()) '
 # References {-}

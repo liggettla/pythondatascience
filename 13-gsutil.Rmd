@@ -16,3 +16,7 @@ This gets a list of files and locations within a particular directory.
 echo gs://[DESTINATION_BUCKET_NAME]/
 ```
 
+Moving mutiple a large number of files there might be a significant performance gain by using a multi-threaded/multi-processing move.
+```{python, eval=FALSE}
+gsutil -m mv gs://my_bucket/oldprefix gs://my_bucket/newprefix
+```
