@@ -1,0 +1,2004 @@
+--- 
+title: "Data Science With Python"
+author: "L A Liggett"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+description: "Data Science With Python."
+---
+
+# Overview 
+These are some notes that may be helpful for computational biology analysis that focuses on Python use.
+
+<!--chapter:end:index.Rmd-->
+
+# Python {#python}
+
+## General
+Format strings are new in python 3 and are a different manner of using variables within a string.
+```{python, eval=FALSE}
+name = 'Torpal'
+print(f"hello, {name}!")
+```
+
+Values can also be passed to the string in a manner similar to python 2.
+```{python, eval=FALSE}
+name = 'Torpal'
+print("Hello {}".format(name))
+```
+
+Here is a general skeleton that can be used to start a python script that takes input.
+```{python, eval=FALSE}
+#!/usr/bin/env python
+
+def runArgparse():
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--indir', '-i', type=str, nargs='*', help='Input directory containing the vcf files to be analyzed: /dir.')
+parser.add_argument('--loadolddata', '-o', action='store_true', help='Load previously existing data.')
+
+args = parser.parse_args()
+indir = args.indir
+return indir
+
+if __name__ == '__main__':
+    runArgparse()
+```
+
+## Numba
+Numba speeds up python code without having to switch to a different interpreter, and doesn't require static typing of variables as Cython does. Just calling Numba will increase the speed of a script (except during the compilation which will add some time). But this isn't the best way to take advantage of the speed boost.
+
+Here is an example script that uses jit to invoke Numba.
+```{python, eval=FALSE}
+#!/usr/bin/env python
+
+from numba import jit
+import numpy as np
+import time
+
+def go_slow(x):
+    for i in range(14):
+        x *= x
+
+@jit(nopython=True)
+def go_fast(x):
+    for i in range(14):
+        x *= x
+
+# DO NOT REPORT THIS... COMPILATION TIME IS INCLUDED IN THE EXECUTION TIME!
+start = time.time()
+go_slow(5)
+end = time.time()
+print("Elapsed slow (with compilation) = %s" % (end - start))
+start = time.time()
+go_fast(5)
+end = time.time()
+print("Elapsed fast (with compilation) = %s" % (end - start))
+
+# DO NOT REPORT THIS... COMPILATION TIME IS INCLUDED IN THE EXECUTION TIME!
+start = time.time()
+go_slow(5)
+end = time.time()
+print("Elapsed slow (after compilation) = %s" % (end - start))
+start = time.time()
+go_fast(5)
+end = time.time()
+print("Elapsed fast (after compilation) = %s" % (end - start))
+```
+
+Parallelization can be used to  automatically utilize multiple cores.
+```{python, eval=FALSE}
+from numba import njit, prange
+@njit(parallel=True)
+def prange_test(A):
+    s = 0
+    for i in prange(A.shape[0]):
+        s += A[i]
+    return s
+```
+
+## Cython
+Installation
+```{python, eval=FALSE}
+conda install -c conda-forge cython
+```
+
+Ipython usage
+```{python, eval=FALSE}
+%load_ext Cython
+
+%%cython
+def f(x):
+	return 2 * x
+or
+
+def f(int x):
+	return 2 * x
+
+timeit(f(4))
+```
+
+
+<!--chapter:end:01-python.Rmd-->
+
+# JupyterLab {#jupyter}
+
+By default, notebooks are not trusted, to prevent them from executing malicious code. The following code will label a notebook as trustworthy.
+```{python eval=FALSE}
+jupyter trust my_notebook.ipyb
+```
+
+Here is a simple template that I use that controls a couple useful things when starting a new notebook.
+
+```{python eval=FALSE}
+import sys
+sys.path.append('../util')
+
+%reload_ext autoreload
+%autoreload 2
+
+from util import *
+import numpy as np                  
+import pandas as pd                 
+from matplotlib import pyplot as plt
+import seaborn as sns
+
+sns.set_palette('pastel')
+sns.set_style('ticks')
+sns.set_context('paper', font_scale=1)
+```
+
+It is often convenient to have a notebook automatically refresh the imported libraries so that they can be modified while working on a JupyterLab notebook.
+
+```{python eval=FALSE}
+%reload_ext autoreload
+%autoreload 2
+```
+
+To allow directory organization, dependcies can be separated into different directories and imported into a jupyter notebook using the following import statement.
+
+```{python eval=FALSE}
+import sys
+sys.path.append('../util')
+```
+
+This is a simplified way to create a table of contents.
+```{python eval=FALSE}
+# Table of Contents
+1. [Introduction](#Notebook-Setup)
+2. [Parameters](#Parameters)
+3. [Sample Processing](#Sample-Processing)
+    1. [Variant Filtering](#Variant-Filtering)
+```
+
+A table of contents can be created to refer to each of the headers throughout a notebook in html format. The code is below (Obviously needs to be simplified.)
+```{python eval=FALSE}
+<h1>Table of Contents<span class="tocSkip"></span></h1>
+<div class="toc">
+    <ul class="toc-item">
+    <li>
+        <span><a href="#Python-Setup" data-toc-modified-id="Python-Setup-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Python Setup</a></span>
+        <ul class="toc-item">
+    <li>
+        <span><a href="#Change-the-width-of-the-page" data-toc-modified-id="Change-the-width-of-the-page-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Change the width of the page</a></span></li>
+        <li>
+            <span><a href="#Import-packages" data-toc-modified-id="Import-packages-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Import packages</a></span></li>
+        </ul>
+    </li>
+    <li>
+        <span><a href="#Colours" data-toc-modified-id="Colours-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Colours</a></span>
+        <ul class="toc-item">
+    <li><span><a href="#Colour-line-graph" data-toc-modified-id="Colour-line-graph-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Colour line graph</a></span></li>
+        </ul>
+    </li>
+    <li><span><a href="#Totals-for-studies" data-toc-modified-id="Totals-for-studies-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Totals for studies</a></span></li>
+    <li><span><a href="#Functions-for-calculating-trinucleotide-context-specific-mutation-rates" data-toc-modified-id="Functions-for-calculating-trinucleotide-context-specific-mutation-rates-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Functions for calculating trinucleotide-context specific mutation rates</a></span>
+        <ul class="toc-item">
+        <li><span><a href="#Calculating-mutation-rates-for-individual-variants" data-toc-modified-id="Calculating-mutation-rates-for-individual-variants-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Calculating mutation rates for individual variants</a></span>
+            <ul class="toc-item">
+        <li><span><a href="#DNMT3A" data-toc-modified-id="DNMT3A-4.1.1"><span class="toc-item-num">4.1.1&nbsp;&nbsp;</span>DNMT3A</a></span></li>
+            <li><span><a href="#TET2" data-toc-modified-id="TET2-4.1.2"><span class="toc-item-num">4.1.2&nbsp;&nbsp;</span>TET2</a></span></li>
+            <li><span><a href="#ASXL1" data-toc-modified-id="ASXL1-4.1.3"><span class="toc-item-num">4.1.3&nbsp;&nbsp;</span>ASXL1</a></span></li>
+            <li><span><a href="#TP53" data-toc-modified-id="TP53-4.1.4"><span class="toc-item-num">4.1.4&nbsp;&nbsp;</span>TP53</a></span></li></ul></li>
+        <li><span><a href="#Calculating-mutation-rates-from-a-.csv-file-of-variants" data-toc-modified-id="Calculating-mutation-rates-from-a-.csv-file-of-variants-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Calculating mutation rates from a .csv file of variants</a></span>
+            <ul class="toc-item">
+            <li><span><a href="#DNMT3A" data-toc-modified-id="DNMT3A-4.2.1"><span class="toc-item-num">4.2.1&nbsp;&nbsp;</span>DNMT3A</a></span></li>
+            <li><span><a href="#TET2" data-toc-modified-id="TET2-4.2.2"><span class="toc-item-num">4.2.2&nbsp;&nbsp;</span>TET2</a></span></li>
+            <li><span><a href="#ASXL1" data-toc-modified-id="ASXL1-4.2.3"><span class="toc-item-num">4.2.3&nbsp;&nbsp;</span>ASXL1</a></span></li>
+            <li><span><a href="#TP53" data-toc-modified-id="TP53-4.2.4"><span class="toc-item-num">4.2.4&nbsp;&nbsp;</span>TP53</a></span></li></ul></li>
+        <li><span><a href="#Calculating-mutation-rates-from-a-list-of-variants" data-toc-modified-id="Calculating-mutation-rates-from-a-list-of-variants-4.3"><span class="toc-item-num">4.3&nbsp;&nbsp;</span>Calculating mutation rates from a list of variants</a></span>
+            <ul class="toc-item">
+            <li><span><a href="#DNMT3A" data-toc-modified-id="DNMT3A-4.3.1"><span class="toc-item-num">4.3.1&nbsp;&nbsp;</span>DNMT3A</a></span></li>
+        <li><span><a href="#TET2" data-toc-modified-id="TET2-4.3.2"><span class="toc-item-num">4.3.2&nbsp;&nbsp;</span>TET2</a></span></li>
+            <li><span><a href="#ASXL1" data-toc-modified-id="ASXL1-4.3.3"><span class="toc-item-num">4.3.3&nbsp;&nbsp;</span>ASXL1</a></span></li>
+            <li><span><a href="#TP53" data-toc-modified-id="TP53-4.3.4"><span class="toc-item-num">4.3.4&nbsp;&nbsp;</span>TP53</a></span></li></ul></li></ul></li>
+    <li><span><a href="#Lists-of-variants-targeted-by-each-study" data-toc-modified-id="Lists-of-variants-targeted-by-each-study-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>Lists of variants targeted by each study</a></span><ul class="toc-item"><li><span><a href="#Jaiswal-2014" data-toc-modified-id="Jaiswal-2014-5.1"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>Jaiswal 2014</a></span></li>
+        <li><span><a href="#Genovese-2014" data-toc-modified-id="Genovese-2014-5.2"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>Genovese 2014</a></span></li>
+        <li><span><a href="#McKerrel-2015" data-toc-modified-id="McKerrel-2015-5.3"><span class="toc-item-num">5.3&nbsp;&nbsp;</span>McKerrel 2015</a></span></li>
+        <li><span><a href="#Zink-2017" data-toc-modified-id="Zink-2017-5.4"><span class="toc-item-num">5.4&nbsp;&nbsp;</span>Zink 2017</a></span></li>
+        <li><span><a href="#Coombs-2017" data-toc-modified-id="Coombs-2017-5.5"><span class="toc-item-num">5.5&nbsp;&nbsp;</span>Coombs 2017</a></span></li>
+        <li><span><a href="#Young-2016-&amp;-2019" data-toc-modified-id="Young-2016-&amp;-2019-5.6"><span class="toc-item-num">5.6&nbsp;&nbsp;</span>Young 2016 &amp; 2019</a></span></li>
+        <li><span><a href="#Desai-2018" data-toc-modified-id="Desai-2018-5.7"><span class="toc-item-num">5.7&nbsp;&nbsp;</span>Desai 2018</a></span></li>
+        <li><span><a href="#Acuna-Hidalgo-2017" data-toc-modified-id="Acuna-Hidalgo-2017-5.8"><span class="toc-item-num">5.8&nbsp;&nbsp;</span>Acuna-Hidalgo 2017</a></span></li></ul></li>
+    <li><span><a href="#Lists-of-all-possible-variants-in-DNMT3A,-TET2,-ASXL1,-TP53" data-toc-modified-id="Lists-of-all-possible-variants-in-DNMT3A,-TET2,-ASXL1,-TP53-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Lists of all possible variants in DNMT3A, TET2, ASXL1, TP53</a></span>
+        <ul class="toc-item">
+        <li><span><a href="#DNMT3A" data-toc-modified-id="DNMT3A-6.1"><span class="toc-item-num">6.1&nbsp;&nbsp;</span>DNMT3A</a></span></li>
+        <li><span><a href="#TET2" data-toc-modified-id="TET2-6.2"><span class="toc-item-num">6.2&nbsp;&nbsp;</span>TET2</a></span></li>
+        <li><span><a href="#ASXL1" data-toc-modified-id="ASXL1-6.3"><span class="toc-item-num">6.3&nbsp;&nbsp;</span>ASXL1</a></span></li>
+    <li><span><a href="#TP53" data-toc-modified-id="TP53-6.4"><span class="toc-item-num">6.4&nbsp;&nbsp;</span>TP53</a></span></li></ul></li>
+    <li><span><a href="#Actual-number-of-observations-of-each-variant" data-toc-modified-id="Actual-number-of-observations-of-each-variant-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Actual number of observations of each variant</a></span>
+        <ul class="toc-item">
+        <li>
+            <ul class="toc-item">
+            <li><span><a href="#DNMT3A" data-toc-modified-id="DNMT3A-7.0.1"><span class="toc-item-num">7.0.1&nbsp;&nbsp;</span>DNMT3A</a></span></li>
+            <li><span><a href="#TET2" data-toc-modified-id="TET2-7.0.2"><span class="toc-item-num">7.0.2&nbsp;&nbsp;</span>TET2</a></span></li>
+        <li><span><a href="#ASXL1" data-toc-modified-id="ASXL1-7.0.3"><span class="toc-item-num">7.0.3&nbsp;&nbsp;</span>ASXL1</a></span></li>
+        <li><span><a href="#TP53" data-toc-modified-id="TP53-7.0.4"><span class="toc-item-num">7.0.4&nbsp;&nbsp;</span>TP53</a></span></li></ul></li></ul></li>
+    <li><span><a href="#Functions-for-calculating-the-expected-number-of-observations-of-a-variant" data-toc-modified-id="Functions-for-calculating-the-expected-number-of-observations-of-a-variant-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>Functions for calculating the expected number of observations of a variant</a></span></li>
+    <li><span><a href="#Maximum-Likelihood-Estimation-for-s" data-toc-modified-id="Maximum-Likelihood-Estimation-for-s-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>Maximum Likelihood Estimation for s</a></span>
+        <ul class="toc-item"><li><span><a href="#DNMT3A-variants" data-toc-modified-id="DNMT3A-variants-9.1"><span class="toc-item-num">9.1&nbsp;&nbsp;</span>DNMT3A variants</a></span></li>
+        <li><span><a href="#TET2-variants" data-toc-modified-id="TET2-variants-9.2"><span class="toc-item-num">9.2&nbsp;&nbsp;</span>TET2 variants</a></span></li>
+        <li><span><a href="#ASXL1-variants" data-toc-modified-id="ASXL1-variants-9.3"><span class="toc-item-num">9.3&nbsp;&nbsp;</span>ASXL1 variants</a></span></li>
+        <li><span><a href="#TP53-variants" data-toc-modified-id="TP53-variants-9.4"><span class="toc-item-num">9.4&nbsp;&nbsp;</span>TP53 variants</a></span></li>
+        </ul>
+        </li>
+    </ul>
+</div>
+```
+
+<!--chapter:end:02-jupyter.Rmd-->
+
+# Visualization {#visualization}
+
+## Color
+
+### Colorschemes
+Seaborn Themes
+```{python eval=FALSE}
+Pastel: {'Blue':'#a3c6ff', 'Orange':'#f7ab60', 'Green':'#60f7a9', 'Red':'#fc9d94', 'Purple':'#bea3ff', 'Brown':'#d1b485', 'Pink':'#f7afdf', 'Gray':'#c4c4c4', 'Yellow':'#ffffaa', 'LBlue':'#baf6ff'}
+```
+```{python eval=FALSE}
+Deep: {'Green':'#5baf68'}
+```
+
+### Controlling Coloration
+Not all plots automatically plot with a white background, and when using something dark like jupyterlab or a presentation this can be frustrating. The background color can be set in pyplot like this.
+```{python eval=FALSE}
+fig.patch.set_facecolor('xkcd:mint green')
+```
+
+When plotting, samples will not always be colored with the same color, especially when different subsets of samples are included in different plots. Here is a manual workaround to specify the coloration of displayed data. This is a bit cumbersome so there might be a more elegant way of achieving the same outcome.
+```{python eval=FALSE}
+# here is an example where sample order is controlled from a pandas DataFrame
+sample_order = all_vars.sort_values(['ID']).drop_duplicates(['Sample']).Sample
+
+# the color order is specified here
+# colors should be in the same order as the above sample_order Series, excluding samples with no data
+colors = [pastel['Brown'], pastel['Blue'],
+          pastel['Orange'], pastel['Purple'],
+          pastel['Green'], pastel['Red'],
+          ]
+
+plt.figure()
+# this is an example of plotting that uses the sample_order and palette to control coloration order
+sns.catplot(x='Sample', y='VAF', hue='Gene', jitter=True,
+            data=oncogenic[oncogenic.Location == 'Peripheral'],
+            legend=False, order=sample_order, palette=sns.color_palette(colors))
+
+# a colorscheme can be specified if desired
+pastel = {'Blue':'#a3c6ff', 'Orange':'#f7ab60',
+          'Green':'#60f7a9', 'Red':'#fc9d94',
+          'Purple':'#bea3ff', 'Brown':'#d1b485',
+          'Pink':'#f7afdf', 'Gray':'#c4c4c4',
+          'Yellow':'#ffffaa', 'LBlue':'#baf6ff'}
+
+# this controls the coloration in the legend
+import matplotlib.patches as mpatches
+egfr = mpatches.Patch(color=pastel['Blue'], label='EGFR')
+pik3ca = mpatches.Patch(color=pastel['Orange'], label='PIK3CA')
+myc = mpatches.Patch(color=pastel['Green'], label='MYC')
+
+plt.legend(handles=[egfr,pik3ca,myc],
+           loc='upper right', bbox_to_anchor=(1.5, 1),
+           ncol=1) # no legend overlap
+```
+
+## Matplotlib
+Plot a straight line where `num_points` is the number of elements to populate the array with (default is 50).
+```{python eval=FALSE}
+x = np.linspace(x_min, x_max, num_points)
+y = m * x + b
+plt.plot(x, y, '-b')
+```
+
+Plotting a heatmap.
+
+```{python eval=FALSE}
+import matplotlib.pyplot as plt
+import numpy as np
+a = np.random.random((16, 16))
+plt.imshow(a, cmap='RdBu'', interpolation='nearest')
+plt.show()
+```
+
+Possible heatmap colors are:
+```{python eval=FALSE}
+Accent, Accent_r, Blues, Blues_r, BrBG, BrBG_r, BuGn, BuGn_r, BuPu, BuPu_r, CMRmap, CMRmap_r, Dark2, Dark2_r, GnBu, GnBu_r, Greens, Greens_r, Greys, Greys_r, OrRd, OrRd_r, Oranges, Oranges_r, PRGn, PRGn_r, Paired, Paired_r, Pastel1, Pastel1_r, Pastel2, Pastel2_r, PiYG, PiYG_r, PuBu, PuBuGn, PuBuGn_r, PuBu_r, PuOr, PuOr_r, PuRd, PuRd_r, Purples, Purples_r, RdBu, RdBu_r, RdGy, RdGy_r, RdPu, RdPu_r, RdYlBu, RdYlBu_r, RdYlGn, RdYlGn_r, Reds, Reds_r, Set1,
+Set1_r, Set2, Set2_r, Set3, Set3_r, Spectral, Spectral_r, Wistia, Wistia_r, YlGn, YlGnBu, YlGnBu_r, YlGn_r, YlOrBr, YlOrBr_r, YlOrRd, YlOrRd_r, afmhot, afmhot_r, autumn, autumn_r, binary, binary_r, bone, bone_r, brg, brg_r, bwr, bwr_r, cividis, cividis_r, cool, cool_r, coolwarm, coolwarm_r, copper, copper_r, cubehelix, cubehelix_r, flag, flag_r, gist_earth, gist_earth_r, gist_gray, gist_gray_r, gist_heat, gist_heat_r, gist_ncar, gist_ncar_r, gist_rainbow, gist_rainbow_r,
+gist_stern, gist_stern_r, gist_yarg, gist_yarg_r, gnuplot, gnuplot2, gnuplot2_r, gnuplot_r, gray, gray_r, hot, hot_r, hsv, hsv_r, icefire, icefire_r, inferno, inferno_r, jet, jet_r, magma, magma_r, mako, mako_r, nipy_spectral, nipy_spectral_r, ocean, ocean_r, pink, pink_r, plasma, plasma_r, prism, prism_r, rainbow, rainbow_r, rocket, rocket_r, seismic, seismic_r, spring, spring_r, summer, summer_r, tab10, tab10_r, tab20, tab20_r, tab20b, tab20b_r, tab20c, tab20c_r, terrain, terrain_r,
+twilight, twilight_r, twilight_shifted, twilight_shifted_r, viridis, viridis_r, vlag, vlag_r, winter, winter_r
+```
+
+A simple venn diagram.
+```{python eval=FALSE}
+from matplotlib_venn import venn2
+venn2(subsets = (3, 2, 1))
+```
+
+A more complicated venn diagram.
+```{python eval=FALSE}
+from matplotlib import pyplot as plt
+import numpy as np
+from matplotlib_venn import venn3, venn3_circles
+plt.figure(figsize=(4,4))
+v = venn3(subsets=(1, 1, 1, 1, 1, 1, 1), set_labels = ('A', 'B', 'C'))
+v.get_patch_by_id('100').set_alpha(1.0)
+v.get_patch_by_id('100').set_color('white')
+v.get_label_by_id('100').set_text('Unknown')
+v.get_label_by_id('A').set_text('Set "A"')
+c = venn3_circles(subsets=(1, 1, 1, 1, 1, 1, 1), linestyle='dotted')
+c[0].set_lw(1.0)
+c[0].set_ls('dotted')
+plt.title("Sample Venn diagram")
+plt.annotate('Unknown set', xy=v.get_label_by_id('100').get_position() - np.array([0, 0.05]), xytext=(-70,-70),
+             ha='center', textcoords='offset points', bbox=dict(boxstyle='round,pad=0.5', fc='gray', alpha=0.1),
+                          arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0.5',color='gray'))
+                          plt.show()
+
+```
+An upset plot is a nice alternative to a traditional venn diagram. The project is hosted [here](https://pypi.org/project/UpSetPlot/), and [this](https://buildmedia.readthedocs.org/media/pdf/upsetplot/latest/upsetplot.pdf) is the documentation.
+
+First install the library.
+```{bash eval=FALSE}
+pip install upsetplot
+```
+
+Here is the code to create the plot.
+```{python eval=FALSE}
+import numpy as np
+
+arrays = [[False,False,False,False,True,True,True,True],
+          [False,False,True,True,False,False,True,True],
+          [False,True,False,True,False,True,False,True]]
+tuples = list(zip(*arrays))
+
+def o(one=False, two=False, three=False):
+    if three:
+        temp = pd.merge(indels[(indels.Individual==one)], indels[(indels.Individual==two)], how='inner', on=['Loc', 'Var'])
+        return len(pd.merge(temp, indels[(indels.Individual==three)], how='inner', on=['Loc', 'Var']))
+    elif two:
+        return len(pd.merge(indels[(indels.Individual==one)], indels[(indels.Individual==two)], how='inner', on=['Loc', 'Var']))
+    elif one:
+        return len(indels[(indels.Individual==one)])
+    else:
+        return 0
+
+index = pd.MultiIndex.from_tuples(tuples, names=['Ind 1', 'Ind 2', 'Ind 3'])
+s = pd.Series([o(),
+               o(3),
+               o(2),
+               o(2,3),
+               o(1),
+               o(1,3),
+               o(1,2),
+               o(1,2,3)], index=index)
+
+from upsetplot import plot as up
+up(s)
+plt.savefig("../images/indels.svg", format="svg", bbox_inches="tight")
+```
+
+Log scales seem to always be a challenge. Here is at least one solution to change ticks to log manually.
+```{python eval=FALSE}
+y_major_ticks = [np.log(100),np.log(200),np.log(300),np.log(400),np.log(500),np.log(600),np.log(700),np.log(800),np.log(900),\
+                 np.log(1000),np.log(2000),np.log(3000),np.log(4000),np.log(5000),np.log(6000),np.log(7000),np.log(8000),np.log(9000),\
+                 np.log(10000),np.log(20000),np.log(30000),np.log(40000),np.log(50000),np.log(60000),np.log(70000),np.log(80000),np.log(90000),\
+                 np.log(100000),np.log(200000),np.log(300000),np.log(400000),np.log(500000),np.log(600000),np.log(700000),np.log(800000),np.log(900000),\
+                 np.log(1000000),np.log(2000000),np.log(3000000),np.log(4000000),np.log(5000000),np.log(6000000),np.log(7000000),np.log(8000000),np.log(9000000),\
+                 np.log(10000000)]
+
+y_major_tick_labels = ["100","","","","","","","","", "1000","","","","","","","","", "10,000",\
+                       "","","","","","","","","100,000","","","","","","","","", "1,000,000","","","","","","","","", "10,000,000" ]
+ax1.set_yticks(y_major_ticks)
+ax1.set_yticklabels(y_major_tick_labels, fontsize = axisfont)
+ax1.yaxis.set_tick_params(width=scale, color = grey3, length = 6)
+```
+
+## Seaborn
+
+Here is a general bar plot that includes some commonly used parameters.
+```{python eval=FALSE}
+# fits my 22 inch monitor
+plt.figure(figsize=(19.17,11.98))
+# order controls the display order of the samples
+sns.catplot(x="Sample", y="Somatic", kind="bar", data=var_counts, order=labels);
+# keeps x-axis labels, but eliminates the tick mark
+plt.tick_params(labelbottom=True, bottom=False)
+# trim off the x-axis
+sns.despine(offset=10, trim=True, bottom=True)
+# labels
+plt.title('')
+plt.ylabel('', fontsize=8)
+plt.xlabel('', fontsize=8)
+# manual control of xlabels
+labels = ['Indiv_1-a','Indiv_2','Indiv_3','Indiv_1-b']
+# control xtick order
+plt.xticks(range(len(labels)), labels, rotation=45)
+# control the number of x-ticks
+plt.locator_params(axis='x', nbins=10)
+# legend positioning
+plt.legend(loc='upper right')
+# log scale
+plt.gca().set_yscale('log')
+# this is better if neg values are needed
+plt.gca().set_yscale('symlog')
+# fit plot to display
+plt.tight_layout()
+plt.show()
+# save figure with tight_layout
+plt.savefig("test.svg", format="svg", bbox_inches="tight", dpi=1000)
+```
+
+Signifance information can be added by including p-values and label bars using the following code.
+
+```{python eval=FALSE}
+x1, x2 = 0, 1 # columns to annotate on the plot
+y2, y1 = 20, 15 # placement of the line and how for down the vertical legs go
+plt.plot([x1,x1, x2, x2], [y1, y2, y2, y1], linewidth=1, color='k') # stats line
+plt.text((x1+x2)*.5, y2+2, "p=0.09", ha='center', va='bottom', fontsize=8) # p-value or sig
+```
+
+Sometimes it is helpful to get the number of rows associated with a sample and plot that by sample. Here is a way to accomplish this.
+```{python eval=FALSE}
+counts = all_vars.Sample_Name.value_counts().reset_index()
+counts = counts.rename(columns={'index':'Sample_Name','Sample_Name':'Var_Count'})
+
+all_vars = pd.merge(all_vars, counts, how='inner', on=['Sample_Name'])
+```
+
+## Statistics
+This is a two-sided T-test for the null hypothesis that two populations have the same means. It is important to note that it assumes the population variances are the same, so this must be changed if the assumption is incorrect.
+```{python eval=FALSE}
+# ttest_ind(a, b, axis=0, equal_var=True, nan_policy='propagate')
+from scipy.stats import ttest_ind
+ttest_ind(df[df['sample'] == 'one']['means'], df[df['sample'] == 'two']['means'])
+```
+
+## Various Plot Styles
+This displays each individual datapoint overlayed on a boxplot
+```{python eval=FALSE}
+ax = sns.boxplot(x='day', y='total_bill', data=tips)
+ax = sns.swarmplot(x='day', y='total_bill', data=tips, color='.25')
+```
+
+### Countplot: Multiple Samples / Error Bars
+The typical seaborn countplot appears to only perform counts for each sample or a total from multiple samples, and therefore will not group by sample and compute error over the samples. The following code will group samples by a particular column, then calculate counts for the data in another column, and then plot the counts with error bars, colored by another column.
+```{python eval=FALSE}
+# only retain somatic substitutions
+substitutions = filtered[filtered.Change.str.len() == 3]
+somatic = substitutions[substitutions.Group == 'Somatic']
+
+# group mutations together by change
+somatic = pd.DataFrame(somatic.groupby('Sample').Change.value_counts())
+somatic.index = somatic.index.set_names(['Sample','Mut'])
+somatic.reset_index(inplace=True)
+somatic = somatic.rename(columns={'Mut':'Change', 'Change':'Count'})
+
+# label data as clonal or typical
+key = substitutions[['Sample','Clonality']].drop_duplicates('Sample')
+somatic = pd.merge(somatic, key, how='left', on=['Sample'])
+
+plt.figure()
+sns.barplot(x='Change', y='Count', hue='Clonality', data=somatic)
+plt.xticks(rotation=90)
+pretty()
+```
+
+
+
+<!--chapter:end:03-visualization.Rmd-->
+
+# Biology {#biology}
+
+## General
+Some helpful commands for genetic sequence.
+```{python eval=FALSE}
+from string import ascii_uppercase # python 3
+from string import upper, lower # python 2
+upper('tcga')
+lower('TCGA')
+title('tcga') # capitalize the first letter
+```
+
+## Biopython 
+Reverse complement of sequence
+```{python eval=FALSE}
+from Bio.Seq import Seq
+str(Seq(i).reverse_complement())
+```
+
+## UCSC Genome Browser
+Get sequence from UCSC genome browser
+```{python eval=FALSE}
+from subprocess import check_output, STDOUT
+temp = check_output('wget -qO- http://genome.ucsc.edu/cgi-bin/das/hg19/dna?segment=%s:%s,%s' % (vcfObj.chrom,low,high), stderr=STDOUT, shell=True)
+```
+
+If the reference genome comes in the .2bit format, it is likely that it should then be converted to .fa format, and .2bittofa can accomplish this.
+```{python eval=FALSE}
+twoBitToFa refgenomes/hg19.2bit refgenomes/hg19.fa
+```
+
+The newly created .fa file will need to be indexed if it is to be used with gatk and bwa mem.
+
+Here is an example of indexing where -a bwtsw specifies that we want to use the indexing algorithm that is capable of handling the whole human genome.
+```{python eval=FALSE}
+bwa index -a bwtsw reference.fa
+```
+
+Then create a file called reference.fa.fai, with one record per line for each of the contigs in the FASTA reference file. Each record is composed of the contig name, size, location, basesPerLine and bytesPerLine.
+```{python eval=FALSE}
+samtools faidx reference.fa
+```
+
+## Ref Genome
+Get sequence from reference genome
+```{python eval=FALSE}
+from subprocess import check_output, STDOUT
+temp = check_output('samtools faidx %s %s:%s-%s' % (ref, vcfObj.chrom, low, high), stderr=STDOUT, shell=True)
+
+finalSeq = ''
+for line in temp.decode('UTF-8').split('\n'):
+for line in temp.decode('UTF-8').split('\n'): # this is only necessary in python 3 to convert binary to string
+	if '>' not in line:
+		finalSeq += line
+
+finalSeq = finalSeq.upper()
+```
+
+## Personal Information
+```{python eval=FALSE}
+# parse vcf file with parseline
+if '#' not in line and 'chr' in line: # skip the info
+# vcf handling
+from parseline import VCFObj
+# or
+from util import VCFObj
+vcfObj = VCFObj(vcfLine)
+# available attributes: ao, dp, af, wt, var, chrom, location
+```
+
+## GATK
+The entire set of GATK software can be downloaded together [here]('https://software.broadinstitute.org/gatk/').  
+Methods and algorithms as they are run at the Broad can be found [here]('https://software.broadinstitute.org/gatk/documentation/topic?name=methods').  
+The Broad also has a number of [tutorials]('https://software.broadinstitute.org/gatk/documentation/topic?name=tutorials') that introduce some of the software packaged within GATK. 
+
+### Mutect2
+A [tutorial]('https://software.broadinstitute.org/gatk/documentation/article?id=24057') exists that introduces how Mutect2 can be used to call somatic mutations.  
+In general Mutect2 can be run as in the following.  
+```{python eval=FALSE}
+../util/gatk-4.1.4.0/gatk Mutect2 -R /seq/references/Homo_sapiens_assembly38/v0/Homo_sapiens_assembly38.fasta -I tumor.bam -O unfiltered.vcf
+```
+
+## Samtools                                         
+Grab a single chromosomal region from a `.bam` file.
+```{python eval=FALSE}                              
+samtools view -b in.bam chr1 > in_chr1.bam          
+```                                                 
+
+
+
+<!--chapter:end:04-biology.Rmd-->
+
+# Data I/O {#io}
+
+## Reading Data Files
+Opening .gz files
+```{python eval=FALSE}
+import gzip
+for line in gzip.open('myFile.gz'):
+	print line
+```
+
+## Pickles
+Writing data in pickle format
+```{python eval=FALSE}
+import pickle
+p = open('principle.pkl', 'wb')
+pickle.dump(principleData, p)
+p.close()
+```
+
+Reading data in pickle format
+```{python eval=FALSE}
+import pickle
+p = open('principle.pkl', 'rb')
+principleData = pickle.load(p)
+p.close()
+```
+
+<!--chapter:end:05-IO.Rmd-->
+
+# Pandas {#pandas}
+
+## File I/O
+Read a csv file into a DataFrame.
+```{python eval=FALSE}
+pd.read_csv(filepath)
+```
+
+Write a DataFrame to a file.
+```{python eval=FALSE}
+x.to_csv(path_or_buf='outputDir', sep='\n', header=False, index=False)
+```
+
+## Data Structure Creation
+Create a DataFrame.
+```{python eval=FALSE}
+frame = pd.DataFrame(np.random.randn(4,3), columns=list('bde'), index=['Utah','Ohio','Texas','Oregon'])
+```
+
+A DataFrame can conveniently be created from a dictionary.
+```{python eval=FALSE}
+import pandas as pd
+data = {'AAA' : [4,5,6,7], 'BBB' : [10,20,30,40],'CCC' : [100,50,-30,-50]}
+df2 = pd.DataFrame(data=data,index=[1,2,3,4]) #Note index starts at 1.
+df2
+```
+
+## Selection
+Is data within a DataFrame found within a dictionary or list? (Instead of a dictionary a series can be used and maybe another DataFrame)
+```{python eval=FALSE}
+import pandas as pd
+df = pd.DataFrame({'A': [1, 2, 3], 'B': ['a', 'b', 'f']})
+df.isin([1, 3, 12, 'a'])
+df[df.isin([1, 3, 12, 'a'])]
+```
+
+Data within a DataFrame can be selected based on position within the DataFrame.
+```{python eval=FALSE}
+import pandas as pd
+df2.iloc[1:3]
+```
+
+Select data by the length of the strings in a given column.
+```{python eval=FALSE}
+df = df[df.Change.str.len() == 3]
+```
+
+Data within a DataFrame can be selected based on position within the DataFrame.
+```{python eval=FALSE}
+import pandas as pd
+df2.loc[1:3]
+```
+
+The opposite of matching data can be selected with the inverse operator.
+```{python eval=FALSE}
+df[~((df.AAA <= 6) & (df.index.isin([0,2,4])))]
+```
+
+## Splitting
+Concatenate two DataFrames together without dropping any values or renaming indices.
+```{python eval=FALSE}
+left = pd.concat([left,left])
+```
+
+Concatenate two DataFrames together without dropping values, but renaming index.
+```{python eval=FALSE}
+left = pd.concat([left,left], ignore_index=True)
+```
+
+Count the number of each unique value in a specified column.
+```{python eval=FALSE}
+left['key1'].value_counts()
+left.key1.value_counts()
+```
+
+Value counts can also be calculated as percentages so that raw counts as percent makeup can be compared.
+```{python eval=FALSE}
+left['key1'].value_counts(normalize=True) * 100
+```
+
+Two DataFrames can be merged such that only the data containing matching keys is retained.
+```{python eval=FALSE}
+result = pd.merge(left, right, how='inner', on=['key1', 'key2'])
+```
+
+This DataFrame merge will retain all of the data in the right DataFrame.
+```{python eval=FALSE}
+result = pd.merge(left, right, how='right', on=['key1', 'key2'])
+```
+
+Filter by multiple columns.
+```{python eval=FALSE}
+df[(df.one == 1) & (df.two == 2)]
+```
+
+Filter by multiple columns but only return certain values.
+```{python eval=FALSE}
+# this just returns the data in column AAA
+df = pd.DataFrame({'AAA' : [4,5,6,7], 'BBB' : [10,20,30,40],'CCC' : [100,50,-30,-50]})
+newseries = df.loc[(df['BBB'] < 25) & (df['CCC'] >= -40), 'AAA']
+```
+
+Filtering by values and using assignment will modify the original DataFrame.
+```{python eval=FALSE}
+df.loc[(df['BBB'] > 25) | (df['CCC'] >= 75), 'AAA'] = 0.1
+```
+
+Select multiple values from a particular column, where Letter is the column header.
+```{python eval=FALSE}
+df[df.Letter.isin(['a','b'])]
+```
+
+Use itertools to find combinations of data within a column of two DataFrames.
+```{python eval=FALSE}
+itertools.product(df1['a'], df2['a'])
+```
+
+Add data to a particular cell within a DataFrame.
+```{python eval=FALSE}
+df.loc[index,column]=num
+```
+
+Make a copy of a DataFrame.
+```{python eval=FALSE}
+df.copy(deep=True)
+```
+Iterate through a DataFrame.
+```{python eval=FALSE}
+for i in df.itertuples():
+	pass
+```
+
+Change order of columns.
+```{python eval=FALSE}
+x = x.reindex(columns=['header','seq','plus','qual'])
+```
+
+Make a DataFrame from a dictionary
+```{python eval=FALSE}
+d = {'col1': [1, 2], 'col2': [3, 4]}
+x = pd.DataFrame(d)
+```
+
+Sample from a DataFrame.
+```{python eval=FALSE}
+df.sample(frac=1)
+df.sample(n=20, axis=1)
+```
+
+Append to a DataFrame.
+```{python eval=FALSE}
+df=df.append(newdf, ignore_index=True) # without ignore_index, the original indices will be used
+```
+
+Remove duplicates
+```{python eval=FALSE}
+x = x[~x.index.duplicated(keep='first')] # most ideal method
+
+data = pd.DataFrame({'k1':['one','two']*3+['two'],'k2':[1,1,2,3,3,4,4]})
+data.duplicated() # identify duplicate data
+data[‘k1’].duplicated()
+data['k1'].drop_duplicates()
+data.drop_duplicates['k1'] # this does the same thing as the previous line
+data.drop_duplicates(['k1','k2'], keep='last') # drops unique found in k1 and k2 and keeps the last indexed duplicate
+```
+
+Check if string is within strings in a given column
+```{python eval=FALSE}
+x[x['strLoc'].str.contains(region)]
+```
+
+## Relabeling
+Rename a column or group of columns can be done by passing a dictionary of the changes.
+```{python eval=FALSE}
+    df = df.rename(columns={'a':'b','c':'d'})
+```
+
+## Sorting and Arranging
+The data in a DataFrame can be sorted in numeric or lexicographic order.
+The following code sorts the values within the columns a and b.
+```{python eval=FALSE}
+df.sort_values(['a','b'], ascending=False)
+```
+
+Set a column as the new index
+```{python eval=FALSE}
+x.set_index(['uniques'])
+```
+
+## Editing Data 
+Drop columns from a DataFrame.
+```{python eval=FALSE}
+import numpy as np
+df = pd.DataFrame(np.arange(12).reshape(3,4),
+                    columns=['A', 'B', 'C', 'D'])
+print(df)
+
+df = df.drop(columns=['B', 'C']) # may not work in python 2
+df = df.drop(['B', 'C'], axis=1) # this works in python 2
+print(df)
+```
+
+Changing the datatype of a column of data can be done by just changing column type.
+```{python eval=FALSE}
+df.Age = df.Age.astype(str)
+```
+
+Replace values.
+```{python eval=FALSE}
+data = pd.Series([1., -999., 2., -999., -1000., 3.])
+data.replace(-999, np.nan)
+```
+
+Substrings can be extracted from each row or column using the `str` functionality.
+```{python eval=FALSE}
+Series.str.slice(start=0,stop=7,step=1)
+```
+
+### Replace Values 
+New data can be set within a DataFrame one subset at a time in a way that will avoid the SettingWithCopyWarning.
+```{python eval=FALSE}
+import pandas as pd
+df = pd.DataFrame({'Trait':['Seed_Shape','Seed_Shape','Flower_Color','Flower_Color'],
+                    'Phenotype':['Round','Wrinkled','Purple','White']})
+df.loc[df.Trait == 'Seed_Shape', 'Affected_Part'] = 'Seed'
+df.loc[df.Trait == 'Flower_Color', 'Affected_Part'] = 'Flower'
+print(df)
+```
+
+There is a more simple alternative to the above method buit it may result in the SettingWithCopyWarning.
+```{python eval=FALSE}
+df = df.replace('pork','bacon')
+```
+
+## Combining Data Structures
+The following merges df and df2 using inner to get the intersection on the Sample column, where indexes are ignored if the merging is performed on a column as in the following example.
+The other possible merging strategies are:
+left: use only keys from left frame, similar to a SQL left outer join; preserve key order.
+right: use only keys from right frame, similar to a SQL right outer join; preserve key order.
+outer: use union of keys from both frames, similar to a SQL full outer join; sort keys lexicographically.
+inner: use intersection of keys from both frames, similar to a SQL inner join; preserve the order of the left keys.
+```{python eval=FALSE}
+df = pd.merge(df, df2, how='inner', on=['Sample'])
+```
+
+Appending to a Dataframe attaches a DataFrame after another one.
+```{python eval=FALSE}
+df = pd.DataFrame([[1, 2], [3, 4]], columns=list('AB'))
+df2 = pd.DataFrame([[5, 6], [7, 8]], columns=list('AB'))
+df.append(df2)
+```
+
+## Summarizing
+The mean of column values can be calculated where each of the columns is grouped by the data in a specified column.
+```{python eval=FALSE}
+temp[['Sample','VAF','Var_Count']].groupby('Sample').mean()
+```
+
+### Adding Classifier Columns
+New columns can be added that describe the data in another column using some conditional statement.
+```{python eval=FALSE}
+df['Size'] = np.where(df['Height'] <= 5, 'Short', 'Tall')
+```
+
+## Arithmetic and Row/Column-wise Analysis
+Sometimes it is helpful to analyze the value in a particular cell in a conditional manner depending on it's value and then set the result of this analysis to a corresponding cell in a new column. Here is an example where the VAF of a variant is conditionally analyzed.
+```{python eval=FALSE}
+def LOH(x):
+    if x > 0.75: return 1 - x
+    elif x <= 0.75 and x > 0.25: return abs(0.5 - x)
+    else: return 0
+all_vars['LOH'] = all_vars.VAF.transform(LOH)
+max_loh = all_vars.groupby('Sample').LOH.max().reset_index().rename(columns={'LOH':'Max_LOH'})
+all_vars = pd.merge(all_vars, max_loh, how='inner', on=['Sample'])
+```
+
+Broadcasting arithmetic is an efficient method of calculating across an entire DataFrame.
+```{python eval=FALSE}
+frame = pd.DataFrame(np.arange(12.).reshape((4,3)), columns=list('bde'), index=['Utah','Ohio','Texas','Oregon']
+series = frame.iloc[0]
+frame - series
+# the subtraction function could also be used
+# frame.sub(series, axis='columns')
+```
+
+Apply a function to each row or column.
+```{python eval=FALSE}
+f = lambda x: x.max() - x.min()
+frame.apply(f, axis='index')
+```
+
+Add two sets of data together, and use fill_value to avoid replacing any missing data with `NaN`.
+```{python eval=FALSE}
+x = pd.DataFrame([1,2,3], columns=list('0'))	
+y = pd.DataFrame([1,2,3], columns=list('1'))
+x = x.add(y, fill_value=0)
+```
+
+Take the mean or std across specified columns and append as a new column. Below the DataFrame has columns 1-7 that will be used in computing the mean or std and this new data will be appended in a new column labeled 'Mean' or 'Std'.
+```{python eval=FALSE}
+x['Mean']=x[[1,2,3,4,5,6,7]].mean(axis=1)
+x['Std']=x[[1,2,3,4,5,6,7]].std(axis=1)
+```
+
+## Restructuring DataFrames
+Converting between dataframes being structured to use "dummy" or "indicator" variables, and categorical variables is easy using pandas.  
+
+The following converts a DataFrame to use dummy/indicator variables.
+```{python eval=TRUE}
+df = pd.DataFrame({'A': ['a', 'b', 'a'], 'B': ['b', 'a', 'c'], 'C': [1, 2, 3]})
+pd.get_dummies(df, prefix=['col1', 'col2'])
+```
+
+The following converts a DataFrame that uses dummy/indicator variables to instead use categorical variables.
+```{python eval=TRUE}
+df = pd.DataFrame({'Blue':[1,0,0],'Green':[0,1,1],'Red':[0,0,0]}, index=['One','Two','Three'])
+df.eq(1) @ df.columns
+```
+
+<!--chapter:end:06-pandas.Rmd-->
+
+# Git {#git}
+
+## Setup
+### Git Setup
+The username and email needs to be added after git is installed.
+```{bash eval=FALSE}
+git config --global user.name "me"
+git config --global user.email "me@gmail.com"
+```
+After this information has been set, it can be checked.
+```{bash eval=FALSE}
+git config --list
+```
+
+### Repository Initiation
+To setup a repository, create a folder with an initial file like a README and then initiate it.
+```{bash eval=FALSE}
+git init
+git status
+```
+
+### Mirror on Online Repository
+Create a repository on a repository like github, gitlab, bitbucket, or sourceforge. Then the local git repository can be synched with the online repository.
+```{bash eval=FALSE}
+git remote add origin url-of-online-repository-here
+git push -u origin master
+```
+Of course the repository could just be setup first and then cloned.
+```{bash eval=FALSE}
+git clone url-of-online-repository-here
+```
+
+## Manipulating Commits
+### Repository Status
+The commit history of a repository can be displayed in verbose form and in summarized form.
+```{bash eval=FALSE}
+git log
+git log --oneline
+```
+
+### File Checkout
+To restore a previous version of a file it can be checked out by first identifying the version to be used using the log history and then restoring the desired file.
+```{bash eval=FALSE}
+git log --oneline
+git checkout <commit number> file.txt
+```
+
+### Resetting a Repository
+To discard the effect of the previous operation on a file.
+```{bash eval=FALSE}
+git reset HEAD file.txt
+```
+The previous version of the a file can then be restored.
+```{bash eval=FALSE}
+git checkout -- file.txt
+```
+
+### Branching
+Create a new branch.
+```{bash eval=FALSE}
+git branch somenewfeature
+```
+
+All current branches can then be listed.
+```{bash eval=FALSE}
+git branch
+```
+
+To then use the new branch, it needs to be checked out, and after checking it out, all changes will be specific to that new branch only.
+```{bash eval=FALSE}
+git checkout somenewfeature
+```
+
+After committing changes to the new branch, if the branch is changed back to the master branch or another branch those changes will not longer be present as they are branch specific. If the changes should be merged back to the master branch checkout the master and then merge them in.
+```{bash eval=FALSE}
+git checkout master
+git merge feature
+```
+
+## Credential Caching
+[Credential caching]('https://help.github.com/articles/caching-your-github-password-in-git/#platform-linux') will allow the username and password to be stored so commits can be expedited.
+```{bash eval=FALSE}
+git config credential.helper store
+git push https://github.com/owner/repo.git
+>>>>>>> 325964ef5965c277600913d4433186ee42658f01
+
+Username for 'https://github.com': <USERNAME>
+Password for 'https://USERNAME@github.com': <PASSWORD>
+```
+
+To configure the caching to expire:
+```{bash eval=FALSE}
+git config --global credential.helper 'cache --timeout 7200'
+```
+
+## Errors
+There is an error where objects in the repository get corrupted resulting in an error message like this: `object corrupt or missing: .git/objects/93/17fdbd6436bfaf7b0eeae2c56`.  
+To fix this error remove all of the corrupted objects until there are none left.
+```{bash eval=FALSE}
+rm .git/objects/93/17fdbd6436bfaf7b0eeae2c56
+```
+
+There should then be plenty of remaining errors as the files are still missing, some of the errors may look like this: `dangling blob 750718546640b5b14c19cbdb9958d7bcc4b1114c`. At this point it should be possible to push/push the current repository.
+```{bash eval=FALSE}
+git push origin master
+```
+
+<!--chapter:end:07-git.Rmd-->
+
+# VIM {#vim}
+
+## Formatting
+Automatic newlines are inserted by default; this behavior can be overidden with the following.
+```{bash eval=FALSE}
+:set wrap
+:set textwidth=0 wrapmargin=0
+```
+
+## Spellcheck
+To setup spellchecking first setup a personal dictionary file.
+```{bash eval=FALSE}
+# make a directory for personal dictionary
+mkdir -p ~/.vim/spell/
+```
+Then refer to the dictionary file within VIM, and enable spellchecking.
+```{bash eval=FALSE}
+# set personal dictionary
+:set spellfile=~/.vim/spell/en.utf-8.add
+# turn spellcheck on
+:set spell
+```
+Get spellcheck commands.
+```{bash eval=FALSE}
+:help spell
+```
+Add a word to personal dictionary.
+```{bash eval=FALSE}
+zg
+```
+Move to next and previous misspelled word.
+```{bash eval=FALSE}
+]s
+[s
+```
+Get suggestions for misspelled word.
+```{bash eval=FALSE}
+z=
+```
+
+## Special Characters
+Inserting tabs can be tricky sometimes as other software may not recognize the tab VIM inserted. The following will insert a more universally recognized tab.
+```{bash eval=FALSE}
+i           # enter insert mode
+Ctrl + v    # enter special insert mode
+tab         # insert tab
+```
+
+
+<!--chapter:end:08-VIM.Rmd-->
+
+# Web APIs {#apis}
+
+## Ensembl
+The [Ensembl Rest API](https://rest.ensembl.org/) has a number of different genomics tools.
+
+Here is an example where the Rest API is used to get the genomic locus and amino acid change using only the protein name and amino acid position and identities.
+
+```{bash eval=FALSE}
+content-type=application/json
+wget -q --header='Content-type:application/json' 'https://rest.ensembl.org/map/translation/ENSMUSP00000020991/878..879?'  -O -
+```
+
+Alternatively python can be used to make the same call.
+```{bash eval=FALSE}
+import requests, sys
+ 
+server = "https://rest.ensembl.org"
+ext = "/map/translation/ENSMUSP00000020991/878...879?"
+ 
+r = requests.get(server+ext, headers={ "Content-Type" : "application/json"})
+ 
+if not r.ok:
+  r.raise_for_status()
+  sys.exit()
+ 
+decoded = r.json()
+print(repr(decoded))
+```
+
+Here are examples getting variant effect consequences of a particular mutation.
+```{bash eval=FALSE}
+wget -q --header='Content-type:application/json' 'https://rest.ensembl.org/vep/mus_musculus/hgvs/ENSMUSP00000020991:p.Arg878His?'  -O -
+```
+
+## UCSC Genome Browser
+Here is an example where human genomic regions are converted to the orthologous mouse regions. First the human sequence is obtained.
+```{bash eval=FALSE}
+wget -O - http://genome.ucsc.edu/cgi-bin/das/hg38/dna?segment=%s:%s,%s >> locs\n' % (chrom, low, high)
+```
+Then the above sequence is used in UCSC BLAT to find the orthologous region within mouse.
+
+<!--chapter:end:09-webcalls.Rmd-->
+
+# Golang {#golang}
+
+## Installation
+Installation of linuxbrea
+```{bash eval=FALSE}
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+# Add to path
+test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
+echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
+# debian/ubuntu dependencies
+sudo apt-get install build-essential curl file git
+```
+
+LinuxBrew golang installation
+```{bash eval=FALSE}
+brew install go
+```
+
+The GO PATH should then be checked; it should typically exist at ~/go but it can be checked like this
+```{bash eval=FALSE}
+echo $GOPATH
+```
+
+## Updating
+```{bash eval=FALSE}
+brew install dep
+brew upgrade dep
+brew cask install spotify
+```
+
+## Sample Program
+Create a file called hello.go
+```{python eval=FALSE}
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Printf("hello, world\n")
+}
+
+The program can just be run with
+go run main.go
+
+Then compile the program
+	go build
+
+Importing multiple things can be done on one line separated by a semicolon
+	import ("fmt"; "math")
+```
+
+## Type conversion
+Check the type of a variable
+```{python eval=FALSE}
+import("fmt";"reflect")
+i := 5
+fmt.Println(reflect.TypeOf(i))
+```
+
+Convert int to float64
+```{python eval=FALSE}
+var i int = 5
+j := float64(i)
+```
+
+Convert float64 to in
+```{python eval=FALSE}
+x := 4.0
+int(x)
+```
+
+int to string
+```{python eval=FALSE}
+s := strconv.Itoa(97) // s == "97"
+```
+
+int64 to string
+```{python eval=FALSE}
+var n int64 = 97
+s := strconv.FormatInt(n, 10) // s == "97" (decimal) in base 10
+```
+
+string to int
+```{python eval=FALSE}
+s := "97"
+if n, err := strconv.Atoi(s); err == nil {
+    fmt.Println(n+1)
+} else {
+    fmt.Println(s, "is not an integer.")
+}
+```
+
+string to int64
+```{python eval=FALSE}
+s := "97"
+n, err := strconv.ParseInt(s, 10, 64)
+if err == nil {
+    fmt.Printf("%d of type %T", n, n)
+}
+```
+
+int to int64
+```{python eval=FALSE}
+var n int = 97
+m := int64(n) // safe
+```
+
+## Strings
+Numbers can be converted to strings using strconv
+```{python eval=FALSE}
+s := strconv.FormatFloat(3.1415, 'E', -1, 64)
+s := strconv.FormatInt(-42, 16)
+```
+
+Strings can be assigned with ` ` or " ", but only the double quotes can use escape characters like newlines or tabs
+```{python eval=FALSE}
+fmt.Println("Hello World\n")
+```
+
+Indexing returns bytes rather than strings so they must be converted if you want a string back
+```{python eval=FALSE}
+string("Hello World"[1])
+```
+
+Test if a string is a substring of another
+```{python eval=FALSE}
+import "strings"
+strings.Contains("something","some") // true
+```
+
+## Boolean Functions
+	&&, ||, !, true, false
+
+## Variables
+Variables are statically typed and therefore must be declared when assigned
+```{python eval=FALSE}
+var x string = "Hello World"
+```
+
+Type declaration can be offloaded to the compiler using the following notation, and the compiler will try to infer the correct type
+```{python eval=FALSE}
+var x = "Hello World"
+x := "Hello World"
+```
+
+Constants are similar to variables, but their values cannot be reassigned
+```{python eval=FALSE}
+const x string = "Hello"
+```
+
+Multiple variables can also be declared at once, where each variable must occupy its own line
+```{python eval=FALSE}
+var (
+	a = 5
+	b = 10
+	c = 15
+)
+```
+
+Substrings
+```{python eval=FALSE}
+s := "something"
+fmt.Println(s[:len(s)-5])
+fmt.Println(s[2:6])
+```
+
+## Input
+User input
+```{python eval=FALSE}
+var input float64
+fmt.Scanf("%f", &input)
+```
+
+## Control Structures
+For loops can be written like the following
+```{python eval=FALSE}
+i := 1
+for i <= 10 {
+	fmt.Println(i)
+	i += 1
+}
+```
+The variables a function will return can be defined at the beginning of the functions and then implicitely returned.
+```{python eval=FALSE}
+func something(x int) (product int) {
+    product = x * x
+    return
+}
+```
+
+Probably the easier for loop is like this one
+```{python eval=FALSE}
+for i := 1; i <= 10; i++ {
+	fmt.Println(i)
+}
+```
+
+A nice for loop to iterate through a range
+```{python eval=FALSE}
+for i := range str1 {
+    if str1[i] == str2[i] { count++ }
+}
+return count
+```
+
+For loops can be used to iterate through slices too
+```{python eval=FALSE}
+for _, num := range nums {
+```
+
+If loops look gross, but it is required that the else statement is placed where it is shown here
+```{python eval=FALSE}
+if true {
+} else if false {
+}
+```
+
+Switches are also a thing
+```{python eval=FALSE}
+switch input {                          
+	case 1: fmt.Println("You entered one")  
+	case 2: fmt.Println("You entered two")  
+	case 3: fmt.Println("You entered three")
+}                                           
+```
+
+## Data Structures
+A blank array
+```{python eval=FALSE}
+var x []int
+```
+
+An array with five elements
+```{python eval=FALSE}
+var x [5]int
+x[0] = 50 // the first element of the array equals 50
+```
+
+An easier way to create an array and can be multiline broken by the commas
+```{python eval=FALSE}
+x := [5]float64{ 98, 93, 77, 82, 83 }
+```
+
+Slices can have variable lengths and are typically associated with an array of fixed length. The following slice is 5 elements long, and is a segment of a 10 element-long array
+```{python eval=FALSE}
+x := make([]float64, 5, 10)
+```
+
+In a way that seems more similar to python, slicing an array can be done like this
+```{python eval=FALSE}
+arr := [5]float64{1,2,3,4,5}
+x := arr[0:2]
+```
+
+Adding data to a slice
+```{python eval=FALSE}
+slice1 := []int{1,2,3}
+slice2 := append(slice1,4,5)
+```
+
+Or multiple values can be added at once
+```{python eval=FALSE}
+s = append(s, 2, 3, 4)
+```
+
+A map is an unordered collection of key-value pairs (also known as a dictionary). A map is defined by assigning it to a variable and then defining the key type in brackets and the value type after the brackets
+```{python eval=FALSE}
+var x make(map[string]int)
+x["key"] = 10 
+fmt.Println(x)
+```
+
+Creating a map with multiple items simultaneously
+```{python eval=FALSE}
+elements := map[string]string{
+  "H":  "Hydrogen",
+  "He": "Helium",
+  "Li": "Lithium",
+}
+```
+
+Items can be deleted from a map using the delete function
+```{python eval=FALSE}
+delete(x, "key")
+```
+
+Go provides functionality that checks whether a key lookup from a map was successful or not
+```{python eval=FALSE}
+m,n := x["unknown"] // this key does not exist
+fmt.Println(m,n) // m will equal 0 and n will equal false
+```
+
+This check can be used in an if loop to only run a chunk of code if a key exists within a map. In the below code el equals the value and ok is true or false, if the key is found, ok equals true and the print statement is run
+```{python eval=FALSE}
+if el, ok := elements["Li"]; ok {
+fmt.Println(el["name"], el["state"])
+}
+```
+
+Iterate through a map
+```{python eval=FALSE}
+for k, v := range kmers {                  
+    fmt.Printf("key: %s value: %d\n", k, v)
+}
+```
+
+## Functions
+Below is a basic function that computes the mean of a map
+```{python eval=FALSE}
+func average(xs []float64) (float64) {
+    total := 0.0                      
+    for _, v := range xs {            
+        total += v                    
+    }
+    return total / float64(len(xs))   
+}                                     
+```
+
+A function can also take multiple different types of variables
+```{python eval=FALSE}
+func lots_of_stuff(a int, b map[string]int64, c float64) (string, string, int64) {
+// do stuff
+}
+```
+
+If it is desirable that a function takes maps of variable lengths a function can be designed like the one below
+```{python eval=FALSE}
+func add(args ...int) int { 
+    total := 0              
+    for _, v := range args {
+        total += v          
+    }                       
+    return total            
+}  
+```
+
+Functions can also be placed within other functions like this
+```{python eval=FALSE}
+func main() {
+  add := func(x, y int) int {
+    return x + y
+  }
+  fmt.Println(add(1,1))
+}
+```
+                         
+Closure refers to functions that utilize non-local variables
+```{python eval=FALSE}
+func main() {
+  x := 0
+  increment := func() int {
+    x++
+    return x
+  }
+  fmt.Println(increment())
+  fmt.Println(increment())
+}
+```
+
+Recursion uses the same function recursively
+```{python eval=FALSE}
+// a recursive function      
+func factorial(x uint) uint {
+    if x == 0 {              
+        return 1             
+    }                        
+    return x * factorial(x-1)
+}      
+```
+
+Deferring essentially moves a function call to the end of a function, like the following which closes the file after it is used
+```{python eval=FALSE}
+f, _ := os.Open(filename)
+defer f.Close()
+```
+
+## While loops
+These are not actually included in golang as in other languages but instead utilize for loops.
+
+This is a repeat-until loop:
+```{python eval=FALSE}
+for {
+    work()
+    if condition {
+        break
+    }
+}
+```
+or
+```{python eval=FALSE}
+for ok := true; ok; ok = !condition {
+    work()
+}
+```
+
+A do-while loop
+```{python eval=FALSE}
+for {
+    work()
+    if !condition {
+        break
+    }
+}
+```
+or
+```{python eval=FALSE}
+for ok := true; ok; ok = condition {
+    work()
+}
+```
+
+## Timing a function
+```{python eval=FALSE}
+start := time.Now()
+t := time.Now()
+elapsed := t.Sub(start)
+fmt.Println(elapsed)
+```
+
+## Pointers
+Pointers can be used to access the memory location of a variable and alter the value stored in that location
+
+```{python eval=FALSE}
+func zero(xPtr *int) {                                              
+    *xPtr = 0 // asterisk signifies a pointer                                                       
+}                                                                   
+                                                                    
+func main() {                                                       
+    x := 5                                                          
+    zero(&x) // & finds the address of a variable                                                       
+    fmt.Println(x) // using a pointer allows the value to be changed
+}                                                                   
+```
+
+There is a built in function called new that takes a type as an argument, and allocates sufficient memory to hold that type and returns a pointer to it, and unlike other languages, because go is a garbage collected language, it will delete anything created by new when nothing refers to it anymore
+
+```{python eval=FALSE}
+func one(xPtr *int) {
+    *xPtr = 1        
+}
+                    
+func main() {                                                                                                                 
+    xPtr := new(int)                                                
+    one(xPtr)                                                       
+    fmt.Println(*xPtr)                                              
+}                                                                   
+```
+
+## Structures
+These seem similar to classes and allow a new 'type' to be created
+```{python eval=FALSE}
+type Circle struct {
+x float64
+y float64
+r float64
+
+	// values of the same type can be combined like this
+	x, y, r float64 
+}                   
+```
+
+A new structure can be created just like a typical variable
+```{python eval=FALSE}
+var c Circle
+```
+
+A structure can be created like pointers which will set all values to their zero value like 0, 0.0, "" and return a pointer
+```{python eval=FALSE}
+c := new(Circle)
+```
+
+Values for a structure can also be defined at variable creation time
+```{python eval=FALSE}
+c := Circle{x: 0, y: 0, r: 5}
+// this is possible if you remember the order vars were defined
+c := Circle{0, 0, 5}
+```
+
+Structure fields are accessed like class methods
+```{python eval=FALSE}
+fmt.Println(c.x, c.y, c.r)
+c.x = 10
+c.y = 5
+```
+
+When passing a structure to another function, its type is the name of the structure
+```{python eval=FALSE}
+func circleArea(c Circle) float64 {
+    return math.Pi * c.r * c.r     
+}                                  
+```
+
+Fields of a structure that has been defined are not altered unless a pointer is used
+```{python eval=FALSE}
+func circleArea(c *Circle) float64 {
+    c.r = 10                        
+    return math.Pi * c.r * c.r      
+}                                   
+                                    
+func main() {                       
+    c:= Circle{0, 0, 5}             
+    fmt.Println(circleArea(&c), c)  
+}
+```
+
+## Methods
+These can be added to structures so they can be directly accessed by automatically passing a pointer to the method. The area() receiver can be used for other structures, and does not have to be a unique word
+```{python eval=FALSE}
+type Circle struct {             
+    x, y, r float64              
+}                                
+                                 
+func (c *Circle) area() float64 {
+    return math.Pi * c.r * c.r   
+}                                
+                                 
+func main() {                    
+    c:= Circle{0, 0, 5}          
+    fmt.Println(c.area())        
+}   
+```
+
+Embedded Types is sort of like inheritance and gives a method access to all of the features of another structure.
+
+Here is a person structure                            
+```{python eval=FALSE}
+type Person struct {
+  Name string
+}
+func (p *Person) Talk() {
+  fmt.Println("Hi, my name is", p.Name)
+}
+```
+
+Here Android is defined to have the same properties as the person structure
+```{python eval=FALSE}
+type Android struct {
+  Person
+  Model string
+}
+
+a := new(Android)
+a.Talk()
+```
+
+## Packaging
+Building code into a package is a convenient way of then accessing the same methods without having to rebuild them.
+
+To create a package, make a folder with the same name as the package so `math` in this case. Then refer to the package name in a file within this folder like this:
+package math                        
+                                    
+```{python eval=FALSE}
+func Average(xs []float64) float64 {
+    total := float64(0)             
+    for _, x := range xs {          
+        total += x                  
+    }                               
+    return total / float64(len(xs)) 
+}                                   
+```
+
+Then save this file and build it from the same directory using:
+```{python eval=FALSE}
+go install
+```
+
+Finally, use this package by referring to its directory like this:
+```{python eval=FALSE}
+package main                          
+                                      
+import "fmt"                          
+// import "chapter11/math" //this format can be used if put in ~/go/src/
+import "./math"                       
+                                      
+func main() {                         
+    xs := []float64{1,2,3,4}          
+    avg := math.Average(xs)           
+    fmt.Println(avg)                  
+}                                     
+```
+
+## Read/Write Files
+Here is how a file is opened
+```{python eval=FALSE}
+f, err := os.Open("./data/genomes/schisto_small.fa")
+check(err)
+f.Close() // when done
+
+func check(e error) {
+    if e != nil {    
+        panic(e)     
+    }                
+}
+```
+
+In Go 2.0 the `try` function can be used to open files a bit more elegantly.
+Instead of this:
+```{python eval=FALSE}
+f, err := os.Open(filename)
+    if err != nil {
+        return …, err
+    }
+```
+Opening is simplified to this:
+```{python eval=FALSE}
+f := try(os.Open(filename))
+```
+
+Read by a certain number of bytes at a time
+```{python eval=FALSE}
+b1 := make([]byte, 61)                      
+n1, err := f.Read(b1)                       
+check(err)                                  
+fmt.Printf("%d bytes: %s\n", n1, string(b1))
+```
+
+Peek might be more efficient with many small read calls but reads next n bytes without advancing the reader                                                       
+```{python eval=FALSE}
+r4 := bufio.NewReader(f)                                  
+b4, err := r4.Peek(61)                                    
+check(err)                                                
+fmt.Printf("5 bytes: %s\n", string(b4))
+```
+
+Scanners are useful ways to read newline delimited files
+```{python eval=FALSE}
+scanner := bufio.NewScanner(f)                             
+for scanner.Scan() {                                       
+    fmt.Println(scanner.Text()) // Println retains the \n  
+}                                                          
+if err := scanner.Err(); err != nil {                      
+    fmt.Fprintln(os.Stderr, "reading standard input:", err)
+}
+```
+
+Read from gzip file
+```{python eval=FALSE}
+import("compress/gzip")                                                          
+file, err := os.Open("./data/genomes/schisto_small_2.fa.gz")
+f, err := gzip.NewReader(file)
+```
+
+## Math
+Absolute value is pretty easy if using a float64
+```{python eval=FALSE}
+import("math")
+
+x := -4.0
+math.Abs(x)
+```
+
+Now, it seems to be super annoying to calculate the absolute value of an int.
+```{python eval=FALSE}
+import("math")
+
+x := -5
+int(math.Abs(float64(x)))
+```
+
+## Concurrency
+### Goroutines
+Goroutines are lightweight threads that are managed by the Go runtime, and are run concurrently in the same address space as other function calls.
+```{python eval=FALSE}
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func say(s string) {
+	for i := 0; i < 5; i++ {
+		time.Sleep(100 * time.Millisecond)
+		fmt.Println(s)
+	}
+}
+
+func main() {
+	go say("world")
+	say("hello")
+}
+```
+
+### Channels
+Channels are a typed conduit through which values can be sent and received. They function with the `<-` operator.
+```{python eval=FALSE}
+ch <- v    // Send v to channel ch.
+v := <-ch  // Receive from ch, and
+           // assign value to v.
+```
+
+The default function of a channel is to block communication until both sides are ready.
+
+In the example below, the sum of the first and last three values in an array are calculated separately and then added together when both goroutines have completed.
+```{python eval=FALSE}
+package main
+
+import "fmt"
+
+func sum(s []int, c chan int) {
+	sum := 0
+	for _, v := range s {
+		sum += v
+	}
+	c <- sum // send sum to c
+}
+
+func main() {
+	s := []int{7, 2, 8, -9, 4, 0}
+
+	c := make(chan int)
+	go sum(s[:len(s)/2], c)
+	go sum(s[len(s)/2:], c)
+	x, y := <-c, <-c // receive from c
+
+	fmt.Println(x, y, x+y)
+```
+
+Unlike typical channels, buffered channels only block receiving communication when the number of slots are full.
+
+In the below example, the buffered channel has room for two values, receives those two values and then prints them in order.
+```{python eval=FALSE}
+package main
+
+import "fmt"
+
+func main() {
+	ch := make(chan int, 2)
+	ch <- 1
+	ch <- 20000
+	
+	x := <- ch
+	fmt.Println(x)
+	fmt.Println(<-ch)
+}
+```
+
+
+<!--chapter:end:10-Golang.Rmd-->
+
+# Bioinformatics Resources {#resources}
+
+## Cancer Datasets
+* [CancerMine](http://bionlp.bcgsc.ca/cancermine/) is a site that mines publication data to create a database of mutations labeled as drivers, oncogenes, or tumor suppressors. These classifications may help to understand the evolution of different cancers.
+* [The Cancer Cell Line Encyclopedia](https://www.nature.com/articles/s41586-019-1186-3?WT.ec_id=NATURE-201905&sap-outbound-id=720FBE4668F2FE14A299D42CB43EF50D90063A16&mkt-key=005056A5C6311ED999AC3A52796F7641) has a wealth of information from a large number of cancer cell lines.
+* [Project score](https://score.depmap.sanger.ac.uk/) has a number of genetic screens that may be useful in identifying pathways that are critical to cancer growth and survival
+* [cbioportal](http://www.cbioportal.org/) has information about codon changes in cancer but does not seem to have any sequence data
+* [dbGAP](https://dbgap.ncbi.nlm.nih.gov/aa/wga.cgi?page=login) has info on genotypes and phenotypes, whatever the fuck that means
+	+ [Here](https://dbgap.ncbi.nlm.nih.gov/aa/wga.cgi?page=login) is the page with instructions on how to get dbGAP access
+* [TCGA](https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga)
+	+ [This](https://gdc.cancer.gov/access-data/obtaining-access-controlled-data) page has the instructions on how to get TCGA access
+* [COSMIC](https://cancer.sanger.ac.uk/cosmic)
+	+ Cosmic has a project called the [Cancer Gene Census](https://cancer.sanger.ac.uk/cosmic/census?genome=37) in which they are trying to catalog all mutations that have been implicated in playing a causal role in cancer
+	+ They also have implemented convenient [ways](https://cancer.sanger.ac.uk/cosmic/help/file_download) of directly downloading information and files from the database in python using the files hosted [here](https://cancer.sanger.ac.uk/cosmic/download).
+* [Mastermind](https://mastermind.genomenon.com/api) from genomenon parsed all the articles on pubmed in order to find any and all information for each possible mutation
+* [GTEx](https://gtexportal.org/home/) has RNA-Seq, Exome Seq, WGseq, SNP arrays, gene expression arrays and more for cancer and non-cancer?
+* [TARGET](https://ocg.cancer.gov/programs/target) is a dataset at the NIH that has childhood cancer data.
+
+## Alzheimer's
+* [The Alzheimers sequencing project](https://www.niagads.org/adsp/content/home) is gathering data to understand late onset alzheimer's
+
+## Genome Resources
+* Jax has a human to mouse gene matching [list](http://www.informatics.jax.org/downloads/reports/HOM_MouseHumanSequence.rpt) that provides gene location matching between human and mouse
+* UCSC genome browser has an [API](http://genomewiki.ucsc.edu/index.php/Programmatic_access_to_the_Genome_Browser) for programmatic access
+
+## Genomic Datasets 
+* [AllOfUs](ttps://www.joinallofus.org/en/how-to-join) is sequencing and collecting other health data on a million individuals
+* [Color Genomics](https://www.color.com/) is one of three companies that will be doing the sequencing and testing for AllOfUs
+* [1000 genomes](http://www.internationalgenome.org/data/)
+* [100,000 genomes](https://www.genomicsengland.co.uk/)
+* [TOPMed](https://www.nhlbiwgs.org/#Whole%20Genome%20Sequencing) has a large number of samples spanning a number of different studies that include whole genome sequencing which can be helpful for understanding clonal dynamics in CHIP.
+
+## Computing Tools
+* [AWS](https://aws.amazon.com/health/) looks like it has some healthcare and life sciences resources
+* UCSC has a bunch of helpful [scripts]('http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/') that can be used into interact with their hosted data.
+
+## Microbiome Datasets
+* [The Human Microbiome Project Data Portal](https://portal.hmpdacc.org/) from Michael Snyder's group has longitudinal 'omics data that includes diseased and healthy timepoints.
+* Michael Snyder's [iPOP Personal 'Omics Profiling](http://med.stanford.edu/ipop.html) has some interesting microbiome data specifically targeted to understanding diabetes.
+* People respond differently to different drugs, and this appears to in part be due to the differential drug metabolism of their gut microbiome. Some of the differences can be observed when different strains of gut bacteria are isolated and directly exposed to drug to understand how the drugs are differentially metabolized [@zimmermann2019mapping]. The bacterial sequencing data is available [here](https://www.ebi.ac.uk/ena/data/search?query=PRJEB31790), and some of the extra drug
+  screening data is available [here](https://figshare.com/articles/Mapping_human_microbiome_drug_metabolism_by_gut_bacteria_and_their_genes/8119058).
+* Multi-omics of Crohn's and ulcerative colitis can be found as part of the [Integrative Human Microbiome Project](https://www.ibdmdb.org/).
+
+## eQTL/RNASeq and other Tools
+* [Here](https://adinasarapu.github.io/year-archive/) are a good number of general tools to check out
+* [Here](https://github.com/molgenis/systemsgenetics/wiki/eQTL-mapping-analysis-cookbook-for-RNA-seq-data) is a good python eQTL analysis
+* [genenetwork2](http://gn2.genenetwork.org/) has a great deal of data and eQTL mapping [tools](https://github.com/genenetwork/genenetwork2)
+* The Eske Derks lab has some [hosted data](https://github.com/MareesAT/GWA_tutorial/) that walks through how to properly run a GWAS analysis [@Marees2018-rc].
+
+## Cell Biology
+* [HuBMAP](https://hubmapconsortium.org/) is a group that is organizing tissues at the single-cell scale to map tissues and organisms spatially.
+
+## Other Data Resources
+* [The Earth Microbiome Project](http://www.earthmicrobiome.org/data-and-code/) already has data available, and is trying to sequence all non-eukaryotic life on earth
+    + They have detailed information about the project in their [PNAS paper](http://www.pnas.org/content/115/17/4325.long) from 2018
+* [Information is Beautiful](https://informationisbeautiful.net/) has some interesting datasets
+
+<!--chapter:end:11-resources.Rmd-->
+
+# Bash {#bash}
+
+## Tricks 
+Removing a large number of files with `rm` can take a long time, using `rsync` can speed things up.
+```{python, eval=FALSE}
+mkdir empty_dir
+rsync -a --delete empty_dir/ my_dir/
+```
+
+<!--chapter:end:12-bash.Rmd-->
+
+# GSUTIL {#gsutil}
+
+## Google Buckets
+To upload data to a google bucket cp from the source.
+```{python, eval=FALSE}
+gsutil cp [OBJECT_LOCATION] gs://[DESTINATION_BUCKET_NAME]/
+```
+
+Interacting with the data is pretty similar to other bash commands with a prepended `gsutil` command.
+```{python, eval=FALSE}
+gsutil mv [OBJECT_LOCATION] gs://[DESTINATION_BUCKET_NAME]/
+```
+
+This gets a list of files and locations within a particular directory.
+```{python, eval=FALSE}
+echo gs://[DESTINATION_BUCKET_NAME]/
+```
+
+Moving mutiple a large number of files there might be a significant performance gain by using a multi-threaded/multi-processing move.
+```{python, eval=FALSE}
+gsutil -m mv gs://my_bucket/oldprefix gs://my_bucket/newprefix
+```
+
+<!--chapter:end:13-gsutil.Rmd-->
+
+`r if (knitr:::is_html_output()) '
+# References {-}
+'`
+
+<!--chapter:end:99-references.Rmd-->
+

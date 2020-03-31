@@ -1,0 +1,8 @@
+# Bash {#bash}
+
+## Tricks 
+Removing a large number of files with `rm` can take a long time, using `rsync` can speed things up.
+```{python, eval=FALSE}
+mkdir empty_dir
+rsync -a --delete empty_dir/ my_dir/
+```

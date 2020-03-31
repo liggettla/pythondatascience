@@ -82,6 +82,7 @@ git merge feature
 ```{bash eval=FALSE}
 git config credential.helper store
 git push https://github.com/owner/repo.git
+>>>>>>> 325964ef5965c277600913d4433186ee42658f01
 
 Username for 'https://github.com': <USERNAME>
 Password for 'https://USERNAME@github.com': <PASSWORD>
@@ -90,4 +91,16 @@ Password for 'https://USERNAME@github.com': <PASSWORD>
 To configure the caching to expire:
 ```{bash eval=FALSE}
 git config --global credential.helper 'cache --timeout 7200'
+```
+
+## Errors
+There is an error where objects in the repository get corrupted resulting in an error message like this: `object corrupt or missing: .git/objects/93/17fdbd6436bfaf7b0eeae2c56`.  
+To fix this error remove all of the corrupted objects until there are none left.
+```{bash eval=FALSE}
+rm .git/objects/93/17fdbd6436bfaf7b0eeae2c56
+```
+
+There should then be plenty of remaining errors as the files are still missing, some of the errors may look like this: `dangling blob 750718546640b5b14c19cbdb9958d7bcc4b1114c`. At this point it should be possible to push/push the current repository.
+```{bash eval=FALSE}
+git push origin master
 ```

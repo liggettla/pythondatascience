@@ -128,7 +128,11 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
+<<<<<<< HEAD
     \date{2020-03-31}
+=======
+    \date{2020-01-07}
+>>>>>>> 966a9a8ff3a170cfbaaf24a3f7ebfc8a97553f49
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -1656,6 +1660,7 @@ After committing changes to the new branch, if the branch is changed back to the
 \begin{Highlighting}[]
 \FunctionTok{git}\NormalTok{ config credential.helper store}
 \FunctionTok{git}\NormalTok{ push https://github.com/owner/repo.git}
+\OperatorTok{>>>>>>>} \ExtensionTok{325964ef5965c277600913d4433186ee42658f01}
 
 \ExtensionTok{Username}\NormalTok{ for }\StringTok{'https://github.com'}\NormalTok{: }\OperatorTok{<}\NormalTok{USERNAME}\OperatorTok{>}
 \ExtensionTok{Password}\NormalTok{ for }\StringTok{'https://USERNAME@github.com'}\NormalTok{: }\OperatorTok{<}\NormalTok{PASSWORD}\OperatorTok{>}
@@ -1667,6 +1672,26 @@ To configure the caching to expire:
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{git}\NormalTok{ config --global credential.helper }\StringTok{'cache --timeout 7200'}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{errors}{%
+\section{Errors}\label{errors}}
+
+There is an error where objects in the repository get corrupted resulting in an error message like this: \texttt{object\ corrupt\ or\ missing:\ .git/objects/93/17fdbd6436bfaf7b0eeae2c56}.\\
+To fix this error remove all of the corrupted objects until there are none left.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rm}\NormalTok{ .git/objects/93/17fdbd6436bfaf7b0eeae2c56}
+\end{Highlighting}
+\end{Shaded}
+
+There should then be plenty of remaining errors as the files are still missing, some of the errors may look like this: \texttt{dangling\ blob\ 750718546640b5b14c19cbdb9958d7bcc4b1114c}. At this point it should be possible to push/push the current repository.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{git}\NormalTok{ push origin master}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2927,6 +2952,8 @@ In the below example, the buffered channel has room for two values, receives tho
 \tightlist
 \item
   \href{https://aws.amazon.com/health/}{AWS} looks like it has some healthcare and life sciences resources
+\item
+  UCSC has a bunch of helpful \href{'http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/'}{scripts} that can be used into interact with their hosted data.
 \end{itemize}
 
 \hypertarget{microbiome-datasets}{%

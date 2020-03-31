@@ -1,0 +1,22 @@
+# GSUTIL {#gsutil}
+
+## Google Buckets
+To upload data to a google bucket cp from the source.
+```{python, eval=FALSE}
+gsutil cp [OBJECT_LOCATION] gs://[DESTINATION_BUCKET_NAME]/
+```
+
+Interacting with the data is pretty similar to other bash commands with a prepended `gsutil` command.
+```{python, eval=FALSE}
+gsutil mv [OBJECT_LOCATION] gs://[DESTINATION_BUCKET_NAME]/
+```
+
+This gets a list of files and locations within a particular directory.
+```{python, eval=FALSE}
+echo gs://[DESTINATION_BUCKET_NAME]/
+```
+
+Moving mutiple a large number of files there might be a significant performance gain by using a multi-threaded/multi-processing move.
+```{python, eval=FALSE}
+gsutil -m mv gs://my_bucket/oldprefix gs://my_bucket/newprefix
+```
