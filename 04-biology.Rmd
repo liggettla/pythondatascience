@@ -44,6 +44,36 @@ temp = json.loads(check_output(
         stderr=STDOUT, shell=True))['refGene'][0]['name2']
 ```
 
+And here is a python implementation to annotate a pandas DataFrame.
+```{python eval=FALSE}
+def annotate(df):
+
+    from subprocess import check_output, STDOUT
+    import json
+
+    genes = []
+    for index, row in df.iterrows():
+
+        chrom = row.Chrom
+        start = row.Loc
+        stop = row.Loc + 1
+        api = 'https://api.genome.ucsc.edu/getData/track?genome=hg38;track=refGene;'
+
+        gene = json.loads(check_output(
+            'wget -qO- "{api}chrom=chr{chrom};start={start};end={stop}"'.format(
+                api=api, chrom=chrom, start=start, stop=stop),
+                stderr=STDOUT, shell=True))['refGene']
+        if not len(gene) == 0: gene = gene[0]['name2']
+        else: gene = np.nan
+
+        genes.append(gene)
+
+    df['Gene'] = genes
+
+
+    return df
+```
+
 If the reference genome comes in the .2bit format, it is likely that it should then be converted to .fa format, and .2bittofa can accomplish this.
 ```{python eval=FALSE}
 twoBitToFa refgenomes/hg19.2bit refgenomes/hg19.fa
