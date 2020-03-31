@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Git | Data Science With Python</title>
   <meta name="description" content="Chapter 8 Git | Data Science With Python." />
-  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Git | Data Science With Python" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="L A Liggett" />
 
 
-<meta name="date" content="2019-12-04" />
+<meta name="date" content="2020-03-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -268,24 +268,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="git-setup" class="section level3">
 <h3><span class="header-section-number">8.1.1</span> Git Setup</h3>
 <p>The username and email needs to be added after git is installed.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb103-1" data-line-number="1"><span class="fu">git</span> config --global user.name <span class="st">&quot;me&quot;</span></a>
-<a class="sourceLine" id="cb103-2" data-line-number="2"><span class="fu">git</span> config --global user.email <span class="st">&quot;me@gmail.com&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb105-1" data-line-number="1"><span class="fu">git</span> config --global user.name <span class="st">&quot;me&quot;</span></a>
+<a class="sourceLine" id="cb105-2" data-line-number="2"><span class="fu">git</span> config --global user.email <span class="st">&quot;me@gmail.com&quot;</span></a></code></pre></div>
 <p>After this information has been set, it can be checked.</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb104-1" data-line-number="1"><span class="fu">git</span> config --list</a></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb106-1" data-line-number="1"><span class="fu">git</span> config --list</a></code></pre></div>
 </div>
 <div id="repository-initiation" class="section level3">
 <h3><span class="header-section-number">8.1.2</span> Repository Initiation</h3>
 <p>To setup a repository, create a folder with an initial file like a README and then initiate it.</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb105-1" data-line-number="1"><span class="fu">git</span> init</a>
-<a class="sourceLine" id="cb105-2" data-line-number="2"><span class="fu">git</span> status</a></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb107-1" data-line-number="1"><span class="fu">git</span> init</a>
+<a class="sourceLine" id="cb107-2" data-line-number="2"><span class="fu">git</span> status</a></code></pre></div>
 </div>
 <div id="mirror-on-online-repository" class="section level3">
 <h3><span class="header-section-number">8.1.3</span> Mirror on Online Repository</h3>
 <p>Create a repository on a repository like github, gitlab, bitbucket, or sourceforge. Then the local git repository can be synched with the online repository.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb106-1" data-line-number="1"><span class="fu">git</span> remote add origin url-of-online-repository-here</a>
-<a class="sourceLine" id="cb106-2" data-line-number="2"><span class="fu">git</span> push -u origin master</a></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb108-1" data-line-number="1"><span class="fu">git</span> remote add origin url-of-online-repository-here</a>
+<a class="sourceLine" id="cb108-2" data-line-number="2"><span class="fu">git</span> push -u origin master</a></code></pre></div>
 <p>Of course the repository could just be setup first and then cloned.</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb107-1" data-line-number="1"><span class="fu">git</span> clone url-of-online-repository-here</a></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb109-1" data-line-number="1"><span class="fu">git</span> clone url-of-online-repository-here</a></code></pre></div>
 </div>
 </div>
 <div id="manipulating-commits" class="section level2">
@@ -293,45 +293,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="repository-status" class="section level3">
 <h3><span class="header-section-number">8.2.1</span> Repository Status</h3>
 <p>The commit history of a repository can be displayed in verbose form and in summarized form.</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb108-1" data-line-number="1"><span class="fu">git</span> log</a>
-<a class="sourceLine" id="cb108-2" data-line-number="2"><span class="fu">git</span> log --oneline</a></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb110-1" data-line-number="1"><span class="fu">git</span> log</a>
+<a class="sourceLine" id="cb110-2" data-line-number="2"><span class="fu">git</span> log --oneline</a></code></pre></div>
 </div>
 <div id="file-checkout" class="section level3">
 <h3><span class="header-section-number">8.2.2</span> File Checkout</h3>
 <p>To restore a previous version of a file it can be checked out by first identifying the version to be used using the log history and then restoring the desired file.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb109-1" data-line-number="1"><span class="fu">git</span> log --oneline</a>
-<a class="sourceLine" id="cb109-2" data-line-number="2"><span class="fu">git</span> checkout <span class="op">&lt;</span>commit number<span class="op">&gt;</span> file.txt</a></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb111-1" data-line-number="1"><span class="fu">git</span> log --oneline</a>
+<a class="sourceLine" id="cb111-2" data-line-number="2"><span class="fu">git</span> checkout <span class="op">&lt;</span>commit number<span class="op">&gt;</span> file.txt</a></code></pre></div>
 </div>
 <div id="resetting-a-repository" class="section level3">
 <h3><span class="header-section-number">8.2.3</span> Resetting a Repository</h3>
 <p>To discard the effect of the previous operation on a file.</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb110-1" data-line-number="1"><span class="fu">git</span> reset HEAD file.txt</a></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb112-1" data-line-number="1"><span class="fu">git</span> reset HEAD file.txt</a></code></pre></div>
 <p>The previous version of the a file can then be restored.</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb111-1" data-line-number="1"><span class="fu">git</span> checkout -- file.txt</a></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb113-1" data-line-number="1"><span class="fu">git</span> checkout -- file.txt</a></code></pre></div>
 </div>
 <div id="branching" class="section level3">
 <h3><span class="header-section-number">8.2.4</span> Branching</h3>
 <p>Create a new branch.</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb112-1" data-line-number="1"><span class="fu">git</span> branch somenewfeature</a></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb114-1" data-line-number="1"><span class="fu">git</span> branch somenewfeature</a></code></pre></div>
 <p>All current branches can then be listed.</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb113-1" data-line-number="1"><span class="fu">git</span> branch</a></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb115-1" data-line-number="1"><span class="fu">git</span> branch</a></code></pre></div>
 <p>To then use the new branch, it needs to be checked out, and after checking it out, all changes will be specific to that new branch only.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb114-1" data-line-number="1"><span class="fu">git</span> checkout somenewfeature</a></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb116-1" data-line-number="1"><span class="fu">git</span> checkout somenewfeature</a></code></pre></div>
 <p>After committing changes to the new branch, if the branch is changed back to the master branch or another branch those changes will not longer be present as they are branch specific. If the changes should be merged back to the master branch checkout the master and then merge them in.</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb115-1" data-line-number="1"><span class="fu">git</span> checkout master</a>
-<a class="sourceLine" id="cb115-2" data-line-number="2"><span class="fu">git</span> merge feature</a></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb117-1" data-line-number="1"><span class="fu">git</span> checkout master</a>
+<a class="sourceLine" id="cb117-2" data-line-number="2"><span class="fu">git</span> merge feature</a></code></pre></div>
 </div>
 </div>
 <div id="credential-caching" class="section level2">
 <h2><span class="header-section-number">8.3</span> Credential Caching</h2>
 <p><a href="&#39;https://help.github.com/articles/caching-your-github-password-in-git/#platform-linux&#39;">Credential caching</a> will allow the username and password to be stored so commits can be expedited.</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb116-1" data-line-number="1"><span class="fu">git</span> config credential.helper store</a>
-<a class="sourceLine" id="cb116-2" data-line-number="2"><span class="fu">git</span> push https://github.com/owner/repo.git</a>
-<a class="sourceLine" id="cb116-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb116-4" data-line-number="4"><span class="ex">Username</span> for <span class="st">&#39;https://github.com&#39;</span>: <span class="op">&lt;</span>USERNAME<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb116-5" data-line-number="5"><span class="ex">Password</span> for <span class="st">&#39;https://USERNAME@github.com&#39;</span>: <span class="op">&lt;</span>PASSWORD<span class="op">&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb118-1" data-line-number="1"><span class="fu">git</span> config credential.helper store</a>
+<a class="sourceLine" id="cb118-2" data-line-number="2"><span class="fu">git</span> push https://github.com/owner/repo.git</a>
+<a class="sourceLine" id="cb118-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb118-4" data-line-number="4"><span class="ex">Username</span> for <span class="st">&#39;https://github.com&#39;</span>: <span class="op">&lt;</span>USERNAME<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb118-5" data-line-number="5"><span class="ex">Password</span> for <span class="st">&#39;https://USERNAME@github.com&#39;</span>: <span class="op">&lt;</span>PASSWORD<span class="op">&gt;</span></a></code></pre></div>
 <p>To configure the caching to expire:</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb117-1" data-line-number="1"><span class="fu">git</span> config --global credential.helper <span class="st">&#39;cache --timeout 7200&#39;</span></a></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb119-1" data-line-number="1"><span class="fu">git</span> config --global credential.helper <span class="st">&#39;cache --timeout 7200&#39;</span></a></code></pre></div>
 
 </div>
 </div>
@@ -357,15 +357,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "night",

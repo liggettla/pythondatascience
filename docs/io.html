@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Data I/O | Data Science With Python</title>
   <meta name="description" content="Chapter 6 Data I/O | Data Science With Python." />
-  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Data I/O | Data Science With Python" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="L A Liggett" />
 
 
-<meta name="date" content="2019-12-04" />
+<meta name="date" content="2020-03-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -266,22 +266,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="reading-data-files" class="section level2">
 <h2><span class="header-section-number">6.1</span> Reading Data Files</h2>
 <p>Opening .gz files</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="im">import</span> gzip</a>
-<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="cf">for</span> line <span class="kw">in</span> gzip.<span class="bu">open</span>(<span class="st">&#39;myFile.gz&#39;</span>):</a>
-<a class="sourceLine" id="cb42-3" data-line-number="3">    <span class="bu">print</span> line</a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="im">import</span> gzip</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="cf">for</span> line <span class="kw">in</span> gzip.<span class="bu">open</span>(<span class="st">&#39;myFile.gz&#39;</span>):</a>
+<a class="sourceLine" id="cb44-3" data-line-number="3">    <span class="bu">print</span> line</a></code></pre></div>
 </div>
 <div id="pickles" class="section level2">
 <h2><span class="header-section-number">6.2</span> Pickles</h2>
 <p>Writing data in pickle format</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="im">import</span> pickle</a>
-<a class="sourceLine" id="cb43-2" data-line-number="2">p <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;principle.pkl&#39;</span>, <span class="st">&#39;wb&#39;</span>)</a>
-<a class="sourceLine" id="cb43-3" data-line-number="3">pickle.dump(principleData, p)</a>
-<a class="sourceLine" id="cb43-4" data-line-number="4">p.close()</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="im">import</span> pickle</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2">p <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;principle.pkl&#39;</span>, <span class="st">&#39;wb&#39;</span>)</a>
+<a class="sourceLine" id="cb45-3" data-line-number="3">pickle.dump(principleData, p)</a>
+<a class="sourceLine" id="cb45-4" data-line-number="4">p.close()</a></code></pre></div>
 <p>Reading data in pickle format</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="im">import</span> pickle</a>
-<a class="sourceLine" id="cb44-2" data-line-number="2">p <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;principle.pkl&#39;</span>, <span class="st">&#39;rb&#39;</span>)</a>
-<a class="sourceLine" id="cb44-3" data-line-number="3">principleData <span class="op">=</span> pickle.load(p)</a>
-<a class="sourceLine" id="cb44-4" data-line-number="4">p.close()</a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="im">import</span> pickle</a>
+<a class="sourceLine" id="cb46-2" data-line-number="2">p <span class="op">=</span> <span class="bu">open</span>(<span class="st">&#39;principle.pkl&#39;</span>, <span class="st">&#39;rb&#39;</span>)</a>
+<a class="sourceLine" id="cb46-3" data-line-number="3">principleData <span class="op">=</span> pickle.load(p)</a>
+<a class="sourceLine" id="cb46-4" data-line-number="4">p.close()</a></code></pre></div>
 
 </div>
 </div>
@@ -307,15 +307,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "night",

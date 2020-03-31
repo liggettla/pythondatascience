@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Biology | Data Science With Python</title>
   <meta name="description" content="Chapter 5 Biology | Data Science With Python." />
-  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Biology | Data Science With Python" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="L A Liggett" />
 
 
-<meta name="date" content="2019-12-04" />
+<meta name="date" content="2020-03-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -283,38 +283,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Get sequence from UCSC genome browser</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="im">from</span> subprocess <span class="im">import</span> check_output, STDOUT</a>
 <a class="sourceLine" id="cb34-2" data-line-number="2">temp <span class="op">=</span> check_output(<span class="st">&#39;wget -qO- http://genome.ucsc.edu/cgi-bin/das/hg19/dna?segment=</span><span class="sc">%s</span><span class="st">:</span><span class="sc">%s</span><span class="st">,</span><span class="sc">%s</span><span class="st">&#39;</span> <span class="op">%</span> (vcfObj.chrom,low,high), stderr<span class="op">=</span>STDOUT, shell<span class="op">=</span><span class="va">True</span>)</a></code></pre></div>
+<p>Annotate genomic locations using the UCSC genome browser can be done in bash by getting the refGene track information.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb35-1" data-line-number="1">wget <span class="op">-</span>qO<span class="op">-</span> <span class="st">&quot;https://api.genome.ucsc.edu/getData/track?genome=hg38;track=refGene;chrom=chr8;start=127736600;end=127736601&quot;</span></a></code></pre></div>
+<p>The following code just returns the gene name for an associated region in python.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="im">from</span> subprocess <span class="im">import</span> check_output, STDOUT</a>
+<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="im">import</span> json</a>
+<a class="sourceLine" id="cb36-3" data-line-number="3">chrom <span class="op">=</span> <span class="st">&#39;8&#39;</span></a>
+<a class="sourceLine" id="cb36-4" data-line-number="4">start <span class="op">=</span> <span class="st">&#39;127736600&#39;</span></a>
+<a class="sourceLine" id="cb36-5" data-line-number="5">stop <span class="op">=</span> <span class="st">&#39;127736601&#39;</span></a>
+<a class="sourceLine" id="cb36-6" data-line-number="6">api <span class="op">=</span> <span class="st">&#39;https://api.genome.ucsc.edu/getData/track?genome=hg38;track=refGene;&#39;</span></a>
+<a class="sourceLine" id="cb36-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb36-8" data-line-number="8">temp <span class="op">=</span> json.loads(check_output(</a>
+<a class="sourceLine" id="cb36-9" data-line-number="9">    <span class="st">&#39;wget -qO- &quot;</span><span class="sc">{api}</span><span class="st">chrom=chr</span><span class="sc">{chrom}</span><span class="st">;start=</span><span class="sc">{start}</span><span class="st">;end=</span><span class="sc">{stop}</span><span class="st">&quot;&#39;</span>.<span class="bu">format</span>(</a>
+<a class="sourceLine" id="cb36-10" data-line-number="10">        api<span class="op">=</span>api, chrom<span class="op">=</span>chrom, start<span class="op">=</span>start, stop<span class="op">=</span>stop),</a>
+<a class="sourceLine" id="cb36-11" data-line-number="11">        stderr<span class="op">=</span>STDOUT, shell<span class="op">=</span><span class="va">True</span>))[<span class="st">&#39;refGene&#39;</span>][<span class="dv">0</span>][<span class="st">&#39;name2&#39;</span>]</a></code></pre></div>
 <p>If the reference genome comes in the .2bit format, it is likely that it should then be converted to .fa format, and .2bittofa can accomplish this.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb35-1" data-line-number="1">twoBitToFa refgenomes<span class="op">/</span>hg19<span class="fl">.2</span>bit refgenomes<span class="op">/</span>hg19.fa</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb37-1" data-line-number="1">twoBitToFa refgenomes<span class="op">/</span>hg19<span class="fl">.2</span>bit refgenomes<span class="op">/</span>hg19.fa</a></code></pre></div>
 <p>The newly created .fa file will need to be indexed if it is to be used with gatk and bwa mem.</p>
 <p>Here is an example of indexing where -a bwtsw specifies that we want to use the indexing algorithm that is capable of handling the whole human genome.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb36-1" data-line-number="1">bwa index <span class="op">-</span>a bwtsw reference.fa</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb38-1" data-line-number="1">bwa index <span class="op">-</span>a bwtsw reference.fa</a></code></pre></div>
 <p>Then create a file called reference.fa.fai, with one record per line for each of the contigs in the FASTA reference file. Each record is composed of the contig name, size, location, basesPerLine and bytesPerLine.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb37-1" data-line-number="1">samtools faidx reference.fa</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb39-1" data-line-number="1">samtools faidx reference.fa</a></code></pre></div>
 </div>
 <div id="ref-genome" class="section level2">
 <h2><span class="header-section-number">5.4</span> Ref Genome</h2>
 <p>Get sequence from reference genome</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="im">from</span> subprocess <span class="im">import</span> check_output, STDOUT</a>
-<a class="sourceLine" id="cb38-2" data-line-number="2">temp <span class="op">=</span> check_output(<span class="st">&#39;samtools faidx </span><span class="sc">%s</span><span class="st"> </span><span class="sc">%s</span><span class="st">:</span><span class="sc">%s</span><span class="st">-</span><span class="sc">%s</span><span class="st">&#39;</span> <span class="op">%</span> (ref, vcfObj.chrom, low, high), stderr<span class="op">=</span>STDOUT, shell<span class="op">=</span><span class="va">True</span>)</a>
-<a class="sourceLine" id="cb38-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb38-4" data-line-number="4">finalSeq <span class="op">=</span> <span class="st">&#39;&#39;</span></a>
-<a class="sourceLine" id="cb38-5" data-line-number="5"><span class="cf">for</span> line <span class="kw">in</span> temp.decode(<span class="st">&#39;UTF-8&#39;</span>).split(<span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>):</a>
-<a class="sourceLine" id="cb38-6" data-line-number="6"><span class="cf">for</span> line <span class="kw">in</span> temp.decode(<span class="st">&#39;UTF-8&#39;</span>).split(<span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>): <span class="co"># this is only necessary in python 3 to convert binary to string</span></a>
-<a class="sourceLine" id="cb38-7" data-line-number="7">    <span class="cf">if</span> <span class="st">&#39;&gt;&#39;</span> <span class="kw">not</span> <span class="kw">in</span> line:</a>
-<a class="sourceLine" id="cb38-8" data-line-number="8">        finalSeq <span class="op">+=</span> line</a>
-<a class="sourceLine" id="cb38-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb38-10" data-line-number="10">finalSeq <span class="op">=</span> finalSeq.upper()</a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="im">from</span> subprocess <span class="im">import</span> check_output, STDOUT</a>
+<a class="sourceLine" id="cb40-2" data-line-number="2">temp <span class="op">=</span> check_output(<span class="st">&#39;samtools faidx </span><span class="sc">%s</span><span class="st"> </span><span class="sc">%s</span><span class="st">:</span><span class="sc">%s</span><span class="st">-</span><span class="sc">%s</span><span class="st">&#39;</span> <span class="op">%</span> (ref, vcfObj.chrom, low, high), stderr<span class="op">=</span>STDOUT, shell<span class="op">=</span><span class="va">True</span>)</a>
+<a class="sourceLine" id="cb40-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb40-4" data-line-number="4">finalSeq <span class="op">=</span> <span class="st">&#39;&#39;</span></a>
+<a class="sourceLine" id="cb40-5" data-line-number="5"><span class="cf">for</span> line <span class="kw">in</span> temp.decode(<span class="st">&#39;UTF-8&#39;</span>).split(<span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>):</a>
+<a class="sourceLine" id="cb40-6" data-line-number="6"><span class="cf">for</span> line <span class="kw">in</span> temp.decode(<span class="st">&#39;UTF-8&#39;</span>).split(<span class="st">&#39;</span><span class="ch">\n</span><span class="st">&#39;</span>): <span class="co"># this is only necessary in python 3 to convert binary to string</span></a>
+<a class="sourceLine" id="cb40-7" data-line-number="7">    <span class="cf">if</span> <span class="st">&#39;&gt;&#39;</span> <span class="kw">not</span> <span class="kw">in</span> line:</a>
+<a class="sourceLine" id="cb40-8" data-line-number="8">        finalSeq <span class="op">+=</span> line</a>
+<a class="sourceLine" id="cb40-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb40-10" data-line-number="10">finalSeq <span class="op">=</span> finalSeq.upper()</a></code></pre></div>
 </div>
 <div id="personal-information" class="section level2">
 <h2><span class="header-section-number">5.5</span> Personal Information</h2>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="co"># parse vcf file with parseline</span></a>
-<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="cf">if</span> <span class="st">&#39;#&#39;</span> <span class="kw">not</span> <span class="kw">in</span> line <span class="kw">and</span> <span class="st">&#39;chr&#39;</span> <span class="kw">in</span> line: <span class="co"># skip the info</span></a>
-<a class="sourceLine" id="cb39-3" data-line-number="3"><span class="co"># vcf handling</span></a>
-<a class="sourceLine" id="cb39-4" data-line-number="4"><span class="im">from</span> parseline <span class="im">import</span> VCFObj</a>
-<a class="sourceLine" id="cb39-5" data-line-number="5"><span class="co"># or</span></a>
-<a class="sourceLine" id="cb39-6" data-line-number="6"><span class="im">from</span> util <span class="im">import</span> VCFObj</a>
-<a class="sourceLine" id="cb39-7" data-line-number="7">vcfObj <span class="op">=</span> VCFObj(vcfLine)</a>
-<a class="sourceLine" id="cb39-8" data-line-number="8"><span class="co"># available attributes: ao, dp, af, wt, var, chrom, location</span></a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="co"># parse vcf file with parseline</span></a>
+<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="cf">if</span> <span class="st">&#39;#&#39;</span> <span class="kw">not</span> <span class="kw">in</span> line <span class="kw">and</span> <span class="st">&#39;chr&#39;</span> <span class="kw">in</span> line: <span class="co"># skip the info</span></a>
+<a class="sourceLine" id="cb41-3" data-line-number="3"><span class="co"># vcf handling</span></a>
+<a class="sourceLine" id="cb41-4" data-line-number="4"><span class="im">from</span> parseline <span class="im">import</span> VCFObj</a>
+<a class="sourceLine" id="cb41-5" data-line-number="5"><span class="co"># or</span></a>
+<a class="sourceLine" id="cb41-6" data-line-number="6"><span class="im">from</span> util <span class="im">import</span> VCFObj</a>
+<a class="sourceLine" id="cb41-7" data-line-number="7">vcfObj <span class="op">=</span> VCFObj(vcfLine)</a>
+<a class="sourceLine" id="cb41-8" data-line-number="8"><span class="co"># available attributes: ao, dp, af, wt, var, chrom, location</span></a></code></pre></div>
 </div>
 <div id="gatk" class="section level2">
 <h2><span class="header-section-number">5.6</span> GATK</h2>
@@ -325,13 +339,13 @@ The Broad also has a number of <a href="&#39;https://software.broadinstitute.org
 <h3><span class="header-section-number">5.6.1</span> Mutect2</h3>
 <p>A <a href="&#39;https://software.broadinstitute.org/gatk/documentation/article?id=24057&#39;">tutorial</a> exists that introduces how Mutect2 can be used to call somatic mutations.<br />
 In general Mutect2 can be run as in the following.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb40-1" data-line-number="1">..<span class="op">/</span>util<span class="op">/</span>gatk<span class="dv">-4</span>.<span class="dv">1</span>.<span class="fl">4.0</span><span class="op">/</span>gatk Mutect2 <span class="op">-</span>R <span class="op">/</span>seq<span class="op">/</span>references<span class="op">/</span>Homo_sapiens_assembly38<span class="op">/</span>v0<span class="op">/</span>Homo_sapiens_assembly38.fasta <span class="op">-</span>I tumor.bam <span class="op">-</span>O unfiltered.vcf</a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb42-1" data-line-number="1">..<span class="op">/</span>util<span class="op">/</span>gatk<span class="dv">-4</span>.<span class="dv">1</span>.<span class="fl">4.0</span><span class="op">/</span>gatk Mutect2 <span class="op">-</span>R <span class="op">/</span>seq<span class="op">/</span>references<span class="op">/</span>Homo_sapiens_assembly38<span class="op">/</span>v0<span class="op">/</span>Homo_sapiens_assembly38.fasta <span class="op">-</span>I tumor.bam <span class="op">-</span>O unfiltered.vcf</a></code></pre></div>
 </div>
 </div>
 <div id="samtools" class="section level2">
 <h2><span class="header-section-number">5.7</span> Samtools</h2>
 <p>Grab a single chromosomal region from a <code>.bam</code> file.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb41-1" data-line-number="1">samtools view <span class="op">-</span>b <span class="kw">in</span>.bam chr1 <span class="op">&gt;</span> in_chr1.bam          </a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb43-1" data-line-number="1">samtools view <span class="op">-</span>b <span class="kw">in</span>.bam chr1 <span class="op">&gt;</span> in_chr1.bam          </a></code></pre></div>
 
 </div>
 </div>
@@ -357,15 +371,13 @@ In general Mutect2 can be run as in the following.</p>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "night",

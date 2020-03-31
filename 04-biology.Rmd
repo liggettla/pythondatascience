@@ -24,6 +24,26 @@ from subprocess import check_output, STDOUT
 temp = check_output('wget -qO- http://genome.ucsc.edu/cgi-bin/das/hg19/dna?segment=%s:%s,%s' % (vcfObj.chrom,low,high), stderr=STDOUT, shell=True)
 ```
 
+Annotate genomic locations using the UCSC genome browser can be done in bash by getting the refGene track information.
+```{python eval=FALSE}
+wget -qO- "https://api.genome.ucsc.edu/getData/track?genome=hg38;track=refGene;chrom=chr8;start=127736600;end=127736601"
+```
+
+The following code just returns the gene name for an associated region in python.
+```{python eval=FALSE}
+from subprocess import check_output, STDOUT
+import json
+chrom = '8'
+start = '127736600'
+stop = '127736601'
+api = 'https://api.genome.ucsc.edu/getData/track?genome=hg38;track=refGene;'
+
+temp = json.loads(check_output(
+    'wget -qO- "{api}chrom=chr{chrom};start={start};end={stop}"'.format(
+        api=api, chrom=chrom, start=start, stop=stop),
+        stderr=STDOUT, shell=True))['refGene'][0]['name2']
+```
+
 If the reference genome comes in the .2bit format, it is likely that it should then be converted to .fa format, and .2bittofa can accomplish this.
 ```{python eval=FALSE}
 twoBitToFa refgenomes/hg19.2bit refgenomes/hg19.fa

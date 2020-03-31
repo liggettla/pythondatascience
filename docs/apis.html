@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 10 Web APIs | Data Science With Python</title>
   <meta name="description" content="Chapter 10 Web APIs | Data Science With Python." />
-  <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 10 Web APIs | Data Science With Python" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="L A Liggett" />
 
 
-<meta name="date" content="2019-12-04" />
+<meta name="date" content="2020-03-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -267,29 +267,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">10.1</span> Ensembl</h2>
 <p>The <a href="https://rest.ensembl.org/">Ensembl Rest API</a> has a number of different genomics tools.</p>
 <p>Here is an example where the Rest API is used to get the genomic locus and amino acid change using only the protein name and amino acid position and identities.</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb125-1" data-line-number="1"><span class="ex">content-type</span>=application/json</a>
-<a class="sourceLine" id="cb125-2" data-line-number="2"><span class="fu">wget</span> -q --header=<span class="st">&#39;Content-type:application/json&#39;</span> <span class="st">&#39;https://rest.ensembl.org/map/translation/ENSMUSP00000020991/878..879?&#39;</span>  -O -</a></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb127-1" data-line-number="1"><span class="ex">content-type</span>=application/json</a>
+<a class="sourceLine" id="cb127-2" data-line-number="2"><span class="fu">wget</span> -q --header=<span class="st">&#39;Content-type:application/json&#39;</span> <span class="st">&#39;https://rest.ensembl.org/map/translation/ENSMUSP00000020991/878..879?&#39;</span>  -O -</a></code></pre></div>
 <p>Alternatively python can be used to make the same call.</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb126-1" data-line-number="1"><span class="ex">import</span> requests, sys</a>
-<a class="sourceLine" id="cb126-2" data-line-number="2"> </a>
-<a class="sourceLine" id="cb126-3" data-line-number="3"><span class="ex">server</span> = <span class="st">&quot;https://rest.ensembl.org&quot;</span></a>
-<a class="sourceLine" id="cb126-4" data-line-number="4"><span class="ex">ext</span> = <span class="st">&quot;/map/translation/ENSMUSP00000020991/878...879?&quot;</span></a>
-<a class="sourceLine" id="cb126-5" data-line-number="5"> </a>
-<a class="sourceLine" id="cb126-6" data-line-number="6"><span class="ex">r</span> = requests.get(server+ext, headers={ <span class="st">&quot;Content-Type&quot;</span> : <span class="st">&quot;application/json&quot;</span>})</a>
-<a class="sourceLine" id="cb126-7" data-line-number="7"> </a>
-<a class="sourceLine" id="cb126-8" data-line-number="8"><span class="kw">if</span> <span class="ex">not</span> r.ok:</a>
-<a class="sourceLine" id="cb126-9" data-line-number="9">  <span class="ex">r.raise_for_status</span>()</a>
-<a class="sourceLine" id="cb126-10" data-line-number="10">  <span class="ex">sys.exit</span>()</a>
-<a class="sourceLine" id="cb126-11" data-line-number="11"> </a>
-<a class="sourceLine" id="cb126-12" data-line-number="12"><span class="ex">decoded</span> = r.json()</a>
-<a class="sourceLine" id="cb126-13" data-line-number="13"><span class="ex">print</span>(repr(decoded))</a></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb128-1" data-line-number="1"><span class="ex">import</span> requests, sys</a>
+<a class="sourceLine" id="cb128-2" data-line-number="2"> </a>
+<a class="sourceLine" id="cb128-3" data-line-number="3"><span class="ex">server</span> = <span class="st">&quot;https://rest.ensembl.org&quot;</span></a>
+<a class="sourceLine" id="cb128-4" data-line-number="4"><span class="ex">ext</span> = <span class="st">&quot;/map/translation/ENSMUSP00000020991/878...879?&quot;</span></a>
+<a class="sourceLine" id="cb128-5" data-line-number="5"> </a>
+<a class="sourceLine" id="cb128-6" data-line-number="6"><span class="ex">r</span> = requests.get(server+ext, headers={ <span class="st">&quot;Content-Type&quot;</span> : <span class="st">&quot;application/json&quot;</span>})</a>
+<a class="sourceLine" id="cb128-7" data-line-number="7"> </a>
+<a class="sourceLine" id="cb128-8" data-line-number="8"><span class="kw">if</span> <span class="ex">not</span> r.ok:</a>
+<a class="sourceLine" id="cb128-9" data-line-number="9">  <span class="ex">r.raise_for_status</span>()</a>
+<a class="sourceLine" id="cb128-10" data-line-number="10">  <span class="ex">sys.exit</span>()</a>
+<a class="sourceLine" id="cb128-11" data-line-number="11"> </a>
+<a class="sourceLine" id="cb128-12" data-line-number="12"><span class="ex">decoded</span> = r.json()</a>
+<a class="sourceLine" id="cb128-13" data-line-number="13"><span class="ex">print</span>(repr(decoded))</a></code></pre></div>
 <p>Here are examples getting variant effect consequences of a particular mutation.</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb127-1" data-line-number="1"><span class="fu">wget</span> -q --header=<span class="st">&#39;Content-type:application/json&#39;</span> <span class="st">&#39;https://rest.ensembl.org/vep/mus_musculus/hgvs/ENSMUSP00000020991:p.Arg878His?&#39;</span>  -O -</a></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb129-1" data-line-number="1"><span class="fu">wget</span> -q --header=<span class="st">&#39;Content-type:application/json&#39;</span> <span class="st">&#39;https://rest.ensembl.org/vep/mus_musculus/hgvs/ENSMUSP00000020991:p.Arg878His?&#39;</span>  -O -</a></code></pre></div>
 </div>
 <div id="ucsc-genome-browser-1" class="section level2">
 <h2><span class="header-section-number">10.2</span> UCSC Genome Browser</h2>
 <p>Here is an example where human genomic regions are converted to the orthologous mouse regions. First the human sequence is obtained.</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb128-1" data-line-number="1"><span class="fu">wget</span> -O - http://genome.ucsc.edu/cgi-bin/das/hg38/dna?segment=%s:%s,%s <span class="op">&gt;&gt;</span> locs\n<span class="st">&#39; % (chrom, low, high)</span></a></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb130-1" data-line-number="1"><span class="fu">wget</span> -O - http://genome.ucsc.edu/cgi-bin/das/hg38/dna?segment=%s:%s,%s <span class="op">&gt;&gt;</span> locs\n<span class="st">&#39; % (chrom, low, high)</span></a></code></pre></div>
 <p>Then the above sequence is used in UCSC BLAT to find the orthologous region within mouse.</p>
 
 </div>
@@ -316,15 +316,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "night",
