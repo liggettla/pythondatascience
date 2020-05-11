@@ -216,6 +216,13 @@ counts = counts.rename(columns={'index':'Sample_Name','Sample_Name':'Var_Count'}
 all_vars = pd.merge(all_vars, counts, how='inner', on=['Sample_Name'])
 ```
 
+Seaborn also makes it pretty easy to plot a scatter plot with a regression curve.
+```{python eval=FALSE}
+ax = sns.regplot(x="Age", y="Incidence", data=incidence, marker='None',
+                 scatter_kws={"s": 80},
+                 order=3, ci=None)
+```
+
 ## Statistics
 This is a two-sided T-test for the null hypothesis that two populations have the same means. It is important to note that it assumes the population variances are the same, so this must be changed if the assumption is incorrect.
 ```{python eval=FALSE}
