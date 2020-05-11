@@ -53,6 +53,13 @@ plt.legend(handles=[egfr,pik3ca,myc],
            ncol=1) # no legend overlap
 ```
 
+Manually specify a legend.
+```{python eval=FALSE}
+blue = mpatches.Patch(color='#a3c6ff', label='Affected')
+orange = mpatches.Patch(color='#f7ab60', label='Unaffected')
+plt.legend(handles=[blue, orange])
+```
+
 ## Matplotlib
 Plot a straight line where `num_points` is the number of elements to populate the array with (default is 50).
 ```{python eval=FALSE}
